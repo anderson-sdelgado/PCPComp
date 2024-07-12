@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">PCPComp</string>
+    <string name="app_name">PCP</string>
+    <string name="texto_padrao_ok">OK</string>
+    <string name="texto_padrao_salvar_atualizar">SALVAR/ATUALIZAR DADOS</string>
+    <string name="texto_padrao_cancelar">CANCELAR</string>
+    <string name="texto_senha_invalida">SENHA INVÁLIDA!</string>
+    <string name="texto_config_invalida">CAMPO VAZIO! POR FAVOR, PREENCHA TODOS OS CAMPOS PARA SALVAR AS CONFIGURAÇÕES E ATUALIZAR TODAS AS BASES DE DADOS.</string>
 </resources>
