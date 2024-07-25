@@ -1,6 +1,10 @@
+import com.android.build.api.variant.ResValue
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -14,10 +18,14 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "br.com.usinasantafe.pcpcomp.InstrumentationTestRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += "room.incremental" to "true"
+            }
         }
     }
 
@@ -49,6 +57,27 @@ android {
         }
     }
     testOptions.unitTests.isIncludeAndroidResources = true
+    productFlavors {
+        flavorDimensions += "version"
+        create("dev") {
+            dimension = "version"
+            applicationIdSuffix = ".dev"
+            manifestPlaceholders["appName"] = "PCP-DEV"
+            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpdev/view/")
+        }
+        create("qa") {
+            dimension = "version"
+            applicationIdSuffix = ".qa"
+            manifestPlaceholders["appName"] = "PCP-QA"
+            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpqa/view/")
+        }
+        create("prod") {
+            dimension = "version"
+            applicationIdSuffix = ".prod"
+            manifestPlaceholders["appName"] = "PCP"
+            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpprod/versao_4_00/view/")
+        }
+    }
 }
 
 dependencies {
@@ -70,7 +99,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     implementation(libs.androidx.navigation.compose)
     androidTestImplementation(libs.androidx.navigation.testing)
     implementation(libs.androidx.tracing)
@@ -87,6 +115,18 @@ dependencies {
     testImplementation(libs.robolectric)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
-//    androidTestImplementation(libs.robolectric)
-//    androidTestImplementation(libs.androidx.archcore.testing)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp.logging.interceptor)
+    testImplementation(libs.okhttp.mock.webserver)
+    testImplementation(libs.retrofit)
+    testImplementation(libs.retrofit.gson)
+    testImplementation(libs.okhttp.logging.interceptor)
+    androidTestImplementation(libs.okhttp.mock.webserver)
+    implementation(libs.guava)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    annotationProcessor(libs.room.compiler)
+    ksp(libs.room.compiler)
+    androidTestImplementation(libs.room.testing)
+    testImplementation(libs.room.testing)
 }

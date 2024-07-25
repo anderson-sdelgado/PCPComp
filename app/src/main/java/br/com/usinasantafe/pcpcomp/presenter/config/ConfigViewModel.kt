@@ -125,31 +125,28 @@ class ConfigViewModel(
             return
         }
         viewModelScope.launch {
-            var checkProcess = true
-            token().collect { result ->
-                val configState = result
-                if(configState.flagDialog) {
+            token().collect { resultToken ->
+                val configStateToken = resultToken
+                if(configStateToken.flagDialog) {
                     _uiState.update {
-                        configState
+                        configStateToken
                     }
-                    checkProcess = false
                     return@collect
                 }
                 _uiState.update {
-                    configState
+                    configStateToken
                 }
-                if(!configState.flagDialog && (configState.currentProgress == 1f)){
-                    updateAllDatabase().collect{ result ->
-                        val configState = result
-                        if(configState.flagDialog) {
+                if((!configStateToken.flagDialog) && (configStateToken.currentProgress == 1f)){
+                    updateAllDatabase().collect{ resultUpdate ->
+                        val configStateUpdate = resultUpdate
+                        if(configStateUpdate.flagDialog) {
                             _uiState.update {
-                                configState
+                                configStateUpdate
                             }
-                            checkProcess = false
                             return@collect
                         }
                         _uiState.update {
-                            configState
+                            configStateUpdate
                         }
                     }
                 }
