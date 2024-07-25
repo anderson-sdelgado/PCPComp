@@ -10,8 +10,8 @@ data class ConfigModel(
 fun Config.toConfigModel(): ConfigModel {
     return with(this){
         ConfigModel(
-            number = this.numberConfig!!.toString(),
-            password = this.passwordConfig!!,
+            number = this.number!!.toString(),
+            password = this.password!!,
         )
     }
 }

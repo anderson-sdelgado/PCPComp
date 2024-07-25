@@ -4,5 +4,8 @@
     <string name="texto_padrao_salvar_atualizar">SALVAR/ATUALIZAR DADOS</string>
     <string name="texto_padrao_cancelar">CANCELAR</string>
     <string name="texto_senha_invalida">SENHA INVÁLIDA!</string>
-    <string name="texto_config_invalida">CAMPO VAZIO! POR FAVOR, PREENCHA TODOS OS CAMPOS PARA SALVAR AS CONFIGURAÇÕES E ATUALIZAR TODAS AS BASES DE DADOS.</string>
+    <string name="texto_campo_vazio_config">CAMPO VAZIO! POR FAVOR, PREENCHA TODOS OS CAMPOS PARA SALVAR AS CONFIGURAÇÕES E ATUALIZAR TODAS AS BASES DE DADOS.</string>
+    <string name="texto_recuperacao_token">FALHA DE RECUPERACAO DE TOKEN! POR FAVOR ENTRE EM CONTATO COM TI. %1$s</string>
+    <string name="texto_update_failure">FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. %1$s</string>
+    <string name="texto_config_success">CONFIGURAÇÃO REALIZADA COM SUCESSO!</string>
 </resources>

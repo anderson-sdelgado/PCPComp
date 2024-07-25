@@ -5,13 +5,13 @@ import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 data class Config(
-    var numberConfig: Long? = null,
-    var passwordConfig: String? = null,
-    var idBDConfig: Long? = null,
+    var number: Long? = null,
+    var password: String? = null,
+    var idBD: Long? = null,
     var version: String? = null,
     var flagUpdate: FlagUpdate = FlagUpdate.OUTDATED,
     var matricVigia: Long? = null,
     var idLocal: Long? = null,
-    var statusEnvio: StatusSend = StatusSend.SENT,
-    var statusApont: StatusData = StatusData.CLOSE,
+    var statusSend: StatusSend = StatusSend.SENT,
+    var statusData: StatusData = StatusData.CLOSE,
 )

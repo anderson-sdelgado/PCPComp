@@ -3,7 +3,9 @@ package br.com.usinasantafe.pcpcomp.domain.repositories.variable
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 
 interface ConfigRepository {
-    suspend fun hasConfig(): Boolean
-    suspend fun getPassword(): String
-    suspend fun getConfig(): Config
+    suspend fun hasConfig(): Result<Boolean>
+    suspend fun getPassword(): Result<String>
+    suspend fun getConfig(): Result<Config>
+    suspend fun send(config: Config): Result<Long>
+    suspend fun save(config: Config): Result<Boolean>
 }

@@ -1,9 +1,15 @@
 package br.com.usinasantafe.pcpcomp
 
 import android.app.Application
-import br.com.usinasantafe.pcpcomp.di.datasourceModule
+import br.com.usinasantafe.pcpcomp.di.apiRetrofitModule
+import br.com.usinasantafe.pcpcomp.di.apiRoomModule
+import br.com.usinasantafe.pcpcomp.di.datasourceRetrofitModule
+import br.com.usinasantafe.pcpcomp.di.datasourceRoomModule
+import br.com.usinasantafe.pcpcomp.di.datasourceSharedPreferencesModule
+import br.com.usinasantafe.pcpcomp.di.retrofitModule
 import br.com.usinasantafe.pcpcomp.di.repositoryModule
-import br.com.usinasantafe.pcpcomp.di.sharedModule
+import br.com.usinasantafe.pcpcomp.di.roomModule
+import br.com.usinasantafe.pcpcomp.di.sharedPreferencesModule
 import br.com.usinasantafe.pcpcomp.di.usecaseModule
 import br.com.usinasantafe.pcpcomp.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -18,13 +24,21 @@ class PCPComp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@PCPComp)
-            modules(listOf(
-                viewModelModule,
-                usecaseModule,
-                repositoryModule,
-                datasourceModule,
-                sharedModule
-            ))
+            modules(
+                listOf(
+                    viewModelModule,
+                    usecaseModule,
+                    repositoryModule,
+                    datasourceSharedPreferencesModule,
+                    datasourceRoomModule,
+                    datasourceRetrofitModule,
+                    apiRetrofitModule,
+                    apiRoomModule,
+                    sharedPreferencesModule,
+                    retrofitModule,
+                    roomModule
+                )
+            )
         }
     }
 }

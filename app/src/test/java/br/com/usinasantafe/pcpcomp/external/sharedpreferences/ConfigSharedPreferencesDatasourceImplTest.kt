@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
+import br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource.ConfigSharedPreferencesDatasourceImpl
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
@@ -28,18 +29,20 @@ class ConfigSharedPreferencesDatasourceImplTest {
 
     @Test
     fun `Return false if don't have data in Config SharedPreferences internal`() = runTest {
-        assertFalse(configSharedPreferencesDatasourceImpl.hasConfig())
+        val result = configSharedPreferencesDatasourceImpl.hasConfig()
+        assertFalse(result.getOrNull()!!)
     }
 
     @Test
     fun `Return true if have data in Config SharedPreferences internal`() = runTest {
-        configSharedPreferencesDatasourceImpl.saveConfig(Config(passwordConfig = "12345"))
-        assertTrue(configSharedPreferencesDatasourceImpl.hasConfig())
+        configSharedPreferencesDatasourceImpl.saveConfig(Config(password = "12345"))
+        val result = configSharedPreferencesDatasourceImpl.hasConfig()
+        assertTrue(result.getOrNull()!!)
     }
 
     @Test
     fun `Check return data correct the Config SharedPreferences internal`() = runTest {
-        val data = Config(passwordConfig = "12345")
+        val data = Config(password = "12345")
         configSharedPreferencesDatasourceImpl.saveConfig(data)
         val config = configSharedPreferencesDatasourceImpl.getConfig()
         assertEquals(config, data)
@@ -47,9 +50,9 @@ class ConfigSharedPreferencesDatasourceImplTest {
 
     @Test
     fun `Check return password correct the Config SharedPreferences internal`() = runTest {
-        val data = Config(passwordConfig = "12345")
+        val data = Config(password = "12345")
         configSharedPreferencesDatasourceImpl.saveConfig(data)
         val config = configSharedPreferencesDatasourceImpl.getConfig()
-        assertEquals(config.passwordConfig, "12345")
+        assertEquals(config.getOrNull()!!.password, "12345")
     }
 }

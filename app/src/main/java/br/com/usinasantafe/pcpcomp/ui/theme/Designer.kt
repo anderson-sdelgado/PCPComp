@@ -67,7 +67,7 @@ fun TextButtonDesign(text: String) {
 const val BUTTON_OK_ALERT_DIALOG_SIMPLE = "button_ok_alert_dialog_simple"
 
 @Composable
-fun AlertDialogSimpleDesign(text: String, setCloseDialog: () -> Unit, setOkDialog: () -> Unit) {
+fun AlertDialogSimpleDesign(text: String, setCloseDialog: () -> Unit) {
     return AlertDialog(
         title = {
             Text(text = "ATENÇÃO")
@@ -79,6 +79,26 @@ fun AlertDialogSimpleDesign(text: String, setCloseDialog: () -> Unit, setOkDialo
         confirmButton = {
             Button(
                 onClick = setCloseDialog, modifier = Modifier.testTag("button_ok_alert_dialog_simple")
+            ) {
+                Text("OK")
+            }
+        },
+    )
+}
+
+@Composable
+fun AlertDialogSimpleDesign(text: String, setCloseDialog: () -> Unit, setActionButtonOK: () -> Unit) {
+    return AlertDialog(
+        title = {
+            Text(text = "ATENÇÃO")
+        },
+        text = {
+            Text(text = text)
+        },
+        onDismissRequest = setCloseDialog,
+        confirmButton = {
+            Button(
+                onClick = setActionButtonOK, modifier = Modifier.testTag("button_ok_alert_dialog_simple")
             ) {
                 Text("OK")
             }

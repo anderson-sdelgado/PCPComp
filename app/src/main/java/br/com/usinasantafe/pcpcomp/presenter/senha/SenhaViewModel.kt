@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.senha
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.CheckPasswordConfig
+import br.com.usinasantafe.pcpcomp.domain.usecases.config.CheckPasswordConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -10,8 +10,9 @@ import kotlinx.coroutines.launch
 
 data class SenhaState(
     val password: String = "",
-    val statusDialog: Boolean = false,
-    val statusAccess: Boolean = false
+    val flagDialog: Boolean = false,
+    val flagAccess: Boolean = false,
+    val failure: String = "",
 )
 
 class SenhaViewModel(
@@ -29,18 +30,33 @@ class SenhaViewModel(
 
     fun setCloseDialog() {
         _uiState.update {
-            it.copy(statusDialog = false)
+            it.copy(flagDialog = false)
         }
     }
 
     fun checkPassword() =
         viewModelScope.launch {
-            val statusAccess = checkPasswordConfig(password = uiState.value.password)
+            val resultCheckPassword = checkPasswordConfig(password = uiState.value.password)
+            if(resultCheckPassword.isFailure) {
+                val error = resultCheckPassword.exceptionOrNull()!!
+                val failure =
+                    "Error CheckPasswordConfig -> ${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        flagAccess = false,
+                        failure = failure
+                    )
+                }
+                return@launch
+            }
+            val statusAccess = resultCheckPassword.getOrNull()!!
             val statusDialog = !statusAccess
             _uiState.update {
                 it.copy(
-                    statusDialog = statusDialog,
-                    statusAccess = statusAccess
+                    flagDialog = statusDialog,
+                    flagAccess = statusAccess,
+                    failure = ""
                 )
             }
         }

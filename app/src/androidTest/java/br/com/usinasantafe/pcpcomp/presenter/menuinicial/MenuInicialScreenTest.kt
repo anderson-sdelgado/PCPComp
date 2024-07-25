@@ -19,7 +19,7 @@ class MenuInicialScreenTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun verify_textsInMenuInicialPage() {
+    fun verify_texts_in_page() {
         setContent()
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
         composeTestRule.onNodeWithText("CONFIGURAÇÃO").assertIsDisplayed()
