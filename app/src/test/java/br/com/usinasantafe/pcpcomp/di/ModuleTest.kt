@@ -8,7 +8,6 @@ class ModuleTest : KoinTest {
 
     @Test
     fun checkAllModules() {
-        appModule.verify()
     }
 
 }

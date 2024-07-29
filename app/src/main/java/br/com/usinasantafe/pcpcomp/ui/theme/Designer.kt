@@ -73,7 +73,7 @@ fun AlertDialogSimpleDesign(text: String, setCloseDialog: () -> Unit) {
             Text(text = "ATENÇÃO")
         },
         text = {
-            Text(text = text)
+            Text(text = text, modifier = Modifier.testTag("text_alert_dialog_simple"))
         },
         onDismissRequest = setCloseDialog,
         confirmButton = {
@@ -93,7 +93,7 @@ fun AlertDialogSimpleDesign(text: String, setCloseDialog: () -> Unit, setActionB
             Text(text = "ATENÇÃO")
         },
         text = {
-            Text(text = text)
+            Text(text = text, modifier = Modifier.testTag("text_alert_dialog_simple"))
         },
         onDismissRequest = setCloseDialog,
         confirmButton = {

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 android {
@@ -28,7 +29,6 @@ android {
             }
         }
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -57,25 +57,29 @@ android {
         }
     }
     testOptions.unitTests.isIncludeAndroidResources = true
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
     productFlavors {
         flavorDimensions += "version"
         create("dev") {
             dimension = "version"
             applicationIdSuffix = ".dev"
             manifestPlaceholders["appName"] = "PCP-DEV"
-            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpdev/view/")
+            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpcompdev/view/")
         }
         create("qa") {
             dimension = "version"
             applicationIdSuffix = ".qa"
             manifestPlaceholders["appName"] = "PCP-QA"
-            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpqa/view/")
+            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpcompqa/view/")
         }
         create("prod") {
             dimension = "version"
             applicationIdSuffix = ".prod"
             manifestPlaceholders["appName"] = "PCP"
-            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpprod/versao_4_00/view/")
+            resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpcompprod/versao_4_00/view/")
         }
     }
 }

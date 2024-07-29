@@ -6,6 +6,7 @@ object Screens {
     const val MENU_INICIAL = "menuinicial"
     const val SENHA = "senha"
     const val CONFIG = "config"
+    const val MATRIC_VIGIA = "matricvigia"
 }
 
 class NavigationActions(private val navController: NavHostController) {

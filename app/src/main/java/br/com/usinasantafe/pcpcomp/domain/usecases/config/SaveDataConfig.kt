@@ -33,12 +33,8 @@ class SaveDataConfigImpl(
                 idBD = idBD
             )
             return configRepository.save(config)
-        } catch (ed: DatasourceException){
-            throw ed
-        } catch (eu: RepositoryException){
-            throw eu
         } catch (e: Exception){
-            throw UsecaseException(cause = e)
+            return Result.failure(UsecaseException(cause = e))
         }
     }
 

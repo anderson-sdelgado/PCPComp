@@ -13,7 +13,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class RecoverConfigImplTest: KoinTest {
+class RecoverConfigInternalImplTest: KoinTest {
 
     private val usecase: RecoverConfigInternal by inject()
     private val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()

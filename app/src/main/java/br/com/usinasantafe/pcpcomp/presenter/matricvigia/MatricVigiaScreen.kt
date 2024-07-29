@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.presenter.menuinicial
+package br.com.usinasantafe.pcpcomp.presenter.matricvigia
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
@@ -12,26 +12,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.com.usinasantafe.pcpcomp.presenter.menuinicial.MenuInicialContent
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 
 @Composable
-fun MenuInicialScreen(onNavSenha: () -> Unit) {
+fun MatricVigiaScreen() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            MenuInicialContent(
-                modifier = Modifier.padding(innerPadding),
-                onNavSenha
+            MatricVigiaContent(
+                modifier = Modifier.padding(innerPadding)
             )
         }
     }
 }
 
 @Composable
-fun MenuInicialContent(
-    modifier: Modifier = Modifier,
-    onNavSenha: () -> Unit
+fun MatricVigiaContent(
+    modifier: Modifier = Modifier
 ) {
     val activity = (LocalContext.current as? Activity)
     Column(
@@ -42,9 +41,6 @@ fun MenuInicialContent(
         LazyColumn {
             item {
                 ItemListDesign("APONTAMENTO", onNavigation = {})
-            }
-            item {
-                ItemListDesign("CONFIGURAÇÃO", onNavigation = onNavSenha)
             }
             item {
                 ItemListDesign(
@@ -61,12 +57,11 @@ fun MenuInicialContent(
 
 @Preview(showBackground = true)
 @Composable
-fun MenuInicialPagePreview() {
+fun MatricVigiaPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            MenuInicialContent(
-                modifier = Modifier.padding(innerPadding),
-                onNavSenha = {}
+            MatricVigiaContent(
+                modifier = Modifier.padding(innerPadding)
             )
         }
     }

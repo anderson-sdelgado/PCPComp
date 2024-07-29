@@ -56,7 +56,7 @@ fun ConfigScreen(
                 flagProgress = uiState.flagProgress,
                 msgProgress = uiState.msgProgress,
                 currentProgress = uiState.currentProgress,
-                onClickSaveAndUpdate = viewModel::saveDataAndUpdateAllDatabase,
+                onClickSaveAndUpdate = viewModel::saveTokenAndUpdateAllDatabase,
                 onNavMenuInicial = onNavMenuInicial,
                 modifier = Modifier.padding(innerPadding),
             )
@@ -103,7 +103,6 @@ fun ConfigContent(
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         TitleDesign("SENHA:")
         OutlinedTextField(
-            visualTransformation = PasswordVisualTransformation(),
             value = password,
             onValueChange = onPasswordChanged,
             modifier = Modifier
@@ -144,7 +143,7 @@ fun ConfigContent(
 
         if(flagDialog) {
             if(errors != null){
-                val text = when(errors!!){
+                val text = when(errors){
                     Errors.FIELDEMPTY -> stringResource(id = R.string.texto_campo_vazio_config)
                     Errors.TOKEN -> stringResource(id = R.string.texto_recuperacao_token, failure)
                     Errors.UPDATE -> stringResource(id = R.string.texto_update_failure, failure)

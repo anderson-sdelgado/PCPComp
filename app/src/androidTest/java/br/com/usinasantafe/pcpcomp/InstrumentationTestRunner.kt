@@ -12,6 +12,8 @@ import br.com.usinasantafe.pcpcomp.di.datasourceSharedPreferencesModule
 import br.com.usinasantafe.pcpcomp.di.repositoryModule
 import br.com.usinasantafe.pcpcomp.di.usecaseModule
 import br.com.usinasantafe.pcpcomp.di.viewModelModule
+import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitAndroidTest
+import br.com.usinasantafe.pcpcomp.external.room.provideRoomTest
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

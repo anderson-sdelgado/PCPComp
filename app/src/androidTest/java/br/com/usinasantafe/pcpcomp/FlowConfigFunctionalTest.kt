@@ -14,6 +14,7 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigShare
 import br.com.usinasantafe.pcpcomp.presenter.MainActivity
 import br.com.usinasantafe.pcpcomp.presenter.config.TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.config.TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.config.dispatcherSuccess
 import br.com.usinasantafe.pcpcomp.presenter.senha.TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN
 import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
@@ -37,7 +38,7 @@ class FlowConfigFunctionalTest: KoinTest {
 
         val server = MockWebServer()
         server.start()
-        server.enqueue(MockResponse().setBody("""{"idBD":1}"""))
+        server.dispatcher = dispatcherSuccess
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
 
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
@@ -47,23 +48,20 @@ class FlowConfigFunctionalTest: KoinTest {
         composeTestRule.onNodeWithText("CONFIGURAÇÃO")
             .performClick()
 
-        composeTestRule.waitUntilTimeout(2_000)
-
         composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()
-
-        composeTestRule.waitUntilTimeout(2_000)
 
         composeTestRule.onNodeWithText("OK")
             .performClick()
-
-        composeTestRule.waitUntilTimeout(2_000)
 
         composeTestRule.onNodeWithTag(TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN).performTextInput("16997417840")
         composeTestRule.onNodeWithTag(TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN).performTextInput("12345")
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS")
             .performClick()
 
-        composeTestRule.waitUntilTimeout(2_000)
+        composeTestRule.onNodeWithText("OK")
+            .performClick()
+
+        composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
     }
 
     @Test
@@ -71,11 +69,18 @@ class FlowConfigFunctionalTest: KoinTest {
 
         val server = MockWebServer()
         server.start()
-        server.enqueue(MockResponse().setBody("""{"idBD":1}"""))
+        server.dispatcher = dispatcherSuccess
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
 
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(Config(password = "12345"))
+        configSharedPreferences.saveConfig(
+            Config(
+                password = "12345",
+                number = 16997417840,
+                version = "6.00",
+                idBD = 1
+            )
+        )
 
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
         composeTestRule.onNodeWithText("CONFIGURAÇÃO").assertIsDisplayed()
@@ -84,19 +89,20 @@ class FlowConfigFunctionalTest: KoinTest {
         composeTestRule.onNodeWithText("CONFIGURAÇÃO")
             .performClick()
 
-        composeTestRule.waitUntilTimeout(2_000)
-
         composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()
         composeTestRule.onNodeWithTag(TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN).performTextInput("12345")
 
         composeTestRule.onNodeWithText("OK")
             .performClick()
 
-        composeTestRule.waitUntilTimeout(2_000)
-
         composeTestRule.onNodeWithText("NRO APARELHO:").assertIsDisplayed()
+        composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS")
+            .performClick()
 
-        composeTestRule.waitUntilTimeout(2_000)
+        composeTestRule.onNodeWithText("OK")
+            .performClick()
+
+        composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
 
     }
 

@@ -34,14 +34,9 @@ class ConfigRepositoryImpl(
     override suspend fun send(config: Config): Result<Long> {
         try {
             val result = configRetrofitDatasource.recoverToken(config.toConfigWebServiceModel())
-            result.fold(
-                onSuccess = {
-                    return Result.success(it.idBD)
-                },
-                onFailure = { exception ->
-                    return Result.failure(exception)
-                }
-            )
+            if(result.isFailure)
+                return Result.failure(result.exceptionOrNull()!!)
+            return Result.success(result.getOrNull()!!.idBD)
         } catch (e: Exception) {
             return Result.failure(RepositoryException(cause = e))
         }

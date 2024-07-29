@@ -46,6 +46,7 @@ fun SenhaScreen(
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
                 flagAccess = uiState.flagAccess,
+                flagFailure = uiState.flagFailure,
                 onCheckAccess = viewModel::checkPassword,
                 onNavMenuInicial = onNavMenuInicial,
                 onNavConfig = onNavConfig,
@@ -62,6 +63,7 @@ fun SenhaContent(
     onPasswordChanged: (String) -> Unit,
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
+    flagFailure: Boolean,
     failure: String,
     flagAccess: Boolean,
     onCheckAccess: () -> Unit,
@@ -104,7 +106,7 @@ fun SenhaContent(
         BackHandler {}
 
         if(flagDialog) {
-            val text = if(failure == "") stringResource(id = R.string.texto_senha_invalida) else failure
+            val text = if(!flagFailure) stringResource(id = R.string.texto_senha_invalida) else failure
             AlertDialogSimpleDesign(
                 text = text,
                 setCloseDialog = setCloseDialog,
@@ -128,6 +130,7 @@ fun SenhaPagePreview() {
                 onPasswordChanged = {},
                 flagDialog = false,
                 setCloseDialog = {},
+                flagFailure = false,
                 failure = "",
                 flagAccess = false,
                 onCheckAccess = {},
@@ -149,7 +152,30 @@ fun SenhaPagePreviewMsgOpen() {
                 onPasswordChanged = {},
                 flagDialog = true,
                 setCloseDialog = {},
+                flagFailure = false,
                 failure = "",
+                flagAccess = false,
+                onCheckAccess = {},
+                onNavMenuInicial = {},
+                onNavConfig = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SenhaPagePreviewMsgOpenFailure() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            SenhaContent(
+                password = "",
+                onPasswordChanged = {},
+                flagDialog = true,
+                setCloseDialog = {},
+                flagFailure = true,
+                failure = "Error CheckPasswordConfig",
                 flagAccess = false,
                 onCheckAccess = {},
                 onNavMenuInicial = {},

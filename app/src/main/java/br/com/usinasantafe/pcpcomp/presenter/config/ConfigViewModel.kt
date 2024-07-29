@@ -10,6 +10,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanVisitante
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.RecoverConfigInternal
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SaveDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SendDataConfig
+import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetCheckUpdateAllTable
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverLocalServer
@@ -21,6 +22,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllVisitante
 import br.com.usinasantafe.pcpcomp.utils.Errors
+import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
 import br.com.usinasantafe.pcpcomp.utils.TB_EQUIP
 import br.com.usinasantafe.pcpcomp.utils.TB_LOCAL
@@ -63,7 +65,8 @@ class ConfigViewModel(
     private val saveAllEquip: SaveAllEquip,
     private val saveAllLocal: SaveAllLocal,
     private val saveAllTerceiro: SaveAllTerceiro,
-    private val saveAllVisitante: SaveAllVisitante
+    private val saveAllVisitante: SaveAllVisitante,
+    private val setCheckUpdateAllTable: SetCheckUpdateAllTable,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConfigState())
@@ -87,34 +90,32 @@ class ConfigViewModel(
         }
     }
 
-    fun returnDataConfig() =
-        viewModelScope.launch {
-            val recoverConfig = recoverConfigInternal()
-            if(recoverConfig.isFailure) {
-                val error = recoverConfig.exceptionOrNull()!!
-                val failure =
-                    "Error RecoverConfigInternal -> ${error.message} -> ${error.cause.toString()}"
-                _uiState.update {
-                    it.copy(
-                        errors = Errors.EXCEPTION,
-                        flagDialog = true,
-                        failure = failure,
-                    )
-                }
-                return@launch
+    fun returnDataConfig() = viewModelScope.launch {
+        val recoverConfig = recoverConfigInternal()
+        if (recoverConfig.isFailure) {
+            val error = recoverConfig.exceptionOrNull()!!
+            val failure =
+                "Error RecoverConfigInternal -> ${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    errors = Errors.EXCEPTION,
+                    flagDialog = true,
+                    failure = failure,
+                )
             }
-            val result = recoverConfig.getOrNull()
-            result?.let { configModel ->
-                _uiState.update {
-                    it.copy(
-                        number = configModel.number,
-                        password = configModel.password
-                    )
-                }
+            return@launch
+        }
+        val result = recoverConfig.getOrNull()
+        result?.let { configModel ->
+            _uiState.update {
+                it.copy(
+                    number = configModel.number, password = configModel.password
+                )
             }
         }
+    }
 
-    fun saveDataAndUpdateAllDatabase() {
+    fun saveTokenAndUpdateAllDatabase() {
         if (uiState.value.number.isEmpty() || uiState.value.password.isEmpty()) {
             _uiState.update {
                 it.copy(
@@ -125,37 +126,19 @@ class ConfigViewModel(
             return
         }
         viewModelScope.launch {
-            token().collect { resultToken ->
-                val configStateToken = resultToken
-                if(configStateToken.flagDialog) {
-                    _uiState.update {
-                        configStateToken
-                    }
-                    return@collect
-                }
-                _uiState.update {
-                    configStateToken
-                }
-                if((!configStateToken.flagDialog) && (configStateToken.currentProgress == 1f)){
-                    updateAllDatabase().collect{ resultUpdate ->
-                        val configStateUpdate = resultUpdate
-                        if(configStateUpdate.flagDialog) {
-                            _uiState.update {
-                                configStateUpdate
-                            }
-                            return@collect
-                        }
-                        _uiState.update {
-                            configStateUpdate
-                        }
+            token().collect { configStateToken ->
+                _uiState.value = configStateToken
+                if((configStateToken.errors == null) && (configStateToken.currentProgress == 1f)){
+                    updateAllDatabase().collect { configStateUpdate ->
+                        _uiState.value = configStateUpdate
                     }
                 }
             }
         }
     }
 
-    private suspend fun token(): Flow<ConfigState> = flow {
-    val sizeToken = 3f
+    suspend fun token(): Flow<ConfigState> = flow {
+        val sizeToken = 3f
         val number = uiState.value.number
         val password = uiState.value.password
         val version = "6.00"
@@ -167,14 +150,11 @@ class ConfigViewModel(
             )
         )
         val resultSend = sendDataConfig(
-            number = number,
-            password = password,
-            version = version
+            number = number, password = password, version = version
         )
         if (resultSend.isFailure) {
             val error = resultSend.exceptionOrNull()!!
-            val failure =
-                "Error SendDataConfig -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "Error SendDataConfig -> ${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.TOKEN,
@@ -184,6 +164,7 @@ class ConfigViewModel(
                     currentProgress = 1f,
                 )
             )
+            return@flow
         }
         emit(
             ConfigState(
@@ -193,15 +174,11 @@ class ConfigViewModel(
             )
         )
         val resultSave = saveDataConfig(
-            number = number,
-            password = password,
-            version = version,
-            idBD = resultSend.getOrNull()!!
+            number = number, password = password, version = version, idBD = resultSend.getOrNull()!!
         )
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
-            val failure =
-                "Error SaveDataConfig -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "Error SaveDataConfig -> ${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.TOKEN,
@@ -211,6 +188,7 @@ class ConfigViewModel(
                     currentProgress = 1f,
                 )
             )
+            return@flow
         }
         emit(
             ConfigState(
@@ -221,35 +199,75 @@ class ConfigViewModel(
         )
     }
 
-    private suspend fun updateAllDatabase(): Flow<ConfigState> = flow {
-        val sizeUpdate = 15f
-        updateAllEquip(sizeUpdate, 1f)
-        updateAllEquip(sizeUpdate, 2f)
-        updateAllLocal(sizeUpdate, 3f)
-        updateAllTerceiro(sizeUpdate, 4f)
-        updateAllVisitante(sizeUpdate, 5f)
+    suspend fun updateAllDatabase(): Flow<ConfigState> = flow {
+        val sizeUpdate = 16f
+        var configState = ConfigState()
+        updateAllColab(sizeUpdate, 1f).collect{ configStateColab ->
+            configState = configStateColab
+            emit(configStateColab)
+        }
+        if(configState.errors != null)
+            return@flow
+        updateAllEquip(sizeUpdate, 2f).collect{ configStateEquip ->
+            configState = configStateEquip
+            emit(configStateEquip)
+        }
+        if(configState.errors != null)
+            return@flow
+        updateAllLocal(sizeUpdate, 3f).collect{ configStateLocal ->
+            configState = configStateLocal
+            emit(configStateLocal)
+        }
+        if(configState.errors != null)
+            return@flow
+        updateAllTerceiro(sizeUpdate, 4f).collect{ configStateTerceiro ->
+            configState = configStateTerceiro
+            emit(configStateTerceiro)
+        }
+        if(configState.errors != null)
+            return@flow
+        updateAllVisitante(sizeUpdate, 5f).collect{ configStateVisitante ->
+            configState = configStateVisitante
+            emit(configStateVisitante)
+        }
+        if(configState.errors != null)
+            return@flow
+        val result = setCheckUpdateAllTable(FlagUpdate.UPDATED)
+        if(result.isFailure) {
+            val error = result.exceptionOrNull()!!
+            val failure =
+                "Error SetCheckUpdateAllTable -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
+                    errors = Errors.EXCEPTION,
+                    flagDialog = true,
+                    failure = failure,
+                )
+            )
+            return@flow
+        }
         emit(
             ConfigState(
+                flagDialog = true,
                 flagProgress = true,
-                msgProgress = "Atualização de Dados Realizada com Sucesso!",
+                msgProgress = "Atualização de dados realizado com sucesso!",
                 currentProgress = 1f,
             )
         )
     }
 
-    private suspend fun updateAllColab(sizeAll: Float, count: Float): Flow<ConfigState> = flow {
+    suspend fun updateAllColab(sizeAll: Float, count: Float): Flow<ConfigState> = flow {
         emit(
             ConfigState(
                 flagProgress = true,
-                msgProgress = "Limpando a tabela ${TB_COLAB}" ,
-                currentProgress = porc(1f + count, sizeAll),
+                msgProgress = "Limpando a tabela ${TB_COLAB}",
+                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
             )
         )
         val resultClean = cleanColab()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure =
-                "Error CleanColab -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "Error CleanColab -> ${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -259,12 +277,13 @@ class ConfigViewModel(
                     currentProgress = 1f,
                 )
             )
+            return@flow
         }
         emit(
             ConfigState(
                 flagProgress = true,
-                msgProgress = "Recuperando dados da tabela ${TB_COLAB} do Web Service" ,
-                currentProgress = porc(2f + count, sizeAll),
+                msgProgress = "Recuperando dados da tabela ${TB_COLAB} do Web Service",
+                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
         val resultRecover = recoverColabServer()
@@ -281,20 +300,20 @@ class ConfigViewModel(
                     currentProgress = 1f,
                 )
             )
+            return@flow
         }
         emit(
             ConfigState(
                 flagProgress = true,
-                msgProgress = "Salvando dados na tabela ${TB_COLAB}" ,
-                currentProgress = porc(2f + count, sizeAll),
+                msgProgress = "Salvando dados na tabela ${TB_COLAB}",
+                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
             )
         )
         val list = resultRecover.getOrNull()!!
         val resultSave = saveAllColab(list)
         if (resultSave.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "Error SaveAllColab -> ${error.message} -> ${error.cause.toString()}"
+            val error = resultSave.exceptionOrNull()!!
+            val failure = "Error SaveAllColab -> ${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -304,306 +323,293 @@ class ConfigViewModel(
                     currentProgress = 1f,
                 )
             )
+            return@flow
         }
     }
 
-
-    private suspend fun updateAllEquip(sizeAll: Float, count: Float): Boolean {
-        _uiState.update {
-            it.copy(
+    suspend fun updateAllEquip(sizeAll: Float, count: Float): Flow<ConfigState> = flow {
+        emit(
+            ConfigState(
                 flagProgress = true,
-                msgProgress = "Limpando a tabela ${TB_EQUIP}" ,
-                currentProgress = porc(1f + count, sizeAll),
+                msgProgress = "Limpando a tabela ${TB_EQUIP}",
+                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
             )
-        }
+        )
         val resultClean = cleanEquip()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure =
-                "Error CleanEquip -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val failure = "Error CleanEquip -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela ${TB_EQUIP} do Web Service" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela ${TB_EQUIP} do Web Service",
+                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val resultRecover = recoverEquipServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
                 "Error RecoverEquipServer -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela ${TB_EQUIP}" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela ${TB_EQUIP}",
+                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val list = resultRecover.getOrNull()!!
         val resultSave = saveAllEquip(list)
         if (resultSave.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "Error SaveAllEquip -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val error = resultSave.exceptionOrNull()!!
+            val failure = "Error SaveAllEquip -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
+            )
+            return@flow
         }
-        return true
     }
 
-
-    private suspend fun updateAllLocal(sizeAll: Float, count: Float): Boolean {
-        _uiState.update {
-            it.copy(
+    suspend fun updateAllLocal(sizeAll: Float, count: Float): Flow<ConfigState> = flow {
+        emit(
+            ConfigState(
                 flagProgress = true,
-                msgProgress = "Limpando a tabela ${TB_LOCAL}" ,
-                currentProgress = porc(1f + count, sizeAll),
+                msgProgress = "Limpando a tabela ${TB_LOCAL}",
+                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
             )
-        }
+        )
         val resultClean = cleanLocal()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure =
-                "Error CleanLocal -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val failure = "Error CleanLocal -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela ${TB_LOCAL} do Web Service" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela ${TB_LOCAL} do Web Service",
+                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val resultRecover = recoverLocalServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
                 "Error RecoverLocalServer -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela ${TB_LOCAL}" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela ${TB_LOCAL}",
+                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val list = resultRecover.getOrNull()!!
         val resultSave = saveAllLocal(list)
         if (resultSave.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "Error SaveAllLocal -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val error = resultSave.exceptionOrNull()!!
+            val failure = "Error SaveAllLocal -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
+            )
+            return@flow
         }
-        return true
     }
 
 
-    private suspend fun updateAllTerceiro(sizeAll: Float, count: Float): Boolean {
-        _uiState.update {
-            it.copy(
+    suspend fun updateAllTerceiro(sizeAll: Float, count: Float): Flow<ConfigState> = flow {
+        emit(
+            ConfigState(
                 flagProgress = true,
-                msgProgress = "Limpando a tabela ${TB_TERCEIRO}" ,
-                currentProgress = porc(1f + count, sizeAll),
+                msgProgress = "Limpando a tabela ${TB_TERCEIRO}",
+                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
             )
-        }
+        )
         val resultClean = cleanTerceiro()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure =
-                "Error CleanTerceiro -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val failure = "Error CleanTerceiro -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela ${TB_TERCEIRO} do Web Service" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela ${TB_TERCEIRO} do Web Service",
+                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val resultRecover = recoverTerceiroServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
                 "Error RecoverTerceiroServer -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela ${TB_TERCEIRO}" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela ${TB_TERCEIRO}",
+                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val list = resultRecover.getOrNull()!!
         val resultSave = saveAllTerceiro(list)
         if (resultSave.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "Error SaveAllTerceiro -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val error = resultSave.exceptionOrNull()!!
+            val failure = "Error SaveAllTerceiro -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
+            )
+            return@flow
         }
-        return true
     }
 
 
-    private suspend fun updateAllVisitante(sizeAll: Float, count: Float): Boolean {
-        _uiState.update {
-            it.copy(
+    suspend fun updateAllVisitante(sizeAll: Float, count: Float): Flow<ConfigState> = flow {
+        emit(
+            ConfigState(
                 flagProgress = true,
-                msgProgress = "Limpando a tabela ${TB_VISITANTE}" ,
-                currentProgress = porc(1f + count, sizeAll),
+                msgProgress = "Limpando a tabela ${TB_VISITANTE}",
+                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
             )
-        }
+        )
         val resultClean = cleanVisitante()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure =
-                "Error CleanVisitante -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val failure = "Error CleanVisitante -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela ${TB_VISITANTE} do Web Service" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela ${TB_VISITANTE} do Web Service",
+                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val resultRecover = recoverVisitanteServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
                 "Error RecoverVisitanteServer -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
-        }
-        _uiState.update {
-            it.copy(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela ${TB_VISITANTE}" ,
-                currentProgress = porc(2f + count, sizeAll),
             )
+            return@flow
         }
+        emit(
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela ${TB_VISITANTE}",
+                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
+            )
+        )
         val list = resultRecover.getOrNull()!!
         val resultSave = saveAllVisitante(list)
         if (resultSave.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "Error SaveAllVisitante -> ${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
+            val error = resultSave.exceptionOrNull()!!
+            val failure = "Error SaveAllVisitante -> ${error.message} -> ${error.cause.toString()}"
+            emit(
+                ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
                 )
-            }
-            return false
+            )
+            return@flow
         }
-        return true
     }
 }

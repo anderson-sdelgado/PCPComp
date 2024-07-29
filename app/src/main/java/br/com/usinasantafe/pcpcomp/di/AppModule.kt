@@ -43,6 +43,7 @@ val usecaseModule = module {
     singleOf(::RecoverConfigInternalImpl) { bind<RecoverConfigInternal>() }
     singleOf(::SendDataConfigImpl) { bind<SendDataConfig>() }
     singleOf(::SaveDataConfigImpl) { bind<SaveDataConfig>() }
+    singleOf(::SetCheckUpdateAllTableImpl) { bind<SetCheckUpdateAllTable>() }
 
     singleOf(::CleanColabImpl) { bind<CleanColab>() }
     singleOf(::CleanEquipImpl) { bind<CleanEquip>() }

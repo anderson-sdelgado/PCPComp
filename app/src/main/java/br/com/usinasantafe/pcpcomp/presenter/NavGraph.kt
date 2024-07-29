@@ -7,10 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.usinasantafe.pcpcomp.presenter.Screens.CONFIG
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_VIGIA
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MENU_INICIAL
 import br.com.usinasantafe.pcpcomp.presenter.Screens.SENHA
 import br.com.usinasantafe.pcpcomp.presenter.config.ConfigScreen
 import br.com.usinasantafe.pcpcomp.presenter.config.ConfigViewModel
+import br.com.usinasantafe.pcpcomp.presenter.matricvigia.MatricVigiaScreen
 import br.com.usinasantafe.pcpcomp.presenter.senha.SenhaScreen
 import br.com.usinasantafe.pcpcomp.presenter.menuinicial.MenuInicialScreen
 import br.com.usinasantafe.pcpcomp.presenter.senha.SenhaViewModel
@@ -40,6 +42,9 @@ fun NavigationGraph(
                 viewModel = koinViewModel<ConfigViewModel>(),
                 onNavMenuInicial = { navActions.navigationToMenuInicial() }
             )
+        }
+        composable(MATRIC_VIGIA) {
+            MatricVigiaScreen()
         }
     }
 }

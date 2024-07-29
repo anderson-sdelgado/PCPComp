@@ -12,6 +12,7 @@ data class SenhaState(
     val password: String = "",
     val flagDialog: Boolean = false,
     val flagAccess: Boolean = false,
+    val flagFailure: Boolean = false,
     val failure: String = "",
 )
 
@@ -45,6 +46,7 @@ class SenhaViewModel(
                     it.copy(
                         flagDialog = true,
                         flagAccess = false,
+                        flagFailure = true,
                         failure = failure
                     )
                 }
@@ -56,7 +58,7 @@ class SenhaViewModel(
                 it.copy(
                     flagDialog = statusDialog,
                     flagAccess = statusAccess,
-                    failure = ""
+                    flagFailure = false,
                 )
             }
         }

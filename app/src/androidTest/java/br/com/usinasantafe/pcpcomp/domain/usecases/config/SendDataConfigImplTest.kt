@@ -60,4 +60,19 @@ class SendDataConfigImplTest: KoinTest {
         assertEquals(result.isFailure, true)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
     }
+
+    @Test
+    fun verify_return_failure_repository() = runTest {
+        val server = MockWebServer()
+        server.start()
+        server.enqueue(MockResponse().setBody(""))
+        loadKoinModules(generateTestAppComponent(server.url("/").toString()))
+        val result = usecase(
+            number = "16997417840",
+            version = "6.00",
+            password = "12345",
+        )
+        assertEquals(result.isFailure, true)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+    }
 }

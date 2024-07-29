@@ -1,0 +1,174 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "47d9f1a6737f6d0b26371a3e72ddf9b4",
+    "entities": [
+      {
+        "tableName": "tb_colab",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matricColab` INTEGER NOT NULL, `nomeColab` TEXT NOT NULL, PRIMARY KEY(`matricColab`))",
+        "fields": [
+          {
+            "fieldPath": "matricColab",
+            "columnName": "matricColab",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeColab",
+            "columnName": "nomeColab",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "matricColab"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_equip",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idEquip` INTEGER NOT NULL, `nroEquip` INTEGER NOT NULL, PRIMARY KEY(`idEquip`))",
+        "fields": [
+          {
+            "fieldPath": "idEquip",
+            "columnName": "idEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nroEquip",
+            "columnName": "nroEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idEquip"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_local",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idLocal` INTEGER NOT NULL, `descrLocal` TEXT NOT NULL, PRIMARY KEY(`idLocal`))",
+        "fields": [
+          {
+            "fieldPath": "idLocal",
+            "columnName": "idLocal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descrLocal",
+            "columnName": "descrLocal",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idLocal"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_terceiro",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTerceiro` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idBDTerceiro` INTEGER NOT NULL, `cpfTerceiro` TEXT NOT NULL, `nomeTerceiro` TEXT NOT NULL, `empresaTerceiro` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idTerceiro",
+            "columnName": "idTerceiro",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idBDTerceiro",
+            "columnName": "idBDTerceiro",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cpfTerceiro",
+            "columnName": "cpfTerceiro",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeTerceiro",
+            "columnName": "nomeTerceiro",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "empresaTerceiro",
+            "columnName": "empresaTerceiro",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idTerceiro"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_visitante",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idVisitante` INTEGER NOT NULL, `cpfVisitante` TEXT NOT NULL, `nomeVisitante` TEXT NOT NULL, `empresaVisitante` TEXT NOT NULL, PRIMARY KEY(`idVisitante`))",
+        "fields": [
+          {
+            "fieldPath": "idVisitante",
+            "columnName": "idVisitante",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cpfVisitante",
+            "columnName": "cpfVisitante",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeVisitante",
+            "columnName": "nomeVisitante",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "empresaVisitante",
+            "columnName": "empresaVisitante",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idVisitante"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '47d9f1a6737f6d0b26371a3e72ddf9b4')"
+    ]
+  }
+}

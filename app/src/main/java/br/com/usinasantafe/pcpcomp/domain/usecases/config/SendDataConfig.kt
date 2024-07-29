@@ -27,15 +27,7 @@ class SendDataConfigImpl (
                 password = password,
                 version = version,
             )
-            val result = configRepository.send(config)
-            result.fold(
-                onSuccess = {
-                    return Result.success(it)
-                },
-                onFailure = { exception ->
-                    return Result.failure(exception)
-                }
-            )
+            return configRepository.send(config)
         } catch (e: Exception){
             return Result.failure(UsecaseException(cause = e))
         }
