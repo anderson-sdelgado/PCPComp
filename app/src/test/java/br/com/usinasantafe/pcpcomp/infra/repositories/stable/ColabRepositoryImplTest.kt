@@ -128,4 +128,68 @@ class ColabRepositoryImplTest {
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
     }
 
+    @Test
+    fun `Check return false if not exist MatricColab`() = runTest {
+        val colabRoomDatasource = mock<ColabRoomDatasource>()
+        val colabRetrofitDatasource = mock<ColabRetrofitDatasource>()
+        whenever(colabRoomDatasource.checkMatric(19759)).thenReturn(Result.success(false))
+        val repository = ColabRepositoryImpl(colabRoomDatasource, colabRetrofitDatasource)
+        val result = repository.checkMatric(19759)
+        assertEquals(result.isSuccess, true)
+        assertEquals(result.getOrNull()!!, false)
+    }
+
+    @Test
+    fun `Check return true if exist MatricColab`() = runTest {
+        val colabRoomDatasource = mock<ColabRoomDatasource>()
+        val colabRetrofitDatasource = mock<ColabRetrofitDatasource>()
+        whenever(colabRoomDatasource.checkMatric(19759)).thenReturn(Result.success(true))
+        val repository = ColabRepositoryImpl(colabRoomDatasource, colabRetrofitDatasource)
+        val result = repository.checkMatric(19759)
+        assertEquals(result.isSuccess, true)
+        assertEquals(result.getOrNull()!!, true)
+    }
+
+    @Test
+    fun `Check return failure if have error in checkMatric Datasource`() = runTest {
+        val colabRoomDatasource = mock<ColabRoomDatasource>()
+        val colabRetrofitDatasource = mock<ColabRetrofitDatasource>()
+        whenever(colabRoomDatasource.checkMatric(19759)).thenReturn(
+            Result.failure(DatasourceException())
+        )
+        val repository = ColabRepositoryImpl(colabRoomDatasource, colabRetrofitDatasource)
+        val result = repository.checkMatric(19759)
+        assertEquals(result.isFailure, true)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+    }
+
+
+    @Test
+    fun `Check return NomeVigia if have success in getNome`() = runTest {
+        val colabRoomDatasource = mock<ColabRoomDatasource>()
+        val colabRetrofitDatasource = mock<ColabRetrofitDatasource>()
+        whenever(colabRoomDatasource.getNome(19759)).thenReturn(
+            Result.success("ANDERSON DA SILVA DELGADO")
+        )
+        val repository = ColabRepositoryImpl(colabRoomDatasource, colabRetrofitDatasource)
+        val result = repository.getNome(19759)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, "ANDERSON DA SILVA DELGADO")
+    }
+
+    @Test
+    fun `Check return failure if have error in getNome Datasource`() = runTest {
+        val colabRoomDatasource = mock<ColabRoomDatasource>()
+        val colabRetrofitDatasource = mock<ColabRetrofitDatasource>()
+        whenever(colabRoomDatasource.getNome(19759)).thenReturn(
+            Result.failure(
+                DatasourceException(cause = Exception())
+            )
+        )
+        val repository = ColabRepositoryImpl(colabRoomDatasource, colabRetrofitDatasource)
+        val result = repository.getNome(19759)
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+    }
+
 }

@@ -14,7 +14,40 @@ class ColabRoomDatasourceImpl(
             colabDao.insertAll(list)
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "ColabRoomDatasourceImpl.addAll",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun checkMatric(matric: Long): Result<Boolean> {
+        try {
+            val result = colabDao.checkMatric(matric) > 0
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "ColabRoomDatasourceImpl.checkMatric",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getNome(matric: Long): Result<String> {
+        try {
+            val nome = colabDao.getNome(matric)
+            return Result.success(nome)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "ColabRoomDatasourceImpl.getNome",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -23,7 +56,12 @@ class ColabRoomDatasourceImpl(
             colabDao.deleteAll()
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "ColabRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
         }
     }
 

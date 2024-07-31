@@ -25,7 +25,12 @@ class SetCheckUpdateAllTableImpl (
                 return Result.failure(resultSave.exceptionOrNull()!!)
             return Result.success(true)
         } catch (e: Exception){
-            return Result.failure(UsecaseException(cause = e))
+            return Result.failure(
+                UsecaseException(
+                    function = "SetCheckUpdateAllTable",
+                    cause = e
+                )
+            )
         }
     }
 

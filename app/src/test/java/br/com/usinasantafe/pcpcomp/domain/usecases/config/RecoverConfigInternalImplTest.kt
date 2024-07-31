@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
+import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.presenter.config.ConfigModel
 import kotlinx.coroutines.test.runTest
@@ -13,12 +14,44 @@ import org.mockito.kotlin.whenever
 class RecoverConfigInternalImplTest {
 
     @Test
+    fun `Check return failure if have failure in hasConfig`() = runTest {
+        val configRepository = mock<ConfigRepository>()
+        whenever(configRepository.hasConfig()).thenReturn(
+            Result.failure(
+                DatasourceException(cause = Exception())
+            )
+        )
+        val usecase = RecoverConfigInternalImpl(configRepository)
+        val result = usecase()
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+    }
+
+    @Test
     fun `Check null if haven't db config save`() = runTest {
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.hasConfig()).thenReturn(Result.success(false))
         val usecase = RecoverConfigInternalImpl(configRepository)
         val result = usecase()
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull(), null)
+    }
+
+    @Test
+    fun `Check return failure if have failure in getConfig`() = runTest {
+        val configRepository = mock<ConfigRepository>()
+        whenever(configRepository.hasConfig()).thenReturn(
+            Result.success(true)
+        )
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.failure(
+                DatasourceException(cause = Exception())
+            )
+        )
+        val usecase = RecoverConfigInternalImpl(configRepository)
+        val result = usecase()
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
     }
 
     @Test
@@ -28,8 +61,12 @@ class RecoverConfigInternalImplTest {
             password = "12345"
         )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.hasConfig()).thenReturn(Result.success(true))
-        whenever(configRepository.getConfig()).thenReturn(Result.success(config))
+        whenever(configRepository.hasConfig()).thenReturn(
+            Result.success(true)
+        )
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.success(config)
+        )
         val usecase = RecoverConfigInternalImpl(configRepository)
         val result = usecase()
         assertEquals(

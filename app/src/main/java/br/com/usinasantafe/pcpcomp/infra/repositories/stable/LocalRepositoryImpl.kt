@@ -18,7 +18,12 @@ class LocalRepositoryImpl(
             val localModelList = list.map { it.toLocalModel() }
             return localRoomDatasource.addAll(localModelList)
         } catch (e: Exception){
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "LocalRepositoryImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -35,7 +40,12 @@ class LocalRepositoryImpl(
             val localModelList = result.map { it.toLocal() }
             return Result.success(localModelList)
         } catch (e: Exception) {
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "LocalRepositoryImpl.recoverAll",
+                    cause = e
+                )
+            )
         }
     }
 

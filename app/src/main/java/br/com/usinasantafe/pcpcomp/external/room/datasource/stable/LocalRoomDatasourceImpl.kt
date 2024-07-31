@@ -14,7 +14,12 @@ class LocalRoomDatasourceImpl(
             localDao.insertAll(list)
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "LocalRoomDatasourceImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -23,7 +28,12 @@ class LocalRoomDatasourceImpl(
             localDao.deleteAll()
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "LocalRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
         }
     }
 }

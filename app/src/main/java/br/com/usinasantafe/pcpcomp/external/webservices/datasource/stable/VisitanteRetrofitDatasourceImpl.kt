@@ -14,7 +14,12 @@ class VisitanteRetrofitDatasourceImpl(
             val response = visitanteApi.all(token)
             return Result.success(response.body()!!)
         } catch (e: Exception){
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "VisitanteRetrofitDatasourceImpl.recoverAll",
+                    cause = e
+                )
+            )
         }
     }
 

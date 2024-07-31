@@ -16,21 +16,27 @@ class CheckPasswordConfigImpl(
             val checkHasConfig = configRepository.hasConfig()
 
             if(checkHasConfig.isFailure)
-                return Result.failure(checkHasConfig.exceptionOrNull()!!)
+                return checkHasConfig
 
             if (!checkHasConfig.getOrNull()!!)
                 return Result.success(true)
 
             val passwordBD = configRepository.getPassword()
             if(passwordBD.isFailure)
-                return Result.failure(checkHasConfig.exceptionOrNull()!!)
+                return Result.failure(passwordBD.exceptionOrNull()!!)
 
             if (passwordBD.getOrNull() == password)
                 return Result.success(true)
 
             return Result.success(false)
+
         } catch (e: Exception) {
-            return Result.failure(UsecaseException(cause = e))
+            return Result.failure(
+                UsecaseException(
+                    function = "CheckPasswordConfig",
+                    cause = e
+                )
+            )
         }
     }
 

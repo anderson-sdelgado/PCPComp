@@ -34,7 +34,12 @@ class SaveDataConfigImpl(
             )
             return configRepository.save(config)
         } catch (e: Exception){
-            return Result.failure(UsecaseException(cause = e))
+            return Result.failure(
+                UsecaseException(
+                    function = "SaveDataConfig",
+                    cause = e
+                )
+            )
         }
     }
 

@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.presenter.senha
 
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
+import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.CheckPasswordConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -21,23 +22,48 @@ class SenhaViewModelTest {
     val password = "12345"
 
     @Test
-    fun `check access granted`() = runTest {
+    fun `check return failure if checkPassword have failure`() = runTest {
         val checkPasswordConfig = mock<CheckPasswordConfig>()
-        whenever(checkPasswordConfig(password)).thenReturn(Result.success(true))
+        whenever(checkPasswordConfig(password)).thenReturn(
+            Result.failure(
+                DatasourceException(function = "ConfigSharedPreferences.hasConfig", cause = Exception())
+            )
+        )
         val viewModel = SenhaViewModel(checkPasswordConfig)
         viewModel.updatePassword(password)
         viewModel.checkPassword()
-        assertEquals(viewModel.uiState.value.flagDialog, false)
+        assertEquals(viewModel.uiState.value.flagDialog, true)
+        assertEquals(viewModel.uiState.value.flagFailure, true)
+        assertEquals(viewModel.uiState.value.flagAccess, false)
+        assertEquals(viewModel.uiState.value.failure, "Error CheckPasswordConfig -> Failure Datasource ConfigSharedPreferences.hasConfig -> java.lang.Exception")
     }
 
     @Test
     fun `check blocked access`() = runTest {
         val checkPasswordConfig = mock<CheckPasswordConfig>()
-        whenever(checkPasswordConfig(password)).thenReturn(Result.success(false))
+        whenever(checkPasswordConfig(password)).thenReturn(
+            Result.success(false)
+        )
         val viewModel = SenhaViewModel(checkPasswordConfig)
         viewModel.updatePassword(password)
         viewModel.checkPassword()
         assertEquals(viewModel.uiState.value.flagDialog, true)
+        assertEquals(viewModel.uiState.value.flagFailure, false)
+        assertEquals(viewModel.uiState.value.flagAccess, false)
+    }
+
+    @Test
+    fun `check access granted`() = runTest {
+        val checkPasswordConfig = mock<CheckPasswordConfig>()
+        whenever(checkPasswordConfig(password)).thenReturn(
+            Result.success(true)
+        )
+        val viewModel = SenhaViewModel(checkPasswordConfig)
+        viewModel.updatePassword(password)
+        viewModel.checkPassword()
+        assertEquals(viewModel.uiState.value.flagDialog, false)
+        assertEquals(viewModel.uiState.value.flagFailure, false)
+        assertEquals(viewModel.uiState.value.flagAccess, true)
     }
 
 }

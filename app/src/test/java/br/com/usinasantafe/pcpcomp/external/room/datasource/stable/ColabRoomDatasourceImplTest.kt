@@ -79,4 +79,53 @@ class ColabRoomDatasourceImplTest {
         assertEquals(result.isSuccess, true)
         assertEquals(result, Result.success(true))
     }
+
+    @Test
+    fun `Check return false if not exist MatricColab`() = runTest {
+        val datasource = ColabRoomDatasourceImpl(colabDao)
+        val result = datasource.checkMatric(19759)
+        assertEquals(result.isSuccess, true)
+        assertEquals(result.getOrNull()!!, false)
+    }
+
+    @Test
+    fun `Check return true if exist MatricColab`() = runTest {
+        val datasource = ColabRoomDatasourceImpl(colabDao)
+        datasource.addAll(
+            listOf(
+                ColabRoomModel(
+                    matricColab = 19759,
+                    nomeColab = "ANDERSON DA SILVA DELGADO"
+                ),
+                ColabRoomModel(
+                    matricColab = 19035,
+                    nomeColab = "JOSE DONIZETE ALVES DA SILVA"
+                )
+            )
+        )
+        val result = datasource.checkMatric(19759)
+        assertEquals(result.isSuccess, true)
+        assertEquals(result.getOrNull()!!, true)
+    }
+
+    @Test
+    fun `Check return nomeColab if getNome is success`() = runTest {
+        val datasource = ColabRoomDatasourceImpl(colabDao)
+        datasource.addAll(
+            listOf(
+                ColabRoomModel(
+                    matricColab = 19759,
+                    nomeColab = "ANDERSON DA SILVA DELGADO"
+                ),
+                ColabRoomModel(
+                    matricColab = 19035,
+                    nomeColab = "JOSE DONIZETE ALVES DA SILVA"
+                )
+            )
+        )
+        val result = datasource.getNome(19759)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, "ANDERSON DA SILVA DELGADO")
+    }
+
 }

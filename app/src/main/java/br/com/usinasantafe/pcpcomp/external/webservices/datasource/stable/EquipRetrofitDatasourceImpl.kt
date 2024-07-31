@@ -14,7 +14,12 @@ class EquipRetrofitDatasourceImpl(
             val response = equipApi.all(token)
             return Result.success(response.body()!!)
         } catch (e: Exception){
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "EquipRetrofitDatasourceImpl.recoverAll",
+                    cause = e
+                )
+            )
         }
     }
 

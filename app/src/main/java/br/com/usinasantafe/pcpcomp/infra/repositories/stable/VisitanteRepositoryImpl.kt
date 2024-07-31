@@ -18,7 +18,12 @@ class VisitanteRepositoryImpl(
             val visitanteModelList = list.map { it.toVisitanteModel() }
             return visitanteRoomDatasource.addAll(visitanteModelList)
         } catch (e: Exception){
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "VisitanteRepositoryImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -35,7 +40,12 @@ class VisitanteRepositoryImpl(
             val visitanteModelList = result.map { it.toVisitante() }
             return Result.success(visitanteModelList)
         } catch (e: Exception) {
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "VisitanteRepositoryImpl.recoverAll",
+                    cause = e
+                )
+            )
         }
     }
 

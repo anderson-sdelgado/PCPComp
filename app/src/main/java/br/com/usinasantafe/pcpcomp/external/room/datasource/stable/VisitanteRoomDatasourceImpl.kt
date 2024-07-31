@@ -14,7 +14,12 @@ class VisitanteRoomDatasourceImpl(
             visitanteDao.insertAll(list)
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "VisitanteRoomDatasourceImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -23,7 +28,12 @@ class VisitanteRoomDatasourceImpl(
             visitanteDao.deleteAll()
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "VisitanteRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
         }
     }
 }

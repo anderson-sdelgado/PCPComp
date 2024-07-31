@@ -16,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,12 +40,12 @@ fun SenhaScreen(
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             SenhaContent(
                 password = uiState.password,
-                onPasswordChanged = viewModel::updatePassword,
+                onPasswordChanged =  viewModel::updatePassword,
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
+                flagFailure = uiState.flagFailure,
                 failure = uiState.failure,
                 flagAccess = uiState.flagAccess,
-                flagFailure = uiState.flagFailure,
                 onCheckAccess = viewModel::checkPassword,
                 onNavMenuInicial = onNavMenuInicial,
                 onNavConfig = onNavConfig,
@@ -94,19 +93,19 @@ fun SenhaContent(
                 onClick = onCheckAccess,
                 modifier = Modifier.weight(1f),
             ) {
-                TextButtonDesign(text = stringResource(id = R.string.texto_padrao_ok))
+                TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
             }
             Button(
                 onClick = onNavMenuInicial,
                 modifier = Modifier.weight(1f)
             ) {
-                TextButtonDesign(text = stringResource(id = R.string.texto_padrao_cancelar))
+                TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
             }
         }
         BackHandler {}
 
         if(flagDialog) {
-            val text = if(!flagFailure) stringResource(id = R.string.texto_senha_invalida) else failure
+            val text = if(!flagFailure) stringResource(id = R.string.text_password_invalid) else failure
             AlertDialogSimpleDesign(
                 text = text,
                 setCloseDialog = setCloseDialog,

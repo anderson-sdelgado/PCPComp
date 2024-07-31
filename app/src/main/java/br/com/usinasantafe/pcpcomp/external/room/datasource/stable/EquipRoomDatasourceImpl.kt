@@ -14,7 +14,12 @@ class EquipRoomDatasourceImpl(
             equipDao.insertAll(list)
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasourceImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -23,7 +28,12 @@ class EquipRoomDatasourceImpl(
             equipDao.deleteAll()
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
         }
     }
 

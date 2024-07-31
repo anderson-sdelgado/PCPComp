@@ -44,16 +44,20 @@ fun generateTestAppComponent(baseTestApi: String) = listOf(
     roomModuleTest,
 )
 
-fun retrofitModuleTest(baseTestApi: String) = module {
-    single { provideRetrofitAndroidTest(baseTestApi) }
-}
-
 val sharedModuleTest = module {
     single { sharedPreferencesTest(androidContext()) }
 }
 
 fun sharedPreferencesTest(appContext: Context): SharedPreferences {
     return appContext.getSharedPreferences("teste", Context.MODE_PRIVATE)
+}
+
+fun retrofitModuleTest(baseTestApi: String) = module {
+    single { provideRetrofitAndroidTest(baseTestApi) }
+}
+
+val roomModuleTest = module {
+    single { provideRoomTest(androidContext()) }
 }
 
 class InstrumentationTestRunner : AndroidJUnitRunner() {
@@ -64,8 +68,4 @@ class InstrumentationTestRunner : AndroidJUnitRunner() {
     ): Application {
         return super.newApplication(classLoader, TestApplication::class.java.name, context)
     }
-}
-
-val roomModuleTest = module {
-    single { provideRoomTest(androidContext()) }
 }

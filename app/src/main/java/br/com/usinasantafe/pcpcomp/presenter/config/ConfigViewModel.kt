@@ -40,7 +40,8 @@ data class ConfigState(
     val number: String = "",
     val password: String = "",
     val flagDialog: Boolean = false,
-    val errors: Errors? = null,
+    val flagFailure: Boolean = false,
+    val errors: Errors = Errors.FIELDEMPTY,
     val failure: String = "",
     val flagProgress: Boolean = false,
     val msgProgress: String = "",
@@ -100,6 +101,7 @@ class ConfigViewModel(
                 it.copy(
                     errors = Errors.EXCEPTION,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                 )
             }
@@ -121,6 +123,7 @@ class ConfigViewModel(
                 it.copy(
                     flagDialog = true,
                     errors = Errors.FIELDEMPTY,
+                    flagFailure = true,
                 )
             }
             return
@@ -128,7 +131,7 @@ class ConfigViewModel(
         viewModelScope.launch {
             token().collect { configStateToken ->
                 _uiState.value = configStateToken
-                if((configStateToken.errors == null) && (configStateToken.currentProgress == 1f)){
+                if((!configStateToken.flagFailure) && (configStateToken.currentProgress == 1f)){
                     updateAllDatabase().collect { configStateUpdate ->
                         _uiState.value = configStateUpdate
                     }
@@ -159,6 +162,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.TOKEN,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -183,6 +187,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.TOKEN,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -206,31 +211,31 @@ class ConfigViewModel(
             configState = configStateColab
             emit(configStateColab)
         }
-        if(configState.errors != null)
+        if(configState.flagFailure)
             return@flow
         updateAllEquip(sizeUpdate, 2f).collect{ configStateEquip ->
             configState = configStateEquip
             emit(configStateEquip)
         }
-        if(configState.errors != null)
+        if(configState.flagFailure)
             return@flow
         updateAllLocal(sizeUpdate, 3f).collect{ configStateLocal ->
             configState = configStateLocal
             emit(configStateLocal)
         }
-        if(configState.errors != null)
+        if(configState.flagFailure)
             return@flow
         updateAllTerceiro(sizeUpdate, 4f).collect{ configStateTerceiro ->
             configState = configStateTerceiro
             emit(configStateTerceiro)
         }
-        if(configState.errors != null)
+        if(configState.flagFailure)
             return@flow
         updateAllVisitante(sizeUpdate, 5f).collect{ configStateVisitante ->
             configState = configStateVisitante
             emit(configStateVisitante)
         }
-        if(configState.errors != null)
+        if(configState.flagFailure)
             return@flow
         val result = setCheckUpdateAllTable(FlagUpdate.UPDATED)
         if(result.isFailure) {
@@ -240,6 +245,7 @@ class ConfigViewModel(
             emit(
                 ConfigState(
                     errors = Errors.EXCEPTION,
+                    flagFailure = true,
                     flagDialog = true,
                     failure = failure,
                 )
@@ -250,6 +256,7 @@ class ConfigViewModel(
             ConfigState(
                 flagDialog = true,
                 flagProgress = true,
+                flagFailure = false,
                 msgProgress = "Atualização de dados realizado com sucesso!",
                 currentProgress = 1f,
             )
@@ -272,6 +279,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -295,6 +303,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -318,6 +327,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -343,6 +353,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -366,6 +377,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -389,6 +401,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -414,6 +427,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -437,6 +451,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -460,6 +475,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -486,6 +502,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -509,6 +526,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -532,6 +550,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -558,6 +577,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -581,6 +601,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,
@@ -604,6 +625,7 @@ class ConfigViewModel(
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                     msgProgress = failure,
                     currentProgress = 1f,

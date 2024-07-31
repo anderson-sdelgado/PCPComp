@@ -18,12 +18,25 @@ class ColabRepositoryImpl(
             val colabModelList = list.map { it.toColabModel() }
             return colabRoomDatasource.addAll(colabModelList)
         } catch (e: Exception){
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "ColabRepositoryImpl.addAll",
+                    cause = e
+                )
+            )
         }
+    }
+
+    override suspend fun checkMatric(matric: Long): Result<Boolean> {
+        return colabRoomDatasource.checkMatric(matric)
     }
 
     override suspend fun deleteAll(): Result<Boolean> {
         return colabRoomDatasource.deleteAll()
+    }
+
+    override suspend fun getNome(matric: Long): Result<String> {
+        return colabRoomDatasource.getNome(matric)
     }
 
     override suspend fun recoverAll(token: String): Result<List<Colab>> {
@@ -35,7 +48,12 @@ class ColabRepositoryImpl(
             val colabModelList = result.map { it.toColab() }
             return Result.success(colabModelList)
         } catch (e: Exception) {
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "ColabRepositoryImpl.recoverAll",
+                    cause = e
+                )
+            )
         }
     }
 

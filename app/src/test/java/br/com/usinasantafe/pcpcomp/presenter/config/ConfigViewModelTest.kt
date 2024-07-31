@@ -169,6 +169,7 @@ class ConfigViewModelTest {
         ).thenReturn(
             Result.failure(
                 UsecaseException(
+                    function = "SendDataConfig",
                     cause = NumberFormatException("For input string: \"1df52\"")
                 )
             )
@@ -211,15 +212,16 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.TOKEN,
                 flagDialog = true,
-                failure = "Error SendDataConfig -> Failure Usecase -> java.lang.NumberFormatException: For input string: \"1df52\"",
-                msgProgress = "Error SendDataConfig -> Failure Usecase -> java.lang.NumberFormatException: For input string: \"1df52\"",
+                flagFailure = true,
+                failure = "Error SendDataConfig -> Failure Usecase SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\"",
+                msgProgress = "Error SendDataConfig -> Failure Usecase SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\"",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error SendDataConfig -> Failure Usecase -> java.lang.NumberFormatException: For input string: \"1df52\""
+            "Error SendDataConfig -> Failure Usecase SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\""
         )
     }
 
@@ -233,7 +235,10 @@ class ConfigViewModelTest {
             )
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = NullPointerException())
+                DatasourceException(
+                    function = "SendDataConfig",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -274,15 +279,16 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.TOKEN,
                 flagDialog = true,
-                failure = "Error SendDataConfig -> Failure Datasource -> java.lang.NullPointerException",
-                msgProgress = "Error SendDataConfig -> Failure Datasource -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error SendDataConfig -> Failure Datasource SendDataConfig -> java.lang.NullPointerException",
+                msgProgress = "Error SendDataConfig -> Failure Datasource SendDataConfig -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error SendDataConfig -> Failure Datasource -> java.lang.NullPointerException"
+            "Error SendDataConfig -> Failure Datasource SendDataConfig -> java.lang.NullPointerException"
         )
     }
 
@@ -306,7 +312,10 @@ class ConfigViewModelTest {
             )
         ).thenReturn(
             Result.failure(
-                UsecaseException(cause = NullPointerException())
+                UsecaseException(
+                    function = "SaveDataConfig",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -355,15 +364,16 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.TOKEN,
                 flagDialog = true,
-                failure = "Error SaveDataConfig -> Failure Usecase -> java.lang.NullPointerException",
-                msgProgress = "Error SaveDataConfig -> Failure Usecase -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error SaveDataConfig -> Failure Usecase SaveDataConfig -> java.lang.NullPointerException",
+                msgProgress = "Error SaveDataConfig -> Failure Usecase SaveDataConfig -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error SaveDataConfig -> Failure Usecase -> java.lang.NullPointerException"
+            "Error SaveDataConfig -> Failure Usecase SaveDataConfig -> java.lang.NullPointerException"
         )
     }
 
@@ -446,7 +456,10 @@ class ConfigViewModelTest {
             cleanColab()
         ).thenReturn(
             Result.failure(
-                UsecaseException(cause = NullPointerException())
+                UsecaseException(
+                    function = "CleanColab",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -487,15 +500,16 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error CleanColab -> Failure Usecase -> java.lang.NullPointerException",
-                msgProgress = "Error CleanColab -> Failure Usecase -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error CleanColab -> Failure Usecase CleanColab -> java.lang.NullPointerException",
+                msgProgress = "Error CleanColab -> Failure Usecase CleanColab -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error CleanColab -> Failure Usecase -> java.lang.NullPointerException"
+            "Error CleanColab -> Failure Usecase CleanColab -> java.lang.NullPointerException"
         )
     }
 
@@ -506,7 +520,10 @@ class ConfigViewModelTest {
                 cleanColab()
             ).thenReturn(
                 Result.failure(
-                    DatasourceException(cause = NullPointerException())
+                    DatasourceException(
+                        function = "CleanColab",
+                        cause = NullPointerException()
+                    )
                 )
             )
             val viewModel = ConfigViewModel(
@@ -547,8 +564,9 @@ class ConfigViewModelTest {
                 ConfigState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
-                    failure = "Error CleanColab -> Failure Datasource -> java.lang.NullPointerException",
-                    msgProgress = "Error CleanColab -> Failure Datasource -> java.lang.NullPointerException",
+                    flagFailure = true,
+                    failure = "Error CleanColab -> Failure Datasource CleanColab -> java.lang.NullPointerException",
+                    msgProgress = "Error CleanColab -> Failure Datasource CleanColab -> java.lang.NullPointerException",
                     currentProgress = 1f,
                 )
             )
@@ -565,7 +583,10 @@ class ConfigViewModelTest {
             recoverColabServer()
         ).thenReturn(
             Result.failure(
-                UsecaseException(cause = NullPointerException())
+                UsecaseException(
+                    function = "RecoverColabServer",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -614,8 +635,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error RecoverColabServer -> Failure Usecase -> java.lang.NullPointerException",
-                msgProgress = "Error RecoverColabServer -> Failure Usecase -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error RecoverColabServer -> Failure Usecase RecoverColabServer -> java.lang.NullPointerException",
+                msgProgress = "Error RecoverColabServer -> Failure Usecase RecoverColabServer -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -637,7 +659,10 @@ class ConfigViewModelTest {
             saveAllColab(colabList)
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "SaveAllColab",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -694,8 +719,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error SaveAllColab -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error SaveAllColab -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Error SaveAllColab -> Failure Datasource SaveAllColab -> java.lang.Exception",
+                msgProgress = "Error SaveAllColab -> Failure Datasource SaveAllColab -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -709,7 +735,10 @@ class ConfigViewModelTest {
             cleanEquip()
         ).thenReturn(
             Result.failure(
-                UsecaseException(cause = NullPointerException())
+                UsecaseException(
+                    function = "CleanEquip",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -774,15 +803,16 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error CleanEquip -> Failure Usecase -> java.lang.NullPointerException",
-                msgProgress = "Error CleanEquip -> Failure Usecase -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error CleanEquip -> Failure Usecase CleanEquip -> java.lang.NullPointerException",
+                msgProgress = "Error CleanEquip -> Failure Usecase CleanEquip -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error CleanEquip -> Failure Usecase -> java.lang.NullPointerException"
+            "Error CleanEquip -> Failure Usecase CleanEquip -> java.lang.NullPointerException"
         )
     }
 
@@ -794,7 +824,10 @@ class ConfigViewModelTest {
             cleanEquip()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = NullPointerException())
+                DatasourceException(
+                    function = "CleanEquip",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -835,8 +868,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error CleanEquip -> Failure Datasource -> java.lang.NullPointerException",
-                msgProgress = "Error CleanEquip -> Failure Datasource -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error CleanEquip -> Failure Datasource CleanEquip -> java.lang.NullPointerException",
+                msgProgress = "Error CleanEquip -> Failure Datasource CleanEquip -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -853,7 +887,10 @@ class ConfigViewModelTest {
             recoverEquipServer()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "RecoverEquipServer",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -900,8 +937,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error RecoverEquipServer -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error RecoverEquipServer -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Error RecoverEquipServer -> Failure Datasource RecoverEquipServer -> java.lang.Exception",
+                msgProgress = "Error RecoverEquipServer -> Failure Datasource RecoverEquipServer -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -923,7 +961,10 @@ class ConfigViewModelTest {
             saveAllEquip(equipList)
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "SaveAllEquip",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -978,8 +1019,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error SaveAllEquip -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error SaveAllEquip -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Error SaveAllEquip -> Failure Datasource SaveAllEquip -> java.lang.Exception",
+                msgProgress = "Error SaveAllEquip -> Failure Datasource SaveAllEquip -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -993,7 +1035,10 @@ class ConfigViewModelTest {
             cleanLocal()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = NullPointerException())
+                DatasourceException(
+                    function = "CleanLocal",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1034,8 +1079,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error CleanLocal -> Failure Datasource -> java.lang.NullPointerException",
-                msgProgress = "Error CleanLocal -> Failure Datasource -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error CleanLocal -> Failure Datasource CleanLocal -> java.lang.NullPointerException",
+                msgProgress = "Error CleanLocal -> Failure Datasource CleanLocal -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -1052,7 +1098,10 @@ class ConfigViewModelTest {
             recoverLocalServer()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "RecoverLocalServer",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1099,8 +1148,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error RecoverLocalServer -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error RecoverLocalServer -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Error RecoverLocalServer -> Failure Datasource RecoverLocalServer -> java.lang.Exception",
+                msgProgress = "Error RecoverLocalServer -> Failure Datasource RecoverLocalServer -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1122,7 +1172,10 @@ class ConfigViewModelTest {
             saveAllLocal(localList)
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "SaveAllLocal",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1177,8 +1230,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error SaveAllLocal -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error SaveAllLocal -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Error SaveAllLocal -> Failure Datasource SaveAllLocal -> java.lang.Exception",
+                msgProgress = "Error SaveAllLocal -> Failure Datasource SaveAllLocal -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1192,7 +1246,10 @@ class ConfigViewModelTest {
             cleanTerceiro()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = NullPointerException())
+                DatasourceException(
+                    function = "CleanTerceiro",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1231,8 +1288,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error CleanTerceiro -> Failure Datasource -> java.lang.NullPointerException",
-                msgProgress = "Error CleanTerceiro -> Failure Datasource -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error CleanTerceiro -> Failure Datasource CleanTerceiro -> java.lang.NullPointerException",
+                msgProgress = "Error CleanTerceiro -> Failure Datasource CleanTerceiro -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -1249,7 +1307,10 @@ class ConfigViewModelTest {
             recoverTerceiroServer()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "RecoverTerceiroServer",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1298,8 +1359,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error RecoverTerceiroServer -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error RecoverTerceiroServer -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Error RecoverTerceiroServer -> Failure Datasource RecoverTerceiroServer -> java.lang.Exception",
+                msgProgress = "Error RecoverTerceiroServer -> Failure Datasource RecoverTerceiroServer -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1321,7 +1383,10 @@ class ConfigViewModelTest {
             saveAllTerceiro(terceiroList)
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "SaveAllTerceiro",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1376,8 +1441,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error SaveAllTerceiro -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error SaveAllTerceiro -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Error SaveAllTerceiro -> Failure Datasource SaveAllTerceiro -> java.lang.Exception",
+                msgProgress = "Error SaveAllTerceiro -> Failure Datasource SaveAllTerceiro -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1391,7 +1457,10 @@ class ConfigViewModelTest {
             cleanVisitante()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = NullPointerException())
+                DatasourceException(
+                    function = "CleanVisitante",
+                    cause = NullPointerException()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1430,8 +1499,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error CleanVisitante -> Failure Datasource -> java.lang.NullPointerException",
-                msgProgress = "Error CleanVisitante -> Failure Datasource -> java.lang.NullPointerException",
+                flagFailure = true,
+                failure = "Error CleanVisitante -> Failure Datasource CleanVisitante -> java.lang.NullPointerException",
+                msgProgress = "Error CleanVisitante -> Failure Datasource CleanVisitante -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )

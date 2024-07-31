@@ -29,7 +29,7 @@ class ConfigNavigTest {
     }
 
     @Test
-    fun verify_onStartDestinationIsConfigScreen() {
+    fun verify_click_button_cancel_return_menu_initial_screen() {
         composeTestRule.onNodeWithText("CANCELAR")
             .performClick()
         val route = navController.currentBackStackEntry?.destination?.route

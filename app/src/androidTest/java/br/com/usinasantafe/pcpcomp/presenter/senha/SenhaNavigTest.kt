@@ -29,7 +29,7 @@ class SenhaNavigTest {
     }
 
     @Test
-    fun verify_onClickButtonCancelar_toDestinationMenuInicialScreen() {
+    fun verify_click_button_cancel_to_menu_initial_screen() {
         composeTestRule.onNodeWithText("CANCELAR")
             .performClick()
         val route = navController.currentBackStackEntry?.destination?.route

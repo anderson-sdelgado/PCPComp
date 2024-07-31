@@ -12,3 +12,4 @@ enum class TypeAddOcupante { ADDMOTORISTA, ADDPASSAGEIRO, CHANGEMOTORISTA, CHANG
 enum class TypeVisitTerc { VISITANTE, TERCEIRO }
 enum class FlowApp { ADD, CHANGE }
 enum class Errors { FIELDEMPTY, TOKEN, UPDATE, EXCEPTION }
+enum class TypeButton { NUMERIC, CLEAN, OK, UPDATE }

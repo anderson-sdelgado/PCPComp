@@ -34,7 +34,7 @@ class SetCheckUpdateAllTableImplTest {
         )
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.getConfig()).thenReturn(Result.success(config))
-        whenever(configRepository.save(config)).thenReturn(Result.failure((DatasourceException(cause = Exception()))))
+        whenever(configRepository.save(config)).thenReturn(Result.failure(DatasourceException(cause = Exception())))
         val usecase = SetCheckUpdateAllTableImpl(configRepository)
         val result = usecase(FlagUpdate.UPDATED)
         assertEquals(result.isFailure, true)

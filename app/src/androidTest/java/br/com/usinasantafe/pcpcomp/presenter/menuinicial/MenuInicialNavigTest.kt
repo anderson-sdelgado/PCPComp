@@ -30,7 +30,7 @@ class MenuInicialNavigTest {
     }
 
     @Test
-    fun verify_onClickItemConfiguracao_toDestinationSenhaScreen() {
+    fun verify_onClickItemConfig_toDestinationPasswordScreen() {
         composeTestRule.onNodeWithText("CONFIGURAÇÃO")
             .performClick()
         val route = navController.currentBackStackEntry?.destination?.route

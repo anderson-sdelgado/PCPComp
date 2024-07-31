@@ -18,7 +18,12 @@ class EquipRepositoryImpl(
             val equipModelList = list.map { it.toEquipModel() }
             return equipRoomDatasource.addAll(equipModelList)
         } catch (e: Exception){
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "EquipRepositoryImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -35,7 +40,12 @@ class EquipRepositoryImpl(
             val equipModelList = result.map { it.toEquip() }
             return Result.success(equipModelList)
         } catch (e: Exception) {
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "EquipRepositoryImpl.recoverAll",
+                    cause = e
+                )
+            )
         }
     }
 }

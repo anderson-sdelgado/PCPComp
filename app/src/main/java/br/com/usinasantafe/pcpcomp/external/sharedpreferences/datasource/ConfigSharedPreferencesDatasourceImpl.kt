@@ -16,7 +16,12 @@ class ConfigSharedPreferencesDatasourceImpl(
             val result = sharedPreferences.getString(BASE_SHARE_PREFERENCES_TABLE_CONFIG, null)
             return Result.success(result != null)
         } catch (e: Exception){
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "ConfigSharedPreferencesDatasourceImpl.hasConfig",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -27,7 +32,12 @@ class ConfigSharedPreferencesDatasourceImpl(
                 return Result.success(Config())
             return Result.success(Gson().fromJson(config, Config::class.java))
         } catch (e: Exception){
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "ConfigSharedPreferencesDatasourceImpl.getConfig",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -38,7 +48,12 @@ class ConfigSharedPreferencesDatasourceImpl(
             editor.commit()
             return Result.success(true)
         } catch (e: Exception){
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "ConfigSharedPreferencesDatasourceImpl.saveConfig",
+                    cause = e
+                )
+            )
         }
     }
 }

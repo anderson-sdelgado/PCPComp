@@ -2,12 +2,17 @@ package br.com.usinasantafe.pcpcomp.di
 
 import br.com.usinasantafe.pcpcomp.presenter.senha.SenhaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.config.ConfigViewModel
+import br.com.usinasantafe.pcpcomp.presenter.menuinicial.MenuInicialViewModel
+import br.com.usinasantafe.pcpcomp.presenter.matricvigia.MatricVigiaViewModel
+import br.com.usinasantafe.pcpcomp.presenter.nomevigia.NomeVigiaViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.*
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.*
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.initial.*
 import br.com.usinasantafe.pcpcomp.infra.repositories.variable.*
 import br.com.usinasantafe.pcpcomp.infra.repositories.stable.*
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.*
@@ -33,8 +38,11 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val viewModelModule = module {
+    viewModelOf(::MenuInicialViewModel)
     viewModelOf(::SenhaViewModel)
     viewModelOf(::ConfigViewModel)
+    viewModelOf(::MatricVigiaViewModel)
+    viewModelOf(::NomeVigiaViewModel)
 }
 
 val usecaseModule = module {
@@ -44,6 +52,7 @@ val usecaseModule = module {
     singleOf(::SendDataConfigImpl) { bind<SendDataConfig>() }
     singleOf(::SaveDataConfigImpl) { bind<SaveDataConfig>() }
     singleOf(::SetCheckUpdateAllTableImpl) { bind<SetCheckUpdateAllTable>() }
+    singleOf(::SetMatricVigiaConfigImpl) { bind<SetMatricVigiaConfig>() }
 
     singleOf(::CleanColabImpl) { bind<CleanColab>() }
     singleOf(::CleanEquipImpl) { bind<CleanEquip>() }
@@ -62,6 +71,11 @@ val usecaseModule = module {
     singleOf(::SaveAllLocalImpl) { bind<SaveAllLocal>() }
     singleOf(::SaveAllTerceiroImpl) { bind<SaveAllTerceiro>() }
     singleOf(::SaveAllVisitanteImpl) { bind<SaveAllVisitante>() }
+
+    singleOf(::CheckAccessMainImpl) { bind<CheckAccessMain>() }
+    singleOf(::RecoverNomeVigiaImpl) { bind<RecoverNomeVigia>() }
+
+    singleOf(::CheckMatricColabImpl) { bind<CheckMatricColab>() }
 
 }
 

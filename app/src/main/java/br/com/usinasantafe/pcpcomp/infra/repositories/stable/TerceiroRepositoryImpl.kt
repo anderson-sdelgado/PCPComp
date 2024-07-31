@@ -18,7 +18,12 @@ class TerceiroRepositoryImpl(
             val terceiroModelList = list.map { it.toTerceiroModel() }
             return terceiroRoomDatasource.addAll(terceiroModelList)
         } catch (e: Exception){
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "TerceiroRepositoryImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -35,7 +40,12 @@ class TerceiroRepositoryImpl(
             val terceiroModelList = result.map { it.toTerceiro() }
             return Result.success(terceiroModelList)
         } catch (e: Exception) {
-            return Result.failure(RepositoryException(cause = e))
+            return Result.failure(
+                RepositoryException(
+                    function = "TerceiroRepositoryImpl.recoverAll",
+                    cause = e
+                )
+            )
         }
     }
 

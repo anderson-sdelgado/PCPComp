@@ -7,9 +7,16 @@ object Screens {
     const val SENHA = "senha"
     const val CONFIG = "config"
     const val MATRIC_VIGIA = "matricvigia"
+    const val SPLASH = "splash"
+    const val NOME_VIGIA = "nomevigia"
+    const val LOCAL = "local"
 }
 
 class NavigationActions(private val navController: NavHostController) {
+
+    fun navigationToSplash() {
+        navController.navigate(Screens.SPLASH)
+    }
 
     fun navigationToSenha(){
         navController.navigate(Screens.SENHA)
@@ -21,6 +28,18 @@ class NavigationActions(private val navController: NavHostController) {
 
     fun navigationToConfig(){
         navController.navigate(Screens.CONFIG)
+    }
+
+    fun navigationToMatricVigia(){
+        navController.navigate(Screens.MATRIC_VIGIA)
+    }
+
+    fun navigationToNomeVigia(){
+        navController.navigate(Screens.NOME_VIGIA)
+    }
+
+    fun navigationToLocal(){
+        navController.navigate(Screens.LOCAL)
     }
 
 }

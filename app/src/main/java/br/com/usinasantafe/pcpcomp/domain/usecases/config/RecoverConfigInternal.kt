@@ -18,14 +18,25 @@ class RecoverConfigInternalImpl(
             val checkHasConfig = configRepository.hasConfig()
             if(checkHasConfig.isFailure)
                 return Result.failure(checkHasConfig.exceptionOrNull()!!)
+
             if (!checkHasConfig.getOrNull()!!)
                 return Result.success(null)
+
             val config = configRepository.getConfig()
             if(config.isFailure)
                 return Result.failure(config.exceptionOrNull()!!)
+
             return Result.success(config.getOrNull()!!.toConfigModel())
+
         } catch (e: Exception) {
-            return Result.failure(UsecaseException(cause = e))
+
+            return Result.failure(
+                UsecaseException(
+                    function = "RecoverConfigInternal",
+                    cause = e
+                )
+            )
+
         }
 
     }

@@ -46,11 +46,6 @@ class SenhaScreenTest: KoinTest {
     @Test
     fun verify_password_null() = runTest {
 
-        val server = MockWebServer()
-        server.start()
-        server.enqueue(MockResponse().setBody("""{"idBD":1}"""))
-        loadKoinModules(generateTestAppComponent(server.url("").toString()))
-
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
         configSharedPreferences.saveConfig(Config(password = "12345"))
 
@@ -65,11 +60,6 @@ class SenhaScreenTest: KoinTest {
 
     @Test
     fun verify_password_incorrect() = runTest {
-
-        val server = MockWebServer()
-        server.start()
-        server.enqueue(MockResponse().setBody("""{"idBD":1}"""))
-        loadKoinModules(generateTestAppComponent(server.url("").toString()))
 
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
         configSharedPreferences.saveConfig(Config(password = "12345"))

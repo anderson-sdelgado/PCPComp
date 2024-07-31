@@ -29,7 +29,12 @@ class SendDataConfigImpl (
             )
             return configRepository.send(config)
         } catch (e: Exception){
-            return Result.failure(UsecaseException(cause = e))
+            return Result.failure(
+                UsecaseException(
+                    function = "SendDataConfig",
+                    cause = e
+                )
+            )
         }
     }
 

@@ -17,10 +17,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,6 +51,7 @@ fun ConfigScreen(
                 onPasswordChanged = viewModel::updatePassword,
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
+                flagFailure = uiState.flagFailure,
                 errors = uiState.errors,
                 failure = uiState.failure,
                 flagProgress = uiState.flagProgress,
@@ -73,7 +74,8 @@ fun ConfigContent(
     onPasswordChanged: (String) -> Unit,
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
-    errors: Errors?,
+    flagFailure: Boolean,
+    errors: Errors,
     failure: String,
     msgProgress: String,
     currentProgress: Float,
@@ -94,6 +96,7 @@ fun ConfigContent(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             ),
+            textStyle = TextStyle(textAlign = TextAlign.Right),
             value = number,
             onValueChange = onNumberChanged,
             modifier = Modifier
@@ -115,14 +118,14 @@ fun ConfigContent(
             modifier = Modifier.fillMaxWidth(),
 
         ) {
-            TextButtonDesign(text = stringResource(id = R.string.texto_padrao_salvar_atualizar))
+            TextButtonDesign(text = stringResource(id = R.string.text_pattern_save_update))
         }
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         Button(
             onClick = onNavMenuInicial,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            TextButtonDesign(text = stringResource(id = R.string.texto_padrao_cancelar))
+            TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
         }
         if (flagProgress) {
             Spacer(modifier = Modifier.padding(vertical = 16.dp))
@@ -142,11 +145,11 @@ fun ConfigContent(
         }
 
         if(flagDialog) {
-            if(errors != null){
+            if(flagFailure){
                 val text = when(errors){
-                    Errors.FIELDEMPTY -> stringResource(id = R.string.texto_campo_vazio_config)
-                    Errors.TOKEN -> stringResource(id = R.string.texto_recuperacao_token, failure)
-                    Errors.UPDATE -> stringResource(id = R.string.texto_update_failure, failure)
+                    Errors.FIELDEMPTY -> stringResource(id = R.string.text_field_empty_config)
+                    Errors.TOKEN -> stringResource(id = R.string.text_recover_token, failure)
+                    Errors.UPDATE -> stringResource(id = R.string.text_update_failure, failure)
                     Errors.EXCEPTION -> failure
                 }
                 AlertDialogSimpleDesign(
@@ -155,7 +158,7 @@ fun ConfigContent(
                 )
             } else {
                 AlertDialogSimpleDesign(
-                    text = stringResource(id = R.string.texto_config_success),
+                    text = stringResource(id = R.string.text_config_success),
                     setCloseDialog = setCloseDialog,
                     setActionButtonOK = onNavMenuInicial,
                 )
@@ -177,7 +180,8 @@ fun ConfigPagePreviewProgress() {
                 onPasswordChanged = {},
                 flagDialog = false,
                 setCloseDialog = {},
-                errors = null,
+                flagFailure = false,
+                errors = Errors.FIELDEMPTY,
                 failure = "",
                 flagProgress = true,
                 msgProgress = "Enviando Dados de Token",
@@ -195,13 +199,14 @@ fun ConfigPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             ConfigContent(
-                number = "",
+                number = "16997417840",
                 onNumberChanged = {},
-                password = "",
+                password = "12345",
                 onPasswordChanged = {},
                 flagDialog = false,
                 setCloseDialog = {},
-                errors = null,
+                flagFailure = false,
+                errors = Errors.FIELDEMPTY,
                 failure = "",
                 flagProgress = false,
                 msgProgress = "",
@@ -226,6 +231,7 @@ fun ConfigPagePreviewDialogOpenFieldEmpty() {
                 onPasswordChanged = {},
                 flagDialog = true,
                 setCloseDialog = {},
+                flagFailure = true,
                 errors = Errors.FIELDEMPTY,
                 failure = "",
                 flagProgress = false,
@@ -251,6 +257,7 @@ fun ConfigPagePreviewDialogOpenFailureToken() {
                 onPasswordChanged = {},
                 flagDialog = true,
                 setCloseDialog = {},
+                flagFailure = true,
                 errors = Errors.TOKEN,
                 failure = "Failure Usecase",
                 flagProgress = false,
@@ -276,6 +283,7 @@ fun ConfigPagePreviewDialogOpenFailureUpdate() {
                 onPasswordChanged = {},
                 flagDialog = true,
                 setCloseDialog = {},
+                flagFailure = true,
                 errors = Errors.UPDATE,
                 failure = "Failure Usecase",
                 flagProgress = false,

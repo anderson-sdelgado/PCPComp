@@ -31,7 +31,12 @@ class RecoverLocalServerImpl(
                 return Result.failure(recoverAll.exceptionOrNull()!!)
             return Result.success(recoverAll.getOrNull()!!)
         } catch (e: Exception) {
-            return Result.failure(UsecaseException(cause = e))
+            return Result.failure(
+                UsecaseException(
+                    function = "RecoverLocalServer",
+                    cause = e
+                )
+            )
         }
     }
 

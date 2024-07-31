@@ -14,7 +14,12 @@ class TerceiroRoomDatasourceImpl(
             terceiroDao.insertAll(list)
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "TerceiroRoomDatasourceImpl.addAll",
+                    cause = e
+                )
+            )
         }
     }
 
@@ -23,7 +28,12 @@ class TerceiroRoomDatasourceImpl(
             terceiroDao.deleteAll()
             return Result.success(true)
         } catch (e: Exception) {
-            return Result.failure(DatasourceException(cause = e))
+            return Result.failure(
+                DatasourceException(
+                    function = "TerceiroRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
         }
     }
 }
