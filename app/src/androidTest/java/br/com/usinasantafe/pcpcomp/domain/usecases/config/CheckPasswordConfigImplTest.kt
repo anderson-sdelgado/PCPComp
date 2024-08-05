@@ -11,6 +11,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class CheckPasswordConfigImplTest: KoinTest {
 
@@ -27,7 +28,7 @@ class CheckPasswordConfigImplTest: KoinTest {
     @Test
     fun verify_return_true_if_dont_data_config() = runTest {
         val result = usecase("12345")
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, true)
     }
 
@@ -35,7 +36,7 @@ class CheckPasswordConfigImplTest: KoinTest {
     fun verify_return_false_if_password_typed_incorrect() = runTest {
         configSharedPreferences.saveConfig(Config(password = "12345"))
         val result = usecase("123456")
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)
     }
 
@@ -43,7 +44,7 @@ class CheckPasswordConfigImplTest: KoinTest {
     fun verify_return_true_if_password_typed_correct() = runTest {
         configSharedPreferences.saveConfig(Config(password = "12345"))
         val result = usecase("12345")
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, true)
     }
 }

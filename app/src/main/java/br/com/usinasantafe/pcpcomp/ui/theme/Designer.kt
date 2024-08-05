@@ -1,22 +1,31 @@
 package br.com.usinasantafe.pcpcomp.ui.theme
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import br.com.usinasantafe.pcpcomp.utils.TypeButton
+import androidx.compose.ui.window.Dialog
 
 
 @Composable
@@ -50,6 +59,19 @@ fun TitleListDesign(text: String) {
 }
 
 @Composable
+fun TitleListWithDetailDesign(text: String) {
+    return Text(
+        textAlign = TextAlign.Center,
+        text = text,
+        fontWeight = FontWeight.Bold,
+        fontSize = 28.sp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    )
+}
+
+@Composable
 fun TitleDesign(text: String) {
     return Text(
         text = text,
@@ -73,6 +95,19 @@ fun TextButtonDesign(text: String) {
     )
 }
 
+@Composable
+fun TextSmallDesign(text: String) {
+    return Text(
+        text = text,
+        color = Color.White,
+        fontWeight = FontWeight.Bold,
+        fontSize = 12.sp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Black),
+    )
+}
+
 const val BUTTON_OK_ALERT_DIALOG_SIMPLE = "button_ok_alert_dialog_simple"
 
 @Composable
@@ -82,7 +117,10 @@ fun AlertDialogSimpleDesign(
 ) {
     return AlertDialog(
         title = {
-            Text(text = "ATENÇÃO")
+            Text(
+                text = "ATENÇÃO",
+                textAlign = TextAlign.Center
+            )
         },
         text = {
             Text(
@@ -110,7 +148,10 @@ fun AlertDialogSimpleDesign(
 ) {
     return AlertDialog(
         title = {
-            Text(text = "ATENÇÃO")
+            Text(
+                text = "ATENÇÃO",
+                textAlign = TextAlign.Center
+            )
         },
         text = {
             Text(
@@ -128,6 +169,44 @@ fun AlertDialogSimpleDesign(
             }
         },
     )
+}
+
+@Composable
+fun AlertDialogProgressDesign(
+    currentProgress: Float,
+    msgProgress: String,
+) {
+    return Dialog(
+        onDismissRequest = {}
+    ) {
+        Card {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = "ATENÇÃO",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.padding(vertical = 4.dp))
+                LinearProgressIndicator(
+                    progress = { currentProgress },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(30.dp),
+                )
+                Spacer(modifier = Modifier.padding(vertical = 4.dp))
+                Text(
+                    text = msgProgress,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
+        }
+    }
 }
 
 @Composable

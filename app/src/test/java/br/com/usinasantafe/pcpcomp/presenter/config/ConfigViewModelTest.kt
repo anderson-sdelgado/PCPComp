@@ -197,6 +197,7 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16dfda")
         viewModel.updatePassword("12345")
+        viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 2)
         assertEquals(
@@ -213,15 +214,15 @@ class ConfigViewModelTest {
                 errors = Errors.TOKEN,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error SendDataConfig -> Failure Usecase SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\"",
-                msgProgress = "Error SendDataConfig -> Failure Usecase SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\"",
+                failure = "Failure Usecase -> SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\"",
+                msgProgress = "Failure Usecase -> SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\"",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error SendDataConfig -> Failure Usecase SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\""
+            "Failure Usecase -> SendDataConfig -> java.lang.NumberFormatException: For input string: \"1df52\""
         )
     }
 
@@ -264,6 +265,7 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
+        viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 2)
         assertEquals(
@@ -280,15 +282,15 @@ class ConfigViewModelTest {
                 errors = Errors.TOKEN,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error SendDataConfig -> Failure Datasource SendDataConfig -> java.lang.NullPointerException",
-                msgProgress = "Error SendDataConfig -> Failure Datasource SendDataConfig -> java.lang.NullPointerException",
+                failure = "Failure Datasource -> SendDataConfig -> java.lang.NullPointerException",
+                msgProgress = "Failure Datasource -> SendDataConfig -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error SendDataConfig -> Failure Datasource SendDataConfig -> java.lang.NullPointerException"
+            "Failure Datasource -> SendDataConfig -> java.lang.NullPointerException"
         )
     }
 
@@ -341,6 +343,7 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
+        viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 3)
         assertEquals(
@@ -365,15 +368,15 @@ class ConfigViewModelTest {
                 errors = Errors.TOKEN,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error SaveDataConfig -> Failure Usecase SaveDataConfig -> java.lang.NullPointerException",
-                msgProgress = "Error SaveDataConfig -> Failure Usecase SaveDataConfig -> java.lang.NullPointerException",
+                failure = "Failure Usecase -> SaveDataConfig -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> SaveDataConfig -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error SaveDataConfig -> Failure Usecase SaveDataConfig -> java.lang.NullPointerException"
+            "Failure Usecase -> SaveDataConfig -> java.lang.NullPointerException"
         )
     }
 
@@ -421,6 +424,7 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
+        viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 3)
         assertEquals(
@@ -485,6 +489,7 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
+        viewModel.updateVersion("6.00")
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 2)
         assertEquals(
@@ -501,15 +506,15 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error CleanColab -> Failure Usecase CleanColab -> java.lang.NullPointerException",
-                msgProgress = "Error CleanColab -> Failure Usecase CleanColab -> java.lang.NullPointerException",
+                failure = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error CleanColab -> Failure Usecase CleanColab -> java.lang.NullPointerException"
+            "Failure Usecase -> CleanColab -> java.lang.NullPointerException"
         )
     }
 
@@ -556,7 +561,7 @@ class ConfigViewModelTest {
                 ConfigState(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_colab",
-                    currentProgress = porc(1f, sizeAll)
+                    currentProgress = porc(1f, sizeUpdateConfig)
                 )
             )
             assertEquals(
@@ -565,8 +570,8 @@ class ConfigViewModelTest {
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     flagFailure = true,
-                    failure = "Error CleanColab -> Failure Datasource CleanColab -> java.lang.NullPointerException",
-                    msgProgress = "Error CleanColab -> Failure Datasource CleanColab -> java.lang.NullPointerException",
+                    failure = "Failure Datasource -> CleanColab -> java.lang.NullPointerException",
+                    msgProgress = "Failure Datasource -> CleanColab -> java.lang.NullPointerException",
                     currentProgress = 1f,
                 )
             )
@@ -619,7 +624,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = porc(1f, sizeAll)
+                currentProgress = porc(1f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -627,7 +632,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-                currentProgress = porc(2f , sizeAll),
+                currentProgress = porc(2f , sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -636,8 +641,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error RecoverColabServer -> Failure Usecase RecoverColabServer -> java.lang.NullPointerException",
-                msgProgress = "Error RecoverColabServer -> Failure Usecase RecoverColabServer -> java.lang.NullPointerException",
+                failure = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -695,7 +700,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = porc(1f, sizeAll)
+                currentProgress = porc(1f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -703,7 +708,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-                currentProgress = porc(2f ,sizeAll),
+                currentProgress = porc(2f ,sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -711,7 +716,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_colab",
-                currentProgress = porc(3f, sizeAll),
+                currentProgress = porc(3f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -720,8 +725,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error SaveAllColab -> Failure Datasource SaveAllColab -> java.lang.Exception",
-                msgProgress = "Error SaveAllColab -> Failure Datasource SaveAllColab -> java.lang.Exception",
+                failure = "Failure Datasource -> SaveAllColab -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> SaveAllColab -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -764,6 +769,7 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
+        viewModel.updateVersion("6.00")
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 5)
         assertEquals(
@@ -771,7 +777,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = porc(1f, sizeAll)
+                currentProgress = porc(1f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -779,7 +785,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-                currentProgress = porc(2f , sizeAll),
+                currentProgress = porc(2f , sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -787,7 +793,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_colab",
-                currentProgress = porc(3f, sizeAll),
+                currentProgress = porc(3f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -795,7 +801,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_equip",
-                currentProgress = porc(4f, sizeAll)
+                currentProgress = porc(4f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -804,15 +810,15 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error CleanEquip -> Failure Usecase CleanEquip -> java.lang.NullPointerException",
-                msgProgress = "Error CleanEquip -> Failure Usecase CleanEquip -> java.lang.NullPointerException",
+                failure = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
             viewModel.uiState.value.msgProgress,
-            "Error CleanEquip -> Failure Usecase CleanEquip -> java.lang.NullPointerException"
+            "Failure Usecase -> CleanEquip -> java.lang.NullPointerException"
         )
     }
 
@@ -853,14 +859,14 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
-        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 2)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_equip",
-                currentProgress = porc(4f, sizeAll)
+                currentProgress = porc(4f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -869,8 +875,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error CleanEquip -> Failure Datasource CleanEquip -> java.lang.NullPointerException",
-                msgProgress = "Error CleanEquip -> Failure Datasource CleanEquip -> java.lang.NullPointerException",
+                failure = "Failure Datasource -> CleanEquip -> java.lang.NullPointerException",
+                msgProgress = "Failure Datasource -> CleanEquip -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -914,14 +920,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 3)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_equip",
-                currentProgress = porc(4f, sizeAll)
+                currentProgress = porc(4f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -929,7 +935,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
-                currentProgress = porc(5f, sizeAll),
+                currentProgress = porc(5f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -938,8 +944,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error RecoverEquipServer -> Failure Datasource RecoverEquipServer -> java.lang.Exception",
-                msgProgress = "Error RecoverEquipServer -> Failure Datasource RecoverEquipServer -> java.lang.Exception",
+                failure = "Failure Datasource -> RecoverEquipServer -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> RecoverEquipServer -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -988,14 +994,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 4)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_equip",
-                currentProgress = porc(4f, sizeAll)
+                currentProgress = porc(4f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1003,7 +1009,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
-                currentProgress = porc(5f, sizeAll),
+                currentProgress = porc(5f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1011,7 +1017,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_equip",
-                currentProgress = porc(6f, sizeAll),
+                currentProgress = porc(6f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1020,8 +1026,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error SaveAllEquip -> Failure Datasource SaveAllEquip -> java.lang.Exception",
-                msgProgress = "Error SaveAllEquip -> Failure Datasource SaveAllEquip -> java.lang.Exception",
+                failure = "Failure Datasource -> SaveAllEquip -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> SaveAllEquip -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1064,14 +1070,14 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
-        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 2)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_local",
-                currentProgress = porc(7f, sizeAll)
+                currentProgress = porc(7f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1080,8 +1086,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error CleanLocal -> Failure Datasource CleanLocal -> java.lang.NullPointerException",
-                msgProgress = "Error CleanLocal -> Failure Datasource CleanLocal -> java.lang.NullPointerException",
+                failure = "Failure Datasource -> CleanLocal -> java.lang.NullPointerException",
+                msgProgress = "Failure Datasource -> CleanLocal -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -1125,14 +1131,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 3)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_local",
-                currentProgress = porc(7f, sizeAll)
+                currentProgress = porc(7f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1140,7 +1146,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_local do Web Service",
-                currentProgress = porc(8f, sizeAll),
+                currentProgress = porc(8f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1149,8 +1155,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error RecoverLocalServer -> Failure Datasource RecoverLocalServer -> java.lang.Exception",
-                msgProgress = "Error RecoverLocalServer -> Failure Datasource RecoverLocalServer -> java.lang.Exception",
+                failure = "Failure Datasource -> RecoverLocalServer -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> RecoverLocalServer -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1199,14 +1205,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 4)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_local",
-                currentProgress = porc(7f, sizeAll)
+                currentProgress = porc(7f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1214,7 +1220,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_local do Web Service",
-                currentProgress = porc(8f, sizeAll),
+                currentProgress = porc(8f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1222,7 +1228,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_local",
-                currentProgress = porc(9f, sizeAll),
+                currentProgress = porc(9f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1231,8 +1237,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error SaveAllLocal -> Failure Datasource SaveAllLocal -> java.lang.Exception",
-                msgProgress = "Error SaveAllLocal -> Failure Datasource SaveAllLocal -> java.lang.Exception",
+                failure = "Failure Datasource -> SaveAllLocal -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> SaveAllLocal -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1273,14 +1279,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 2)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_terceiro",
-                currentProgress = porc(10f, sizeAll)
+                currentProgress = porc(10f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1289,8 +1295,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error CleanTerceiro -> Failure Datasource CleanTerceiro -> java.lang.NullPointerException",
-                msgProgress = "Error CleanTerceiro -> Failure Datasource CleanTerceiro -> java.lang.NullPointerException",
+                failure = "Failure Datasource -> CleanTerceiro -> java.lang.NullPointerException",
+                msgProgress = "Failure Datasource -> CleanTerceiro -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -1336,14 +1342,14 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
-        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 3)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_terceiro",
-                currentProgress = porc(10f, sizeAll)
+                currentProgress = porc(10f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1351,7 +1357,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
-                currentProgress = porc(11f, sizeAll),
+                currentProgress = porc(11f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1360,8 +1366,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error RecoverTerceiroServer -> Failure Datasource RecoverTerceiroServer -> java.lang.Exception",
-                msgProgress = "Error RecoverTerceiroServer -> Failure Datasource RecoverTerceiroServer -> java.lang.Exception",
+                failure = "Failure Datasource -> RecoverTerceiroServer -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> RecoverTerceiroServer -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1410,14 +1416,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 4)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_terceiro",
-                currentProgress = porc(10f, sizeAll)
+                currentProgress = porc(10f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1425,7 +1431,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
-                currentProgress = porc(11f, sizeAll),
+                currentProgress = porc(11f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1433,7 +1439,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_terceiro",
-                currentProgress = porc(12f, sizeAll),
+                currentProgress = porc(12f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1442,8 +1448,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error SaveAllTerceiro -> Failure Datasource SaveAllTerceiro -> java.lang.Exception",
-                msgProgress = "Error SaveAllTerceiro -> Failure Datasource SaveAllTerceiro -> java.lang.Exception",
+                failure = "Failure Datasource -> SaveAllTerceiro -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> SaveAllTerceiro -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1484,14 +1490,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 2)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = porc(13f, sizeAll)
+                currentProgress = porc(13f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1500,8 +1506,8 @@ class ConfigViewModelTest {
                 errors = Errors.UPDATE,
                 flagDialog = true,
                 flagFailure = true,
-                failure = "Error CleanVisitante -> Failure Datasource CleanVisitante -> java.lang.NullPointerException",
-                msgProgress = "Error CleanVisitante -> Failure Datasource CleanVisitante -> java.lang.NullPointerException",
+                failure = "Failure Datasource -> CleanVisitante -> java.lang.NullPointerException",
+                msgProgress = "Failure Datasource -> CleanVisitante -> java.lang.NullPointerException",
                 currentProgress = 1f,
             )
         )
@@ -1518,7 +1524,10 @@ class ConfigViewModelTest {
             recoverVisitanteServer()
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "RecoverVisitanteServer",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1542,14 +1551,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 3)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = porc(13f, sizeAll)
+                currentProgress = porc(13f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1557,7 +1566,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
-                currentProgress = porc(14f, sizeAll),
+                currentProgress = porc(14f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1565,8 +1574,9 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error RecoverVisitanteServer -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error RecoverVisitanteServer -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Failure Datasource -> RecoverVisitanteServer -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> RecoverVisitanteServer -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
@@ -1588,7 +1598,10 @@ class ConfigViewModelTest {
             saveAllVisitante(visitanteList)
         ).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "SaveAllVisitante",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1612,14 +1625,14 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeAll).toList()
+        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 4)
         assertEquals(
             result[0],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = porc(13f, sizeAll)
+                currentProgress = porc(13f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1627,7 +1640,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
-                currentProgress = porc(14f, sizeAll),
+                currentProgress = porc(14f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1635,7 +1648,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_visitante",
-                currentProgress = porc(15f, sizeAll),
+                currentProgress = porc(15f, sizeUpdateConfig),
             )
         )
         assertEquals(
@@ -1643,15 +1656,16 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
-                failure = "Error SaveAllVisitante -> Failure Datasource -> java.lang.Exception",
-                msgProgress = "Error SaveAllVisitante -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Failure Datasource -> SaveAllVisitante -> java.lang.Exception",
+                msgProgress = "Failure Datasource -> SaveAllVisitante -> java.lang.Exception",
                 currentProgress = 1f,
             )
         )
     }
 
     @Test
-    fun `check return failure datasource if have error in datasource DetCheckUpdateAllTable`() = runTest {
+    fun `check return failure datasource if have error in datasource SetCheckUpdateAllTable`() = runTest {
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessLocal()
@@ -1659,7 +1673,10 @@ class ConfigViewModelTest {
         wheneverSuccessVisitante()
         whenever(setCheckUpdateAllTable(FlagUpdate.UPDATED)).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "SetCheckUpdateAllTable",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = ConfigViewModel(
@@ -1690,7 +1707,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = porc(1f, sizeAll)
+                currentProgress = porc(1f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1698,7 +1715,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = porc(13f, sizeAll)
+                currentProgress = porc(13f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1706,7 +1723,8 @@ class ConfigViewModelTest {
             ConfigState(
                 errors = Errors.EXCEPTION,
                 flagDialog = true,
-                failure = "Error SetCheckUpdateAllTable -> Failure Datasource -> java.lang.Exception",
+                flagFailure = true,
+                failure = "Failure Datasource -> SetCheckUpdateAllTable -> java.lang.Exception",
             )
         )
     }
@@ -1749,7 +1767,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = porc(1f, sizeAll)
+                currentProgress = porc(1f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1757,7 +1775,7 @@ class ConfigViewModelTest {
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = porc(13f, sizeAll)
+                currentProgress = porc(13f, sizeUpdateConfig)
             )
         )
         assertEquals(
@@ -1802,6 +1820,7 @@ class ConfigViewModelTest {
         )
         viewModel.updateNumber("16997417840")
         viewModel.updatePassword("12345")
+        viewModel.updateVersion("6.00")
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(viewModel.uiState.value.msgProgress, "Atualização de dados realizado com sucesso!")
     }
@@ -1915,7 +1934,6 @@ class ConfigViewModelTest {
     }
 }
 
-
 val colabList = listOf(
     Colab(
         matricColab = 19759,
@@ -1957,4 +1975,4 @@ val visitanteList = listOf(
     )
 )
 
-val sizeAll = 16f
+val sizeUpdateConfig = 16f

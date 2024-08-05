@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.external.webservices.datasource.stable
 
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.external.webservices.api.stable.LocalApi
 import br.com.usinasantafe.pcpcomp.external.webservices.provideRetrofitTest
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
@@ -22,7 +23,7 @@ class LocalRetrofitDatasourceImplTest {
         val datasource = LocalRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path \$")
     }
 
@@ -36,7 +37,7 @@ class LocalRetrofitDatasourceImplTest {
         val datasource = LocalRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -50,7 +51,16 @@ class LocalRetrofitDatasourceImplTest {
         val datasource = LocalRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isSuccess)
-        assertEquals(result, Result.success(listOf(LocalRoomModel(idLocal = 1, descrLocal = "Usina"))))
+        assertEquals(result,
+            Result.success(
+                listOf(
+                    Local(
+                        idLocal = 1,
+                        descrLocal = "Usina"
+                    )
+                )
+            )
+        )
     }
 
 }

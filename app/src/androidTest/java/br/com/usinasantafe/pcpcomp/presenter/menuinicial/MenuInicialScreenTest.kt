@@ -1,7 +1,9 @@
 package br.com.usinasantafe.pcpcomp.presenter.menuinicial
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
@@ -46,7 +48,8 @@ class MenuInicialScreenTest: KoinTest {
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
         composeTestRule.onNodeWithText("APONTAMENTO")
             .performClick()
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("ACESSO NEGADO! POR FAVOR, CONFIGURE O APLICATIVO ANTES DO USO DO MESMO!")
         composeTestRule.waitUntilTimeout(2_000)
     }
 
@@ -58,7 +61,8 @@ class MenuInicialScreenTest: KoinTest {
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
         composeTestRule.onNodeWithText("APONTAMENTO")
             .performClick()
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("ACESSO NEGADO! POR FAVOR, CONFIGURE O APLICATIVO ANTES DO USO DO MESMO!")
         composeTestRule.waitUntilTimeout(2_000)
     }
 

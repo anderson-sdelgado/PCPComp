@@ -28,11 +28,18 @@ class TerceiroRepositoryImplTest {
     fun `Check execution incorrect deleteAll`() = runTest {
         val terceiroRoomDatasource = mock<TerceiroRoomDatasource>()
         val terceiroRetrofitDatasource = mock<TerceiroRetrofitDatasource>()
-        whenever(terceiroRoomDatasource.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(terceiroRoomDatasource.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "TerceiroRoomDatasource.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val repository = TerceiroRepositoryImpl(terceiroRoomDatasource, terceiroRetrofitDatasource)
         val result = repository.deleteAll()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRoomDatasource.deleteAll")
     }
 
     val token = "Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7"
@@ -41,26 +48,22 @@ class TerceiroRepositoryImplTest {
     fun `Check failure Datasource in recover data`() = runTest {
         val terceiroRoomDatasource = mock<TerceiroRoomDatasource>()
         val terceiroRetrofitDatasource = mock<TerceiroRetrofitDatasource>()
-        whenever(terceiroRetrofitDatasource.recoverAll(token)).thenReturn(Result.failure(
-            DatasourceException()
-        ))
+        whenever(terceiroRetrofitDatasource.recoverAll(token)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "TerceiroRetrofitDatasource.recoverAll",
+                    cause = Exception()
+                )
+            )
+        )
         val repository = TerceiroRepositoryImpl(terceiroRoomDatasource, terceiroRetrofitDatasource)
         val result = repository.recoverAll(token)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRetrofitDatasource.recoverAll")
     }
 
     @Test
     fun `Check data is correct in recover data`() = runTest {
-        val terceiroRoomModel = listOf(
-            TerceiroRoomModel(
-                idTerceiro = 1,
-                idBDTerceiro = 1,
-                nomeTerceiro = "Terceiro",
-                cpfTerceiro = "123.456.789-00",
-                empresaTerceiro = "Empresa Terceiro"
-            )
-        )
         val terceiro = listOf(
             Terceiro(
                 idTerceiro = 1,
@@ -72,7 +75,7 @@ class TerceiroRepositoryImplTest {
         )
         val terceiroRoomDatasource = mock<TerceiroRoomDatasource>()
         val terceiroRetrofitDatasource = mock<TerceiroRetrofitDatasource>()
-        whenever(terceiroRetrofitDatasource.recoverAll(token)).thenReturn(Result.success(terceiroRoomModel))
+        whenever(terceiroRetrofitDatasource.recoverAll(token)).thenReturn(Result.success(terceiro))
         val repository = TerceiroRepositoryImpl(terceiroRoomDatasource, terceiroRetrofitDatasource)
         val result = repository.recoverAll(token)
         assertEquals(result.isSuccess, true)
@@ -136,13 +139,16 @@ class TerceiroRepositoryImplTest {
         val terceiroRetrofitDatasource = mock<TerceiroRetrofitDatasource>()
         whenever(terceiroRoomDatasource.addAll(terceiroRoomModelList)).thenReturn(
             Result.failure(
-                DatasourceException()
+                DatasourceException(
+                    function = "TerceiroRoomDatasource.addAll",
+                    cause = Exception()
+                )
             )
         )
         val repository = TerceiroRepositoryImpl(terceiroRoomDatasource, terceiroRetrofitDatasource)
         val result = repository.addAll(terceiroList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRoomDatasource.addAll")
     }
 
 }

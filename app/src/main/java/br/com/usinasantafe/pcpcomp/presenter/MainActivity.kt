@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.usinasantafe.pcpcomp.BuildConfig
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 
 class MainActivity : ComponentActivity() {

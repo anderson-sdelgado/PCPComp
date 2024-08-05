@@ -44,9 +44,7 @@ class ColabRepositoryImpl(
             val recoverAll = colabRetrofitDatasource.recoverAll(token)
             if (recoverAll.isFailure)
                 return Result.failure(recoverAll.exceptionOrNull()!!)
-            val result = recoverAll.getOrNull()!!
-            val colabModelList = result.map { it.toColab() }
-            return Result.success(colabModelList)
+            return Result.success(recoverAll.getOrNull()!!)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

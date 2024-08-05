@@ -48,13 +48,16 @@ class ConfigRepositoryImplTest {
     fun `Check return failure Datasource if have failure in hasConfig`() = runTest {
         whenever(configSharedPreferencesDatasource.hasConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigSharedPreferencesDatasource.hasConfig",
+                    cause = Exception()
+                )
             )
         )
         val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
         val result = repository.hasConfig()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.hasConfig")
     }
 
     @Test
@@ -74,13 +77,16 @@ class ConfigRepositoryImplTest {
     fun `Check return failure if have failure in execution getConfig getPassword`() = runTest {
         whenever(configSharedPreferencesDatasource.getConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigSharedPreferencesDatasource.getConfig",
+                    cause = Exception()
+                )
             )
         )
         val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
         val result = repository.getPassword()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig")
     }
 
     @Test
@@ -100,13 +106,16 @@ class ConfigRepositoryImplTest {
     fun `Check return failure if have failure in execution getConfig getFlagUpdate`() = runTest {
         whenever(configSharedPreferencesDatasource.getConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigSharedPreferencesDatasource.getConfig",
+                    cause = Exception()
+                )
             )
         )
         val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
         val result = repository.getFlagUpdate()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig")
     }
 
     @Test
@@ -127,7 +136,7 @@ class ConfigRepositoryImplTest {
         val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
         val result = repository.send((Config()))
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> ConfigRepositoryImpl.send")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -137,13 +146,18 @@ class ConfigRepositoryImplTest {
             version = "6.00",
             number = 16997417840,
         )
-        whenever(configRetrofitDatasource.recoverToken(config.toConfigWebServiceModel())).thenReturn(Result.failure(
-            DatasourceException(cause = NullPointerException())
-        ))
+        whenever(configRetrofitDatasource.recoverToken(config.toConfigWebServiceModel())).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ConfigRetrofitDatasource.recoverToken",
+                    cause = NullPointerException()
+                )
+            )
+        )
         val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
         val result = repository.send(config)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message,"Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message,"Failure Datasource -> ConfigRetrofitDatasource.recoverToken")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 

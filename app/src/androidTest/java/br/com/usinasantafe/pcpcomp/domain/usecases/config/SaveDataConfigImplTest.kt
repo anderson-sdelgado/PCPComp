@@ -45,7 +45,7 @@ class SaveDataConfigImplTest: KoinTest {
             password = "12345"
         )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> SaveDataConfig")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NumberFormatException: For input string: \"16997417840A\"")
     }
 

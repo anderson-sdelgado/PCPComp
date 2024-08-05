@@ -26,7 +26,7 @@ class RecoverEquipServerImplTest : KoinTest {
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> RecoverEquipServer")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -46,7 +46,7 @@ class RecoverEquipServerImplTest : KoinTest {
         )
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -66,7 +66,7 @@ class RecoverEquipServerImplTest : KoinTest {
         )
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path \$")
     }
 
@@ -86,7 +86,7 @@ class RecoverEquipServerImplTest : KoinTest {
         )
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 27 path \$[0].nroEquip")
     }
 

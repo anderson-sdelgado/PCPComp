@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.external.webservices.datasource.stable
 
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.external.webservices.api.stable.TerceiroApi
 import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.TerceiroRetrofitDatasource
@@ -9,7 +10,7 @@ class TerceiroRetrofitDatasourceImpl(
     private val terceiroApi: TerceiroApi
 ): TerceiroRetrofitDatasource {
 
-    override suspend fun recoverAll(token: String): Result<List<TerceiroRoomModel>> {
+    override suspend fun recoverAll(token: String): Result<List<Terceiro>> {
         try {
             val response = terceiroApi.all(token)
             return Result.success(response.body()!!)

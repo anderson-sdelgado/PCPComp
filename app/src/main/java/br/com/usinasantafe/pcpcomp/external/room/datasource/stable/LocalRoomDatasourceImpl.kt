@@ -23,6 +23,33 @@ class LocalRoomDatasourceImpl(
         }
     }
 
+    override suspend fun getAll(): Result<List<LocalRoomModel>> {
+        return try {
+            Result.success(localDao.getAll())
+        } catch (e: Exception) {
+            Result.failure(
+                DatasourceException(
+                    function = "LocalRoomDatasourceImpl.addAll",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getDescr(id: Long): Result<String> {
+        try {
+            val descrLocal = localDao.getDescr(id)
+            return Result.success(descrLocal)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "LocalRoomDatasourceImpl.descrLocal",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun deleteAll(): Result<Boolean> {
         try {
             localDao.deleteAll()

@@ -10,6 +10,7 @@ import org.junit.Test
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.assertTrue
 
 class SendDataConfigImplTest: KoinTest {
 
@@ -26,7 +27,7 @@ class SendDataConfigImplTest: KoinTest {
             version = "6.00",
             password = "12345",
         )
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result, Result.success(1L))
     }
 
@@ -41,8 +42,8 @@ class SendDataConfigImplTest: KoinTest {
                 version = "6.00",
                 password = "12345",
             )
-        assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRetrofitDatasourceImpl.recoverToken")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -58,7 +59,7 @@ class SendDataConfigImplTest: KoinTest {
             password = "12345",
         )
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> SendDataConfig")
     }
 
     @Test
@@ -73,6 +74,6 @@ class SendDataConfigImplTest: KoinTest {
             password = "12345",
         )
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRetrofitDatasourceImpl.recoverToken")
     }
 }

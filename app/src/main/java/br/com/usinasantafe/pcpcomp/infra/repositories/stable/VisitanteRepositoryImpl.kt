@@ -36,9 +36,7 @@ class VisitanteRepositoryImpl(
             val recoverAll = visitanteRetrofitDatasource.recoverAll(token)
             if (recoverAll.isFailure)
                 return Result.failure(recoverAll.exceptionOrNull()!!)
-            val result = recoverAll.getOrNull()!!
-            val visitanteModelList = result.map { it.toVisitante() }
-            return Result.success(visitanteModelList)
+            return Result.success(recoverAll.getOrNull()!!)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

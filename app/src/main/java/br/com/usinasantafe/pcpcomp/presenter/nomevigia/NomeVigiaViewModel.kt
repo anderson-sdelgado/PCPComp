@@ -32,7 +32,7 @@ class NomeVigiaViewModel(
         if(recoverNome.isFailure){
             val error = recoverNome.exceptionOrNull()!!
             val failure =
-                "Error RecoverNomeVigia -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             _uiState.update {
                 it.copy(
                     flagDialog = true,

@@ -28,7 +28,7 @@ class RecoverConfigInternalImplTest: KoinTest {
     @Test
     fun verify_return_null_if_dont_data_config() = runTest {
         val result = usecase()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertNull(result.getOrNull())
     }
 
@@ -40,7 +40,7 @@ class RecoverConfigInternalImplTest: KoinTest {
         )
         configSharedPreferences.saveConfig(config)
         val result = usecase()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.number, "16997417840")
         assertEquals(result.getOrNull()!!.password, "12345")
     }

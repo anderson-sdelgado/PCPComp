@@ -25,7 +25,7 @@ class CleanColabImplTest: KoinTest {
     @Test
     fun verify_clean_colab_correct() = runTest {
         val result = usecase()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
     }
 }

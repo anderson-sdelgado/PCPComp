@@ -43,10 +43,17 @@ class SaveAllColabImplTest {
             )
         )
         val colabRepository = Mockito.mock<ColabRepository>()
-        whenever(colabRepository.addAll(colabList)).thenReturn(Result.failure(DatasourceException()))
+        whenever(colabRepository.addAll(colabList)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ColabRepository.addAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SaveAllColabImpl(colabRepository)
         val result = usecase(colabList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ColabRepository.addAll")
     }
 }

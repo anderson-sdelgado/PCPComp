@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.usinasantafe.pcpcomp.BuildConfig
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
@@ -62,7 +63,7 @@ fun MenuInicialContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "MENU INICIAL")
+        TitleListDesign(text = "MENU INICIAL - V ${BuildConfig.VERSION_NAME}")
         LazyColumn {
             item {
                 ItemListDesign(
@@ -88,7 +89,7 @@ fun MenuInicialContent(
         BackHandler {}
 
         if(flagDialog) {
-            val text = if(!flagFailure) stringResource(id = R.string.text_blocked_access_app) else failure
+            val text = if(!flagFailure) stringResource(id = R.string.text_blocked_access_app) else stringResource(id = R.string.text_failure, failure)
             AlertDialogSimpleDesign(
                 text = text,
                 setCloseDialog = setCloseDialog,

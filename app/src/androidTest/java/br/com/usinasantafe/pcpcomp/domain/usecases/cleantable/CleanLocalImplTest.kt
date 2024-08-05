@@ -4,6 +4,7 @@ import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
@@ -24,7 +25,7 @@ class CleanLocalImplTest: KoinTest {
     @Test
     fun verify_clean_local_correct() = runTest {
         val result = usecase()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
     }
 }

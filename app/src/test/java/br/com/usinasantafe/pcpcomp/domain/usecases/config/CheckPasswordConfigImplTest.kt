@@ -16,13 +16,16 @@ class CheckPasswordConfigImplTest {
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.hasConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigRepository.hasConfig",
+                    cause = Exception()
+                )
             )
         )
         val usecase = CheckPasswordConfigImpl(configRepository)
         val result = usecase("")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.hasConfig")
     }
 
     @Test
@@ -43,13 +46,16 @@ class CheckPasswordConfigImplTest {
         )
         whenever(configRepository.getPassword()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigRepository.getPassword",
+                    cause = Exception()
+                )
             )
         )
         val usecase = CheckPasswordConfigImpl(configRepository)
         val result = usecase("")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getPassword")
     }
 
     @Test

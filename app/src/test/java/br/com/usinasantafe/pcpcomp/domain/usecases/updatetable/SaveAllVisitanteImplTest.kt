@@ -41,12 +41,17 @@ class SaveAllVisitanteImplTest {
             )
         )
         val visitanteRepository = Mockito.mock<VisitanteRepository>()
-        whenever(visitanteRepository.addAll(visitanteList)).thenReturn(Result.failure(
-            DatasourceException()
-        ))
+        whenever(visitanteRepository.addAll(visitanteList)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "VisitanteRepository.addAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SaveAllVisitanteImpl(visitanteRepository)
         val result = usecase(visitanteList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> VisitanteRepository.addAll")
     }
 }

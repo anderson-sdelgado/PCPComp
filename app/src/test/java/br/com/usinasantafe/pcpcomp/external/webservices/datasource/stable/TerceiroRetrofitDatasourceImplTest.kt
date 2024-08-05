@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.external.webservices.datasource.stable
 
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import br.com.usinasantafe.pcpcomp.external.webservices.api.stable.TerceiroApi
 import br.com.usinasantafe.pcpcomp.external.webservices.provideRetrofitTest
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
@@ -22,7 +23,7 @@ class TerceiroRetrofitDatasourceImplTest {
         val datasource = TerceiroRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path \$")
     }
 
@@ -36,7 +37,7 @@ class TerceiroRetrofitDatasourceImplTest {
         val datasource = TerceiroRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -54,7 +55,7 @@ class TerceiroRetrofitDatasourceImplTest {
             result,
             Result.success(
                 listOf(
-                    TerceiroRoomModel(
+                    Terceiro(
                         idTerceiro = 1,
                         idBDTerceiro = 1,
                         cpfTerceiro = "123.456.789-00",

@@ -26,7 +26,7 @@ class RecoverTerceiroServerImplTest : KoinTest {
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> RecoverTerceiroServer")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -46,7 +46,7 @@ class RecoverTerceiroServerImplTest : KoinTest {
         )
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -66,7 +66,7 @@ class RecoverTerceiroServerImplTest : KoinTest {
         )
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path \$")
     }
 
@@ -86,7 +86,7 @@ class RecoverTerceiroServerImplTest : KoinTest {
         )
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> TerceiroRepositoryImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NullPointerException: Parameter specified as non-null is null: method br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro.<init>, parameter cpfTerceiro")
     }
 

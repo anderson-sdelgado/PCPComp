@@ -105,7 +105,7 @@ fun SenhaContent(
         BackHandler {}
 
         if(flagDialog) {
-            val text = if(!flagFailure) stringResource(id = R.string.text_password_invalid) else failure
+            val text = if(!flagFailure) stringResource(id = R.string.text_password_invalid) else stringResource(id = R.string.text_failure, failure)
             AlertDialogSimpleDesign(
                 text = text,
                 setCloseDialog = setCloseDialog,

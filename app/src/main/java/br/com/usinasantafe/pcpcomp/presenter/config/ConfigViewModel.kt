@@ -39,6 +39,7 @@ import kotlinx.coroutines.launch
 data class ConfigState(
     val number: String = "",
     val password: String = "",
+    val version: String = "",
     val flagDialog: Boolean = false,
     val flagFailure: Boolean = false,
     val errors: Errors = Errors.FIELDEMPTY,
@@ -79,6 +80,12 @@ class ConfigViewModel(
         }
     }
 
+    fun updateVersion(version: String) {
+        _uiState.update {
+            it.copy(version = version)
+        }
+    }
+
     fun updateNumber(number: String) {
         _uiState.update {
             it.copy(number = number)
@@ -96,7 +103,7 @@ class ConfigViewModel(
         if (recoverConfig.isFailure) {
             val error = recoverConfig.exceptionOrNull()!!
             val failure =
-                "Error RecoverConfigInternal -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             _uiState.update {
                 it.copy(
                     errors = Errors.EXCEPTION,
@@ -144,7 +151,7 @@ class ConfigViewModel(
         val sizeToken = 3f
         val number = uiState.value.number
         val password = uiState.value.password
-        val version = "6.00"
+        val version = uiState.value.version
         emit(
             ConfigState(
                 flagProgress = true,
@@ -157,7 +164,7 @@ class ConfigViewModel(
         )
         if (resultSend.isFailure) {
             val error = resultSend.exceptionOrNull()!!
-            val failure = "Error SendDataConfig -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.TOKEN,
@@ -182,7 +189,7 @@ class ConfigViewModel(
         )
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
-            val failure = "Error SaveDataConfig -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.TOKEN,
@@ -241,7 +248,7 @@ class ConfigViewModel(
         if(result.isFailure) {
             val error = result.exceptionOrNull()!!
             val failure =
-                "Error SetCheckUpdateAllTable -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.EXCEPTION,
@@ -274,7 +281,7 @@ class ConfigViewModel(
         val resultClean = cleanColab()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure = "Error CleanColab -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -298,7 +305,7 @@ class ConfigViewModel(
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
-                "Error RecoverColabServer -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -322,7 +329,7 @@ class ConfigViewModel(
         val resultSave = saveAllColab(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
-            val failure = "Error SaveAllColab -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -348,7 +355,7 @@ class ConfigViewModel(
         val resultClean = cleanEquip()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure = "Error CleanEquip -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -372,7 +379,7 @@ class ConfigViewModel(
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
-                "Error RecoverEquipServer -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -396,7 +403,7 @@ class ConfigViewModel(
         val resultSave = saveAllEquip(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
-            val failure = "Error SaveAllEquip -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -422,7 +429,7 @@ class ConfigViewModel(
         val resultClean = cleanLocal()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure = "Error CleanLocal -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -446,7 +453,7 @@ class ConfigViewModel(
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
-                "Error RecoverLocalServer -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -470,7 +477,7 @@ class ConfigViewModel(
         val resultSave = saveAllLocal(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
-            val failure = "Error SaveAllLocal -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -497,7 +504,7 @@ class ConfigViewModel(
         val resultClean = cleanTerceiro()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure = "Error CleanTerceiro -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -521,7 +528,7 @@ class ConfigViewModel(
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
-                "Error RecoverTerceiroServer -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -545,7 +552,7 @@ class ConfigViewModel(
         val resultSave = saveAllTerceiro(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
-            val failure = "Error SaveAllTerceiro -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -572,7 +579,7 @@ class ConfigViewModel(
         val resultClean = cleanVisitante()
         if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
-            val failure = "Error CleanVisitante -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -596,7 +603,7 @@ class ConfigViewModel(
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
-                "Error RecoverVisitanteServer -> ${error.message} -> ${error.cause.toString()}"
+                "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,
@@ -620,7 +627,7 @@ class ConfigViewModel(
         val resultSave = saveAllVisitante(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
-            val failure = "Error SaveAllVisitante -> ${error.message} -> ${error.cause.toString()}"
+            val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
                 ConfigState(
                     errors = Errors.UPDATE,

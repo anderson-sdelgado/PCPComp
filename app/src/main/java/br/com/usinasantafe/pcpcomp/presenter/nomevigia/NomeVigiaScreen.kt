@@ -15,8 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +25,6 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
-import br.com.usinasantafe.pcpcomp.utils.Errors
 
 @Composable
 fun NomeVigiaScreen(
@@ -103,7 +100,7 @@ fun NomeVigiaContent(
 
         if(flagDialog) {
             AlertDialogSimpleDesign(
-                text = failure,
+                text = stringResource(id = R.string.text_failure, failure),
                 setCloseDialog = setCloseDialog,
                 setActionButtonOK = { onNavMatricVigia() }
             )

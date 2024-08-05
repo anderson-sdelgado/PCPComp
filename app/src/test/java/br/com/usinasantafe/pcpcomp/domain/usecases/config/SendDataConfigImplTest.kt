@@ -23,7 +23,7 @@ class SendDataConfigImplTest {
                 version = "6.00"
             )
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> SendDataConfig")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NumberFormatException("For input string: \"1df52\"").toString())
     }
 
@@ -35,7 +35,14 @@ class SendDataConfigImplTest {
             version = "6.00",
         )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.send(config)).thenReturn(Result.failure(RepositoryException(cause = Exception())))
+        whenever(configRepository.send(config)).thenReturn(
+            Result.failure(
+                RepositoryException(
+                    function = "ConfigRepository.send",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SendDataConfigImpl(configRepository)
         val result = usecase(
             number = "16997417840",
@@ -43,7 +50,7 @@ class SendDataConfigImplTest {
             version = "6.00"
         )
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> ConfigRepository.send")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
     }
 
@@ -55,7 +62,14 @@ class SendDataConfigImplTest {
             version = "6.00",
         )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.send(config)).thenReturn(Result.failure(DatasourceException(cause = Exception())))
+        whenever(configRepository.send(config)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ConfigRepository.send",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SendDataConfigImpl(configRepository)
         val result = usecase(
             number = "16997417840",
@@ -63,7 +77,7 @@ class SendDataConfigImplTest {
             version = "6.00"
         )
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.send")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
     }
 

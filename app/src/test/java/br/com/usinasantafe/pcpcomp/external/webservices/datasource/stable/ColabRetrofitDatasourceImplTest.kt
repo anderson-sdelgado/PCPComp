@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.external.webservices.datasource.stable
 
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.external.webservices.api.stable.ColabApi
 import br.com.usinasantafe.pcpcomp.external.webservices.provideRetrofitTest
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
@@ -22,7 +23,7 @@ class ColabRetrofitDatasourceImplTest {
         val datasource = ColabRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ColabRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path \$")
     }
 
@@ -36,7 +37,7 @@ class ColabRetrofitDatasourceImplTest {
         val datasource = ColabRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ColabRetrofitDatasourceImpl.recoverAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -50,7 +51,16 @@ class ColabRetrofitDatasourceImplTest {
         val datasource = ColabRetrofitDatasourceImpl(service)
         val result = datasource.recoverAll("12345")
         assertTrue(result.isSuccess)
-        assertEquals(result, Result.success(listOf(ColabRoomModel(matricColab = 19759, nomeColab = "ANDERSON DA SILVA DELGADO"))))
+        assertEquals(result,
+            Result.success(
+                listOf(
+                    Colab(
+                        matricColab = 19759,
+                        nomeColab = "ANDERSON DA SILVA DELGADO"
+                    )
+                )
+            )
+        )
     }
 
 }

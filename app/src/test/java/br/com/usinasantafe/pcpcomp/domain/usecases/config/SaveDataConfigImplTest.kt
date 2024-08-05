@@ -45,7 +45,7 @@ class SaveDataConfigImplTest {
             idBD = 1
         )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> SaveDataConfig")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NumberFormatException: For input string: \"16997417840A\"")
     }
 
@@ -58,7 +58,14 @@ class SaveDataConfigImplTest {
             idBD = 1
         )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.save(config)).thenReturn(Result.failure(DatasourceException(cause = Exception())))
+        whenever(configRepository.save(config)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ConfigRepository.save",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SaveDataConfigImpl(configRepository)
         val result = usecase(
             number = "16997417840",
@@ -67,6 +74,6 @@ class SaveDataConfigImplTest {
             idBD = 1
         )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.save")
     }
 }

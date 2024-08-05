@@ -44,15 +44,17 @@ class ConfigSharedPreferencesDatasourceImplTest {
     fun `Check return data correct the Config SharedPreferences internal`() = runTest {
         val data = Config(password = "12345")
         configSharedPreferencesDatasourceImpl.saveConfig(data)
-        val config = configSharedPreferencesDatasourceImpl.getConfig()
-        assertEquals(config, data)
+        val result = configSharedPreferencesDatasourceImpl.getConfig()
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, data)
     }
 
     @Test
     fun `Check return password correct the Config SharedPreferences internal`() = runTest {
         val data = Config(password = "12345")
         configSharedPreferencesDatasourceImpl.saveConfig(data)
-        val config = configSharedPreferencesDatasourceImpl.getConfig()
-        assertEquals(config.getOrNull()!!.password, "12345")
+        val result = configSharedPreferencesDatasourceImpl.getConfig()
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.password, "12345")
     }
 }

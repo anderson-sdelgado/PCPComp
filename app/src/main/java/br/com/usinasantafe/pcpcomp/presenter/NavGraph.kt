@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import br.com.usinasantafe.pcpcomp.presenter.Screens.CONFIG
 import br.com.usinasantafe.pcpcomp.presenter.Screens.LOCAL
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_VIGIA
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MENU_APONT
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MENU_INICIAL
 import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_VIGIA
 import br.com.usinasantafe.pcpcomp.presenter.Screens.SENHA
@@ -16,8 +17,10 @@ import br.com.usinasantafe.pcpcomp.presenter.Screens.SPLASH
 import br.com.usinasantafe.pcpcomp.presenter.config.ConfigScreen
 import br.com.usinasantafe.pcpcomp.presenter.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.presenter.local.LocalScreen
+import br.com.usinasantafe.pcpcomp.presenter.local.LocalViewModel
 import br.com.usinasantafe.pcpcomp.presenter.matricvigia.MatricVigiaScreen
 import br.com.usinasantafe.pcpcomp.presenter.matricvigia.MatricVigiaViewModel
+import br.com.usinasantafe.pcpcomp.presenter.menuapont.MenuApontScreen
 import br.com.usinasantafe.pcpcomp.presenter.senha.SenhaScreen
 import br.com.usinasantafe.pcpcomp.presenter.menuinicial.MenuInicialScreen
 import br.com.usinasantafe.pcpcomp.presenter.menuinicial.MenuInicialViewModel
@@ -77,6 +80,16 @@ fun NavigationGraph(
         }
         composable(LOCAL) {
             LocalScreen(
+                viewModel = koinViewModel<LocalViewModel>(),
+                onNavNomeVigia = { navActions.navigationToNomeVigia() },
+                onNavMenuApont = { navActions.navigationToMenuApont() }
+            )
+        }
+        composable(MENU_APONT) {
+            MenuApontScreen(
+                onNavMovVeicProprio = { navActions.navigationToMovVeicProprio() },
+                onNavMovVeicVisitTerc = { navActions.navigationToMovVeicVisitTerc() },
+                onNavMovVeicResidencia = { navActions.navigationToMovVeicResidencia() }
             )
         }
     }

@@ -23,10 +23,18 @@ class CleanTerceiroImplTest {
     @Test
     fun `Check execution incorrect`() = runTest {
         val terceiroRepository = mock<TerceiroRepository>()
-        whenever(terceiroRepository.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(terceiroRepository.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "TerceiroRepository.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = CleanTerceiroImpl(terceiroRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRepository.deleteAll")
+        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception")
     }
 }

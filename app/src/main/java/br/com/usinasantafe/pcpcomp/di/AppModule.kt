@@ -5,6 +5,7 @@ import br.com.usinasantafe.pcpcomp.presenter.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.presenter.menuinicial.MenuInicialViewModel
 import br.com.usinasantafe.pcpcomp.presenter.matricvigia.MatricVigiaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.nomevigia.NomeVigiaViewModel
+import br.com.usinasantafe.pcpcomp.presenter.local.LocalViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.*
@@ -43,6 +44,7 @@ val viewModelModule = module {
     viewModelOf(::ConfigViewModel)
     viewModelOf(::MatricVigiaViewModel)
     viewModelOf(::NomeVigiaViewModel)
+    viewModelOf(::LocalViewModel)
 }
 
 val usecaseModule = module {
@@ -52,6 +54,7 @@ val usecaseModule = module {
     singleOf(::SendDataConfigImpl) { bind<SendDataConfig>() }
     singleOf(::SaveDataConfigImpl) { bind<SaveDataConfig>() }
     singleOf(::SetCheckUpdateAllTableImpl) { bind<SetCheckUpdateAllTable>() }
+    singleOf(::SetIdLocalConfigImpl) { bind<SetIdLocalConfig>() }
     singleOf(::SetMatricVigiaConfigImpl) { bind<SetMatricVigiaConfig>() }
 
     singleOf(::CleanColabImpl) { bind<CleanColab>() }
@@ -73,9 +76,11 @@ val usecaseModule = module {
     singleOf(::SaveAllVisitanteImpl) { bind<SaveAllVisitante>() }
 
     singleOf(::CheckAccessMainImpl) { bind<CheckAccessMain>() }
+    singleOf(::RecoverLocalsImpl) { bind<RecoverLocals>() }
     singleOf(::RecoverNomeVigiaImpl) { bind<RecoverNomeVigia>() }
 
     singleOf(::CheckMatricColabImpl) { bind<CheckMatricColab>() }
+    singleOf(::RecoverHeaderImpl) { bind<RecoverHeader>() }
 
 }
 

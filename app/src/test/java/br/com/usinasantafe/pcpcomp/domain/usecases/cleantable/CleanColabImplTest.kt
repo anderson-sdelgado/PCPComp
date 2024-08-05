@@ -24,10 +24,18 @@ class CleanColabImplTest {
     @Test
     fun `Check execution incorrect`() = runTest {
         val colabRepository = mock<ColabRepository>()
-        whenever(colabRepository.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(colabRepository.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ColabRepository.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = CleanColabImpl(colabRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ColabRepository.deleteAll")
+        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception")
     }
 }

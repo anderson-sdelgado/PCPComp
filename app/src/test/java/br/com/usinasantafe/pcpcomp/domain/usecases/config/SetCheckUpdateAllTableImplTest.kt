@@ -16,11 +16,18 @@ class SetCheckUpdateAllTableImplTest {
     @Test
     fun `Chech return failure Datasource if have error in getConfig`() = runTest {
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.failure(DatasourceException(cause = Exception())))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ConfigRepository.getConfig",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SetCheckUpdateAllTableImpl(configRepository)
         val result = usecase(FlagUpdate.UPDATED)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
     }
 
@@ -34,11 +41,18 @@ class SetCheckUpdateAllTableImplTest {
         )
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.getConfig()).thenReturn(Result.success(config))
-        whenever(configRepository.save(config)).thenReturn(Result.failure(DatasourceException(cause = Exception())))
+        whenever(configRepository.save(config)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ConfigRepository.save",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SetCheckUpdateAllTableImpl(configRepository)
         val result = usecase(FlagUpdate.UPDATED)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.save")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
     }
 

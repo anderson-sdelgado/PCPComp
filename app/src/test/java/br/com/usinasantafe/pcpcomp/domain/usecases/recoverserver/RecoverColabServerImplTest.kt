@@ -18,35 +18,63 @@ class RecoverColabServerImplTest {
     fun `Check return Failure Datasouce if have failure in Config Repository`() = runTest {
         val configRepository = mock<ConfigRepository>()
         val colabRepository = mock<ColabRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.failure(DatasourceException()))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ConfigRepository.getConfig",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = RecoverColabServerImpl(configRepository, colabRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
     }
 
     @Test
     fun `Check return Failure Usecase if have empty fields in object Config return `() = runTest {
         val configRepository = mock<ConfigRepository>()
         val colabRepository = mock<ColabRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(Config(number = 16997417840, version = "6.00")))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.success(
+                Config(
+                    number = 16997417840,
+                    version = "6.00"
+                )
+            )
+        )
         val usecase = RecoverColabServerImpl(configRepository, colabRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> RecoverColabServer")
     }
 
     @Test
     fun `Check return Failure Datasource if have success getConfig and failure Datasource in recoverAll`() = runTest {
         val configRepository = mock<ConfigRepository>()
         val colabRepository = mock<ColabRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(Config(number = 16997417840, version = "6.00", idBD = 1L)))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.success(
+                Config(
+                    number = 16997417840,
+                    version = "6.00",
+                    idBD = 1L
+                )
+            )
+        )
         whenever(colabRepository.recoverAll("Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7")).thenReturn(
-            Result.failure(DatasourceException()))
+            Result.failure(
+                DatasourceException(
+                    function = "ColabRepository.recoverAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = RecoverColabServerImpl(configRepository, colabRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ColabRepository.recoverAll")
     }
 
     @Test
@@ -59,7 +87,15 @@ class RecoverColabServerImplTest {
         )
         val configRepository = mock<ConfigRepository>()
         val colabRepository = mock<ColabRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(Config(number = 16997417840, version = "6.00", idBD = 1L)))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.success(
+                Config(
+                    number = 16997417840,
+                    version = "6.00",
+                    idBD = 1L
+                )
+            )
+        )
         whenever(colabRepository.recoverAll("Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7")).thenReturn(
             Result.success(colabList))
         val usecase = RecoverColabServerImpl(configRepository, colabRepository)

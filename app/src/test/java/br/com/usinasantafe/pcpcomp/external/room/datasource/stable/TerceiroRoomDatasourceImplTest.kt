@@ -9,6 +9,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,7 +38,7 @@ class TerceiroRoomDatasourceImplTest {
     fun `Check execution correct deleteAll`() = runTest {
         val datasource = TerceiroRoomDatasourceImpl(terceiroDao)
         val result = datasource.deleteAll()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
     }
 
     @Test
@@ -61,8 +62,8 @@ class TerceiroRoomDatasourceImplTest {
                 )
             )
         )
-        assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRoomDatasourceImpl.addAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "android.database.sqlite.SQLiteConstraintException: Cannot execute for last inserted row ID")
     }
 
@@ -87,7 +88,7 @@ class TerceiroRoomDatasourceImplTest {
                 )
             )
         )
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
     }
 }

@@ -28,11 +28,18 @@ class VisitanteRepositoryImplTest {
     fun `Check execution incorrect deleteAll`() = runTest {
         val visitanteRoomDatasource = mock<VisitanteRoomDatasource>()
         val visitanteRetrofitDatasource = mock<VisitanteRetrofitDatasource>()
-        whenever(visitanteRoomDatasource.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(visitanteRoomDatasource.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "VisitanteRoomDatasource.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val repository = VisitanteRepositoryImpl(visitanteRoomDatasource, visitanteRetrofitDatasource)
         val result = repository.deleteAll()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> VisitanteRoomDatasource.deleteAll")
     }
 
     val token = "Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7"
@@ -41,25 +48,22 @@ class VisitanteRepositoryImplTest {
     fun `Check failure Datasource in recover data`() = runTest {
         val visitanteRoomDatasource = mock<VisitanteRoomDatasource>()
         val visitanteRetrofitDatasource = mock<VisitanteRetrofitDatasource>()
-        whenever(visitanteRetrofitDatasource.recoverAll(token)).thenReturn(Result.failure(
-            DatasourceException()
-        ))
+        whenever(visitanteRetrofitDatasource.recoverAll(token)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "VisitanteRetrofitDatasource.recoverAll",
+                    cause = Exception()
+                )
+            )
+        )
         val repository = VisitanteRepositoryImpl(visitanteRoomDatasource, visitanteRetrofitDatasource)
         val result = repository.recoverAll(token)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> VisitanteRetrofitDatasource.recoverAll")
     }
 
     @Test
     fun `Check data is correct in recover data`() = runTest {
-        val visitanteRoomModel = listOf(
-            VisitanteRoomModel(
-                idVisitante = 1,
-                nomeVisitante = "Visitante",
-                cpfVisitante = "123.456.789-00",
-                empresaVisitante = "Empresa Visitante"
-            )
-        )
         val visitante = listOf(
             Visitante(
                 idVisitante = 1,
@@ -70,7 +74,7 @@ class VisitanteRepositoryImplTest {
         )
         val visitanteRoomDatasource = mock<VisitanteRoomDatasource>()
         val visitanteRetrofitDatasource = mock<VisitanteRetrofitDatasource>()
-        whenever(visitanteRetrofitDatasource.recoverAll(token)).thenReturn(Result.success(visitanteRoomModel))
+        whenever(visitanteRetrofitDatasource.recoverAll(token)).thenReturn(Result.success(visitante))
         val repository = VisitanteRepositoryImpl(visitanteRoomDatasource, visitanteRetrofitDatasource)
         val result = repository.recoverAll(token)
         assertEquals(result.isSuccess, true)
@@ -130,13 +134,16 @@ class VisitanteRepositoryImplTest {
         val visitanteRetrofitDatasource = mock<VisitanteRetrofitDatasource>()
         whenever(visitanteRoomDatasource.addAll(visitanteRoomModelList)).thenReturn(
             Result.failure(
-                DatasourceException()
+                DatasourceException(
+                    function = "VisitanteRoomDatasource.addAll",
+                    cause = Exception()
+                )
             )
         )
         val repository = VisitanteRepositoryImpl(visitanteRoomDatasource, visitanteRetrofitDatasource)
         val result = repository.addAll(visitanteList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> VisitanteRoomDatasource.addAll")
     }
 
 }

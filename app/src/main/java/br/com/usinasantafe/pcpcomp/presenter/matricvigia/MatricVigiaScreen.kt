@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogProgressDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumeric
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
@@ -51,6 +52,9 @@ fun MatricVigiaScreen(
                 flagFailure = uiState.flagFailure,
                 errors = uiState.errors,
                 failure = uiState.failure,
+                flagProgress = uiState.flagProgress,
+                msgProgress = uiState.msgProgress,
+                currentProgress = uiState.currentProgress,
                 onNavMenuInicial = onNavMenuInicial,
                 onNavNomeVigia = onNavNomeVigia,
                 modifier = Modifier.padding(innerPadding)
@@ -69,6 +73,9 @@ fun MatricVigiaContent(
     flagFailure: Boolean,
     errors: Errors,
     failure: String,
+    flagProgress: Boolean,
+    msgProgress: String,
+    currentProgress: Float,
     onNavMenuInicial: () -> Unit,
     onNavNomeVigia: () -> Unit,
     modifier: Modifier = Modifier,
@@ -102,17 +109,25 @@ fun MatricVigiaContent(
             onNavMenuInicial()
         }
 
-        if(flagDialog){
-            val text = if(flagFailure){
-                val text = when(errors){
-                    Errors.FIELDEMPTY -> stringResource(id = R.string.text_field_empty, "MATRICULA VIGIA")
+        if (flagDialog) {
+            val text = if (flagFailure) {
+                when (errors) {
+                    Errors.FIELDEMPTY -> stringResource(
+                        id = R.string.text_field_empty,
+                        "MATRICULA VIGIA"
+                    )
+
                     Errors.UPDATE -> stringResource(id = R.string.text_update_failure, failure)
                     Errors.TOKEN,
-                    Errors.EXCEPTION -> failure
+                    Errors.EXCEPTION -> stringResource(id = R.string.text_failure, failure)
+
+                    Errors.INVALID -> stringResource(
+                        id = R.string.text_input_data_invalid,
+                        "MATRICULA VIGIA"
+                    )
                 }
-                text
             } else {
-                stringResource(id = R.string.text_input_data_invalid, "MATRICULA VIGIA")
+                msgProgress
             }
             AlertDialogSimpleDesign(
                 text = text,
@@ -120,7 +135,14 @@ fun MatricVigiaContent(
             )
         }
 
-        if(flagAccess) {
+        if (flagProgress) {
+            AlertDialogProgressDesign(
+                currentProgress = currentProgress,
+                msgProgress = msgProgress
+            )
+        }
+
+        if (flagAccess) {
             onNavNomeVigia()
         }
     }
@@ -143,6 +165,9 @@ fun MatricVigiaPagePreview() {
                 failure = "",
                 onNavMenuInicial = {},
                 onNavNomeVigia = {},
+                flagProgress = false,
+                msgProgress = "",
+                currentProgress = 0.0f,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -165,6 +190,9 @@ fun MatricVigiaPagePreviewFieldEmpty() {
                 failure = "",
                 onNavMenuInicial = {},
                 onNavNomeVigia = {},
+                flagProgress = false,
+                msgProgress = "",
+                currentProgress = 0.0f,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -187,6 +215,9 @@ fun MatricVigiaPagePreviewFailure() {
                 failure = "Datasource Failure",
                 onNavMenuInicial = {},
                 onNavNomeVigia = {},
+                flagProgress = false,
+                msgProgress = "",
+                currentProgress = 0.0f,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -209,6 +240,9 @@ fun MatricVigiaPagePreviewFailureUpdate() {
                 failure = "Datasource Failure",
                 onNavMenuInicial = {},
                 onNavNomeVigia = {},
+                flagProgress = false,
+                msgProgress = "",
+                currentProgress = 0.0f,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -231,6 +265,34 @@ fun MatricVigiaPagePreviewBlockedAccess() {
                 failure = "",
                 onNavMenuInicial = {},
                 onNavNomeVigia = {},
+                flagProgress = false,
+                msgProgress = "",
+                currentProgress = 0.0f,
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MatricVigiaPagePreviewUpdate() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            MatricVigiaContent(
+                matricVigia = "",
+                setTextField = { _, _ -> },
+                flagAccess = false,
+                flagDialog = false,
+                setCloseDialog = {},
+                flagFailure = false,
+                errors = Errors.EXCEPTION,
+                failure = "",
+                onNavMenuInicial = {},
+                onNavNomeVigia = {},
+                flagProgress = true,
+                msgProgress = "Atualizando dados",
+                currentProgress = 0.3333334f,
                 modifier = Modifier.padding(innerPadding)
             )
         }

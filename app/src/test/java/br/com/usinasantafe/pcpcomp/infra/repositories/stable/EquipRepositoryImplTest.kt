@@ -28,11 +28,18 @@ class EquipRepositoryImplTest {
     fun `Check execution incorrect deleteAll`() = runTest {
         val equipRoomDatasource = mock<EquipRoomDatasource>()
         val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
-        whenever(equipRoomDatasource.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(equipRoomDatasource.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasource.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
         val result = repository.deleteAll()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.deleteAll")
     }
 
     val token = "Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7"
@@ -41,23 +48,22 @@ class EquipRepositoryImplTest {
     fun `Check failure Datasource in recover data`() = runTest {
         val equipRoomDatasource = mock<EquipRoomDatasource>()
         val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
-        whenever(equipRetrofitDatasource.recoverAll(token)).thenReturn(Result.failure(
-            DatasourceException()
-        ))
+        whenever(equipRetrofitDatasource.recoverAll(token)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRetrofitDatasource.recoverAll",
+                    cause = Exception()
+                )
+            )
+        )
         val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
         val result = repository.recoverAll(token)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRetrofitDatasource.recoverAll")
     }
 
     @Test
     fun `Check data is correct in recover data`() = runTest {
-        val equipRoomModel = listOf(
-            EquipRoomModel(
-                idEquip = 10,
-                nroEquip = 19759
-            )
-        )
         val equip = listOf(
             Equip(
                 idEquip = 10,
@@ -66,7 +72,7 @@ class EquipRepositoryImplTest {
         )
         val equipRoomDatasource = mock<EquipRoomDatasource>()
         val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
-        whenever(equipRetrofitDatasource.recoverAll(token)).thenReturn(Result.success(equipRoomModel))
+        whenever(equipRetrofitDatasource.recoverAll(token)).thenReturn(Result.success(equip))
         val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
         val result = repository.recoverAll(token)
         assertEquals(result.isSuccess, true)
@@ -118,13 +124,16 @@ class EquipRepositoryImplTest {
         val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
         whenever(equipRoomDatasource.addAll(equipRoomModelList)).thenReturn(
             Result.failure(
-                DatasourceException()
+                DatasourceException(
+                    function = "EquipRoomDatasource.addAll",
+                    cause = Exception()
+                )
             )
         )
         val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
         val result = repository.addAll(equipList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.addAll")
     }
 
 }

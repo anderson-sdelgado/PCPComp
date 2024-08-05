@@ -5,10 +5,12 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.LocalDao
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,7 +26,8 @@ class LocalRoomDatasourceImplTest {
     fun before() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, AppDatabaseRoom::class.java).allowMainThreadQueries().build()
+            context, AppDatabaseRoom::class.java
+        ).allowMainThreadQueries().build()
         localDao = db.localDao()
     }
 
@@ -37,7 +40,7 @@ class LocalRoomDatasourceImplTest {
     fun `Check execution correct deleteAll`() = runTest {
         val datasource = LocalRoomDatasourceImpl(localDao)
         val result = datasource.deleteAll()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
     }
 
     @Test
@@ -55,9 +58,15 @@ class LocalRoomDatasourceImplTest {
                 )
             )
         )
-        assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), "android.database.sqlite.SQLiteConstraintException: Cannot execute for last inserted row ID")
+        assertTrue(result.isFailure)
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> LocalRoomDatasourceImpl.addAll"
+        )
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            "android.database.sqlite.SQLiteConstraintException: Cannot execute for last inserted row ID"
+        )
     }
 
     @Test
@@ -75,7 +84,44 @@ class LocalRoomDatasourceImplTest {
                 )
             )
         )
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
+    }
+
+    @Test
+    fun `Check success getAll if have table is empty`() = runTest {
+        val localRooms = listOf(
+            LocalRoomModel(
+                idLocal = 1,
+                descrLocal = "USINA"
+            ),
+            LocalRoomModel(
+                idLocal = 2,
+                descrLocal = "MOTO"
+            ),
+        )
+        val datasource = LocalRoomDatasourceImpl(localDao)
+        datasource.addAll(
+            localRooms
+        )
+        val result = datasource.getAll()
+        assertTrue(result.isSuccess)
+        assertEquals(result, Result.success(localRooms))
+    }
+
+    @Test
+    fun `Check return nomeColab if getNome is success`() = runTest {
+        val datasource = LocalRoomDatasourceImpl(localDao)
+        datasource.addAll(
+            listOf(
+                LocalRoomModel(
+                    idLocal = 1,
+                    descrLocal = "USINA"
+                ),
+            )
+        )
+        val result = datasource.getDescr(1)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, "USINA")
     }
 }

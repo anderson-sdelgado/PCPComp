@@ -23,10 +23,18 @@ class CleanVisitanteImplTest {
     @Test
     fun `Check execution incorrect`() = runTest {
         val visitanteRepository = mock<VisitanteRepository>()
-        whenever(visitanteRepository.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(visitanteRepository.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "VisitanteRepository.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = CleanVisitanteImpl(visitanteRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> VisitanteRepository.deleteAll")
+        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception")
     }
 }

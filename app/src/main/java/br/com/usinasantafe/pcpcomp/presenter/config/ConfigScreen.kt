@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.usinasantafe.pcpcomp.BuildConfig
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
@@ -62,6 +63,7 @@ fun ConfigScreen(
                 modifier = Modifier.padding(innerPadding),
             )
             viewModel.returnDataConfig()
+            viewModel.updateVersion(BuildConfig.VERSION_NAME)
         }
     }
 }
@@ -150,7 +152,8 @@ fun ConfigContent(
                     Errors.FIELDEMPTY -> stringResource(id = R.string.text_field_empty_config)
                     Errors.TOKEN -> stringResource(id = R.string.text_recover_token, failure)
                     Errors.UPDATE -> stringResource(id = R.string.text_update_failure, failure)
-                    Errors.EXCEPTION -> failure
+                    Errors.EXCEPTION,
+                    Errors.INVALID -> stringResource(id = R.string.text_failure, failure)
                 }
                 AlertDialogSimpleDesign(
                     text = text,

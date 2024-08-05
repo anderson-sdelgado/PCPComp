@@ -30,7 +30,7 @@ class CheckAccessMainImplTest: KoinTest {
     @Test
     fun verify_return_false_if_dont_data_config() = runTest {
         val result = usecase()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)
     }
 
@@ -38,7 +38,7 @@ class CheckAccessMainImplTest: KoinTest {
     fun verify_return_false_if_data_config_field_flag_update_is_outdated() = runTest {
         configSharedPreferences.saveConfig(Config())
         val result = usecase()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)
     }
 
@@ -48,7 +48,7 @@ class CheckAccessMainImplTest: KoinTest {
             Config(flagUpdate = FlagUpdate.UPDATED)
         )
         val result = usecase()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, true)
     }
 

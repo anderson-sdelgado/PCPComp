@@ -34,7 +34,7 @@ class MenuInicialViewModel(
             if(resultCheckAccess.isFailure){
                 val error = resultCheckAccess.exceptionOrNull()!!
                 val failure =
-                    "Error CheckAccessMain -> ${error.message} -> ${error.cause.toString()}"
+                    "${error.message} -> ${error.cause.toString()}"
                 _uiState.update {
                     it.copy(
                         flagDialog = true,

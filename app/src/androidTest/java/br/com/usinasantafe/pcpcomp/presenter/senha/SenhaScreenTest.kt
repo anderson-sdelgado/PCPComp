@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.presenter.senha
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -53,8 +54,9 @@ class SenhaScreenTest: KoinTest {
         composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()
         composeTestRule.onNodeWithText("OK")
             .performClick()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("SENHA INVÁLIDA!")
         composeTestRule.waitUntilTimeout(2_000)
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
 
     }
 
@@ -69,7 +71,8 @@ class SenhaScreenTest: KoinTest {
         composeTestRule.onNodeWithTag(TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN).performTextInput("123456")
         composeTestRule.onNodeWithText("OK")
             .performClick()
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("SENHA INVÁLIDA!")
         composeTestRule.waitUntilTimeout(2_000)
 
     }

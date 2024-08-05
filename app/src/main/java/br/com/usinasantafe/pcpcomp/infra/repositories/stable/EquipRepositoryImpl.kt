@@ -36,9 +36,7 @@ class EquipRepositoryImpl(
             val recoverAll =  equipRetrofitDatasource.recoverAll(token)
             if (recoverAll.isFailure)
                 return Result.failure(recoverAll.exceptionOrNull()!!)
-            val result = recoverAll.getOrNull()!!
-            val equipModelList = result.map { it.toEquip() }
-            return Result.success(equipModelList)
+            return Result.success(recoverAll.getOrNull()!!)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

@@ -23,10 +23,18 @@ class CleanEquipImplTest {
     @Test
     fun `Check execution incorrect`() = runTest {
         val equipRepository = mock<EquipRepository>()
-        whenever(equipRepository.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(equipRepository.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRepository.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = CleanEquipImpl(equipRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRepository.deleteAll")
+        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception")
     }
 }

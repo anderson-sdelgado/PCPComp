@@ -18,13 +18,16 @@ class SetMatricVigiaConfigImplTest {
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.getConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigRepository.getConfig",
+                    cause = Exception()
+                )
             )
         )
         val usecase = SetMatricVigiaConfigImpl(configRepository)
         val result = usecase("19759")
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
     }
 
@@ -41,7 +44,7 @@ class SetMatricVigiaConfigImplTest {
         val usecase = SetMatricVigiaConfigImpl(configRepository)
         val result = usecase("19759a")
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> SetMatricVigiaConfig")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NumberFormatException: For input string: \"19759a\"")
     }
 
@@ -57,13 +60,16 @@ class SetMatricVigiaConfigImplTest {
         whenever(configRepository.getConfig()).thenReturn(Result.success(config))
         whenever(configRepository.save(config)).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigRepository.save",
+                    cause = Exception()
+                )
             )
         )
         val usecase = SetMatricVigiaConfigImpl(configRepository)
         val result = usecase("19759")
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.save")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
     }
 

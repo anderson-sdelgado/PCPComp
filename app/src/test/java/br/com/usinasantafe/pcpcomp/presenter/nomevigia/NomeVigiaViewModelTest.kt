@@ -26,13 +26,16 @@ class NomeVigiaViewModelTest {
         val recoverNomeVigia = mock<RecoverNomeVigia>()
         whenever(recoverNomeVigia()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "RecoverNomeVigia",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = NomeVigiaViewModel(recoverNomeVigia)
         viewModel.returnNomeVigia()
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Error RecoverNomeVigia -> Failure Datasource -> java.lang.Exception")
+        assertEquals(viewModel.uiState.value.failure, "Failure Datasource -> RecoverNomeVigia -> java.lang.Exception")
     }
 
     @Test

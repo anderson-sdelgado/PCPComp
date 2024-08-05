@@ -23,10 +23,18 @@ class CleanLocalImplTest {
     @Test
     fun `Check execution incorrect`() = runTest {
         val localRepository = mock<LocalRepository>()
-        whenever(localRepository.deleteAll()).thenReturn(Result.failure(DatasourceException()))
+        whenever(localRepository.deleteAll()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "LocalRepository.deleteAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = CleanLocalImpl(localRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRepository.deleteAll")
+        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception")
     }
 }

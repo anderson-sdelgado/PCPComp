@@ -43,10 +43,17 @@ class SaveAllTerceiroImplTest {
             )
         )
         val terceiroRepository = Mockito.mock<TerceiroRepository>()
-        whenever(terceiroRepository.addAll(terceiroList)).thenReturn(Result.failure(DatasourceException()))
+        whenever(terceiroRepository.addAll(terceiroList)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "TerceiroRepository.addAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SaveAllTerceiroImpl(terceiroRepository)
         val result = usecase(terceiroList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> TerceiroRepository.addAll")
     }
 }

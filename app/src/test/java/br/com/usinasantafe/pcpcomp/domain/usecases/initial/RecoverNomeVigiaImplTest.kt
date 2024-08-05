@@ -1,11 +1,9 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.initial
 
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.RecoverConfigInternalImpl
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -21,13 +19,16 @@ class RecoverNomeVigiaImplTest {
         val colarepository = mock<ColabRepository>()
         whenever(configRepository.getConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception("Failure Datasource"))
+                DatasourceException(
+                    function = "ConfigRepository.getConfig",
+                    cause = Exception()
+                )
             )
         )
         val usecase = RecoverNomeVigiaImpl(configRepository, colarepository)
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
     }
 
     @Test
@@ -36,19 +37,22 @@ class RecoverNomeVigiaImplTest {
             matricVigia = 19759
         )
         val configRepository = mock<ConfigRepository>()
-        val colarepository = mock<ColabRepository>()
+        val colabRepository = mock<ColabRepository>()
         whenever(configRepository.getConfig()).thenReturn(
             Result.success(config)
         )
-        whenever(colarepository.getNome(19759)).thenReturn(
+        whenever(colabRepository.getNome(19759)).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ColabRepository.getNome",
+                    cause = Exception()
+                )
             )
         )
-        val usecase = RecoverNomeVigiaImpl(configRepository, colarepository)
+        val usecase = RecoverNomeVigiaImpl(configRepository, colabRepository)
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ColabRepository.getNome")
     }
 
     @Test

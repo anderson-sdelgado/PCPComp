@@ -18,13 +18,16 @@ class RecoverConfigInternalImplTest {
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.hasConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigRepository.hasConfig",
+                    cause = Exception()
+                )
             )
         )
         val usecase = RecoverConfigInternalImpl(configRepository)
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.hasConfig")
     }
 
     @Test
@@ -45,13 +48,16 @@ class RecoverConfigInternalImplTest {
         )
         whenever(configRepository.getConfig()).thenReturn(
             Result.failure(
-                DatasourceException(cause = Exception())
+                DatasourceException(
+                    function = "ConfigRepository.getConfig",
+                    cause = Exception()
+                )
             )
         )
         val usecase = RecoverConfigInternalImpl(configRepository)
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
     }
 
     @Test

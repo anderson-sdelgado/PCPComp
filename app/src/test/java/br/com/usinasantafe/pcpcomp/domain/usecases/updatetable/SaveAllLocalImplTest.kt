@@ -37,10 +37,17 @@ class SaveAllLocalImplTest {
             )
         )
         val localRepository = Mockito.mock<LocalRepository>()
-        whenever(localRepository.addAll(localList)).thenReturn(Result.failure(DatasourceException()))
+        whenever(localRepository.addAll(localList)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "LocalRepository.addAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SaveAllLocalImpl(localRepository)
         val result = usecase(localList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRepository.addAll")
     }
 }

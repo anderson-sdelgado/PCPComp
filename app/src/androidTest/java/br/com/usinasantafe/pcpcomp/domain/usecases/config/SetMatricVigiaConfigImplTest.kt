@@ -50,8 +50,9 @@ class SetMatricVigiaConfigImplTest: KoinTest {
         )
         configSharedPreferences.saveConfig(config)
         usecase("19759")
-        val resultConfigBD = configSharedPreferences.getConfig()
-        assertEquals(resultConfigBD.getOrNull()!!.matricVigia, 19759L)
+        val result = configSharedPreferences.getConfig()
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.matricVigia, 19759L)
     }
 
 }

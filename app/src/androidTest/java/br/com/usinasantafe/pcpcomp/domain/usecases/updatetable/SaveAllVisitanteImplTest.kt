@@ -56,7 +56,7 @@ class SaveAllVisitanteImplTest: KoinTest {
         )
         val result = usecase(visitanteList)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> VisitanteRoomDatasourceImpl.addAll")
         assertEquals(
             result.exceptionOrNull()!!.cause.toString(),
             "android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: tb_visitante.idVisitante (code 1555 SQLITE_CONSTRAINT_PRIMARYKEY[1555])"

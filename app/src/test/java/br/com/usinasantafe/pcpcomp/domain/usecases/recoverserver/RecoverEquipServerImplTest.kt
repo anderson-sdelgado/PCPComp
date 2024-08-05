@@ -18,35 +18,63 @@ class RecoverEquipServerImplTest {
     fun `Check return Failure Datasouce if have failure in Config Repository`() = runTest {
         val configRepository = mock<ConfigRepository>()
         val equipRepository = mock<EquipRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.failure(DatasourceException()))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "ConfigRepository.getConfig",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = RecoverEquipServerImpl(configRepository, equipRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
     }
 
     @Test
     fun `Check return Failure Usecase if have empty fields in object Config return `() = runTest {
         val configRepository = mock<ConfigRepository>()
         val equipRepository = mock<EquipRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(Config(number = 16997417840, version = "6.00")))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.success(
+                Config(
+                    number = 16997417840,
+                    version = "6.00"
+                )
+            )
+        )
         val usecase = RecoverEquipServerImpl(configRepository, equipRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> RecoverEquipServer")
     }
 
     @Test
     fun `Check return Failure Datasource if have success getConfig and failure Datasource in recoverAll`() = runTest {
         val configRepository = mock<ConfigRepository>()
         val equipRepository = mock<EquipRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(Config(number = 16997417840, version = "6.00", idBD = 1L)))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.success(
+                Config(
+                    number = 16997417840,
+                    version = "6.00",
+                    idBD = 1L
+                )
+            )
+        )
         whenever(equipRepository.recoverAll("Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7")).thenReturn(
-            Result.failure(DatasourceException()))
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRepository.recoverAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = RecoverEquipServerImpl(configRepository, equipRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRepository.recoverAll")
     }
 
     @Test
@@ -59,7 +87,15 @@ class RecoverEquipServerImplTest {
         )
         val configRepository = mock<ConfigRepository>()
         val equipRepository = mock<EquipRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(Config(number = 16997417840, version = "6.00", idBD = 1L)))
+        whenever(configRepository.getConfig()).thenReturn(
+            Result.success(
+                Config(
+                    number = 16997417840,
+                    version = "6.00",
+                    idBD = 1L
+                )
+            )
+        )
         whenever(equipRepository.recoverAll("Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7")).thenReturn(
             Result.success(equipList))
         val usecase = RecoverEquipServerImpl(configRepository, equipRepository)

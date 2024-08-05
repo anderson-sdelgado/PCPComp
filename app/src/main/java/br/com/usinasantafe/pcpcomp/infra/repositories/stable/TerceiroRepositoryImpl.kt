@@ -36,9 +36,7 @@ class TerceiroRepositoryImpl(
             val recoverAll = terceiroRetrofitDatasource.recoverAll(token)
             if (recoverAll.isFailure)
                 return Result.failure(recoverAll.exceptionOrNull()!!)
-            val result = recoverAll.getOrNull()!!
-            val terceiroModelList = result.map { it.toTerceiro() }
-            return Result.success(terceiroModelList)
+            return Result.success(recoverAll.getOrNull()!!)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

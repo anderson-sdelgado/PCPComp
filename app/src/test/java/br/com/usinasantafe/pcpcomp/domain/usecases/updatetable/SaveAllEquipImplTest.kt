@@ -37,10 +37,17 @@ class SaveAllEquipImplTest {
             )
         )
         val equipRepository = Mockito.mock<EquipRepository>()
-        whenever(equipRepository.addAll(equipList)).thenReturn(Result.failure(DatasourceException()))
+        whenever(equipRepository.addAll(equipList)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRepository.addAll",
+                    cause = Exception()
+                )
+            )
+        )
         val usecase = SaveAllEquipImpl(equipRepository)
         val result = usecase(equipList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRepository.addAll")
     }
 }

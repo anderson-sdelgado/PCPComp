@@ -41,7 +41,7 @@ class SenhaViewModel(
             if(resultCheckPassword.isFailure) {
                 val error = resultCheckPassword.exceptionOrNull()!!
                 val failure =
-                    "Error CheckPasswordConfig -> ${error.message} -> ${error.cause.toString()}"
+                    "${error.message} -> ${error.cause.toString()}"
                 _uiState.update {
                     it.copy(
                         flagDialog = true,

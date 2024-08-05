@@ -17,7 +17,7 @@ class CheckMatricColabImplTest {
         val usecase = CheckMatricColabImpl(colabRepository)
         val result = usecase("19759a")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> CheckMatricColab")
     }
 
     @Test
@@ -25,13 +25,16 @@ class CheckMatricColabImplTest {
         val colabRepository = mock<ColabRepository>()
         whenever(colabRepository.checkMatric(19759)).thenReturn(
             Result.failure(
-                RepositoryException(cause = Exception())
+                RepositoryException(
+                    function = "ColabRepository.checkMatric",
+                    cause = Exception()
+                )
             )
         )
         val usecase = CheckMatricColabImpl(colabRepository)
         val result = usecase("19759")
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> ColabRepository.checkMatric")
     }
 
     @Test

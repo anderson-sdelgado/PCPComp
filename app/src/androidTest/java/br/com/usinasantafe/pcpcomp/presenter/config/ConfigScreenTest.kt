@@ -1,25 +1,15 @@
 package br.com.usinasantafe.pcpcomp.presenter.config
 
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertContentDescriptionContains
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
-import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onChild
-import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onParent
-import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import androidx.compose.ui.test.printToLog
-import androidx.fragment.app.FragmentManager.TAG
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
@@ -30,7 +20,6 @@ import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
-import org.junit.Before
 import org.junit.Rule
 
 import org.junit.Test
@@ -38,7 +27,6 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import kotlin.test.assertEquals
 
 class ConfigScreenTest: KoinTest {
 
@@ -105,7 +93,8 @@ class ConfigScreenTest: KoinTest {
         composeTestRule.onNodeWithTag(TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN).performTextInput("12345")
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE RECUPERACAO DE TOKEN! POR FAVOR ENTRE EM CONTATO COM TI. Failure Datasource -> ConfigRetrofitDatasourceImpl.recoverToken -> java.lang.NullPointerException")
     }
 
     @Test
@@ -116,7 +105,8 @@ class ConfigScreenTest: KoinTest {
         setContent()
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("CAMPO VAZIO! POR FAVOR, PREENCHA TODOS OS CAMPOS PARA SALVAR AS CONFIGURAÇÕES E ATUALIZAR TODAS AS BASES DE DADOS.")
         composeTestRule.onNodeWithTag(BUTTON_OK_ALERT_DIALOG_SIMPLE)
             .performClick()
         composeTestRule.waitUntilTimeout(2_000)
@@ -132,7 +122,8 @@ class ConfigScreenTest: KoinTest {
         composeTestRule.onNodeWithTag(TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN).performTextInput("16997417840")
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("CAMPO VAZIO! POR FAVOR, PREENCHA TODOS OS CAMPOS PARA SALVAR AS CONFIGURAÇÕES E ATUALIZAR TODAS AS BASES DE DADOS.")
         composeTestRule.onNodeWithTag(BUTTON_OK_ALERT_DIALOG_SIMPLE)
             .performClick()
         composeTestRule.waitUntilTimeout(2_000)
@@ -148,7 +139,8 @@ class ConfigScreenTest: KoinTest {
         composeTestRule.onNodeWithTag(TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN).performTextInput("12345")
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
-        composeTestRule.onNodeWithText("ATENÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("CAMPO VAZIO! POR FAVOR, PREENCHA TODOS OS CAMPOS PARA SALVAR AS CONFIGURAÇÕES E ATUALIZAR TODAS AS BASES DE DADOS.")
         composeTestRule.onNodeWithTag(BUTTON_OK_ALERT_DIALOG_SIMPLE)
             .performClick()
         composeTestRule.waitUntilTimeout(2_000)
@@ -167,7 +159,7 @@ class ConfigScreenTest: KoinTest {
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE RECUPERACAO DE TOKEN! POR FAVOR ENTRE EM CONTATO COM TI. Error SendDataConfig -> Failure Datasource -> java.io.EOFException: End of input at line 1 column 1 path \$")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE RECUPERACAO DE TOKEN! POR FAVOR ENTRE EM CONTATO COM TI. Failure Datasource -> ConfigRetrofitDatasourceImpl.recoverToken -> java.io.EOFException: End of input at line 1 column 1 path \$")
     }
 
     @Test
@@ -182,7 +174,7 @@ class ConfigScreenTest: KoinTest {
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Error RecoverColabServer -> Failure Datasource -> com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 17 path \$[0].matricColab")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Failure Datasource -> ColabRetrofitDatasourceImpl.recoverAll -> com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 17 path \$[0].matricColab")
     }
 
     @Test
@@ -197,7 +189,7 @@ class ConfigScreenTest: KoinTest {
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Error SaveAllTerceiro -> Failure Datasource -> android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: tb_terceiro.idTerceiro (code 1555 SQLITE_CONSTRAINT_PRIMARYKEY[1555])")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Failure Datasource -> TerceiroRoomDatasourceImpl.addAll -> android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: tb_terceiro.idTerceiro (code 1555 SQLITE_CONSTRAINT_PRIMARYKEY[1555])")
     }
 
     @Test

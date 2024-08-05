@@ -31,14 +31,34 @@ class LocalRepositoryImpl(
         return localRoomDatasource.deleteAll()
     }
 
+    override suspend fun getAll(): Result<List<Local>> {
+        try{
+            val resultAll = localRoomDatasource.getAll()
+            if (resultAll.isFailure)
+                return Result.failure(resultAll.exceptionOrNull()!!)
+            val localRoomModels = resultAll.getOrNull()!!
+            val locals = localRoomModels.map { it.toLocal() }
+            return Result.success(locals)
+        } catch (e: Exception){
+            return Result.failure(
+                RepositoryException(
+                    function = "LocalRepositoryImpl.getAll",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getDescr(id: Long): Result<String> {
+        return localRoomDatasource.getDescr(id)
+    }
+
     override suspend fun recoverAll(token: String): Result<List<Local>> {
         try {
             val recoverAll = localRetrofitDatasource.recoverAll(token)
             if (recoverAll.isFailure)
                 return Result.failure(recoverAll.exceptionOrNull()!!)
-            val result = recoverAll.getOrNull()!!
-            val localModelList = result.map { it.toLocal() }
-            return Result.success(localModelList)
+            return Result.success(recoverAll.getOrNull()!!)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

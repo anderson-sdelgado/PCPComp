@@ -38,7 +38,7 @@ class ColabRoomDatasourceImplTest {
     fun `Check execution correct deleteAll`() = runTest {
         val datasource = ColabRoomDatasourceImpl(colabDao)
         val result = datasource.deleteAll()
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
     }
 
     @Test
@@ -56,8 +56,8 @@ class ColabRoomDatasourceImplTest {
                 )
             )
         )
-        assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ColabRoomDatasourceImpl.addAll")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "android.database.sqlite.SQLiteConstraintException: Cannot execute for last inserted row ID")
     }
 
@@ -76,7 +76,7 @@ class ColabRoomDatasourceImplTest {
                 )
             )
         )
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
     }
 
@@ -84,7 +84,7 @@ class ColabRoomDatasourceImplTest {
     fun `Check return false if not exist MatricColab`() = runTest {
         val datasource = ColabRoomDatasourceImpl(colabDao)
         val result = datasource.checkMatric(19759)
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)
     }
 
@@ -104,7 +104,7 @@ class ColabRoomDatasourceImplTest {
             )
         )
         val result = datasource.checkMatric(19759)
-        assertEquals(result.isSuccess, true)
+        assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, true)
     }
 

@@ -35,7 +35,7 @@ class SenhaViewModelTest {
         assertEquals(viewModel.uiState.value.flagDialog, true)
         assertEquals(viewModel.uiState.value.flagFailure, true)
         assertEquals(viewModel.uiState.value.flagAccess, false)
-        assertEquals(viewModel.uiState.value.failure, "Error CheckPasswordConfig -> Failure Datasource ConfigSharedPreferences.hasConfig -> java.lang.Exception")
+        assertEquals(viewModel.uiState.value.failure, "Failure Datasource -> ConfigSharedPreferences.hasConfig -> java.lang.Exception")
     }
 
     @Test

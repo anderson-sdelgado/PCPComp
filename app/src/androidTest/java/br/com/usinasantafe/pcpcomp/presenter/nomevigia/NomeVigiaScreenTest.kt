@@ -39,7 +39,7 @@ class NomeVigiaScreenTest: KoinTest {
         composeTestRule.onNodeWithText("NOME VIGIA").assertIsDisplayed()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("Error RecoverNomeVigia -> Failure Usecase -> java.lang.NullPointerException")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA INESPERADA NO APLICATIVO! POR FAVOR ENTRE EM CONTATO COM TI. Failure Usecase -> RecoverNomeVigia -> java.lang.NullPointerException")
     }
 
     @Test

@@ -24,7 +24,10 @@ class MenuInicialViewModelTest {
         val checkAccessMain = mock<CheckAccessMain>()
         whenever(checkAccessMain()).thenReturn(
             Result.failure(
-                DatasourceException(function = "ConfigSharedPreferences.hasConfig", cause = Exception())
+                DatasourceException(
+                    function = "ConfigSharedPreferences.hasConfig",
+                    cause = Exception()
+                )
             )
         )
         val viewModel = MenuInicialViewModel(checkAccessMain)
@@ -32,7 +35,7 @@ class MenuInicialViewModelTest {
         assertEquals(viewModel.uiState.value.flagDialog, true)
         assertEquals(viewModel.uiState.value.flagFailure, true)
         assertEquals(viewModel.uiState.value.flagAccess, false)
-        assertEquals(viewModel.uiState.value.failure, "Error CheckAccessMain -> Failure Datasource ConfigSharedPreferences.hasConfig -> java.lang.Exception")
+        assertEquals(viewModel.uiState.value.failure, "Failure Datasource -> ConfigSharedPreferences.hasConfig -> java.lang.Exception")
     }
 
     @Test

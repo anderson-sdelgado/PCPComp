@@ -13,26 +13,6 @@ import org.junit.Test
 
 class ConfigRetrofitDatasourceImplTest {
 
-//    lateinit var server: MockWebServer
-//
-//    val dispatcher: Dispatcher = object : Dispatcher() {
-//
-//        @Throws(InterruptedException::class)
-//        override fun dispatch(request: RecordedRequest): MockResponse {
-//            when (request.path) {
-//                "/find-token.php" -> return MockResponse().setBody("""{"idBD":1}""")
-//            }
-//            return MockResponse().setResponseCode(404)
-//        }
-//    }
-//
-//    @Before
-//    fun setUp() {
-//        server = MockWebServer()
-//        server.dispatcher = dispatcher
-//        server.start()
-//    }
-
     @Test
     fun `Check return correct`() = runTest {
         val configWebServiceModelOutput = ConfigWebServiceModelOutput(
@@ -64,7 +44,7 @@ class ConfigRetrofitDatasourceImplTest {
         val datasource = ConfigRetrofitDatasourceImpl(service)
         val result = datasource.recoverToken(configWebServiceModelOutput)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRetrofitDatasourceImpl.recoverToken")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -82,7 +62,7 @@ class ConfigRetrofitDatasourceImplTest {
         val datasource = ConfigRetrofitDatasourceImpl(service)
         val result = datasource.recoverToken(configWebServiceModelOutput)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRetrofitDatasourceImpl.recoverToken")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 1 path \$")
     }
 
@@ -100,7 +80,7 @@ class ConfigRetrofitDatasourceImplTest {
         val datasource = ConfigRetrofitDatasourceImpl(service)
         val result = datasource.recoverToken(configWebServiceModelOutput)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRetrofitDatasourceImpl.recoverToken")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 9 path \$.idBD")
     }
 }
