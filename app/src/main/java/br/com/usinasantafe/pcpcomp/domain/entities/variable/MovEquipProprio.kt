@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.domain.entities.variable
 
+import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import java.util.Date
@@ -15,7 +16,8 @@ data class MovEquipProprio(
     var destinoMovEquipProprio: String? = null,
     var nroNotaFiscalMovEquipProprio: Long? = null,
     var observMovEquipProprio: String? = null,
-    var statusSendMovEquipProprio: StatusSend = StatusSend.STARTED,
+    var statusMovEquipProprio: StatusData = StatusData.OPEN,
+    var statusSendMovEquipProprio: StatusSend = StatusSend.SEND,
     var movEquipProprioSegList: List<MovEquipProprioSeg>? = emptyList(),
     var movEquipProprioPassagList: List<MovEquipProprioPassag>? = emptyList(),
 )

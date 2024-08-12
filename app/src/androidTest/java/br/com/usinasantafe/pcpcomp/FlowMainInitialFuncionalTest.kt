@@ -10,22 +10,14 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.SaveDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllVisitante
-import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.presenter.MainActivity
-import br.com.usinasantafe.pcpcomp.presenter.config.dispatcherSuccess
-import br.com.usinasantafe.pcpcomp.presenter.config.resultColabRetrofit
-import br.com.usinasantafe.pcpcomp.presenter.config.resultEquipRetrofit
-import br.com.usinasantafe.pcpcomp.presenter.config.resultLocalRetrofit
-import br.com.usinasantafe.pcpcomp.presenter.config.resultTerceiroRetrofit
-import br.com.usinasantafe.pcpcomp.presenter.config.resultTokenRetrofit
-import br.com.usinasantafe.pcpcomp.presenter.config.resultVisitanteRetrofit
+import br.com.usinasantafe.pcpcomp.presenter.configuration.config.resultTokenRetrofit
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utlis.returnDataServerColab
 import br.com.usinasantafe.pcpcomp.utlis.returnDataServerEquip
@@ -40,13 +32,10 @@ import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
-import org.koin.core.logger.Level
 import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
 import org.koin.test.inject
 
 class FlowMainInitialFuncionalTest: KoinTest {
@@ -84,7 +73,15 @@ class FlowMainInitialFuncionalTest: KoinTest {
         composeTestRule.onNodeWithText("LOCAL").assertIsDisplayed()
         composeTestRule.onNodeWithText("1 - USINA").performClick()
 
-        composeTestRule.onNodeWithText("MENU APONTAMENTO").assertIsDisplayed()
+        composeTestRule.onNodeWithText("MENU").assertIsDisplayed()
+        composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO").assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("MOV. VEÍCULO PRÓPRIO").performClick()
+
+        composeTestRule.onNodeWithText("CONTROLE VEÍCULO USINA").assertIsDisplayed()
+        composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO").assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("ENTRADA").performClick()
     }
 
     private suspend fun initialRegister() {

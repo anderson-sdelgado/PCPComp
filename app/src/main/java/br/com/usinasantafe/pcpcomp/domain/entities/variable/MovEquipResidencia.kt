@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.entities.variable
 
 import br.com.usinasantafe.pcpcomp.utils.StatusData
+import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import java.util.Date
@@ -17,5 +18,6 @@ data class MovEquipResidencia(
     var motoristaMovEquipResidencia: String? = null,
     var observMovEquipResidencia: String? = null,
     var statusMovEquipResidencia: StatusData = StatusData.OPEN,
-    var statusSendMovEquipResidencia: StatusSend = StatusSend.STARTED,
+    var statusSendMovEquipResidencia: StatusSend = StatusSend.SEND,
+    var statusMovEquipForeigResidencia: StatusForeigner = StatusForeigner.INSIDE,
 )

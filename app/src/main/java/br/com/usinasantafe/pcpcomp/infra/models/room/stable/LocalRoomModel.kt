@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.utils.TB_LOCAL
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import kotlinx.serialization.Serializable
 
-@Serializable
 @Entity(tableName = TB_LOCAL)
 data class LocalRoomModel (
     @PrimaryKey

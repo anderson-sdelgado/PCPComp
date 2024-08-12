@@ -45,7 +45,7 @@ class ConfigSharedPreferencesDatasourceImpl(
         try {
             val editor = sharedPreferences.edit()
             editor.putString(BASE_SHARE_PREFERENCES_TABLE_CONFIG, Gson().toJson(config))
-            editor.commit()
+            editor.apply()
             return Result.success(true)
         } catch (e: Exception){
             return Result.failure(

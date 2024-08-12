@@ -10,7 +10,13 @@ import br.com.usinasantafe.pcpcomp.di.retrofitModule
 import br.com.usinasantafe.pcpcomp.di.repositoryModule
 import br.com.usinasantafe.pcpcomp.di.roomModule
 import br.com.usinasantafe.pcpcomp.di.sharedPreferencesModule
-import br.com.usinasantafe.pcpcomp.di.usecaseModule
+import br.com.usinasantafe.pcpcomp.di.usecaseCleanTableModule
+import br.com.usinasantafe.pcpcomp.di.usecaseCommonModule
+import br.com.usinasantafe.pcpcomp.di.usecaseConfigModule
+import br.com.usinasantafe.pcpcomp.di.usecaseInitialModule
+import br.com.usinasantafe.pcpcomp.di.usecaseProprioModule
+import br.com.usinasantafe.pcpcomp.di.usecaseRecoverServerModule
+import br.com.usinasantafe.pcpcomp.di.usecaseUpdateTableModule
 import br.com.usinasantafe.pcpcomp.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -27,7 +33,13 @@ class PCPComp : Application() {
             modules(
                 listOf(
                     viewModelModule,
-                    usecaseModule,
+                    usecaseCleanTableModule,
+                    usecaseCommonModule,
+                    usecaseConfigModule,
+                    usecaseInitialModule,
+                    usecaseProprioModule,
+                    usecaseRecoverServerModule,
+                    usecaseUpdateTableModule,
                     repositoryModule,
                     datasourceSharedPreferencesModule,
                     datasourceRoomModule,

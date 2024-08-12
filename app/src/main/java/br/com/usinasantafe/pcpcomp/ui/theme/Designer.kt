@@ -101,7 +101,7 @@ fun TextSmallDesign(text: String) {
         text = text,
         color = Color.White,
         fontWeight = FontWeight.Bold,
-        fontSize = 12.sp,
+        fontSize = 10.sp,
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.Black),
@@ -168,6 +168,45 @@ fun AlertDialogSimpleDesign(
                 Text("OK")
             }
         },
+    )
+}
+
+@Composable
+fun AlertDialogCheckDesign(
+    text: String,
+    setCloseDialog: () -> Unit,
+    setActionButtonOK: () -> Unit
+) {
+    return AlertDialog(
+        title = {
+            Text(
+                text = "ATENÇÃO",
+                textAlign = TextAlign.Center
+            )
+        },
+        text = {
+            Text(
+                text = text,
+                modifier = Modifier.testTag("text_alert_dialog_simple")
+            )
+        },
+        onDismissRequest = setCloseDialog,
+        confirmButton = {
+            Button(
+                onClick = setActionButtonOK,
+                modifier = Modifier.testTag("button_yes_alert_dialog_check")
+            ) {
+                Text("SIM")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = setCloseDialog,
+                modifier = Modifier.testTag("button_no_alert_dialog_check")
+            ) {
+                Text("NÃO")
+            }
+        }
     )
 }
 

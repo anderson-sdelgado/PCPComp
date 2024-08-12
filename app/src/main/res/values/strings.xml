@@ -4,6 +4,7 @@
     <string name="text_pattern_save_update">SALVAR/ATUALIZAR DADOS</string>
     <string name="text_pattern_cancel">CANCELAR</string>
     <string name="text_pattern_return">RETORNAR</string>
+    <string name="text_pattern_out">SAIR</string>
     <string name="text_password_invalid">SENHA INVÁLIDA!</string>
     <string name="text_field_empty_config">CAMPO VAZIO! POR FAVOR, PREENCHA TODOS OS CAMPOS PARA SALVAR AS CONFIGURAÇÕES E ATUALIZAR TODAS AS BASES DE DADOS.</string>
     <string name="text_recover_token">FALHA DE RECUPERACAO DE TOKEN! POR FAVOR ENTRE EM CONTATO COM TI. %1$s</string>
@@ -13,4 +14,9 @@
     <string name="text_blocked_access_app">ACESSO NEGADO! POR FAVOR, CONFIGURE O APLICATIVO ANTES DO USO DO MESMO!</string>
     <string name="text_field_empty">CAMPO VAZIO! POR FAVOR, PREENCHA O CAMPO \"%1$s\" PARA DAR CONTINUIDADE AO APONTAMENTO.</string>
     <string name="text_input_data_invalid">DADO INVÁLIDO! POR FAVOR, VERIFIQUE SE O CAMPO \"%1$s\" FOI DIGITADO CORRETAMENTE OU ATUALIZE OS DADOS PARA VERIFICAR SE OS MESMOS NÃO ESTÃO DESATUALIZADOS.</string>
+    <string name="text_title_mov_proprio">CONTROLE VEÍCULO USINA</string>
+    <string name="text_input">ENTRADA</string>
+    <string name="text_output">SAÍDA</string>
+    <string name="text_close_mov">FECHAR MOVIMENTO(S)</string>
+    <string name="text_close_all_mov">"DESEJA REALMENTE RETORNAR? ISSO FECHARÁ TODOS OS MOVIMENTOS."</string>
 </resources>

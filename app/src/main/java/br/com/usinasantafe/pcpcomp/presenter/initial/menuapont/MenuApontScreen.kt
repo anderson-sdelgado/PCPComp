@@ -1,0 +1,214 @@
+package br.com.usinasantafe.pcpcomp.presenter.initial.menuapont
+
+import android.window.SplashScreen
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
+import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TextSmallDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleListWithDetailDesign
+
+@Composable
+fun MenuApontScreen(
+    viewModel: MenuApontViewModel,
+    onNavMovVeicProprio: () -> Unit,
+    onNavMovVeicVisitTerc: () -> Unit,
+    onNavMovVeicResidencia: () -> Unit,
+    onNavSplashScreen: () -> Unit,
+) {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            MenuApontContent(
+                descrVigia = uiState.descrVigia,
+                descrLocal = uiState.descrLocal,
+                flagDialogCloseMov = uiState.flagDialogCloseMov,
+                setOpenDialogCloseMov = viewModel::setOpenDialogCloseMov,
+                setCloseDialogCloseMov = viewModel::setCloseDialogCloseMov,
+                closeAllMov = viewModel::closeAllMov,
+                flagReturn = uiState.flagReturn,
+                flagDialog = uiState.flagDialog,
+                setCloseDialog = viewModel::setCloseDialog,
+                failure = uiState.failure,
+                onNavMovVeicProprio = onNavMovVeicProprio,
+                onNavMovVeicVisitTerc = onNavMovVeicVisitTerc,
+                onNavMovVeicResidencia = onNavMovVeicResidencia,
+                onNavSplashScreen = onNavSplashScreen,
+                modifier = Modifier.padding(innerPadding)
+            )
+            viewModel.returnHeader()
+        }
+    }
+}
+
+@Composable
+fun MenuApontContent(
+    descrVigia: String,
+    descrLocal: String,
+    flagDialogCloseMov: Boolean,
+    setOpenDialogCloseMov: () -> Unit,
+    setCloseDialogCloseMov: () -> Unit,
+    closeAllMov: () -> Unit,
+    flagReturn: Boolean,
+    flagDialog: Boolean,
+    setCloseDialog: () -> Unit,
+    failure: String,
+    onNavMovVeicProprio: () -> Unit,
+    onNavMovVeicVisitTerc: () -> Unit,
+    onNavMovVeicResidencia: () -> Unit,
+    onNavSplashScreen: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .padding(16.dp)
+    ) {
+        TextSmallDesign(text = "VIGIA: $descrVigia")
+        TextSmallDesign(text = "LOCAL: $descrLocal")
+        TitleListWithDetailDesign(text = "MENU")
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            item {
+                ItemListDesign(
+                    text = "MOV. VEÍCULO PRÓPRIO",
+                    setActionItem = onNavMovVeicProprio
+                )
+            }
+            item {
+                ItemListDesign(
+                    text = "MOV. VEÍCULO VISITANTE/TERCEIRO",
+                    setActionItem = onNavMovVeicVisitTerc
+                )
+            }
+            item {
+                ItemListDesign(
+                    "MOV. VEÍCULO RESIDÊNCIA",
+                    setActionItem = onNavMovVeicResidencia
+                )
+            }
+        }
+        Button(
+            onClick = { setOpenDialogCloseMov() },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            TextButtonDesign(text = stringResource(id = R.string.text_pattern_out))
+        }
+
+        if (flagDialog) {
+            AlertDialogSimpleDesign(
+                text = stringResource(id = R.string.text_failure, failure),
+                setCloseDialog = setCloseDialog,
+            )
+        }
+
+        if(flagDialogCloseMov){
+            AlertDialogCheckDesign(
+                text = stringResource(id = R.string.text_close_all_mov),
+                setCloseDialog = setCloseDialogCloseMov,
+                setActionButtonOK = { closeAllMov() }
+            )
+        }
+
+        if(flagReturn){
+            onNavSplashScreen()
+        }
+
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MenuApontPagePreview() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            MenuApontContent(
+                descrVigia = "1975 - ANDERSON",
+                descrLocal = "1 - USINA",
+                flagDialogCloseMov = false,
+                setOpenDialogCloseMov = {},
+                setCloseDialogCloseMov = {},
+                closeAllMov = {},
+                flagReturn = false,
+                flagDialog = false,
+                setCloseDialog = {},
+                failure = "",
+                onNavMovVeicProprio = {},
+                onNavMovVeicVisitTerc = {},
+                onNavMovVeicResidencia = {},
+                onNavSplashScreen = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MenuApontPagePreviewShowDialog() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            MenuApontContent(
+                descrVigia = "1975 - ANDERSON",
+                descrLocal = "1 - USINA",
+                flagDialogCloseMov = false,
+                setOpenDialogCloseMov = {},
+                setCloseDialogCloseMov = {},
+                closeAllMov = {},
+                flagReturn = false,
+                flagDialog = true,
+                setCloseDialog = {},
+                failure = "Failure Datasource",
+                onNavMovVeicProprio = {},
+                onNavMovVeicVisitTerc = {},
+                onNavMovVeicResidencia = {},
+                onNavSplashScreen = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MenuApontPagePreviewShowDialogCheck() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            MenuApontContent(
+                descrVigia = "1975 - ANDERSON",
+                descrLocal = "1 - USINA",
+                flagDialogCloseMov = true,
+                setOpenDialogCloseMov = {},
+                setCloseDialogCloseMov = {},
+                closeAllMov = {},
+                flagReturn = false,
+                flagDialog = false,
+                setCloseDialog = {},
+                failure = "Failure Datasource",
+                onNavMovVeicProprio = {},
+                onNavMovVeicVisitTerc = {},
+                onNavMovVeicResidencia = {},
+                onNavSplashScreen = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}

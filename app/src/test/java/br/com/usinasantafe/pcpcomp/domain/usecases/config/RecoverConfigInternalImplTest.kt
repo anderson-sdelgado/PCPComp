@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.config
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.presenter.config.ConfigModel
+import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 

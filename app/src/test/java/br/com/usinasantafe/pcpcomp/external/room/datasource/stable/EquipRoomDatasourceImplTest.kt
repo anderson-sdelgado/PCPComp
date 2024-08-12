@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
+import br.com.usinasantafe.pcpcomp.external.room.datasource.variable.MovEquipVisitTercRoomDatasourceImpl
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -78,5 +79,32 @@ class EquipRoomDatasourceImplTest {
         )
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
+    }
+
+    @Test
+    fun `Check return failure if not have data researched`() = runTest {
+        val datasource = EquipRoomDatasourceImpl(equipDao)
+        val exception = try {
+            datasource.getNro(1)
+            null
+        } catch (exception: Exception){
+            exception
+        }
+        assertEquals(exception, null)
+    }
+
+    @Test
+    fun `Check return getNro if have data researched`() = runTest {
+        val datasource = EquipRoomDatasourceImpl(equipDao)
+        datasource.addAll(
+            listOf(
+                EquipRoomModel(
+                    idEquip = 1,
+                    nroEquip = 100
+                ),
+            )
+        )
+        val result = datasource.getNro(1)
+        assertTrue(result.isSuccess)
     }
 }

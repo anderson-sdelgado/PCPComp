@@ -23,6 +23,19 @@ class EquipRoomDatasourceImpl(
         }
     }
 
+    override suspend fun getNro(idEquip: Long): Result<Long> {
+        return try{
+            Result.success(equipDao.getNro(idEquip))
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasourceImpl.getNro",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun deleteAll(): Result<Boolean> {
         try {
             equipDao.deleteAll()

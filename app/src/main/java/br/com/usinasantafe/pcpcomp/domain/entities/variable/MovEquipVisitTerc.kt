@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.entities.variable
 
 import br.com.usinasantafe.pcpcomp.utils.StatusData
+import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
@@ -20,6 +21,7 @@ data class MovEquipVisitTerc(
     var destinoMovEquipVisitTerc: String? = null,
     var observMovEquipVisitTerc: String? = null,
     var statusMovEquipVisitTerc: StatusData = StatusData.OPEN,
-    var statusSendMovEquipVisitTerc: StatusSend = StatusSend.STARTED,
+    var statusSendMovEquipVisitTerc: StatusSend = StatusSend.SEND,
+    var statusMovEquipForeigVisitTerc: StatusForeigner = StatusForeigner.INSIDE,
     var movEquipVisitTercPassagList: List<MovEquipVisitTercPassag>? = emptyList(),
 )

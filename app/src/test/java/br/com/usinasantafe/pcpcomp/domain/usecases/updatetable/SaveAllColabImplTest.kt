@@ -1,20 +1,14 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColabImpl
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.SaveDataConfigImpl
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import kotlin.test.assertFailsWith
 
 class SaveAllColabImplTest {
 

@@ -4,5 +4,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 
 interface EquipRoomDatasource {
     suspend fun addAll(list: List<EquipRoomModel>): Result<Boolean>
+    suspend fun getNro(idEquip: Long): Result<Long>
     suspend fun deleteAll(): Result<Boolean>
 }

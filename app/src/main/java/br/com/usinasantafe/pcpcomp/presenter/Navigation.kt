@@ -1,6 +1,8 @@
 package br.com.usinasantafe.pcpcomp.presenter
 
 import androidx.navigation.NavHostController
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 object Screens {
     const val MENU_INICIAL = "menuinicial"
@@ -12,11 +14,18 @@ object Screens {
     const val LOCAL = "local"
     const val MENU_APONT = "menuapont"
     const val MOV_VEIC_PROPRIO = "movveicproprio"
+    const val MATRIC_COLAB = "matriccolab"
     const val MOV_VEIC_VISIT_TERC = "movveicvisitterc"
     const val MOV_VEIC_RESIDENCIA = "movveicresidencia"
 }
 
 class NavigationActions(private val navController: NavHostController) {
+
+
+    fun navigationToSplash(){
+        navController.navigate(Screens.SPLASH)
+    }
+
 
     fun navigationToSenha(){
         navController.navigate(Screens.SENHA)
@@ -56,6 +65,10 @@ class NavigationActions(private val navController: NavHostController) {
 
     fun navigationToMovVeicResidencia(){
         navController.navigate(Screens.MOV_VEIC_RESIDENCIA)
+    }
+
+    fun navigationToMatriColab(flowApp: Int){
+        navController.navigate("${Screens.MATRIC_COLAB}/${flowApp}")
     }
 
 

@@ -7,11 +7,17 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.LocalDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.TerceiroDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.VisitanteDao
+import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
+import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipResidenciaDao
+import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipVisitTercDao
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.VisitanteRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidenciaRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercRoomModel
 import br.com.usinasantafe.pcpcomp.utils.BASE_DB
 import br.com.usinasantafe.pcpcomp.utils.VERSION_DB
 
@@ -22,6 +28,9 @@ import br.com.usinasantafe.pcpcomp.utils.VERSION_DB
         LocalRoomModel::class,
         TerceiroRoomModel::class,
         VisitanteRoomModel::class,
+        MovEquipProprioRoomModel::class,
+        MovEquipResidenciaRoomModel::class,
+        MovEquipVisitTercRoomModel::class
     ],
     version = VERSION_DB, exportSchema = true,
 )
@@ -31,6 +40,9 @@ abstract class AppDatabaseRoom : RoomDatabase() {
     abstract fun localDao(): LocalDao
     abstract fun terceiroDao(): TerceiroDao
     abstract fun visitanteDao(): VisitanteDao
+    abstract fun movEquipProprioDao(): MovEquipProprioDao
+    abstract fun movEquipResidenciaDao(): MovEquipResidenciaDao
+    abstract fun movEquipVisitTercDao(): MovEquipVisitTercDao
 }
 
 fun provideRoom(appContext: Context): AppDatabaseRoom {

@@ -12,10 +12,10 @@ import androidx.test.core.app.ActivityScenario
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.presenter.MainActivity
-import br.com.usinasantafe.pcpcomp.presenter.config.TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN
-import br.com.usinasantafe.pcpcomp.presenter.config.TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN
-import br.com.usinasantafe.pcpcomp.presenter.config.dispatcherSuccess
-import br.com.usinasantafe.pcpcomp.presenter.senha.TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.configuration.config.dispatcherSuccess
+import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN
 import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest

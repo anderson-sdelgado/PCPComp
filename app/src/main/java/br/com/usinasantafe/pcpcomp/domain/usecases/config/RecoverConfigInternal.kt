@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.presenter.config.ConfigModel
-import br.com.usinasantafe.pcpcomp.presenter.config.toConfigModel
+import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigModel
+import br.com.usinasantafe.pcpcomp.presenter.configuration.config.toConfigModel
 
 interface RecoverConfigInternal {
     suspend operator fun invoke(): Result<ConfigModel?>

@@ -31,6 +31,10 @@ class EquipRepositoryImpl(
         return equipRoomDatasource.deleteAll()
     }
 
+    override suspend fun getNro(idEquip: Long): Result<Long> {
+        return equipRoomDatasource.getNro(idEquip)
+    }
+
     override suspend fun recoverAll(token: String): Result<List<Equip>> {
         try {
             val recoverAll =  equipRetrofitDatasource.recoverAll(token)

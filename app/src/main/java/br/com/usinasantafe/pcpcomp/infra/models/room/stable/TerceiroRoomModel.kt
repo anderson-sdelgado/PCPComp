@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.utils.TB_TERCEIRO
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import kotlinx.serialization.Serializable
 
-@Serializable
 @Entity(tableName = TB_TERCEIRO)
 data class TerceiroRoomModel (
     @PrimaryKey(autoGenerate = true)

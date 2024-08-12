@@ -1,0 +1,74 @@
+package br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource
+
+import android.content.SharedPreferences
+import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
+import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioPassagSharedPreferencesDatasource
+import br.com.usinasantafe.pcpcomp.utils.BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
+class MovEquipProprioPassagSharedPreferencesDatasourceImpl(
+    private val sharedPreferences: SharedPreferences
+): MovEquipProprioPassagSharedPreferencesDatasource {
+
+    val typeToken = object : TypeToken<List<Long>>() {}.type
+
+    override suspend fun add(matric: Long): Result<Boolean> {
+        try {
+            val resultList = list()
+            if(resultList.isFailure)
+                return Result.failure(resultList.exceptionOrNull()!!)
+            val list = resultList.getOrNull()!!
+            var mutableList : MutableList<Long> = mutableListOf()
+            if(list.isNotEmpty())
+                mutableList = list.toMutableList()
+            mutableList.add(matric)
+            val editor = sharedPreferences.edit()
+            editor.putString(BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG, Gson().toJson(mutableList, typeToken))
+            editor.apply()
+            mutableList.clear()
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioPassagSharedPreferencesDatasource.add",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun clear(): Result<Boolean> {
+        try {
+            val editor = sharedPreferences.edit()
+            editor.putString(BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG, null)
+            editor.apply()
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioPassagSharedPreferencesDatasource.clear",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun list(): Result<List<Long>> {
+        try {
+            val result = sharedPreferences.getString(
+                BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG, null)
+            if(!result.isNullOrEmpty())
+                return Result.success(Gson().fromJson(result, typeToken))
+            return Result.success(emptyList())
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioPassagSharedPreferencesDatasource.list",
+                    cause = e
+                )
+            )
+        }
+    }
+
+}

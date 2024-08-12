@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.utils.TB_VISITANTE
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
 import kotlinx.serialization.Serializable
 
-@Serializable
 @Entity(tableName = TB_VISITANTE)
 data class VisitanteRoomModel(
     @PrimaryKey

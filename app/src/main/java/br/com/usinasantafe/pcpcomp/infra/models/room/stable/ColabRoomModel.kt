@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
 import kotlinx.serialization.Serializable
 
-@Serializable
 @Entity(tableName = TB_COLAB)
 data class ColabRoomModel(
     @PrimaryKey

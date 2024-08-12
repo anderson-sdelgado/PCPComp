@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.utils
 
 enum class StatusData { OPEN, CLOSE  }
 enum class StatusSend { STARTED, SEND, SENDING, SENT }
+enum class StatusForeigner { INSIDE, OUTSIDE }
 enum class TypeMov { INPUT, OUTPUT, EMPTY }
 enum class StatusUpdate { UPDATED, FAILURE }
 enum class StatusRecover { SUCCESS, EMPTY, FAILURE }
