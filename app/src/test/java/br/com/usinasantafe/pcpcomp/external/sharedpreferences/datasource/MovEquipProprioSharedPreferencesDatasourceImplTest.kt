@@ -30,16 +30,20 @@ class MovEquipProprioSharedPreferencesDatasourceImplTest {
     }
 
     @Test
-    fun `Check return data correct the Config SharedPreferences internal`() = runTest {
-        val data = MovEquipProprioSharedPreferencesModel(
-            idEquipMovEquipProprio = 1L,
-            dthrMovEquipProprio = Date(),
-            tipoMovEquipProprio = TypeMov.INPUT
-        )
-        movEquipProprioSharedPreferencesDatasourceImpl.save(data)
+    fun `Check return data correct if MovEquipProprioSharedPreferences Start execute correctly`() = runTest {
+        movEquipProprioSharedPreferencesDatasourceImpl.start(TypeMov.INPUT)
         val result = movEquipProprioSharedPreferencesDatasourceImpl.get()
         assertTrue(result.isSuccess)
-        assertEquals(result.getOrNull()!!.idEquipMovEquipProprio, 1L)
+        assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
     }
 
+    @Test
+    fun `Check return matric correct if MovEquipProprioSharedPreferences setMatricColab execute correctly`() = runTest {
+        movEquipProprioSharedPreferencesDatasourceImpl.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasourceImpl.setMatricColab(19759)
+        val result = movEquipProprioSharedPreferencesDatasourceImpl.get()
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
+        assertEquals(result.getOrNull()!!.nroMatricColabMovEquipProprio, 19759L)
+    }
 }

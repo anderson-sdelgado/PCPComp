@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.presenter.proprio.movequip
+package br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio
 
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.RecoverHeader
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverMovEquipProprioOpenList
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.StartMovEquipProprio
-import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontViewModel
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

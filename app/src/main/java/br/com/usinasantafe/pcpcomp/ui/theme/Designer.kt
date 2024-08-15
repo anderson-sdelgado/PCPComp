@@ -187,7 +187,7 @@ fun AlertDialogCheckDesign(
         text = {
             Text(
                 text = text,
-                modifier = Modifier.testTag("text_alert_dialog_simple")
+                modifier = Modifier.testTag("text_alert_dialog_check")
             )
         },
         onDismissRequest = setCloseDialog,

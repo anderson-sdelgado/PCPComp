@@ -85,6 +85,44 @@ class MenuApontScreenTest: KoinTest {
         composeTestRule.onNodeWithText("LOCAL: 1 - USINAS").assertIsDisplayed()
     }
 
+    @Test
+    fun check_msg_if_click_button_out() = runTest {
+        val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
+        val colabRoomDatasource: ColabRoomDatasource by inject()
+        val localRoomDatasource: LocalRoomDatasource by inject()
+        configSharedPreferences.saveConfig(
+            Config(
+                matricVigia = 19759,
+                idLocal = 1
+            )
+        )
+        colabRoomDatasource.addAll(
+            listOf(
+                ColabRoomModel(
+                    matricColab = 19759,
+                    nomeColab = "ANDERSON DA SILVA DELGADO"
+                )
+            )
+        )
+        localRoomDatasource.addAll(
+            listOf(
+                LocalRoomModel(
+                    idLocal = 1,
+                    descrLocal = "1 - USINAS"
+                )
+            )
+        )
+        setContent()
+        composeTestRule.onNodeWithText("MOV. VEÍCULO PRÓPRIO").assertIsDisplayed()
+        composeTestRule.waitUntilTimeout(2_000)
+        composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO").assertIsDisplayed()
+        composeTestRule.onNodeWithText("LOCAL: 1 - USINAS").assertIsDisplayed()
+        composeTestRule.onNodeWithText("SAIR").performClick()
+        composeTestRule.waitUntilTimeout(2_000)
+        composeTestRule.onNodeWithTag("text_alert_dialog_check").assertTextEquals("DESEJA REALMENTE RETORNAR? ISSO FECHARÁ TODOS OS MOVIMENTOS.")
+
+    }
+
     private fun setContent() {
         composeTestRule.setContent {
             MenuApontScreen(

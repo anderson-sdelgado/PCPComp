@@ -82,6 +82,17 @@ class FlowMainInitialFuncionalTest: KoinTest {
         composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO").assertIsDisplayed()
 
         composeTestRule.onNodeWithText("ENTRADA").performClick()
+
+        composeTestRule.onNodeWithText("1").performClick()
+        composeTestRule.onNodeWithText("9").performClick()
+        composeTestRule.onNodeWithText("7").performClick()
+        composeTestRule.onNodeWithText("5").performClick()
+        composeTestRule.onNodeWithText("9").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("NOME COLABORADOR:").assertIsDisplayed()
+        composeTestRule.onNodeWithText("OK").performClick()
+        composeTestRule.waitUntilTimeout(2_000)
     }
 
     private suspend fun initialRegister() {

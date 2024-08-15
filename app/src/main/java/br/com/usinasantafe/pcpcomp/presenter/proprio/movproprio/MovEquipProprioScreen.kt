@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.presenter.proprio.movequip
+package br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,12 +25,13 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TextSmallDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListWithDetailDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 @Composable
 fun MovEquipProprioScreen(
     viewModel: MovEquipProprioViewModel,
-    onNavMatricColab: (Int) -> Unit,
+    onNavMatricColab: (Int, Int, Int) -> Unit,
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -63,7 +64,7 @@ fun MovEquipProprioContent(
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavMatricColab: (Int) -> Unit,
+    onNavMatricColab: (Int, Int, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -129,7 +130,11 @@ fun MovEquipProprioContent(
         }
 
         if (flagAccess) {
-            onNavMatricColab(FlowApp.ADD.ordinal)
+            onNavMatricColab(
+                FlowApp.ADD.ordinal,
+                TypeEquip.VEICULO.ordinal,
+                0
+            )
         }
     }
 }
@@ -161,7 +166,7 @@ fun MovEquipProprioPreview() {
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavMatricColab = {},
+                onNavMatricColab = {_, _, _ ->},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -195,7 +200,7 @@ fun MovEquipProprioPreviewShowDialog() {
                 flagDialog = true,
                 setCloseDialog = {},
                 failure = "Failure Datasource",
-                onNavMatricColab = {},
+                onNavMatricColab = {_, _, _ ->},
                 modifier = Modifier.padding(innerPadding)
             )
         }

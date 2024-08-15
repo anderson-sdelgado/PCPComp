@@ -1,15 +1,18 @@
-package br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia
+package br.com.usinasantafe.pcpcomp.presenter.proprio.matriccolab
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetMatricVigiaConfig
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.Errors
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.porc
@@ -20,8 +23,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class MatricVigiaState(
-    val matricVigia: String = "",
+data class MatricColabState(
+    val matricColab: String = "",
+    val flowApp: FlowApp = FlowApp.ADD,
     val flagAccess: Boolean = false,
     val flagFailure: Boolean = false,
     val flagDialog: Boolean = false,
@@ -32,22 +36,29 @@ data class MatricVigiaState(
     val currentProgress: Float = 0.0f,
 )
 
-class MatricVigiaViewModel(
+class MatricColabViewModel(
+    saveStateHandle: SavedStateHandle,
     private val checkMatricColab: CheckMatricColab,
-    private val setMatricVigiaConfig: SetMatricVigiaConfig,
     private val cleanColab: CleanColab,
     private val recoverColabServer: RecoverColabServer,
     private val saveAllColab: SaveAllColab,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(MatricVigiaState())
+    private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
+
+    private val _uiState = MutableStateFlow(MatricColabState())
     val uiState = _uiState.asStateFlow()
+
+    init {
+        _uiState.update {
+            it.copy(flowApp = FlowApp.entries[flowApp])
+
+        }
+    }
 
     fun setCloseDialog() {
         _uiState.update {
-            it.copy(
-                flagDialog = false
-            )
+            it.copy(flagDialog = false)
         }
     }
 
@@ -57,19 +68,19 @@ class MatricVigiaViewModel(
     ){
         when(typeButton){
             TypeButton.NUMERIC -> {
-                val matricVigia = addTextField(uiState.value.matricVigia, text)
+                val matricColab = addTextField(uiState.value.matricColab, text)
                 _uiState.update {
-                    it.copy(matricVigia = matricVigia)
+                    it.copy(matricColab = matricColab)
                 }
             }
             TypeButton.CLEAN -> {
-                val matricVigia = clearTextField(uiState.value.matricVigia)
+                val matricColab = clearTextField(uiState.value.matricColab)
                 _uiState.update {
-                    it.copy(matricVigia = matricVigia)
+                    it.copy(matricColab = matricColab)
                 }
             }
             TypeButton.OK -> {
-                if (uiState.value.matricVigia.isEmpty()) {
+                if (uiState.value.matricColab.isEmpty()) {
                     _uiState.update {
                         it.copy(
                             flagDialog = true,
@@ -80,7 +91,7 @@ class MatricVigiaViewModel(
                     return
                 }
                 viewModelScope.launch {
-                    val resultCheckMatric = checkMatricColab(uiState.value.matricVigia)
+                    val resultCheckMatric = checkMatricColab(uiState.value.matricColab)
                     if(resultCheckMatric.isFailure){
                         val error = resultCheckMatric.exceptionOrNull()!!
                         val failure =
@@ -96,21 +107,6 @@ class MatricVigiaViewModel(
                         return@launch
                     }
                     val result = resultCheckMatric.getOrNull()!!
-                    val resultSetMatric = setMatricVigiaConfig(uiState.value.matricVigia)
-                    if(resultSetMatric.isFailure){
-                        val error = resultSetMatric.exceptionOrNull()!!
-                        val failure =
-                            "${error.message} -> ${error.cause.toString()}"
-                        _uiState.update {
-                            it.copy(
-                                flagDialog = true,
-                                flagFailure = true,
-                                errors = Errors.EXCEPTION,
-                                failure = failure,
-                            )
-                        }
-                        return@launch
-                    }
                     _uiState.update {
                         it.copy(
                             flagAccess = result,
@@ -131,9 +127,9 @@ class MatricVigiaViewModel(
         }
     }
 
-    suspend fun updateAllDatabase(): Flow<MatricVigiaState> = flow {
+    suspend fun updateAllDatabase(): Flow<MatricColabState> = flow {
         val sizeUpdate = 4f
-        var configState = MatricVigiaState()
+        var configState = MatricColabState()
         updateAllColab(sizeUpdate, 1f).collect{ stateUpdateColab ->
             configState = stateUpdateColab
             emit(stateUpdateColab)
@@ -141,7 +137,7 @@ class MatricVigiaViewModel(
         if(configState.flagFailure)
             return@flow
         emit(
-            MatricVigiaState(
+            MatricColabState(
                 flagDialog = true,
                 flagProgress = false,
                 flagFailure = false,
@@ -151,9 +147,9 @@ class MatricVigiaViewModel(
         )
     }
 
-    suspend fun updateAllColab(sizeAll: Float, count: Float): Flow<MatricVigiaState> = flow {
+    suspend fun updateAllColab(sizeAll: Float, count: Float): Flow<MatricColabState> = flow {
         emit(
-            MatricVigiaState(
+            MatricColabState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela $TB_COLAB",
                 currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
@@ -164,7 +160,7 @@ class MatricVigiaViewModel(
             val error = resultClean.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
-                MatricVigiaState(
+                MatricColabState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     flagFailure = true,
@@ -177,7 +173,7 @@ class MatricVigiaViewModel(
             return@flow
         }
         emit(
-            MatricVigiaState(
+            MatricColabState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela $TB_COLAB do Web Service",
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
@@ -189,7 +185,7 @@ class MatricVigiaViewModel(
             val failure =
                 "${error.message} -> ${error.cause.toString()}"
             emit(
-                MatricVigiaState(
+                MatricColabState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     flagFailure = true,
@@ -202,7 +198,7 @@ class MatricVigiaViewModel(
             return@flow
         }
         emit(
-            MatricVigiaState(
+            MatricColabState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela $TB_COLAB",
                 currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
@@ -214,7 +210,7 @@ class MatricVigiaViewModel(
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"
             emit(
-                MatricVigiaState(
+                MatricColabState(
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     flagFailure = true,

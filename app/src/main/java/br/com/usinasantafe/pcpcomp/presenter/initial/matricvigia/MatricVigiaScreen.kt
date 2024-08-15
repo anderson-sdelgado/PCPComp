@@ -84,7 +84,7 @@ fun MatricVigiaContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "MATRICULA VIGIA")
+        TitleListDesign(text = "MATRICULA VIGIA:")
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -260,8 +260,8 @@ fun MatricVigiaPagePreviewBlockedAccess() {
                 flagAccess = false,
                 flagDialog = true,
                 setCloseDialog = {},
-                flagFailure = false,
-                errors = Errors.EXCEPTION,
+                flagFailure = true,
+                errors = Errors.INVALID,
                 failure = "",
                 onNavMenuInicial = {},
                 onNavNomeVigia = {},

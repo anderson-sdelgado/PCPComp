@@ -179,4 +179,47 @@ class MovEquipProprioRepositoryImplTest {
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }
+
+    @Test
+    fun `Check failure if have failure in MovEquipProprioSharedPreferencesDatasource setMatricColab`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource = mock<MovEquipProprioSharedPreferencesDatasource>()
+            whenever(movEquipProprioSharedPreferencesDatasource.setMatricColab(19759)).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipProprioSharedPreferencesDatasource.setMatricColab",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource
+            )
+            val result = repository.setMatricColab(19759)
+            assertEquals(result.isFailure, true)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipProprioSharedPreferencesDatasource.setMatricColab"
+            )
+        }
+
+    @Test
+    fun `Check return success if have MovEquipProprioSharedPreferencesDatasource setMatricColab execute correctly`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource = mock<MovEquipProprioSharedPreferencesDatasource>()
+            whenever(movEquipProprioSharedPreferencesDatasource.setMatricColab(19759)).thenReturn(
+                Result.success(true)
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource
+            )
+            val result = repository.setMatricColab(19759)
+            assertEquals(result.isSuccess, true)
+            assertEquals(result.getOrNull()!!, true)
+        }
+
 }

@@ -56,7 +56,7 @@ class RecoverNomeVigiaImplTest {
     }
 
     @Test
-    fun `Check return success`() = runTest {
+    fun `Check return NomeVigia if the process execute success`() = runTest {
         val config = Config(
             matricVigia = 19759
         )

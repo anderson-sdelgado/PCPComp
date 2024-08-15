@@ -4,7 +4,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.presenter.proprio.movequip.MovEquipProprioModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio.MovEquipProprioModel
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import java.text.SimpleDateFormat
 import java.util.Locale

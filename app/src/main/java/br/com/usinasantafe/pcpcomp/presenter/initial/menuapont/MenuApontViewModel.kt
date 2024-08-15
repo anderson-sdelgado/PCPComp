@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 data class MenuApontState(
     val descrVigia: String = "",
     val descrLocal: String = "",
-    val flagDialogCloseMov: Boolean = false,
+    val flagDialogCheck: Boolean = false,
     val flagFinishCloseMov: Boolean = false,
     val flagReturn: Boolean = false,
     val flagDialog: Boolean = false,
@@ -33,15 +33,10 @@ class MenuApontViewModel(
         }
     }
 
-    fun setOpenDialogCloseMov() {
-        _uiState.update {
-            it.copy(flagDialogCloseMov = true)
-        }
-    }
 
-    fun setCloseDialogCloseMov() {
+    fun setDialogCheck(flagDialogCheck: Boolean) {
         _uiState.update {
-            it.copy(flagDialogCloseMov = false)
+            it.copy(flagDialogCheck = flagDialogCheck)
         }
     }
 
@@ -86,7 +81,7 @@ class MenuApontViewModel(
         val result = resultCloseAllMovOpen.getOrNull()!!
         _uiState.update {
             it.copy(
-                flagDialogCloseMov = false,
+                flagDialogCheck = false,
                 flagReturn = result
             )
         }

@@ -1,6 +1,5 @@
 package br.com.usinasantafe.pcpcomp.presenter.initial.menuapont
 
-import android.window.SplashScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,9 +37,8 @@ fun MenuApontScreen(
             MenuApontContent(
                 descrVigia = uiState.descrVigia,
                 descrLocal = uiState.descrLocal,
-                flagDialogCloseMov = uiState.flagDialogCloseMov,
-                setOpenDialogCloseMov = viewModel::setOpenDialogCloseMov,
-                setCloseDialogCloseMov = viewModel::setCloseDialogCloseMov,
+                flagDialogCheck = uiState.flagDialogCheck,
+                setDialogCheck = viewModel::setDialogCheck,
                 closeAllMov = viewModel::closeAllMov,
                 flagReturn = uiState.flagReturn,
                 flagDialog = uiState.flagDialog,
@@ -61,9 +59,8 @@ fun MenuApontScreen(
 fun MenuApontContent(
     descrVigia: String,
     descrLocal: String,
-    flagDialogCloseMov: Boolean,
-    setOpenDialogCloseMov: () -> Unit,
-    setCloseDialogCloseMov: () -> Unit,
+    flagDialogCheck: Boolean,
+    setDialogCheck: (Boolean) -> Unit,
     closeAllMov: () -> Unit,
     flagReturn: Boolean,
     flagDialog: Boolean,
@@ -107,7 +104,7 @@ fun MenuApontContent(
             }
         }
         Button(
-            onClick = { setOpenDialogCloseMov() },
+            onClick = { setDialogCheck(true) },
             modifier = Modifier.fillMaxWidth(),
         ) {
             TextButtonDesign(text = stringResource(id = R.string.text_pattern_out))
@@ -120,10 +117,10 @@ fun MenuApontContent(
             )
         }
 
-        if(flagDialogCloseMov){
+        if(flagDialogCheck){
             AlertDialogCheckDesign(
                 text = stringResource(id = R.string.text_close_all_mov),
-                setCloseDialog = setCloseDialogCloseMov,
+                setCloseDialog = { setDialogCheck(false)  },
                 setActionButtonOK = { closeAllMov() }
             )
         }
@@ -143,9 +140,8 @@ fun MenuApontPagePreview() {
             MenuApontContent(
                 descrVigia = "1975 - ANDERSON",
                 descrLocal = "1 - USINA",
-                flagDialogCloseMov = false,
-                setOpenDialogCloseMov = {},
-                setCloseDialogCloseMov = {},
+                flagDialogCheck = false,
+                setDialogCheck = {},
                 closeAllMov = {},
                 flagReturn = false,
                 flagDialog = false,
@@ -169,9 +165,8 @@ fun MenuApontPagePreviewShowDialog() {
             MenuApontContent(
                 descrVigia = "1975 - ANDERSON",
                 descrLocal = "1 - USINA",
-                flagDialogCloseMov = false,
-                setOpenDialogCloseMov = {},
-                setCloseDialogCloseMov = {},
+                flagDialogCheck = false,
+                setDialogCheck = {},
                 closeAllMov = {},
                 flagReturn = false,
                 flagDialog = true,
@@ -195,9 +190,8 @@ fun MenuApontPagePreviewShowDialogCheck() {
             MenuApontContent(
                 descrVigia = "1975 - ANDERSON",
                 descrLocal = "1 - USINA",
-                flagDialogCloseMov = true,
-                setOpenDialogCloseMov = {},
-                setCloseDialogCloseMov = {},
+                flagDialogCheck = true,
+                setDialogCheck = {},
                 closeAllMov = {},
                 flagReturn = false,
                 flagDialog = false,

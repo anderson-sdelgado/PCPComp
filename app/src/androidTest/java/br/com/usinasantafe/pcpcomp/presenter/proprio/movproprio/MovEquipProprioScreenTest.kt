@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.presenter.proprio.movequip
+package br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
@@ -16,15 +16,12 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
-import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontScreen
-import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontViewModel
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 
@@ -152,7 +149,9 @@ class MovEquipProprioScreenTest: KoinTest {
         composeTestRule.setContent {
             MovEquipProprioScreen(
                 viewModel = koinViewModel<MovEquipProprioViewModel>(),
-                onNavMatricColab = {}
+                onNavMatricColab = {
+                    _, _, _ ->
+                }
             )
         }
     }

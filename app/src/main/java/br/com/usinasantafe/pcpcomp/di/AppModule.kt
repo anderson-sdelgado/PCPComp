@@ -7,7 +7,9 @@ import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaView
 import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.local.LocalViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontViewModel
-import br.com.usinasantafe.pcpcomp.presenter.proprio.movequip.MovEquipProprioViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio.MovEquipProprioViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.matriccolab.MatricColabViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab.NomeColabViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.*
@@ -53,6 +55,8 @@ val viewModelModule = module {
     viewModelOf(::LocalViewModel)
     viewModelOf(::MenuApontViewModel)
     viewModelOf(::MovEquipProprioViewModel)
+    viewModelOf(::MatricColabViewModel)
+    viewModelOf(::NomeColabViewModel)
 
 }
 
@@ -97,6 +101,8 @@ val usecaseInitialModule = module {
 val usecaseProprioModule = module {
 
     singleOf(::RecoverMovEquipProprioOpenListImpl) { bind<RecoverMovEquipProprioOpenList>() }
+    singleOf(::RecoverNomeColabImpl) { bind<RecoverNomeColab>() }
+    singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
     singleOf(::StartMovEquipProprioImpl) { bind<StartMovEquipProprio>() }
 
 }

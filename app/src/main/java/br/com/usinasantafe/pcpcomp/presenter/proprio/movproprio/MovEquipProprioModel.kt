@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.presenter.proprio.movequip
+package br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio
 
 data class MovEquipProprioModel(
     val dthr: String,

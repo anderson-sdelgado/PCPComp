@@ -1,9 +1,10 @@
-package br.com.usinasantafe.pcpcomp.presenter.proprio.movequip
+package br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.RecoverHeader
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverMovEquipProprioOpenList
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.StartMovEquipProprio
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.flow.MutableStateFlow

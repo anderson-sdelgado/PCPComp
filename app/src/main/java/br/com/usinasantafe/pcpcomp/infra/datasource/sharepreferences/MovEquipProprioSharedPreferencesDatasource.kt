@@ -6,4 +6,5 @@ import br.com.usinasantafe.pcpcomp.utils.TypeMov
 interface MovEquipProprioSharedPreferencesDatasource {
     suspend fun get(): Result<MovEquipProprioSharedPreferencesModel>
     suspend fun start(typeMov: TypeMov): Result<Boolean>
+    suspend fun setMatricColab(matric: Long): Result<Boolean>
 }

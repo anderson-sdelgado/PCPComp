@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia
+package br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
@@ -27,43 +27,47 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 
 @Composable
-fun NomeVigiaScreen(
-    viewModel: NomeVigiaViewModel,
-    onNavMatricVigia: () -> Unit,
-    onNavLocal: () -> Unit
+fun NomeColabScreen(
+    viewModel: NomeColabViewModel,
+    onNavMatricColab: () -> Unit,
+    onNavPassagColabList: () -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-            NomeVigiaContent(
-                nomeVigia = uiState.nomeVigia,
+            NomeColabContent(
+                nomeColab = uiState.nomeColab,
+                setMatric = viewModel::setMatric,
+                flagAccess = uiState.flagAccess,
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
-                onNavMatricVigia = onNavMatricVigia,
-                onNavLocal = onNavLocal,
+                onNavMatricColab = onNavMatricColab,
+                onNavPassagColabList = onNavPassagColabList,
                 modifier = Modifier.padding(innerPadding)
             )
-            viewModel.returnNomeVigia()
         }
+        viewModel.returnNomeColab()
     }
 }
 
 @Composable
-fun NomeVigiaContent(
-    nomeVigia: String,
+fun NomeColabContent(
+    nomeColab: String,
+    setMatric: () -> Unit,
+    flagAccess: Boolean,
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavMatricVigia: () -> Unit,
-    onNavLocal: () -> Unit,
+    onNavMatricColab: () -> Unit,
+    onNavPassagColabList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "NOME VIGIA")
+        TitleListDesign(text = "NOME COLABORADOR")
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -73,7 +77,7 @@ fun NomeVigiaContent(
         ) {
             Text(
                 textAlign = TextAlign.Center,
-                text = nomeVigia,
+                text = nomeColab,
                 fontSize = 26.sp,
             )
         }
@@ -84,16 +88,16 @@ fun NomeVigiaContent(
             horizontalArrangement = Arrangement.Center,
         ) {
             Button(
-                onClick = onNavMatricVigia,
-                modifier = Modifier.weight(1f)
-            ) {
-                TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
-            }
-            Button(
-                onClick = onNavLocal,
+                onClick = setMatric,
                 modifier = Modifier.weight(1f),
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
+            }
+            Button(
+                onClick = onNavMatricColab,
+                modifier = Modifier.weight(1f)
+            ) {
+                TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
             }
         }
         BackHandler {}
@@ -102,8 +106,12 @@ fun NomeVigiaContent(
             AlertDialogSimpleDesign(
                 text = stringResource(id = R.string.text_failure, failure),
                 setCloseDialog = setCloseDialog,
-                setActionButtonOK = { onNavMatricVigia() }
+                setActionButtonOK = { onNavMatricColab() }
             )
+        }
+
+        if(flagAccess) {
+            onNavPassagColabList()
         }
 
     }
@@ -111,16 +119,18 @@ fun NomeVigiaContent(
 
 @Preview(showBackground = true)
 @Composable
-fun NomeVigiaPagePreview() {
+fun NomeColabPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            NomeVigiaContent(
-                nomeVigia = "ANDERSON DA SILVA DELGADO",
+            NomeColabContent(
+                nomeColab = "ANDERSON DA SILVA DELGADO",
+                setMatric = {},
+                flagAccess = false,
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavMatricVigia = {},
-                onNavLocal = {},
+                onNavMatricColab = {},
+                onNavPassagColabList = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -129,16 +139,18 @@ fun NomeVigiaPagePreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun NomeVigiaPagePreviewShowDialog() {
+fun NomeColabPagePreviewFailure() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            NomeVigiaContent(
-                nomeVigia = "ANDERSON DA SILVA DELGADO",
+            NomeColabContent(
+                nomeColab = "ANDERSON DA SILVA DELGADO",
+                setMatric = {},
+                flagAccess = false,
                 flagDialog = true,
                 setCloseDialog = {},
-                failure = "Datasource Failure",
-                onNavMatricVigia = {},
-                onNavLocal = {},
+                failure = "Failure Usecase -> RecoverNomeColab -> java.lang.NullPointerException",
+                onNavMatricColab = {},
+                onNavPassagColabList = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

@@ -1,75 +1,140 @@
 package br.com.usinasantafe.pcpcomp.presenter
 
 import androidx.navigation.NavHostController
-import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Args.MATRIC_COLAB_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Args.POS_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_OCUPANTE_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Screens.CONFIG_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_MOV_PROPRIO_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.PASSAG_COLAB_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.LOCAL_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_COLAB_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_VIGIA_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MENU_APONT_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MENU_INICIAL_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_PROPRIO_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_RESIDENCIA_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_VISIT_TERC_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_COLAB_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_VIGIA_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.SENHA_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.SPLASH_SCREEN
 
 object Screens {
-    const val MENU_INICIAL = "menuinicial"
-    const val SENHA = "senha"
-    const val CONFIG = "config"
-    const val MATRIC_VIGIA = "matricvigia"
-    const val SPLASH = "splash"
-    const val NOME_VIGIA = "nomevigia"
-    const val LOCAL = "local"
-    const val MENU_APONT = "menuapont"
-    const val MOV_VEIC_PROPRIO = "movveicproprio"
-    const val MATRIC_COLAB = "matriccolab"
-    const val MOV_VEIC_VISIT_TERC = "movveicvisitterc"
-    const val MOV_VEIC_RESIDENCIA = "movveicresidencia"
+    const val MENU_INICIAL_SCREEN = "menuinicial"
+    const val SENHA_SCREEN = "senha"
+    const val CONFIG_SCREEN = "config"
+    const val MATRIC_VIGIA_SCREEN = "matricvigia"
+    const val SPLASH_SCREEN = "splash"
+    const val NOME_VIGIA_SCREEN = "nomevigia"
+    const val LOCAL_SCREEN = "local"
+    const val MENU_APONT_SCREEN = "menuapont"
+    const val MOV_PROPRIO_SCREEN = "movproprio"
+    const val MATRIC_COLAB_SCREEN = "matriccolab"
+    const val NOME_COLAB_SCREEN = "nomecolab"
+    const val MOV_VISIT_TERC_SCREEN = "movvisitterc"
+    const val MOV_RESIDENCIA_SCREEN = "movresidencia"
+    const val DETALHE_MOV_PROPRIO_SCREEN = "detalhemovproprio"
+    const val PASSAG_COLAB_LIST_SCREEN = "passagcolablist"
+}
+
+object Args {
+    const val FLOW_APP_ARGS = "flowApp"
+    const val TYPE_OCUPANTE_ARGS = "typeOcupante"
+    const val POS_ARGS = "pos"
+    const val MATRIC_COLAB_ARGS = "matricColab"
+}
+
+object Routes {
+    const val SPLASH_ROUTE = SPLASH_SCREEN
+    const val MENU_INICIAL_ROUTE = MENU_INICIAL_SCREEN
+    const val SENHA_ROUTE = SENHA_SCREEN
+    const val CONFIG_ROUTE = CONFIG_SCREEN
+    const val MATRIC_VIGIA_ROUTE = MATRIC_VIGIA_SCREEN
+    const val NOME_VIGIA_ROUTE = NOME_VIGIA_SCREEN
+    const val LOCAL_ROUTE = LOCAL_SCREEN
+    const val MENU_APONT_ROUTE = MENU_APONT_SCREEN
+    const val MOV_PROPRIO_ROUTE = MOV_PROPRIO_SCREEN
+    const val MATRIC_COLAB_ROUTE = "$MATRIC_COLAB_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_OCUPANTE_ARGS}/{$POS_ARGS}"
+    const val NOME_COLAB_ROUTE = "$NOME_COLAB_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_OCUPANTE_ARGS}/{$POS_ARGS}/{$MATRIC_COLAB_ARGS}"
+    const val PASSAG_COLAB_LIST_ROUTE = PASSAG_COLAB_LIST_SCREEN
+    const val DETALHE_MOV_PROPRIO_ROUTE = DETALHE_MOV_PROPRIO_SCREEN
 }
 
 class NavigationActions(private val navController: NavHostController) {
 
-
     fun navigationToSplash(){
-        navController.navigate(Screens.SPLASH)
+        navController.navigate(SPLASH_SCREEN)
     }
 
-
     fun navigationToSenha(){
-        navController.navigate(Screens.SENHA)
+        navController.navigate(SENHA_SCREEN)
     }
 
     fun navigationToMenuInicial(){
-        navController.navigate(Screens.MENU_INICIAL)
+        navController.navigate(MENU_INICIAL_SCREEN)
     }
 
     fun navigationToConfig(){
-        navController.navigate(Screens.CONFIG)
+        navController.navigate(CONFIG_SCREEN)
     }
 
     fun navigationToMatricVigia(){
-        navController.navigate(Screens.MATRIC_VIGIA)
+        navController.navigate(MATRIC_VIGIA_SCREEN)
     }
 
     fun navigationToNomeVigia(){
-        navController.navigate(Screens.NOME_VIGIA)
+        navController.navigate(NOME_VIGIA_SCREEN)
     }
 
     fun navigationToLocal(){
-        navController.navigate(Screens.LOCAL)
+        navController.navigate(LOCAL_SCREEN)
     }
 
     fun navigationToMenuApont(){
-        navController.navigate(Screens.MENU_APONT)
+        navController.navigate(MENU_APONT_SCREEN)
     }
 
-    fun navigationToMovVeicProprio(){
-        navController.navigate(Screens.MOV_VEIC_PROPRIO)
+    fun navigationToMovProprio(){
+        navController.navigate(MOV_PROPRIO_SCREEN)
     }
 
-    fun navigationToMovVeicVisitTerc(){
-        navController.navigate(Screens.MOV_VEIC_VISIT_TERC)
+    fun navigationToMovVisitTerc(){
+        navController.navigate(MOV_VISIT_TERC_SCREEN)
     }
 
-    fun navigationToMovVeicResidencia(){
-        navController.navigate(Screens.MOV_VEIC_RESIDENCIA)
+    fun navigationToMovResidencia(){
+        navController.navigate(MOV_RESIDENCIA_SCREEN)
     }
 
-    fun navigationToMatriColab(flowApp: Int){
-        navController.navigate("${Screens.MATRIC_COLAB}/${flowApp}")
+    fun navigationToMatricColab(
+        flowApp: Int,
+        typeOcupante: Int,
+        pos: Int = 0
+    ){
+        navController.navigate("${MATRIC_COLAB_SCREEN}/${flowApp}/${typeOcupante}/${pos}")
     }
 
+    fun navigationToNomeColab(
+        flowApp: Int,
+        typeOcupante: Int,
+        pos: Int = 0,
+        matricColab: String
+    ){
+        navController.navigate("${NOME_COLAB_SCREEN}/${flowApp}/${typeOcupante}/${pos}/${matricColab}")
+    }
+
+    fun navigationToPassagColabList(
+        flowApp: Int,
+        typeOcupante: Int,
+        pos: Int = 0,
+    ){
+        navController.navigate("${PASSAG_COLAB_LIST_SCREEN}/${flowApp}/${typeOcupante}/${pos}")
+    }
+
+    fun navigationToDetalheMovProprio(){
+        navController.navigate(DETALHE_MOV_PROPRIO_SCREEN)
+    }
 
 }

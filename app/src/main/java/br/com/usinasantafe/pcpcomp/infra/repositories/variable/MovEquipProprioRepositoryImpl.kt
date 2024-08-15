@@ -14,6 +14,10 @@ class MovEquipProprioRepositoryImpl(
     private val movEquipProprioRoomDatasource: MovEquipProprioRoomDatasource,
 ): MovEquipProprioRepository {
 
+    override suspend fun setMatricColab(matricColab: Long): Result<Boolean> {
+        return movEquipProprioSharedPreferencesDatasource.setMatricColab(matricColab)
+    }
+
     override suspend fun start(typeMov: TypeMov): Result<Boolean> {
         return movEquipProprioSharedPreferencesDatasource.start(typeMov)
     }
