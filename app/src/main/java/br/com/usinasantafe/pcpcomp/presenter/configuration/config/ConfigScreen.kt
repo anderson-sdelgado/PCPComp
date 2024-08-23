@@ -47,9 +47,9 @@ fun ConfigScreen(
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             ConfigContent(
                 number = uiState.number,
-                onNumberChanged = viewModel::updateNumber,
+                onNumberChanged = viewModel::onNumberChanged,
                 password = uiState.password,
-                onPasswordChanged = viewModel::updatePassword,
+                onPasswordChanged = viewModel::onPasswordChanged,
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 flagFailure = uiState.flagFailure,

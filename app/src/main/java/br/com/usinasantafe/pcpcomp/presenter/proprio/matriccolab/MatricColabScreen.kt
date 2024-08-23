@@ -162,7 +162,7 @@ fun MatricColabPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MatricColabContent(
-                matricColab = "",
+                matricColab = "19759",
                 flowApp = FlowApp.ADD,
                 setTextField = { _, _ -> },
                 flagAccess = false,

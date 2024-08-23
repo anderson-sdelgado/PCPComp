@@ -52,7 +52,7 @@ fun TitleListDesign(text: String) {
         textAlign = TextAlign.Center,
         text = text,
         fontWeight = FontWeight.Bold,
-        fontSize = 26.sp,
+        fontSize = 28.sp,
         modifier = Modifier
             .fillMaxWidth()
     )

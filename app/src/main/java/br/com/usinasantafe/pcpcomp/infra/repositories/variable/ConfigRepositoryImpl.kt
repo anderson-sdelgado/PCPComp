@@ -49,7 +49,7 @@ class ConfigRepositoryImpl(
         }
     }
 
-    override suspend fun getMatricVigia(): Result<Long> {
+    override suspend fun getMatricVigia(): Result<Int> {
         try {
             val config = configSharedPreferencesDatasource.getConfig()
             if(config.isFailure)
@@ -69,7 +69,7 @@ class ConfigRepositoryImpl(
         return configSharedPreferencesDatasource.getConfig()
     }
 
-    override suspend fun send(config: Config): Result<Long> {
+    override suspend fun send(config: Config): Result<Int> {
         try {
             val result = configRetrofitDatasource.recoverToken(config.toConfigWebServiceModel())
             if(result.isFailure)

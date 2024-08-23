@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.lifecycle.SavedStateHandle
+import androidx.test.espresso.Espresso
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
@@ -16,22 +17,17 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.presenter.Args
-import br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio.MovEquipProprioScreen
-import br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio.MovEquipProprioViewModel
 import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 
 import org.junit.Test
-import org.koin.androidx.compose.koinViewModel
 import org.koin.core.context.loadKoinModules
-import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 

@@ -84,14 +84,52 @@ class FlowMainInitialFuncionalTest: KoinTest {
         composeTestRule.onNodeWithText("ENTRADA").performClick()
 
         composeTestRule.onNodeWithText("1").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("VEÍCULO(S) SECUNDÁRIO(S)").assertIsDisplayed()
+        composeTestRule.onNodeWithText("INSERIR").performClick()
+
+        composeTestRule.onNodeWithText("2").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("VEÍCULO(S) SECUNDÁRIO(S)").assertIsDisplayed()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("1").performClick()
         composeTestRule.onNodeWithText("9").performClick()
         composeTestRule.onNodeWithText("7").performClick()
         composeTestRule.onNodeWithText("5").performClick()
         composeTestRule.onNodeWithText("9").performClick()
         composeTestRule.onNodeWithText("OK").performClick()
 
-        composeTestRule.onNodeWithText("NOME COLABORADOR:").assertIsDisplayed()
+        composeTestRule.onNodeWithText("NOME COLABORADOR").assertIsDisplayed()
+        composeTestRule.onNodeWithText("ANDERSON DA SILVA DELGADO").assertIsDisplayed()
         composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("PASSAGEIRO(S)").assertIsDisplayed()
+        composeTestRule.onNodeWithText("INSERIR").performClick()
+
+        composeTestRule.onNodeWithText("1").performClick()
+        composeTestRule.onNodeWithText("9").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("3").performClick()
+        composeTestRule.onNodeWithText("5").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("NOME COLABORADOR").assertIsDisplayed()
+        composeTestRule.onNodeWithText("JOSE DONIZETE ALVES DA SILVA").assertIsDisplayed()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("PASSAGEIRO(S)").assertIsDisplayed()
+        composeTestRule.onNodeWithText("19035 - JOSE DONIZETE ALVES DA SILVA").assertIsDisplayed()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("DESTINO").assertIsDisplayed()
+
         composeTestRule.waitUntilTimeout(2_000)
     }
 

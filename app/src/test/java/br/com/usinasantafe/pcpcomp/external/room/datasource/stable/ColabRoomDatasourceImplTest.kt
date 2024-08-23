@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.ColabDao
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
@@ -81,7 +82,7 @@ class ColabRoomDatasourceImplTest {
     }
 
     @Test
-    fun `Check return false if not exist MatricColab`() = runTest {
+    fun `Check return false if not exist Colab`() = runTest {
         val datasource = ColabRoomDatasourceImpl(colabDao)
         val result = datasource.checkMatric(19759)
         assertTrue(result.isSuccess)
@@ -89,7 +90,7 @@ class ColabRoomDatasourceImplTest {
     }
 
     @Test
-    fun `Check return true if exist MatricColab`() = runTest {
+    fun `Check return true if exist Colab`() = runTest {
         val datasource = ColabRoomDatasourceImpl(colabDao)
         datasource.addAll(
             listOf(
@@ -109,7 +110,19 @@ class ColabRoomDatasourceImplTest {
     }
 
     @Test
-    fun `Check return nomeColab if getNome is success`() = runTest {
+    fun `Check return failure if not have data researched`() = runTest {
+        val datasource = ColabRoomDatasourceImpl(colabDao)
+        val exception = try {
+            datasource.getNome(19759)
+            null
+        } catch (exception: Exception){
+            exception
+        }
+        assertEquals(exception, null)
+    }
+
+    @Test
+    fun `Check return getNro if have data researched`() = runTest {
         val datasource = ColabRoomDatasourceImpl(colabDao)
         datasource.addAll(
             listOf(
@@ -127,5 +140,4 @@ class ColabRoomDatasourceImplTest {
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, "ANDERSON DA SILVA DELGADO")
     }
-
 }

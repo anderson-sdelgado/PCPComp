@@ -36,9 +36,9 @@ interface MovEquipResidenciaDao {
     suspend fun listStatusAndStatusEnvio(status: StatusData, statusEnvio: StatusSend): List<MovEquipResidenciaRoomModel>
 
     @Query("SELECT MAX(idMovEquipResidencia) FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipResidencia = :status")
-    suspend fun lastIdStatus(status: StatusData): Long
+    suspend fun lastIdStatus(status: StatusData): Int
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE idMovEquipResidencia = :idMov")
-    suspend fun getId(idMov: Long): MovEquipResidenciaRoomModel
+    suspend fun getId(idMov: Int): MovEquipResidenciaRoomModel
 
 }

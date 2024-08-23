@@ -59,7 +59,7 @@ class RecoverLocalServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )
@@ -81,7 +81,7 @@ class RecoverLocalServerImplTest {
     fun `Check return list if have success getConfig and success recoverAll`() = runTest {
         val localList = listOf(
             Local(
-                idLocal = 1L,
+                idLocal = 1,
                 descrLocal = "Usina",
             )
         )
@@ -92,7 +92,7 @@ class RecoverLocalServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )

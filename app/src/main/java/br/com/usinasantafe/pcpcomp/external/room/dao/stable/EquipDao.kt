@@ -15,7 +15,12 @@ interface EquipDao {
     @Query("DELETE FROM $TB_EQUIP")
     suspend fun deleteAll()
 
-    @Query("SELECT nroEquip FROM $TB_EQUIP WHERE idEquip = :id")
-    suspend fun getNro(id: Long): Long
+    @Query("SELECT count(*) FROM $TB_EQUIP WHERE nroEquip = :nroEquip")
+    suspend fun checkNro(nroEquip: Long): Int
 
+    @Query("SELECT nroEquip FROM $TB_EQUIP WHERE idEquip = :id")
+    suspend fun getNro(id: Int): Long
+
+    @Query("SELECT idEquip FROM $TB_EQUIP WHERE nroEquip = :nro")
+    suspend fun getId(nro: Long): Int
 }

@@ -74,7 +74,7 @@ class ConfigViewModel(
     private val _uiState = MutableStateFlow(ConfigState())
     val uiState = _uiState.asStateFlow()
 
-    fun updatePassword(password: String) {
+    fun onPasswordChanged(password: String) {
         _uiState.update {
             it.copy(password = password)
         }
@@ -86,7 +86,7 @@ class ConfigViewModel(
         }
     }
 
-    fun updateNumber(number: String) {
+    fun onNumberChanged(number: String) {
         _uiState.update {
             it.copy(number = number)
         }

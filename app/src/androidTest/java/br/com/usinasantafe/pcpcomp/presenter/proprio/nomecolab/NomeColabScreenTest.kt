@@ -6,12 +6,10 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.lifecycle.SavedStateHandle
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverNomeColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
@@ -23,7 +21,6 @@ import org.junit.Before
 import org.junit.Rule
 
 import org.junit.Test
-import org.koin.androidx.compose.koinViewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -82,7 +79,7 @@ class NomeColabScreenTest: KoinTest {
                         mapOf(
                             Args.FLOW_APP_ARGS to flowApp.ordinal,
                             Args.TYPE_OCUPANTE_ARGS to typeOcupante.ordinal,
-                            Args.POS_ARGS to pos,
+                            Args.ID_ARGS to pos,
                             Args.MATRIC_COLAB_ARGS to matricColab
                         )
                     ),

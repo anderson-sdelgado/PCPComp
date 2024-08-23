@@ -7,9 +7,13 @@ import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaView
 import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.local.LocalViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontViewModel
-import br.com.usinasantafe.pcpcomp.presenter.proprio.movproprio.MovEquipProprioViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.movpropriolist.MovEquipProprioListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.matriccolab.MatricColabViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab.NomeColabViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip.NroEquipProprioViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.equipseglist.EquipSegListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.*
@@ -54,9 +58,13 @@ val viewModelModule = module {
     viewModelOf(::NomeVigiaViewModel)
     viewModelOf(::LocalViewModel)
     viewModelOf(::MenuApontViewModel)
-    viewModelOf(::MovEquipProprioViewModel)
+    viewModelOf(::MovEquipProprioListViewModel)
     viewModelOf(::MatricColabViewModel)
     viewModelOf(::NomeColabViewModel)
+    viewModelOf(::PassagColabListViewModel)
+    viewModelOf(::NroEquipProprioViewModel)
+    viewModelOf(::EquipSegListViewModel)
+    viewModelOf(::DestinoProprioViewModel)
 
 }
 
@@ -100,10 +108,21 @@ val usecaseInitialModule = module {
 
 val usecaseProprioModule = module {
 
+    singleOf(::CheckNroEquipProprioImpl) { bind<CheckNroEquipProprio>() }
+    singleOf(::CleanEquipSegImpl) { bind<CleanEquipSeg>() }
+    singleOf(::CleanPassagColabImpl) { bind<CleanPassagColab>() }
+    singleOf(::DeleteEquipSegImpl) { bind<DeleteEquipSeg>() }
+    singleOf(::DeletePassagColabImpl) { bind<DeletePassagColab>() }
+    singleOf(::GetTypeMovImpl) { bind<GetTypeMov>() }
+    singleOf(::RecoverEquipSegListImpl) { bind<RecoverEquipSegList>() }
     singleOf(::RecoverMovEquipProprioOpenListImpl) { bind<RecoverMovEquipProprioOpenList>() }
     singleOf(::RecoverNomeColabImpl) { bind<RecoverNomeColab>() }
+    singleOf(::RecoverPassagColabListImpl) { bind<RecoverPassagColabList>() }
+    singleOf(::SetDestinoProprioImpl) { bind<SetDestinoProprio>() }
     singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
+    singleOf(::SetNroEquipProprioImpl) { bind<SetNroEquipProprio>() }
     singleOf(::StartMovEquipProprioImpl) { bind<StartMovEquipProprio>() }
+
 
 }
 
@@ -133,9 +152,8 @@ val repositoryModule = module {
     singleOf(::MovEquipProprioRepositoryImpl) { bind<MovEquipProprioRepository>() }
     singleOf(::MovEquipVisitTercRepositoryImpl) { bind<MovEquipVisitTercRepository>() }
     singleOf(::MovEquipResidenciaRepositoryImpl) { bind<MovEquipResidenciaRepository>() }
-    singleOf(::MovEquipProprioSegRepositoryImpl) { bind<MovEquipProprioSegRepository>() }
+    singleOf(::MovEquipProprioEquipSegRepositoryImpl) { bind<MovEquipProprioEquipSegRepository>() }
     singleOf(::MovEquipProprioPassagRepositoryImpl) { bind<MovEquipProprioPassagRepository>() }
-
 
     singleOf(::ColabRepositoryImpl) { bind<ColabRepository>() }
     singleOf(::EquipRepositoryImpl) { bind<EquipRepository>() }
@@ -149,7 +167,7 @@ val datasourceSharedPreferencesModule = module {
 
     singleOf(::ConfigSharedPreferencesDatasourceImpl) { bind<ConfigSharedPreferencesDatasource>() }
     singleOf(::MovEquipProprioSharedPreferencesDatasourceImpl) { bind<MovEquipProprioSharedPreferencesDatasource>() }
-    singleOf(::MovEquipProprioSegSharedPreferencesDatasourceImpl) { bind<MovEquipProprioSegSharedPreferencesDatasource>() }
+    singleOf(::MovEquipProprioEquipSegSharedPreferencesDatasourceImpl) { bind<MovEquipProprioEquipSegSharedPreferencesDatasource>() }
     singleOf(::MovEquipProprioPassagSharedPreferencesDatasourceImpl) { bind<MovEquipProprioPassagSharedPreferencesDatasource>() }
 
 }

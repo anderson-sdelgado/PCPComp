@@ -8,10 +8,10 @@ import java.util.Date
 data class MovEquipProprioSharedPreferencesModel(
     var dthrMovEquipProprio: Date = Date(),
     var tipoMovEquipProprio: TypeMov,
-    var idEquipMovEquipProprio: Long? = null,
-    var nroMatricColabMovEquipProprio: Long? = null,
+    var idEquipMovEquipProprio: Int? = null,
+    var nroMatricColabMovEquipProprio: Int? = null,
     var destinoMovEquipProprio: String? = null,
-    var nroNotaFiscalMovEquipProprio: Long? = null,
+    var nroNotaFiscalMovEquipProprio: Int? = null,
     var observMovEquipProprio: String? = null,
 )
 

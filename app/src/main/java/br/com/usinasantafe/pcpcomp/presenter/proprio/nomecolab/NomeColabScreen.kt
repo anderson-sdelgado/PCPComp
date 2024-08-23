@@ -88,16 +88,16 @@ fun NomeColabContent(
             horizontalArrangement = Arrangement.Center,
         ) {
             Button(
-                onClick = setMatric,
-                modifier = Modifier.weight(1f),
-            ) {
-                TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
-            }
-            Button(
                 onClick = onNavMatricColab,
                 modifier = Modifier.weight(1f)
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
+            }
+            Button(
+                onClick = setMatric,
+                modifier = Modifier.weight(1f),
+            ) {
+                TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
             }
         }
         BackHandler {}

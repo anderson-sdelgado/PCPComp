@@ -27,11 +27,19 @@ class EquipRepositoryImpl(
         }
     }
 
+    override suspend fun checkNro(nroEquip: Long): Result<Boolean> {
+        return equipRoomDatasource.checkNro(nroEquip)
+    }
+
     override suspend fun deleteAll(): Result<Boolean> {
         return equipRoomDatasource.deleteAll()
     }
 
-    override suspend fun getNro(idEquip: Long): Result<Long> {
+    override suspend fun getId(nroEquip: Long): Result<Int> {
+        return equipRoomDatasource.getId(nroEquip)
+    }
+
+    override suspend fun getNro(idEquip: Int): Result<Long> {
         return equipRoomDatasource.getNro(idEquip)
     }
 

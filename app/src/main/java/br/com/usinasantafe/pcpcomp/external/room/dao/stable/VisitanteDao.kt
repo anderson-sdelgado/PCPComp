@@ -22,6 +22,6 @@ interface VisitanteDao {
     suspend fun getVisitanteCPF(cpf: String): VisitanteRoomModel
 
     @Query("SELECT * FROM $TB_VISITANTE WHERE idVisitante = :id")
-    suspend fun getVisitanteId(id: Long): VisitanteRoomModel
+    suspend fun getVisitanteId(id: Int): VisitanteRoomModel
 
 }

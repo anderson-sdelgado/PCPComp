@@ -27,21 +27,26 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
         }
     }
 
-    override suspend fun start(typeMov: TypeMov): Result<Boolean> {
-        try{
-            save(MovEquipProprioSharedPreferencesModel(tipoMovEquipProprio = typeMov))
+    override suspend fun setIdEquip(idEquip: Int): Result<Boolean> {
+        try {
+            val resultGet = get()
+            if(resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            val movEquipProprio = resultGet.getOrNull()!!
+            movEquipProprio.idEquipMovEquipProprio = idEquip
+            save(movEquipProprio)
             return Result.success(true)
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
-                    function = "MovEquipProprioSharedPreferencesDatasourceImpl.start",
+                    function = "MovEquipProprioSharedPreferencesDatasourceImpl.setMatricMotorista",
                     cause = e
                 )
             )
         }
     }
 
-    override suspend fun setMatricColab(matric: Long): Result<Boolean> {
+    override suspend fun setMatricColab(matric: Int): Result<Boolean> {
         try {
             val resultGet = get()
             if(resultGet.isFailure)
@@ -58,6 +63,24 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
                 )
             )
         }
+    }
+
+    override suspend fun start(typeMov: TypeMov): Result<Boolean> {
+        try{
+            save(MovEquipProprioSharedPreferencesModel(tipoMovEquipProprio = typeMov))
+            return Result.success(true)
+        } catch(e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioSharedPreferencesDatasourceImpl.start",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setDestino(destino: String): Result<Boolean> {
+        TODO("Not yet implemented")
     }
 
     private fun save(movEquipProprio: MovEquipProprioSharedPreferencesModel) {

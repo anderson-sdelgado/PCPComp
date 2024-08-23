@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.entities.variable
 
 data class MovEquipVisitTercPassag (
-    var idMovEquipVisitTercPassag: Long? = null,
-    var idMovEquipVisitTerc: Long? = null,
-    var idVisitTercMovEquipVisitTercPassag: Long? = null,
+    var idMovEquipVisitTercPassag: Int? = null,
+    var idMovEquipVisitTerc: Int? = null,
+    var idVisitTercMovEquipVisitTercPassag: Int? = null,
 )

@@ -13,9 +13,9 @@ import java.util.Date
 @Entity(tableName = TB_MOV_EQUIP_RESIDENCIA)
 data class MovEquipResidenciaRoomModel(
     @PrimaryKey(autoGenerate = true)
-    var idMovEquipResidencia: Long? = null,
-    var nroMatricVigiaMovEquipResidencia: Long,
-    var idLocalMovEquipResidencia: Long,
+    var idMovEquipResidencia: Int? = null,
+    var nroMatricVigiaMovEquipResidencia: Int,
+    var idLocalMovEquipResidencia: Int,
     var tipoMovEquipResidencia: TypeMov,
     var dthrMovEquipResidencia: Long,
     var motoristaMovEquipResidencia: String,
@@ -46,7 +46,7 @@ fun MovEquipResidenciaRoomModel.modelRoomToMovEquipResidencia(): MovEquipResiden
     }
 }
 
-fun MovEquipResidencia.entityToMovEquipResidenciaRoomModel(matricVigia: Long, idLocal: Long): MovEquipResidenciaRoomModel{
+fun MovEquipResidencia.entityToMovEquipResidenciaRoomModel(matricVigia: Int, idLocal: Int): MovEquipResidenciaRoomModel{
     return with(this){
         MovEquipResidenciaRoomModel(
             idMovEquipResidencia = this.idMovEquipResidencia,

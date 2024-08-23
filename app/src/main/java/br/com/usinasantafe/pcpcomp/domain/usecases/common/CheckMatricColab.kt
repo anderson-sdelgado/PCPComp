@@ -13,7 +13,7 @@ class CheckMatricColabImpl(
 
     override suspend fun invoke(matricColab: String): Result<Boolean> {
         try {
-            val matric = matricColab.toLong()
+            val matric = matricColab.toInt()
             val result = colabRepository.checkMatric(matric)
             if(result.isFailure)
                 return result

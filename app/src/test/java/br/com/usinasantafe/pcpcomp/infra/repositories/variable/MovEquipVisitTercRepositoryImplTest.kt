@@ -21,10 +21,10 @@ class MovEquipVisitTercRepositoryImplTest {
 
     val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
         idMovEquipVisitTerc = 1,
-        nroMatricVigiaMovEquipVisitTerc = 1000L,
-        idLocalMovEquipVisitTerc = 1000L,
+        nroMatricVigiaMovEquipVisitTerc = 1000,
+        idLocalMovEquipVisitTerc = 1000,
         tipoMovEquipVisitTerc = TypeMov.INPUT,
-        idVisitTercMovEquipVisitTerc = 1000L,
+        idVisitTercMovEquipVisitTerc = 1000,
         tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
         dthrMovEquipVisitTerc = 1723213270250,
         veiculoMovEquipVisitTerc = "TESTE",
@@ -37,10 +37,10 @@ class MovEquipVisitTercRepositoryImplTest {
     )
     val movEquipVisitTerc = MovEquipVisitTerc(
         idMovEquipVisitTerc = 1,
-        nroMatricVigiaMovEquipVisitTerc = 1000L,
-        idLocalMovEquipVisitTerc = 1000L,
+        nroMatricVigiaMovEquipVisitTerc = 1000,
+        idLocalMovEquipVisitTerc = 1000,
         tipoMovEquipVisitTerc = TypeMov.INPUT,
-        idVisitTercMovEquipVisitTerc = 1000L,
+        idVisitTercMovEquipVisitTerc = 1000,
         tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
         dthrMovEquipVisitTerc = Date(1723213270250),
         veiculoMovEquipVisitTerc = "TESTE",

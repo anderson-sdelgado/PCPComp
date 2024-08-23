@@ -59,7 +59,7 @@ class RecoverVisitanteServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )
@@ -81,7 +81,7 @@ class RecoverVisitanteServerImplTest {
     fun `Check return list if have success getConfig and success recoverAll`() = runTest {
         val visitanteList = listOf(
             Visitante(
-                idVisitante = 1L,
+                idVisitante = 1,
                 cpfVisitante = "123.456.789-00",
                 nomeVisitante = "Visitante",
                 empresaVisitante = "Empresa Visitante"
@@ -94,7 +94,7 @@ class RecoverVisitanteServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )

@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = TB_COLAB)
 data class ColabRoomModel(
     @PrimaryKey
-    val matricColab: Long,
+    val matricColab: Int,
     val nomeColab: String,
 )
 

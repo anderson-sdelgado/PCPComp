@@ -36,7 +36,7 @@ class LocalRoomDatasourceImpl(
         }
     }
 
-    override suspend fun getDescr(id: Long): Result<String> {
+    override suspend fun getDescr(id: Int): Result<String> {
         try {
             val descrLocal = localDao.getDescr(id)
             return Result.success(descrLocal)

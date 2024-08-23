@@ -138,10 +138,12 @@ class ColabRepositoryImplTest {
     }
 
     @Test
-    fun `Check return false if not exist MatricColab`() = runTest {
+    fun `Check return false if not exist Colab`() = runTest {
         val colabRoomDatasource = mock<ColabRoomDatasource>()
         val colabRetrofitDatasource = mock<ColabRetrofitDatasource>()
-        whenever(colabRoomDatasource.checkMatric(19759)).thenReturn(Result.success(false))
+        whenever(colabRoomDatasource.checkMatric(19759)).thenReturn(
+            Result.success(false)
+        )
         val repository = ColabRepositoryImpl(colabRoomDatasource, colabRetrofitDatasource)
         val result = repository.checkMatric(19759)
         assertEquals(result.isSuccess, true)
@@ -149,10 +151,12 @@ class ColabRepositoryImplTest {
     }
 
     @Test
-    fun `Check return true if exist MatricColab`() = runTest {
+    fun `Check return true if exist Colab`() = runTest {
         val colabRoomDatasource = mock<ColabRoomDatasource>()
         val colabRetrofitDatasource = mock<ColabRetrofitDatasource>()
-        whenever(colabRoomDatasource.checkMatric(19759)).thenReturn(Result.success(true))
+        whenever(colabRoomDatasource.checkMatric(19759)).thenReturn(
+            Result.success(true)
+        )
         val repository = ColabRepositoryImpl(colabRoomDatasource, colabRetrofitDatasource)
         val result = repository.checkMatric(19759)
         assertEquals(result.isSuccess, true)

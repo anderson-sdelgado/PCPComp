@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioSegRepository
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioEquipSegRepository
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 interface StartMovEquipProprio {
@@ -12,7 +12,7 @@ interface StartMovEquipProprio {
 
 class StartMovEquipProprioImpl(
     private val movEquipProprioRepository: MovEquipProprioRepository,
-    private val movEquipProprioSegRepository: MovEquipProprioSegRepository,
+    private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository
 ): StartMovEquipProprio {
 
@@ -21,7 +21,7 @@ class StartMovEquipProprioImpl(
             val resultStart = movEquipProprioRepository.start(typeMov)
             if (resultStart.isFailure)
                 return resultStart
-            val resultEquipSegClear = movEquipProprioSegRepository.clear()
+            val resultEquipSegClear = movEquipProprioEquipSegRepository.clear()
             if (resultEquipSegClear.isFailure)
                 return resultEquipSegClear
             val resultPassagClear = movEquipProprioPassagRepository.clear()

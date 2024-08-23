@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = TB_EQUIP)
 data class EquipRoomModel (
     @PrimaryKey
-    val idEquip: Long,
+    val idEquip: Int,
     val nroEquip: Long,
 )
 

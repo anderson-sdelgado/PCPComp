@@ -9,7 +9,7 @@ interface SendDataConfig {
         number: String,
         password: String,
         version: String
-    ): Result<Long>
+    ): Result<Int>
 }
 
 class SendDataConfigImpl (
@@ -20,7 +20,7 @@ class SendDataConfigImpl (
         number: String,
         password: String,
         version: String
-    ): Result<Long> {
+    ): Result<Int> {
         try {
             val config = Config(
                 number = number.toLong(),

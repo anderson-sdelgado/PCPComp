@@ -13,15 +13,15 @@ import java.util.Date
 @Entity(tableName = TB_MOV_EQUIP_PROPRIO)
 data class MovEquipProprioRoomModel(
     @PrimaryKey(autoGenerate = true)
-    var idMovEquipProprio: Long? = null,
-    var nroMatricVigiaMovEquipProprio: Long,
-    var idLocalMovEquipProprio: Long,
+    var idMovEquipProprio: Int? = null,
+    var nroMatricVigiaMovEquipProprio: Int,
+    var idLocalMovEquipProprio: Int,
     var tipoMovEquipProprio: TypeMov,
     var dthrMovEquipProprio: Long,
-    var idEquipMovEquipProprio: Long,
-    var nroMatricColabMovEquipProprio: Long,
+    var idEquipMovEquipProprio: Int,
+    var nroMatricColabMovEquipProprio: Int,
     var destinoMovEquipProprio: String,
-    var nroNotaFiscalMovEquipProprio: Long?,
+    var nroNotaFiscalMovEquipProprio: Int?,
     var observMovEquipProprio: String?,
     var statusMovEquipProprio: StatusData,
     var statusSendMovEquipProprio: StatusSend,
@@ -46,7 +46,7 @@ fun MovEquipProprioRoomModel.modelRoomToMovEquipProprio(): MovEquipProprio {
     }
 }
 
-fun MovEquipProprio.entityToMovEquipProprioRoomModel(matricVigia: Long, idLocal: Long): MovEquipProprioRoomModel{
+fun MovEquipProprio.entityToMovEquipProprioRoomModel(matricVigia: Int, idLocal: Int): MovEquipProprioRoomModel{
     return with(this){
         MovEquipProprioRoomModel(
             idMovEquipProprio = idMovEquipProprio,

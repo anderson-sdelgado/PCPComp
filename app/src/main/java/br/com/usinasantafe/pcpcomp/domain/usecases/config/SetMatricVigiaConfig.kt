@@ -17,7 +17,7 @@ class SetMatricVigiaConfigImpl(
             if(resultConfig.isFailure)
                 return Result.failure(resultConfig.exceptionOrNull()!!)
             val config = resultConfig.getOrNull()!!
-            config.matricVigia = matric.toLong()
+            config.matricVigia = matric.toInt()
             val resultSave = configRepository.save(config)
             if(resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)

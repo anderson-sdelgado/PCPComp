@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = TB_VISITANTE)
 data class VisitanteRoomModel(
     @PrimaryKey
-    val idVisitante: Long,
+    val idVisitante: Int,
     val cpfVisitante: String,
     val nomeVisitante: String,
     val empresaVisitante: String,

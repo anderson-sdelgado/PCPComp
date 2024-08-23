@@ -49,7 +49,7 @@ class LocalRepositoryImpl(
         }
     }
 
-    override suspend fun getDescr(id: Long): Result<String> {
+    override suspend fun getDescr(id: Int): Result<String> {
         return localRoomDatasource.getDescr(id)
     }
 

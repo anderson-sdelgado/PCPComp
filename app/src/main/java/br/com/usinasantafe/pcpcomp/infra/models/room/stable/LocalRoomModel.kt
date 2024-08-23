@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = TB_LOCAL)
 data class LocalRoomModel (
     @PrimaryKey
-    val idLocal: Long,
+    val idLocal: Int,
     val descrLocal: String,
 )
 

@@ -59,7 +59,7 @@ class RecoverTerceiroServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )
@@ -81,8 +81,8 @@ class RecoverTerceiroServerImplTest {
     fun `Check return list if have success getConfig and success recoverAll`() = runTest {
         val terceiroList = listOf(
             Terceiro(
-                idTerceiro = 1L,
-                idBDTerceiro = 1L,
+                idTerceiro = 1,
+                idBDTerceiro = 1,
                 cpfTerceiro = "123.456.789-00",
                 nomeTerceiro = "Terceiro",
                 empresaTerceiro = "Empresa Terceiro"
@@ -95,7 +95,7 @@ class RecoverTerceiroServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )

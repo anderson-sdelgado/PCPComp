@@ -11,7 +11,7 @@ interface SaveDataConfig {
         number: String,
         password: String,
         version: String,
-        idBD: Long,
+        idBD: Int,
     ): Result<Boolean>
 }
 
@@ -23,7 +23,7 @@ class SaveDataConfigImpl(
         number: String,
         password: String,
         version: String,
-        idBD: Long
+        idBD: Int
     ): Result<Boolean> {
         try {
             val config = Config(

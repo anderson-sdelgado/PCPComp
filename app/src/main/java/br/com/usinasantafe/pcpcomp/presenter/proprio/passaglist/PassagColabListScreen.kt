@@ -20,27 +20,46 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 
 @Composable
 fun PassagColabListScreen(
     viewModel: PassagColabListViewModel,
+    onNavMatricMotorista: () -> Unit,
+    onNavDetalheMovProprio: () -> Unit,
+    onNavMatricPassag: (Int) -> Unit,
+    onNavDestino: () -> Unit,
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             PassagColabListContent(
                 passagList = uiState.passagList,
-                setPassagDelete = viewModel::setPassagDelete,
+                flowApp = uiState.flowApp,
+                setDelete = viewModel::setDelete,
+                flagDialogCheck = uiState.flagDialogCheck,
+                setCloseDialogCheck = viewModel::setCloseDialogCheck,
+                setDeletePassag = viewModel::deletePassag,
+                flagDialog = uiState.flagDialog,
+                setCloseDialog = viewModel::setCloseDialog,
+                failure = uiState.failure,
+                onNavMatricColab = onNavMatricMotorista,
+                onNavDetalheMovProprio = onNavDetalheMovProprio,
+                onNavMatricPassag = onNavMatricPassag,
+                onNavDestino = onNavDestino,
                 modifier = Modifier.padding(innerPadding)
             )
-            if(TypeOcupante.MOTORISTA == TypeOcupante.entries[uiState.typeOcupante]){
+            if (TypeOcupante.MOTORISTA == uiState.typeOcupante) {
                 viewModel.cleanPassag()
             }
+            viewModel.recoverPassag()
         }
     }
 }
@@ -48,9 +67,21 @@ fun PassagColabListScreen(
 @Composable
 fun PassagColabListContent(
     passagList: List<Colab>,
-    setPassagDelete: (Long) -> Unit = {},
+    flowApp: FlowApp,
+    setDelete: (Int) -> Unit,
+    flagDialogCheck: Boolean,
+    setCloseDialogCheck: () -> Unit,
+    setDeletePassag: () -> Unit,
+    flagDialog: Boolean,
+    setCloseDialog: () -> Unit,
+    failure: String,
+    onNavMatricColab: () -> Unit,
+    onNavDetalheMovProprio: () -> Unit,
+    onNavMatricPassag: (Int) -> Unit,
+    onNavDestino: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     Column(
         modifier = modifier
             .padding(16.dp)
@@ -63,12 +94,12 @@ fun PassagColabListContent(
             items(passagList) { colab ->
                 ItemListDesign(
                     text = "${colab.matricColab} - ${colab.nomeColab}",
-                    setActionItem = { setPassagDelete(colab.matricColab) }
+                    setActionItem = { setDelete(colab.matricColab) }
                 )
             }
         }
         Button(
-            onClick = {},
+            onClick = { onNavMatricPassag(TypeOcupante.PASSAGEIRO.ordinal) },
             modifier = Modifier.fillMaxWidth(),
         ) {
             TextButtonDesign(text = stringResource(id = R.string.text_pattern_insert))
@@ -80,19 +111,40 @@ fun PassagColabListContent(
             horizontalArrangement = Arrangement.Center,
         ) {
             Button(
-                onClick = { TODO() },
+                onClick = {
+                    when (flowApp) {
+                        FlowApp.ADD -> onNavMatricColab()
+                        FlowApp.CHANGE -> onNavDetalheMovProprio()
+                    }
+                },
                 modifier = Modifier.weight(1f)
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
             }
             Button(
-                onClick = { TODO() },
+                onClick = { onNavDestino() },
                 modifier = Modifier.weight(1f),
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
             }
         }
         BackHandler {}
+
+        if(flagDialog) {
+            AlertDialogSimpleDesign(
+                text = stringResource(id = R.string.text_failure, failure),
+                setCloseDialog = setCloseDialog,
+            )
+        }
+
+        if (flagDialogCheck) {
+            AlertDialogCheckDesign(
+                text = stringResource(id = R.string.text_delete_passag),
+                setCloseDialog = setCloseDialogCheck,
+                setActionButtonOK = setDeletePassag
+            )
+        }
+
     }
 }
 
@@ -103,12 +155,23 @@ fun PassagColabListPagePreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             PassagColabListContent(
                 passagList = emptyList(),
+                flowApp = FlowApp.ADD,
+                setDelete = {},
+                flagDialogCheck = false,
+                setCloseDialogCheck = {},
+                setDeletePassag = {},
+                flagDialog = false,
+                setCloseDialog = {},
+                failure = "",
+                onNavMatricColab = {},
+                onNavDetalheMovProprio = {},
+                onNavMatricPassag = {},
+                onNavDestino = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -126,6 +189,86 @@ fun PassagColabListPagePreviewList() {
                         nomeColab = "JOSE DONIZETE"
                     )
                 ),
+                flowApp = FlowApp.ADD,
+                setDelete = {},
+                flagDialogCheck = false,
+                setCloseDialogCheck = {},
+                setDeletePassag = {},
+                flagDialog = false,
+                setCloseDialog = {},
+                failure = "",
+                onNavMatricColab = {},
+                onNavDetalheMovProprio = {},
+                onNavMatricPassag = {},
+                onNavDestino = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PassagColabListPagePreviewFailure() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            PassagColabListContent(
+                passagList = listOf(
+                    Colab(
+                        matricColab = 19759,
+                        nomeColab = "ANDERSON DA SILVA DELGADO"
+                    ),
+                    Colab(
+                        matricColab = 19035,
+                        nomeColab = "JOSE DONIZETE"
+                    )
+                ),
+                flowApp = FlowApp.ADD,
+                setDelete = {},
+                flagDialogCheck = false,
+                setCloseDialogCheck = {},
+                setDeletePassag = {},
+                flagDialog = true,
+                setCloseDialog = {},
+                failure = "Failure Usecase",
+                onNavMatricColab = {},
+                onNavDetalheMovProprio = {},
+                onNavMatricPassag = {},
+                onNavDestino = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PassagColabListPagePreviewMsgDelete() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            PassagColabListContent(
+                passagList = listOf(
+                    Colab(
+                        matricColab = 19759,
+                        nomeColab = "ANDERSON DA SILVA DELGADO"
+                    ),
+                    Colab(
+                        matricColab = 19035,
+                        nomeColab = "JOSE DONIZETE"
+                    )
+                ),
+                flowApp = FlowApp.ADD,
+                setDelete = {},
+                flagDialogCheck = true,
+                setCloseDialogCheck = {},
+                setDeletePassag = {},
+                flagDialog = false,
+                setCloseDialog = {},
+                failure = "Failure Usecase",
+                onNavMatricColab = {},
+                onNavDetalheMovProprio = {},
+                onNavMatricPassag = {},
+                onNavDestino = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

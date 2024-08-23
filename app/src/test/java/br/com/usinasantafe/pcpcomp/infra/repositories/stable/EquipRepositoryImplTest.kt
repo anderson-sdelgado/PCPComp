@@ -138,6 +138,50 @@ class EquipRepositoryImplTest {
     }
 
     @Test
+    fun `Check return false if not exist Equip`() = runTest {
+        val equipRoomDatasource = mock<EquipRoomDatasource>()
+        val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
+        whenever(equipRoomDatasource.checkNro(100)).thenReturn(
+            Result.success(false)
+        )
+        val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
+        val result = repository.checkNro(100)
+        assertEquals(result.isSuccess, true)
+        assertEquals(result.getOrNull()!!, false)
+    }
+
+    @Test
+    fun `Check return true if exist Equip`() = runTest {
+        val equipRoomDatasource = mock<EquipRoomDatasource>()
+        val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
+        whenever(equipRoomDatasource.checkNro(100)).thenReturn(
+            Result.success(true)
+        )
+        val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
+        val result = repository.checkNro(100)
+        assertEquals(result.isSuccess, true)
+        assertEquals(result.getOrNull()!!, true)
+    }
+
+    @Test
+    fun `Check return failure if have error in checkNro Datasource`() = runTest {
+        val equipRoomDatasource = mock<EquipRoomDatasource>()
+        val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
+        whenever(equipRoomDatasource.checkNro(100)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasource.checkNro",
+                    cause = Exception()
+                )
+            )
+        )
+        val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
+        val result = repository.checkNro(100)
+        assertEquals(result.isFailure, true)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.checkNro")
+    }
+
+    @Test
     fun `Check return failure if have failure in EquipRoomDatasource getNro`() = runTest {
         val equipRoomDatasource = mock<EquipRoomDatasource>()
         val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
@@ -166,5 +210,37 @@ class EquipRepositoryImplTest {
         val result = repository.getNro(1)
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, 100)
+    }
+
+
+    @Test
+    fun `Check return failure if have failure in EquipRoomDatasource getId`() = runTest {
+        val equipRoomDatasource = mock<EquipRoomDatasource>()
+        val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
+        whenever(equipRoomDatasource.getId(1)).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasource.getId",
+                    cause = Exception()
+                )
+            )
+        )
+        val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
+        val result = repository.getId(1)
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.getId")
+    }
+
+    @Test
+    fun `Check return idEquip if EquipRoomDatasource getId execute successfully`() = runTest {
+        val equipRoomDatasource = mock<EquipRoomDatasource>()
+        val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
+        whenever(equipRoomDatasource.getId(100)).thenReturn(
+            Result.success(10)
+        )
+        val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
+        val result = repository.getId(100)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, 10)
     }
 }

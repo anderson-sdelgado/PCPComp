@@ -1,7 +1,8 @@
 package br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences
 
 interface MovEquipProprioPassagSharedPreferencesDatasource {
-    suspend fun add(matric: Long): Result<Boolean>
+    suspend fun add(matricColab: Int): Result<Boolean>
     suspend fun clear(): Result<Boolean>
-    suspend fun list(): Result<List<Long>>
+    suspend fun delete(matricColab: Int): Result<Boolean>
+    suspend fun list(): Result<List<Int>>
 }

@@ -7,10 +7,10 @@ import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import java.util.Date
 
 data class MovEquipResidencia(
-    var idMovEquipResidencia: Long? = null,
-    var nroAparelhoMovEquipResidencia: Long? = null,
-    var nroMatricVigiaMovEquipResidencia: Long? = null,
-    var idLocalMovEquipResidencia: Long? = null,
+    var idMovEquipResidencia: Int? = null,
+    var nroAparelhoMovEquipResidencia: Int? = null,
+    var nroMatricVigiaMovEquipResidencia: Int? = null,
+    var idLocalMovEquipResidencia: Int? = null,
     var dthrMovEquipResidencia: Date = Date(),
     var tipoMovEquipResidencia: TypeMov? = null,
     var veiculoMovEquipResidencia: String? = null,

@@ -14,7 +14,7 @@ class RecoverNomeColabImpl(
 
     override suspend fun invoke(matric: String): Result<String> {
         try {
-            val resultNome = colabRepository.getNome(matric.toLong())
+            val resultNome = colabRepository.getNome(matric.toInt())
             if (resultNome.isFailure)
                 return Result.failure(resultNome.exceptionOrNull()!!)
             return Result.success(resultNome.getOrNull()!!)

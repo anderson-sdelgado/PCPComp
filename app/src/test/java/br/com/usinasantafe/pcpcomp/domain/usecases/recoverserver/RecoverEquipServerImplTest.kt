@@ -59,7 +59,7 @@ class RecoverEquipServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )
@@ -81,8 +81,8 @@ class RecoverEquipServerImplTest {
     fun `Check return list if have success getConfig and success recoverAll`() = runTest {
         val equipList = listOf(
             Equip(
-                idEquip = 10L,
-                nroEquip = 200L,
+                idEquip = 10,
+                nroEquip = 200,
             )
         )
         val configRepository = mock<ConfigRepository>()
@@ -92,7 +92,7 @@ class RecoverEquipServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )

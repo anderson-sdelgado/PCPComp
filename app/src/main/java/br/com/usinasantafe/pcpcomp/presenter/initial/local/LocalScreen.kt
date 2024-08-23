@@ -52,7 +52,7 @@ fun LocalScreen(
 @Composable
 fun LocalContent(
     locals: List<Local>,
-    setIdLocal: (Long) -> Unit,
+    setIdLocal: (Int) -> Unit,
     flagAccess: Boolean,
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,

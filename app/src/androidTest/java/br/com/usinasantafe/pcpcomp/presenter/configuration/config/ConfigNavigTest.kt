@@ -17,6 +17,7 @@ class ConfigNavigTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
     lateinit var navController: TestNavHostController
 
     @Before

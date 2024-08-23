@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
 import br.com.usinasantafe.pcpcomp.external.room.datasource.variable.MovEquipVisitTercRoomDatasourceImpl
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -82,7 +83,31 @@ class EquipRoomDatasourceImplTest {
     }
 
     @Test
-    fun `Check return failure if not have data researched`() = runTest {
+    fun `Check return false if not exist Equip`() = runTest {
+        val datasource = EquipRoomDatasourceImpl(equipDao)
+        val result = datasource.checkNro(100)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, false)
+    }
+
+    @Test
+    fun `Check return true if exist Equip`() = runTest {
+        val datasource = EquipRoomDatasourceImpl(equipDao)
+        datasource.addAll(
+            listOf(
+                EquipRoomModel(
+                    idEquip = 10,
+                    nroEquip = 100
+                ),
+            )
+        )
+        val result = datasource.checkNro(100)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, true)
+    }
+
+    @Test
+    fun `Check return failure getNro if not have data researched`() = runTest {
         val datasource = EquipRoomDatasourceImpl(equipDao)
         val exception = try {
             datasource.getNro(1)
@@ -99,12 +124,42 @@ class EquipRoomDatasourceImplTest {
         datasource.addAll(
             listOf(
                 EquipRoomModel(
-                    idEquip = 1,
+                    idEquip = 10,
                     nroEquip = 100
                 ),
             )
         )
-        val result = datasource.getNro(1)
+        val result = datasource.getNro(10)
         assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, 100)
     }
+
+    @Test
+    fun `Check return failure getId if not have data researched`() = runTest {
+        val datasource = EquipRoomDatasourceImpl(equipDao)
+        val exception = try {
+            datasource.getId(10)
+            null
+        } catch (exception: Exception){
+            exception
+        }
+        assertEquals(exception, null)
+    }
+
+    @Test
+    fun `Check return getId if have data researched`() = runTest {
+        val datasource = EquipRoomDatasourceImpl(equipDao)
+        datasource.addAll(
+            listOf(
+                EquipRoomModel(
+                    idEquip = 10,
+                    nroEquip = 100
+                ),
+            )
+        )
+        val result = datasource.getId(100)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!, 10)
+    }
+
 }

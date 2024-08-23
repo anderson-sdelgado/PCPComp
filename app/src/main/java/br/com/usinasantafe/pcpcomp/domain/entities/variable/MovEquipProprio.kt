@@ -6,15 +6,15 @@ import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import java.util.Date
 
 data class MovEquipProprio(
-    var idMovEquipProprio: Long? = null,
+    var idMovEquipProprio: Int? = null,
     var tipoMovEquipProprio: TypeMov? = null,
-    var idEquipMovEquipProprio: Long? = null,
-    var idLocalMovEquipProprio: Long? = null,
+    var idEquipMovEquipProprio: Int? = null,
+    var idLocalMovEquipProprio: Int? = null,
     var dthrMovEquipProprio: Date = Date(),
-    var nroMatricVigiaMovEquipProprio: Long? = null,
-    var nroMatricColabMovEquipProprio: Long? = null,
+    var nroMatricVigiaMovEquipProprio: Int? = null,
+    var nroMatricColabMovEquipProprio: Int? = null,
     var destinoMovEquipProprio: String? = null,
-    var nroNotaFiscalMovEquipProprio: Long? = null,
+    var nroNotaFiscalMovEquipProprio: Int? = null,
     var observMovEquipProprio: String? = null,
     var statusMovEquipProprio: StatusData = StatusData.OPEN,
     var statusSendMovEquipProprio: StatusSend = StatusSend.SEND,

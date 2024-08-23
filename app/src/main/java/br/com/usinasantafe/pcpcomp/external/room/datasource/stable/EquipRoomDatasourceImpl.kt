@@ -23,9 +23,37 @@ class EquipRoomDatasourceImpl(
         }
     }
 
-    override suspend fun getNro(idEquip: Long): Result<Long> {
+    override suspend fun checkNro(nroEquip: Long): Result<Boolean> {
+        try {
+            val result = equipDao.checkNro(nroEquip) > 0
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasourceImpl.checkNro",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getId(nroEquip: Long): Result<Int> {
         return try{
-            Result.success(equipDao.getNro(idEquip))
+            Result.success(equipDao.getId(nroEquip))
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasourceImpl.getNro",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getNro(idEquip: Int): Result<Long> {
+        return try{
+            val result = equipDao.getNro(idEquip)
+            Result.success(result)
         } catch (e: Exception){
             Result.failure(
                 DatasourceException(

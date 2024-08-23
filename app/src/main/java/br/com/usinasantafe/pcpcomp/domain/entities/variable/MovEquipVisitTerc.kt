@@ -8,13 +8,13 @@ import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import java.util.Date
 
 data class MovEquipVisitTerc(
-    var idMovEquipVisitTerc: Long? = null,
-    var nroAparelhoMovEquipVisitTerc: Long? = null,
-    var nroMatricVigiaMovEquipVisitTerc: Long? = null,
-    var idLocalMovEquipVisitTerc: Long? = null,
+    var idMovEquipVisitTerc: Int? = null,
+    var nroAparelhoMovEquipVisitTerc: Int? = null,
+    var nroMatricVigiaMovEquipVisitTerc: Int? = null,
+    var idLocalMovEquipVisitTerc: Int? = null,
     var dthrMovEquipVisitTerc: Date = Date(),
     var tipoMovEquipVisitTerc: TypeMov? = null,
-    var idVisitTercMovEquipVisitTerc: Long? = null,
+    var idVisitTercMovEquipVisitTerc: Int? = null,
     var tipoVisitTercMovEquipVisitTerc: TypeVisitTerc? = null,
     var veiculoMovEquipVisitTerc: String? = null,
     var placaMovEquipVisitTerc: String? = null,

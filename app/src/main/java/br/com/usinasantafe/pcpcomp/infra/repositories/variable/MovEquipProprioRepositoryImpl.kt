@@ -7,20 +7,13 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipPropri
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToMovEquipProprioRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.modelRoomToMovEquipProprio
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 class MovEquipProprioRepositoryImpl(
     private val movEquipProprioSharedPreferencesDatasource: MovEquipProprioSharedPreferencesDatasource,
     private val movEquipProprioRoomDatasource: MovEquipProprioRoomDatasource,
 ): MovEquipProprioRepository {
-
-    override suspend fun setMatricColab(matricColab: Long): Result<Boolean> {
-        return movEquipProprioSharedPreferencesDatasource.setMatricColab(matricColab)
-    }
-
-    override suspend fun start(typeMov: TypeMov): Result<Boolean> {
-        return movEquipProprioSharedPreferencesDatasource.start(typeMov)
-    }
 
     override suspend fun listOpen(): Result<List<MovEquipProprio>> {
         try {
@@ -61,6 +54,43 @@ class MovEquipProprioRepositoryImpl(
                 )
             )
         }
+    }
+
+    override suspend fun setDestino(
+        destino: String,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean> {
+        return when(flowApp){
+            FlowApp.ADD -> movEquipProprioSharedPreferencesDatasource.setDestino(destino)
+            FlowApp.CHANGE -> TODO()
+        }
+    }
+
+    override suspend fun setIdEquip(
+        idEquip: Int,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean> {
+        return when(flowApp){
+            FlowApp.ADD -> movEquipProprioSharedPreferencesDatasource.setIdEquip(idEquip)
+            FlowApp.CHANGE -> TODO()
+        }
+    }
+
+    override suspend fun setMatricColab(
+        matricColab: Int,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean> {
+        return when(flowApp){
+            FlowApp.ADD -> movEquipProprioSharedPreferencesDatasource.setMatricColab(matricColab)
+            FlowApp.CHANGE -> TODO()
+        }
+    }
+
+    override suspend fun start(typeMov: TypeMov): Result<Boolean> {
+        return movEquipProprioSharedPreferencesDatasource.start(typeMov)
     }
 
 }

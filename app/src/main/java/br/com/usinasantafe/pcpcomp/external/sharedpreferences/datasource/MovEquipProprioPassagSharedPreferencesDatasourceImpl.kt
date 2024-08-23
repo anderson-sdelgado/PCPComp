@@ -11,18 +11,18 @@ class MovEquipProprioPassagSharedPreferencesDatasourceImpl(
     private val sharedPreferences: SharedPreferences
 ): MovEquipProprioPassagSharedPreferencesDatasource {
 
-    val typeToken = object : TypeToken<List<Long>>() {}.type
+    val typeToken = object : TypeToken<List<Int>>() {}.type
 
-    override suspend fun add(matric: Long): Result<Boolean> {
+    override suspend fun add(matricColab: Int): Result<Boolean> {
         try {
             val resultList = list()
             if(resultList.isFailure)
                 return Result.failure(resultList.exceptionOrNull()!!)
             val list = resultList.getOrNull()!!
-            var mutableList : MutableList<Long> = mutableListOf()
+            var mutableList : MutableList<Int> = mutableListOf()
             if(list.isNotEmpty())
                 mutableList = list.toMutableList()
-            mutableList.add(matric)
+            mutableList.add(matricColab)
             val editor = sharedPreferences.edit()
             editor.putString(BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG, Gson().toJson(mutableList, typeToken))
             editor.apply()
@@ -54,7 +54,28 @@ class MovEquipProprioPassagSharedPreferencesDatasourceImpl(
         }
     }
 
-    override suspend fun list(): Result<List<Long>> {
+    override suspend fun delete(matricColab: Int): Result<Boolean> {
+        try {
+            val resultList = list()
+            if(resultList.isFailure)
+                return Result.failure(resultList.exceptionOrNull()!!)
+            val list = resultList.getOrNull()!!
+            val listDelete = list.filter { it != matricColab }
+            val editor = sharedPreferences.edit()
+            editor.putString(BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG, Gson().toJson(listDelete, typeToken))
+            editor.apply()
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioPassagSharedPreferencesDatasource.delete",
+                    cause = e
+                )
+            )
+        }
+    }
+    
+    override suspend fun list(): Result<List<Int>> {
         try {
             val result = sharedPreferences.getString(
                 BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG, null)
@@ -70,5 +91,6 @@ class MovEquipProprioPassagSharedPreferencesDatasourceImpl(
             )
         }
     }
+
 
 }

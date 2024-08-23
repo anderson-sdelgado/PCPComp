@@ -9,7 +9,7 @@ data class ConfigWebServiceModelOutput(
 )
 
 data class ConfigWebServiceModelInput(
-    var idBD: Long,
+    var idBD: Int,
 )
 
 

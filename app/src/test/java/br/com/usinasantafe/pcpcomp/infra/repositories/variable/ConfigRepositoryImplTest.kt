@@ -176,7 +176,7 @@ class ConfigRepositoryImplTest {
         val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
         val result = repository.send(config)
         assertEquals(result.isSuccess, true)
-        assertEquals(result, Result.success(1L))
+        assertEquals(result, Result.success(1))
     }
 
     @Test

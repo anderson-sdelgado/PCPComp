@@ -20,4 +20,6 @@
     <string name="text_output">SAÍDA</string>
     <string name="text_close_mov">FECHAR MOVIMENTO(S)</string>
     <string name="text_close_all_mov">"DESEJA REALMENTE RETORNAR? ISSO FECHARÁ TODOS OS MOVIMENTOS."</string>
+    <string name="text_delete_passag">"DESEJA EXCLUIR O PASSAGEIRO?"</string>
+    <string name="text_delete_equip_seg">"DESEJA EXCLUIR O VEICULO SECUNDÁRIO?"</string>
 </resources>

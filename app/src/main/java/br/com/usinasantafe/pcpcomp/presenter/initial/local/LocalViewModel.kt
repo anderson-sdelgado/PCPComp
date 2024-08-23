@@ -53,7 +53,7 @@ class LocalViewModel(
         }
     }
 
-    fun setIdLocal(id: Long) = viewModelScope.launch {
+    fun setIdLocal(id: Int) = viewModelScope.launch {
         val resultSetIdLocalConfig = setIdLocalConfig(id)
         if (resultSetIdLocalConfig.isFailure) {
             val error = resultSetIdLocalConfig.exceptionOrNull()!!

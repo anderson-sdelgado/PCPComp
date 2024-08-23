@@ -89,7 +89,7 @@ class SendDataConfigImplTest {
             version = "6.00",
         )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.send(config)).thenReturn(Result.success(1L))
+        whenever(configRepository.send(config)).thenReturn(Result.success(1))
         val usecase = SendDataConfigImpl(configRepository)
         val result = usecase(
             number = "16997417840",
@@ -97,7 +97,7 @@ class SendDataConfigImplTest {
             version = "6.00"
         )
         assertEquals(result.isSuccess, true)
-        assertEquals(result, Result.success(1L))
+        assertEquals(result, Result.success(1))
     }
 
 }

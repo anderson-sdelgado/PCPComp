@@ -1,11 +1,26 @@
 package br.com.usinasantafe.pcpcomp.domain.repositories.variable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 interface MovEquipProprioRepository {
-    suspend fun setMatricColab(matricColab: Long): Result<Boolean>
-    suspend fun start(typeMov: TypeMov): Result<Boolean>
     suspend fun listOpen(): Result<List<MovEquipProprio>>
     suspend fun setClose(movEquipProprio: MovEquipProprio): Result<Boolean>
+    suspend fun setDestino(
+        destino: String,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean>
+    suspend fun setIdEquip(
+        idEquip: Int,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean>
+    suspend fun setMatricColab(
+        matricColab: Int,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean>
+    suspend fun start(typeMov: TypeMov): Result<Boolean>
 }

@@ -23,7 +23,7 @@ class ColabRoomDatasourceImpl(
         }
     }
 
-    override suspend fun checkMatric(matric: Long): Result<Boolean> {
+    override suspend fun checkMatric(matric: Int): Result<Boolean> {
         try {
             val result = colabDao.checkMatric(matric) > 0
             return Result.success(result)
@@ -37,7 +37,7 @@ class ColabRoomDatasourceImpl(
         }
     }
 
-    override suspend fun getNome(matric: Long): Result<String> {
+    override suspend fun getNome(matric: Int): Result<String> {
         try {
             val nome = colabDao.getNome(matric)
             return Result.success(nome)

@@ -117,7 +117,7 @@ class MatricColabViewModelTest {
     }
 
     @Test
-    fun `Check return false if matric is invalid`() = runTest {
+    fun `Check return true if matric is valid`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
@@ -140,7 +140,7 @@ class MatricColabViewModelTest {
     }
 
     @Test
-    fun `Check return true if matric is valid`() = runTest {
+    fun `Check return false if matric is invalid`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()

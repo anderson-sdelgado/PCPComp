@@ -27,7 +27,7 @@ class ColabRepositoryImpl(
         }
     }
 
-    override suspend fun checkMatric(matric: Long): Result<Boolean> {
+    override suspend fun checkMatric(matric: Int): Result<Boolean> {
         return colabRoomDatasource.checkMatric(matric)
     }
 
@@ -35,7 +35,7 @@ class ColabRepositoryImpl(
         return colabRoomDatasource.deleteAll()
     }
 
-    override suspend fun getNome(matric: Long): Result<String> {
+    override suspend fun getNome(matric: Int): Result<String> {
         return colabRoomDatasource.getNome(matric)
     }
 

@@ -27,9 +27,6 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllVisitante
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigModel
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigState
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.porc
@@ -198,8 +195,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16dfda")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16dfda")
+        viewModel.onPasswordChanged("12345")
         viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 2)
@@ -266,8 +263,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 2)
@@ -306,14 +303,14 @@ class ConfigViewModelTest {
                 version = "6.00"
             )
         ).thenReturn(
-            Result.success(1L)
+            Result.success(1)
         )
         whenever(
             saveDataConfig(
                 number = "16997417840",
                 password = "12345",
                 version = "6.00",
-                idBD = 1L
+                idBD = 1
             )
         ).thenReturn(
             Result.failure(
@@ -344,8 +341,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 3)
@@ -392,14 +389,14 @@ class ConfigViewModelTest {
                 version = "6.00"
             )
         ).thenReturn(
-            Result.success(1L)
+            Result.success(1)
         )
         whenever(
             saveDataConfig(
                 number = "16997417840",
                 password = "12345",
                 version = "6.00",
-                idBD = 1L
+                idBD = 1
             )
         ).thenReturn(
             Result.success(true)
@@ -425,8 +422,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         viewModel.updateVersion("6.00")
         val result = viewModel.token().toList()
         assertEquals(result.count(), 3)
@@ -490,8 +487,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         viewModel.updateVersion("6.00")
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 2)
@@ -555,8 +552,8 @@ class ConfigViewModelTest {
                 saveAllVisitante = saveAllVisitante,
                 setCheckUpdateAllTable = setCheckUpdateAllTable,
             )
-            viewModel.updateNumber("16997417840")
-            viewModel.updatePassword("12345")
+            viewModel.onNumberChanged("16997417840")
+            viewModel.onPasswordChanged("12345")
             val result = viewModel.updateAllDatabase().toList()
             assertEquals(result.count(), 2)
             assertEquals(
@@ -618,8 +615,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 3)
         assertEquals(
@@ -694,8 +691,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 4)
         assertEquals(
@@ -770,8 +767,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         viewModel.updateVersion("6.00")
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 5)
@@ -860,8 +857,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 2)
         assertEquals(
@@ -1071,8 +1068,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 2)
         assertEquals(
@@ -1343,8 +1340,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeUpdateConfig).toList()
         assertEquals(result.count(), 3)
         assertEquals(
@@ -1821,8 +1818,8 @@ class ConfigViewModelTest {
             saveAllVisitante = saveAllVisitante,
             setCheckUpdateAllTable = setCheckUpdateAllTable,
         )
-        viewModel.updateNumber("16997417840")
-        viewModel.updatePassword("12345")
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
         viewModel.updateVersion("6.00")
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(viewModel.uiState.value.msgProgress, "Atualização de dados realizado com sucesso!")
@@ -1835,13 +1832,13 @@ class ConfigViewModelTest {
                 password = "12345",
                 version = "6.00"
             )
-        ).thenReturn(Result.success(1L))
+        ).thenReturn(Result.success(1))
         whenever(
             saveDataConfig(
                 number = "16997417840",
                 password = "12345",
                 version = "6.00",
-                idBD = 1L
+                idBD = 1
             )
         ).thenReturn(Result.success(true))
     }

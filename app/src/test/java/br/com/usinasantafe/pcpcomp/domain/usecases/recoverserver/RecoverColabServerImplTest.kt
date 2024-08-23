@@ -59,7 +59,7 @@ class RecoverColabServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )
@@ -92,7 +92,7 @@ class RecoverColabServerImplTest {
                 Config(
                     number = 16997417840,
                     version = "6.00",
-                    idBD = 1L
+                    idBD = 1
                 )
             )
         )

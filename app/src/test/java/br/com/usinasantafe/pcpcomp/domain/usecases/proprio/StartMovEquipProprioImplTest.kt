@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioSegRepository
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioEquipSegRepository
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -17,7 +17,7 @@ class StartMovEquipProprioImplTest {
     @Test
     fun `Check return failure if have failure in MovEquipProprioRepository Start`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-        val movEquipProprioSegRepository = mock<MovEquipProprioSegRepository>()
+        val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
         val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
         whenever(movEquipProprioRepository.start(TypeMov.INPUT)).thenReturn(
             Result.failure(
@@ -29,7 +29,7 @@ class StartMovEquipProprioImplTest {
         )
         val usecase = StartMovEquipProprioImpl(
             movEquipProprioRepository,
-            movEquipProprioSegRepository,
+            movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository
         )
         val result = usecase(TypeMov.INPUT)
@@ -40,12 +40,12 @@ class StartMovEquipProprioImplTest {
     @Test
     fun `Check return failure if have failure in MovEquipProprioSegRepository clear`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-        val movEquipProprioSegRepository = mock<MovEquipProprioSegRepository>()
+        val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
         val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
         whenever(movEquipProprioRepository.start(TypeMov.INPUT)).thenReturn(
             Result.success(true)
         )
-        whenever(movEquipProprioSegRepository.clear()).thenReturn(
+        whenever(movEquipProprioEquipSegRepository.clear()).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "MovEquipProprioSegRepository.clear",
@@ -55,7 +55,7 @@ class StartMovEquipProprioImplTest {
         )
         val usecase = StartMovEquipProprioImpl(
             movEquipProprioRepository,
-            movEquipProprioSegRepository,
+            movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository
         )
         val result = usecase(TypeMov.INPUT)
@@ -66,12 +66,12 @@ class StartMovEquipProprioImplTest {
     @Test
     fun `Check return failure if have failure in MovEquipProprioPassagRepository clear`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-        val movEquipProprioSegRepository = mock<MovEquipProprioSegRepository>()
+        val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
         val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
         whenever(movEquipProprioRepository.start(TypeMov.INPUT)).thenReturn(
             Result.success(true)
         )
-        whenever(movEquipProprioSegRepository.clear()).thenReturn(
+        whenever(movEquipProprioEquipSegRepository.clear()).thenReturn(
             Result.success(true)
         )
         whenever(movEquipProprioPassagRepository.clear()).thenReturn(
@@ -84,7 +84,7 @@ class StartMovEquipProprioImplTest {
         )
         val usecase = StartMovEquipProprioImpl(
             movEquipProprioRepository,
-            movEquipProprioSegRepository,
+            movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository
         )
         val result = usecase(TypeMov.INPUT)
@@ -95,12 +95,12 @@ class StartMovEquipProprioImplTest {
     @Test
     fun `Check return true if execute correctly`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-        val movEquipProprioSegRepository = mock<MovEquipProprioSegRepository>()
+        val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
         val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
         whenever(movEquipProprioRepository.start(TypeMov.INPUT)).thenReturn(
             Result.success(true)
         )
-        whenever(movEquipProprioSegRepository.clear()).thenReturn(
+        whenever(movEquipProprioEquipSegRepository.clear()).thenReturn(
             Result.success(true)
         )
         whenever(movEquipProprioPassagRepository.clear()).thenReturn(
@@ -108,7 +108,7 @@ class StartMovEquipProprioImplTest {
         )
         val usecase = StartMovEquipProprioImpl(
             movEquipProprioRepository,
-            movEquipProprioSegRepository,
+            movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository
         )
         val result = usecase(TypeMov.INPUT)

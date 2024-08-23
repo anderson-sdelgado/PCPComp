@@ -46,4 +46,14 @@ class MovEquipProprioSharedPreferencesDatasourceImplTest {
         assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
         assertEquals(result.getOrNull()!!.nroMatricColabMovEquipProprio, 19759L)
     }
+
+    @Test
+    fun `Check return idEquip correct if MovEquipProprioSharedPreferences setIdEquip execute correctly`() = runTest {
+        movEquipProprioSharedPreferencesDatasourceImpl.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasourceImpl.setIdEquip(10)
+        val result = movEquipProprioSharedPreferencesDatasourceImpl.get()
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
+        assertEquals(result.getOrNull()!!.idEquipMovEquipProprio, 10L)
+    }
 }

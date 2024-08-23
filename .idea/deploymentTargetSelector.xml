@@ -5,10 +5,10 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_return_failure_if_not_have_data_in_config_internal()">
+      <SelectionState runConfigName="verify_flow_main_initial()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_msg_if_click_button_out()">
+      <SelectionState runConfigName="verify_flow_configuration_initial()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
