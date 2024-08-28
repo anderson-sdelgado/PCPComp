@@ -40,7 +40,6 @@ class MovEquipVisitTercRoomDatasourceImplTest {
     }
 
     private val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
-        idMovEquipVisitTerc = 1,
         nroMatricVigiaMovEquipVisitTerc = 1000,
         idLocalMovEquipVisitTerc = 1000,
         tipoMovEquipVisitTerc = TypeMov.INPUT,

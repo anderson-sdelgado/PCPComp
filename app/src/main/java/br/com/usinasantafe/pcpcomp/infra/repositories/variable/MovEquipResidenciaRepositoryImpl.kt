@@ -25,7 +25,7 @@ class MovEquipResidenciaRepositoryImpl(
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(
-                    message = "MovEquipResidenciaRepositoryImpl.listOpen",
+                    function = "MovEquipResidenciaRepositoryImpl.listOpen",
                     cause = e
                 )
             )
@@ -45,7 +45,7 @@ class MovEquipResidenciaRepositoryImpl(
         } catch (e: Exception){
             return Result.failure(
                 RepositoryException(
-                    message = "MovEquipResidenciaRepositoryImpl.setClose",
+                    function = "MovEquipResidenciaRepositoryImpl.setClose",
                     cause = e
                 )
             )

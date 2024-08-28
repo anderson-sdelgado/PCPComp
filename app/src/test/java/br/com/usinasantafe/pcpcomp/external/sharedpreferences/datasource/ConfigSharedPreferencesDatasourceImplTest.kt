@@ -28,22 +28,22 @@ class ConfigSharedPreferencesDatasourceImplTest {
 
     @Test
     fun `Return false if don't have data in Config SharedPreferences internal`() = runTest {
-        val result = configSharedPreferencesDatasourceImpl.hasConfig()
+        val result = configSharedPreferencesDatasourceImpl.has()
         assertFalse(result.getOrNull()!!)
     }
 
     @Test
     fun `Return true if have data in Config SharedPreferences internal`() = runTest {
-        configSharedPreferencesDatasourceImpl.saveConfig(Config(password = "12345"))
-        val result = configSharedPreferencesDatasourceImpl.hasConfig()
+        configSharedPreferencesDatasourceImpl.save(Config(password = "12345"))
+        val result = configSharedPreferencesDatasourceImpl.has()
         assertTrue(result.getOrNull()!!)
     }
 
     @Test
     fun `Check return data correct the Config SharedPreferences internal`() = runTest {
         val data = Config(password = "12345")
-        configSharedPreferencesDatasourceImpl.saveConfig(data)
-        val result = configSharedPreferencesDatasourceImpl.getConfig()
+        configSharedPreferencesDatasourceImpl.save(data)
+        val result = configSharedPreferencesDatasourceImpl.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, data)
     }
@@ -51,8 +51,8 @@ class ConfigSharedPreferencesDatasourceImplTest {
     @Test
     fun `Check return password correct the Config SharedPreferences internal`() = runTest {
         val data = Config(password = "12345")
-        configSharedPreferencesDatasourceImpl.saveConfig(data)
-        val result = configSharedPreferencesDatasourceImpl.getConfig()
+        configSharedPreferencesDatasourceImpl.save(data)
+        val result = configSharedPreferencesDatasourceImpl.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.password, "12345")
     }

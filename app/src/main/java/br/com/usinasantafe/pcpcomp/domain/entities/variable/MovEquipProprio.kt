@@ -18,6 +18,6 @@ data class MovEquipProprio(
     var observMovEquipProprio: String? = null,
     var statusMovEquipProprio: StatusData = StatusData.OPEN,
     var statusSendMovEquipProprio: StatusSend = StatusSend.SEND,
-    var movEquipProprioSegList: List<MovEquipProprioSeg>? = emptyList(),
+    var movEquipProprioEquipSegList: List<MovEquipProprioEquipSeg>? = emptyList(),
     var movEquipProprioPassagList: List<MovEquipProprioPassag>? = emptyList(),
 )

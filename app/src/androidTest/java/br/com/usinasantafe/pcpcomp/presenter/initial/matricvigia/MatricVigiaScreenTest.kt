@@ -10,8 +10,6 @@ import androidx.compose.ui.test.performClick
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaScreen
-import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaViewModel
 import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
@@ -114,7 +112,7 @@ class MatricVigiaScreenTest: KoinTest {
         server.enqueue(MockResponse().setBody(resultColabRetrofit))
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,
@@ -141,7 +139,7 @@ class MatricVigiaScreenTest: KoinTest {
         server.enqueue(MockResponse().setBody(resultColabRetrofit))
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,

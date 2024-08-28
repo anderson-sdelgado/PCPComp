@@ -79,47 +79,7 @@ class MatricVigiaViewModel(
                     }
                     return
                 }
-                viewModelScope.launch {
-                    val resultCheckMatric = checkMatricColab(uiState.value.matricVigia)
-                    if(resultCheckMatric.isFailure){
-                        val error = resultCheckMatric.exceptionOrNull()!!
-                        val failure =
-                            "${error.message} -> ${error.cause.toString()}"
-                        _uiState.update {
-                            it.copy(
-                                flagDialog = true,
-                                flagFailure = true,
-                                errors = Errors.EXCEPTION,
-                                failure = failure,
-                            )
-                        }
-                        return@launch
-                    }
-                    val result = resultCheckMatric.getOrNull()!!
-                    val resultSetMatric = setMatricVigiaConfig(uiState.value.matricVigia)
-                    if(resultSetMatric.isFailure){
-                        val error = resultSetMatric.exceptionOrNull()!!
-                        val failure =
-                            "${error.message} -> ${error.cause.toString()}"
-                        _uiState.update {
-                            it.copy(
-                                flagDialog = true,
-                                flagFailure = true,
-                                errors = Errors.EXCEPTION,
-                                failure = failure,
-                            )
-                        }
-                        return@launch
-                    }
-                    _uiState.update {
-                        it.copy(
-                            flagAccess = result,
-                            flagDialog = !result,
-                            flagFailure = !result,
-                            errors = Errors.INVALID,
-                        )
-                    }
-                }
+                setMatricVigia()
             }
             TypeButton.UPDATE -> {
                 viewModelScope.launch {
@@ -128,6 +88,48 @@ class MatricVigiaViewModel(
                     }
                 }
             }
+        }
+    }
+
+    private fun setMatricVigia() = viewModelScope.launch {
+        val resultCheckMatric = checkMatricColab(uiState.value.matricVigia)
+        if(resultCheckMatric.isFailure){
+            val error = resultCheckMatric.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    flagFailure = true,
+                    errors = Errors.EXCEPTION,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val result = resultCheckMatric.getOrNull()!!
+        val resultSetMatric = setMatricVigiaConfig(uiState.value.matricVigia)
+        if(resultSetMatric.isFailure){
+            val error = resultSetMatric.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    flagFailure = true,
+                    errors = Errors.EXCEPTION,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        _uiState.update {
+            it.copy(
+                flagAccess = result,
+                flagDialog = !result,
+                flagFailure = !result,
+                errors = Errors.INVALID,
+            )
         }
     }
 

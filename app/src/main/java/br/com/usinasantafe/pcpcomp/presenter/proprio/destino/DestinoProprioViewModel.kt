@@ -25,13 +25,13 @@ data class DestinoProprioState(
 )
 
 class DestinoProprioViewModel(
-    saveStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val setDestinoProprio: SetDestinoProprio,
     private val getTypeMov: GetTypeMov
 ) : ViewModel() {
 
-    private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
-    private val id: Int = saveStateHandle[ID_ARGS]!!
+    private val flowApp: Int = savedStateHandle[FLOW_APP_ARGS]!!
+    private val id: Int = savedStateHandle[ID_ARGS]!!
 
     private val _uiState = MutableStateFlow(DestinoProprioState())
     val uiState = _uiState.asStateFlow()
@@ -69,8 +69,8 @@ class DestinoProprioViewModel(
         viewModelScope.launch {
             val resultSetDestino = setDestinoProprio(
                 uiState.value.destino,
-                _uiState.value.flowApp,
-                _uiState.value.id
+                uiState.value.flowApp,
+                uiState.value.id
             )
             if (resultSetDestino.isFailure){
                 val error = resultSetDestino.exceptionOrNull()!!

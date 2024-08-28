@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "e18f2cefac9072fe46688a27839b94e9",
+    "identityHash": "43365935a8b226b841b0c78fd558e992",
     "entities": [
       {
         "tableName": "tb_colab",
@@ -251,6 +251,70 @@
         "foreignKeys": []
       },
       {
+        "tableName": "tb_mov_equip_proprio_passag",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprioPassag` INTEGER PRIMARY KEY AUTOINCREMENT, `idMovEquipProprio` INTEGER NOT NULL, `matricColab` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipProprioPassag",
+            "columnName": "idMovEquipProprioPassag",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idMovEquipProprio",
+            "columnName": "idMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matricColab",
+            "columnName": "matricColab",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipProprioPassag"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_mov_equip_proprio_seg",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprioEquipSeg` INTEGER PRIMARY KEY AUTOINCREMENT, `idMovEquipProprio` INTEGER NOT NULL, `idEquip` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipProprioEquipSeg",
+            "columnName": "idMovEquipProprioEquipSeg",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idMovEquipProprio",
+            "columnName": "idMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEquip",
+            "columnName": "idEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipProprioEquipSeg"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "tb_mov_equip_residencia",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipResidencia` INTEGER PRIMARY KEY AUTOINCREMENT, `nroMatricVigiaMovEquipResidencia` INTEGER NOT NULL, `idLocalMovEquipResidencia` INTEGER NOT NULL, `tipoMovEquipResidencia` TEXT NOT NULL, `dthrMovEquipResidencia` INTEGER NOT NULL, `motoristaMovEquipResidencia` TEXT NOT NULL, `veiculoMovEquipResidencia` TEXT NOT NULL, `placaMovEquipResidencia` TEXT NOT NULL, `observMovEquipResidencia` TEXT, `statusMovEquipResidencia` TEXT NOT NULL, `statusSendMovEquipResidencia` TEXT NOT NULL, `statusMovEquipForeigResidencia` TEXT NOT NULL)",
         "fields": [
@@ -438,7 +502,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e18f2cefac9072fe46688a27839b94e9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '43365935a8b226b841b0c78fd558e992')"
     ]
   }
 }

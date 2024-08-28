@@ -90,32 +90,7 @@ class MatricColabViewModel(
                     }
                     return
                 }
-                viewModelScope.launch {
-                    val resultCheckMatric = checkMatricColab(uiState.value.matricColab)
-                    if(resultCheckMatric.isFailure){
-                        val error = resultCheckMatric.exceptionOrNull()!!
-                        val failure =
-                            "${error.message} -> ${error.cause.toString()}"
-                        _uiState.update {
-                            it.copy(
-                                flagDialog = true,
-                                flagFailure = true,
-                                errors = Errors.EXCEPTION,
-                                failure = failure,
-                            )
-                        }
-                        return@launch
-                    }
-                    val result = resultCheckMatric.getOrNull()!!
-                    _uiState.update {
-                        it.copy(
-                            flagAccess = result,
-                            flagDialog = !result,
-                            flagFailure = !result,
-                            errors = Errors.INVALID,
-                        )
-                    }
-                }
+                setMatricColab()
             }
             TypeButton.UPDATE -> {
                 viewModelScope.launch {
@@ -124,6 +99,33 @@ class MatricColabViewModel(
                     }
                 }
             }
+        }
+    }
+
+    private fun setMatricColab() = viewModelScope.launch {
+        val resultCheckMatric = checkMatricColab(uiState.value.matricColab)
+        if(resultCheckMatric.isFailure){
+            val error = resultCheckMatric.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    flagFailure = true,
+                    errors = Errors.EXCEPTION,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val result = resultCheckMatric.getOrNull()!!
+        _uiState.update {
+            it.copy(
+                flagAccess = result,
+                flagDialog = !result,
+                flagFailure = !result,
+                errors = Errors.INVALID,
+            )
         }
     }
 

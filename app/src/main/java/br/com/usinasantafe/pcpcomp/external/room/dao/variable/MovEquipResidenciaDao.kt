@@ -15,7 +15,7 @@ import br.com.usinasantafe.pcpcomp.utils.TB_MOV_EQUIP_RESIDENCIA
 interface MovEquipResidenciaDao {
 
     @Insert
-    suspend fun insert(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel)
+    suspend fun insert(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Long
 
     @Update
     suspend fun update(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel)

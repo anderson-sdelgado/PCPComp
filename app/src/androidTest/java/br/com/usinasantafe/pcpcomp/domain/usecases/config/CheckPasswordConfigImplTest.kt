@@ -34,7 +34,7 @@ class CheckPasswordConfigImplTest: KoinTest {
 
     @Test
     fun verify_return_false_if_password_typed_incorrect() = runTest {
-        configSharedPreferences.saveConfig(Config(password = "12345"))
+        configSharedPreferences.save(Config(password = "12345"))
         val result = usecase("123456")
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)
@@ -42,7 +42,7 @@ class CheckPasswordConfigImplTest: KoinTest {
 
     @Test
     fun verify_return_true_if_password_typed_correct() = runTest {
-        configSharedPreferences.saveConfig(Config(password = "12345"))
+        configSharedPreferences.save(Config(password = "12345"))
         val result = usecase("12345")
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, true)

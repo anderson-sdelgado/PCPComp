@@ -57,7 +57,7 @@ class MovEquipProprioScreenTest: KoinTest {
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
         val colabRoomDatasource: ColabRoomDatasource by inject()
         val localRoomDatasource: LocalRoomDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 matricVigia = 19759,
                 idLocal = 1
@@ -116,7 +116,7 @@ class MovEquipProprioScreenTest: KoinTest {
                 observMovEquipProprio = null,
             )
         )
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 matricVigia = 19759,
                 idLocal = 1

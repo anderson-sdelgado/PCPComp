@@ -5,10 +5,13 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="verify_flow_main_initial()">
+      <SelectionState runConfigName="check_return_failure_if_not_have_data_mov_equip_proprio_internal()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="verify_flow_configuration_initial()">
+      <SelectionState runConfigName="check_return_true()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="check_return_true_if_execute_correctly()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

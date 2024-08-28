@@ -8,7 +8,6 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.lifecycle.SavedStateHandle
-import androidx.test.espresso.Espresso
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
@@ -124,7 +123,7 @@ class MatricColabScreenTest: KoinTest {
         server.enqueue(MockResponse().setBody(resultColabRetrofit))
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,
@@ -151,7 +150,7 @@ class MatricColabScreenTest: KoinTest {
         server.enqueue(MockResponse().setBody(resultColabRetrofit))
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,

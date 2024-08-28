@@ -11,7 +11,7 @@ class ConfigSharedPreferencesDatasourceImpl(
     private val sharedPreferences: SharedPreferences
 ) : ConfigSharedPreferencesDatasource {
 
-    override suspend fun hasConfig(): Result<Boolean> {
+    override suspend fun has(): Result<Boolean> {
         try {
             val result = sharedPreferences.getString(BASE_SHARE_PREFERENCES_TABLE_CONFIG, null)
             return Result.success(result != null)
@@ -25,7 +25,7 @@ class ConfigSharedPreferencesDatasourceImpl(
         }
     }
 
-    override suspend fun getConfig(): Result<Config> {
+    override suspend fun get(): Result<Config> {
         try {
             val config = sharedPreferences.getString(BASE_SHARE_PREFERENCES_TABLE_CONFIG, null)
             if(config.isNullOrEmpty())
@@ -41,7 +41,7 @@ class ConfigSharedPreferencesDatasourceImpl(
         }
     }
 
-    override suspend fun saveConfig(config: Config): Result<Boolean> {
+    override suspend fun save(config: Config): Result<Boolean> {
         try {
             val editor = sharedPreferences.edit()
             editor.putString(BASE_SHARE_PREFERENCES_TABLE_CONFIG, Gson().toJson(config))

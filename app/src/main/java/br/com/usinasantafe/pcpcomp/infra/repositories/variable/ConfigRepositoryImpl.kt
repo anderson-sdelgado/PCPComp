@@ -7,6 +7,7 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.variable.ConfigRe
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.webservice.toConfigWebServiceModel
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
+import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 class ConfigRepositoryImpl(
     private val configSharedPreferencesDatasource: ConfigSharedPreferencesDatasource,
@@ -14,12 +15,12 @@ class ConfigRepositoryImpl(
 ) : ConfigRepository {
 
     override suspend fun hasConfig(): Result<Boolean> {
-        return configSharedPreferencesDatasource.hasConfig()
+        return configSharedPreferencesDatasource.has()
     }
 
     override suspend fun getPassword(): Result<String> {
         try {
-            val config = configSharedPreferencesDatasource.getConfig()
+            val config = configSharedPreferencesDatasource.get()
             if(config.isFailure)
                 return Result.failure(config.exceptionOrNull()!!)
             return Result.success(config.getOrNull()!!.password!!)
@@ -35,7 +36,7 @@ class ConfigRepositoryImpl(
 
     override suspend fun getFlagUpdate(): Result<FlagUpdate> {
         try {
-            val config = configSharedPreferencesDatasource.getConfig()
+            val config = configSharedPreferencesDatasource.get()
             if(config.isFailure)
                 return Result.failure(config.exceptionOrNull()!!)
             return Result.success(config.getOrNull()!!.flagUpdate)
@@ -51,7 +52,7 @@ class ConfigRepositoryImpl(
 
     override suspend fun getMatricVigia(): Result<Int> {
         try {
-            val config = configSharedPreferencesDatasource.getConfig()
+            val config = configSharedPreferencesDatasource.get()
             if(config.isFailure)
                 return Result.failure(config.exceptionOrNull()!!)
             return Result.success(config.getOrNull()!!.matricVigia!!)
@@ -66,7 +67,7 @@ class ConfigRepositoryImpl(
     }
 
     override suspend fun getConfig(): Result<Config> {
-        return configSharedPreferencesDatasource.getConfig()
+        return configSharedPreferencesDatasource.get()
     }
 
     override suspend fun send(config: Config): Result<Int> {
@@ -85,8 +86,29 @@ class ConfigRepositoryImpl(
         }
     }
 
+    override suspend fun setStatusSend(statusSend: StatusSend): Result<Boolean> {
+        try {
+            val resultConfig = configSharedPreferencesDatasource.get()
+            if(resultConfig.isFailure)
+                return Result.failure(resultConfig.exceptionOrNull()!!)
+            val config = resultConfig.getOrNull()!!
+            config.statusSend = statusSend
+            val resultSave = configSharedPreferencesDatasource.save(config)
+            if(resultSave.isFailure)
+                return Result.failure(resultSave.exceptionOrNull()!!)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "ConfigRepositoryImpl.setStatusSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun save(config: Config): Result<Boolean> {
-        return configSharedPreferencesDatasource.saveConfig(config)
+        return configSharedPreferencesDatasource.save(config)
     }
 
 }

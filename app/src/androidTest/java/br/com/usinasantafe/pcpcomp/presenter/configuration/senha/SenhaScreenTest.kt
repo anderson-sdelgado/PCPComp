@@ -10,13 +10,8 @@ import androidx.compose.ui.test.performTextInput
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.SenhaScreen
-import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.SenhaViewModel
-import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN
-import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
-import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
 import org.junit.Rule
@@ -51,7 +46,7 @@ class SenhaScreenTest: KoinTest {
     fun verify_password_null() = runTest {
 
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(Config(password = "12345"))
+        configSharedPreferences.save(Config(password = "12345"))
 
         setContent()
         composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()
@@ -67,7 +62,7 @@ class SenhaScreenTest: KoinTest {
     fun verify_password_incorrect() = runTest {
 
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(Config(password = "12345"))
+        configSharedPreferences.save(Config(password = "12345"))
 
         setContent()
         composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()

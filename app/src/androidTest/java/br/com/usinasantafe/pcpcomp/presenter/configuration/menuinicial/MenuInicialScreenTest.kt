@@ -9,8 +9,6 @@ import androidx.compose.ui.test.performClick
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.presenter.configuration.menuinicial.MenuInicialScreen
-import br.com.usinasantafe.pcpcomp.presenter.configuration.menuinicial.MenuInicialViewModel
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -20,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.context.loadKoinModules
-import org.koin.java.KoinJavaComponent.inject
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
@@ -58,7 +55,7 @@ class MenuInicialScreenTest: KoinTest {
     @Test
     fun check_blocked_if_config_have_incomplete() = runTest {
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(Config())
+        configSharedPreferences.save(Config())
         setContent()
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
         composeTestRule.onNodeWithText("APONTAMENTO")

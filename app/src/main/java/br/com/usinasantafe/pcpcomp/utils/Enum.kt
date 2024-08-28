@@ -14,3 +14,4 @@ enum class TypeVisitTerc { VISITANTE, TERCEIRO }
 enum class FlowApp { ADD, CHANGE }
 enum class Errors { FIELDEMPTY, TOKEN, UPDATE, EXCEPTION, INVALID }
 enum class TypeButton { NUMERIC, CLEAN, OK, UPDATE }
+enum class TypeButtonWithoutUpdate { NUMERIC, CLEAN, OK }

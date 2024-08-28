@@ -36,7 +36,7 @@ class RecoverColabServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setResponseCode(404))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",
@@ -56,7 +56,7 @@ class RecoverColabServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setBody(tokenInvalidColab))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",
@@ -77,7 +77,7 @@ class RecoverColabServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setBody(resultColabIncorrect))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",
@@ -97,7 +97,7 @@ class RecoverColabServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setBody(resultColab))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",

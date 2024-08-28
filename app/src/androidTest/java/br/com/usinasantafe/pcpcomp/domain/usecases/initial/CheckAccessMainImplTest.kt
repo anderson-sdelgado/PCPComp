@@ -1,7 +1,6 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.initial
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.RecoverConfigInternal
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
@@ -36,7 +35,7 @@ class CheckAccessMainImplTest: KoinTest {
 
     @Test
     fun verify_return_false_if_data_config_field_flag_update_is_outdated() = runTest {
-        configSharedPreferences.saveConfig(Config())
+        configSharedPreferences.save(Config())
         val result = usecase()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)
@@ -44,7 +43,7 @@ class CheckAccessMainImplTest: KoinTest {
 
     @Test
     fun verify_return_true_if_data_config_field_flag_update_is_updated() = runTest {
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(flagUpdate = FlagUpdate.UPDATED)
         )
         val result = usecase()

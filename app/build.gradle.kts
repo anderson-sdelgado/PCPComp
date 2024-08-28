@@ -134,4 +134,7 @@ dependencies {
     ksp(libs.room.compiler)
     androidTestImplementation(libs.room.testing)
     testImplementation(libs.room.testing)
+    implementation(libs.work.runtime)
+    androidTestImplementation(libs.work.testing)
+    testImplementation(libs.work.testing)
 }

@@ -15,7 +15,7 @@ import br.com.usinasantafe.pcpcomp.utils.TB_MOV_EQUIP_VISIT_TERC
 interface MovEquipVisitTercDao {
 
     @Insert
-    suspend fun insert(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel)
+    suspend fun insert(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Long
 
     @Update
     suspend fun update(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel)

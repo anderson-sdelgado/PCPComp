@@ -15,7 +15,7 @@ data class MovEquipProprioSharedPreferencesModel(
     var observMovEquipProprio: String? = null,
 )
 
-fun MovEquipProprioSharedPreferencesModel.modelSharedPreferencesToMovEquipProprio(): MovEquipProprio {
+fun MovEquipProprioSharedPreferencesModel.sharedPreferencesModelToEntity(): MovEquipProprio {
     return with(this){
         MovEquipProprio(
             dthrMovEquipProprio = this.dthrMovEquipProprio,

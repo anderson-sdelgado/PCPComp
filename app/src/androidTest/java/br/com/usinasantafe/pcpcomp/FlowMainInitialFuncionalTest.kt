@@ -138,7 +138,7 @@ class FlowMainInitialFuncionalTest: KoinTest {
         val gson = Gson()
 
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,

@@ -33,6 +33,14 @@ class SetNroEquipProprioImpl(
             if (resultId.isFailure)
                 return Result.failure(resultId.exceptionOrNull()!!)
             val idEquip = resultId.getOrNull()!!
+            if (idEquip == 0) {
+                return Result.failure(
+                    UsecaseException(
+                        function = "SetNroEquipProprio",
+                        cause = NullPointerException()
+                    )
+                )
+            }
             when (typeEquip) {
                 TypeEquip.VEICULO -> movEquipProprioRepository.setIdEquip(
                     idEquip = idEquip,

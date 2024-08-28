@@ -38,7 +38,7 @@ class RecoverConfigInternalImplTest: KoinTest {
             number = 16997417840,
             password = "12345"
         )
-        configSharedPreferences.saveConfig(config)
+        configSharedPreferences.save(config)
         val result = usecase()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.number, "16997417840")

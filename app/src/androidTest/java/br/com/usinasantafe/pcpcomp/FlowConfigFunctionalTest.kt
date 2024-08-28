@@ -1,14 +1,11 @@
 package br.com.usinasantafe.pcpcomp
 
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import androidx.test.core.app.ActivityScenario
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.presenter.MainActivity
@@ -16,12 +13,8 @@ import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_NUMBER_TEX
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.dispatcherSuccess
 import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN
-import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
-import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
-import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
@@ -73,7 +66,7 @@ class FlowConfigFunctionalTest: KoinTest {
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
 
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,

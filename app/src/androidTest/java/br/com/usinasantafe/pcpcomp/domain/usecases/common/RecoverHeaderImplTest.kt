@@ -1,7 +1,6 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.common
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.domain.usecases.initial.RecoverNomeVigia
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.LocalRoomDatasource
@@ -43,7 +42,7 @@ class RecoverHeaderImplTest : KoinTest {
 
     @Test
     fun check_return_success() = runTest {
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 matricVigia = 19759,
                 idLocal = 1

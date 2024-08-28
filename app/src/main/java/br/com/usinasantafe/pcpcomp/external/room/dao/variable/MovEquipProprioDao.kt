@@ -14,7 +14,7 @@ import br.com.usinasantafe.pcpcomp.utils.TB_MOV_EQUIP_PROPRIO
 interface MovEquipProprioDao {
 
     @Insert
-    suspend fun insert(movEquipProprioRoomModel: MovEquipProprioRoomModel)
+    suspend fun insert(movEquipProprioRoomModel: MovEquipProprioRoomModel): Long
 
     @Update
     suspend fun update(movEquipProprioRoomModel: MovEquipProprioRoomModel)
@@ -33,5 +33,9 @@ interface MovEquipProprioDao {
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO WHERE idMovEquipProprio = :idMov")
     suspend fun getId(idMov: Int): MovEquipProprioRoomModel
+
+
+    @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO")
+    suspend fun list(): List<MovEquipProprioRoomModel>
 
 }

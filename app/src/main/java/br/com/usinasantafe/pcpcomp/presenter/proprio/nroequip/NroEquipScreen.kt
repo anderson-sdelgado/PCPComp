@@ -35,6 +35,8 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 
+const val TAG_NUMBER_TEXT_FIELD_NRO_EQUIP_SCREEN = "tag_number_text_field_nro_equip_screen"
+
 @Composable
 fun NroEquipScreen(
     viewModel: NroEquipProprioViewModel,
@@ -109,7 +111,7 @@ fun NroEquipContent(
             onValueChange = {},
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(TAG_NUMBER_TEXT_FIELD_MATRIC_VIGIA_SCREEN)
+                .testTag(TAG_NUMBER_TEXT_FIELD_NRO_EQUIP_SCREEN)
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         ButtonsGenericNumeric(setActionButton = setTextField)

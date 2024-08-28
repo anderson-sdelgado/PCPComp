@@ -15,4 +15,7 @@ interface MovEquipProprioPassagRepository {
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+    suspend fun save(
+        id: Int
+    ): Result<Boolean>
 }

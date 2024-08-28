@@ -10,6 +10,7 @@ import br.com.usinasantafe.pcpcomp.di.datasourceRetrofitModule
 import br.com.usinasantafe.pcpcomp.di.datasourceRoomModule
 import br.com.usinasantafe.pcpcomp.di.datasourceSharedPreferencesModule
 import br.com.usinasantafe.pcpcomp.di.repositoryModule
+import br.com.usinasantafe.pcpcomp.di.usecaseBackgroundModule
 import br.com.usinasantafe.pcpcomp.di.usecaseCleanTableModule
 import br.com.usinasantafe.pcpcomp.di.usecaseCommonModule
 import br.com.usinasantafe.pcpcomp.di.usecaseConfigModule
@@ -18,6 +19,8 @@ import br.com.usinasantafe.pcpcomp.di.usecaseProprioModule
 import br.com.usinasantafe.pcpcomp.di.usecaseRecoverServerModule
 import br.com.usinasantafe.pcpcomp.di.usecaseUpdateTableModule
 import br.com.usinasantafe.pcpcomp.di.viewModelModule
+import br.com.usinasantafe.pcpcomp.di.workManagerModule
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.providerWorkManager
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitAndroidTest
 import br.com.usinasantafe.pcpcomp.external.room.provideRoomTest
 import org.koin.android.ext.koin.androidContext
@@ -38,6 +41,7 @@ class TestApplication : Application() {
 
 fun generateTestAppComponent(baseTestApi: String) = listOf(
     viewModelModule,
+    usecaseBackgroundModule,
     usecaseCleanTableModule,
     usecaseCommonModule,
     usecaseConfigModule,
@@ -54,6 +58,7 @@ fun generateTestAppComponent(baseTestApi: String) = listOf(
     sharedModuleTest,
     retrofitModuleTest(baseTestApi),
     roomModuleTest,
+    workManagerModuleTest
 )
 
 val sharedModuleTest = module {
@@ -70,6 +75,10 @@ fun retrofitModuleTest(baseTestApi: String) = module {
 
 val roomModuleTest = module {
     single { provideRoomTest(androidContext()) }
+}
+
+val workManagerModuleTest = module {
+    single { providerWorkManager(androidContext()) }
 }
 
 class InstrumentationTestRunner : AndroidJUnitRunner() {

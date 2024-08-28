@@ -13,14 +13,9 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.LocalRoomDatasou
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
-import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaScreen
-import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaViewModel
-import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontScreen
-import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontViewModel
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 
@@ -56,7 +51,7 @@ class MenuApontScreenTest: KoinTest {
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
         val colabRoomDatasource: ColabRoomDatasource by inject()
         val localRoomDatasource: LocalRoomDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 matricVigia = 19759,
                 idLocal = 1
@@ -90,7 +85,7 @@ class MenuApontScreenTest: KoinTest {
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
         val colabRoomDatasource: ColabRoomDatasource by inject()
         val localRoomDatasource: LocalRoomDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 matricVigia = 19759,
                 idLocal = 1

@@ -10,8 +10,6 @@ import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
-import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaScreen
-import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaViewModel
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -48,7 +46,7 @@ class NomeVigiaScreenTest: KoinTest {
     fun check_return_nomeColab_if_have_vigia_in_table() = runTest {
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
         val colabRoomDatasource: ColabRoomDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(matricVigia = 19759)
         )
         colabRoomDatasource.addAll(

@@ -24,6 +24,20 @@ class MovEquipProprioRoomDatasourceImpl(
         }
     }
 
+    override suspend fun save(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Long> {
+        try {
+            val id = movEquipProprioDao.insert(movEquipProprioRoomModel)
+            return Result.success(id)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.save",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun setClose(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Boolean> {
         try {
             movEquipProprioRoomModel.statusMovEquipProprio = StatusData.CLOSE

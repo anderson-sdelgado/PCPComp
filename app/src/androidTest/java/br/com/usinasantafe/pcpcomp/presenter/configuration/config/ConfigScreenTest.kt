@@ -13,10 +13,6 @@ import androidx.compose.ui.test.performTextInput
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigScreen
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN
 import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
@@ -72,7 +68,7 @@ class ConfigScreenTest: KoinTest {
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
 
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840

@@ -76,20 +76,22 @@ class NroEquipProprioViewModel(
     fun setTextField(
         text: String,
         typeButton: TypeButton
-    ){
-        when(typeButton){
+    ) {
+        when (typeButton) {
             TypeButton.NUMERIC -> {
                 val nroEquip = addTextField(uiState.value.nroEquip, text)
                 _uiState.update {
                     it.copy(nroEquip = nroEquip)
                 }
             }
+
             TypeButton.CLEAN -> {
                 val nroEquip = clearTextField(uiState.value.nroEquip)
                 _uiState.update {
                     it.copy(nroEquip = nroEquip)
                 }
             }
+
             TypeButton.OK -> {
                 if (uiState.value.nroEquip.isEmpty()) {
                     _uiState.update {
@@ -101,55 +103,9 @@ class NroEquipProprioViewModel(
                     }
                     return
                 }
-                viewModelScope.launch {
-                    val resultCheckEquip = checkNroEquipProprio(uiState.value.nroEquip)
-                    if(resultCheckEquip.isFailure){
-                        val error = resultCheckEquip.exceptionOrNull()!!
-                        val failure =
-                            "${error.message} -> ${error.cause.toString()}"
-                        _uiState.update {
-                            it.copy(
-                                flagDialog = true,
-                                flagFailure = true,
-                                errors = Errors.EXCEPTION,
-                                failure = failure,
-                            )
-                        }
-                        return@launch
-                    }
-                    val result = resultCheckEquip.getOrNull()!!
-                    if(result){
-                        val resultSetEquip = setNroEquipProprio(
-                            nroEquip = uiState.value.nroEquip,
-                            flowApp = uiState.value.flowApp,
-                            typeEquip = uiState.value.typeEquip,
-                            id = uiState.value.id
-                        )
-                        if(resultSetEquip.isFailure){
-                            val error = resultSetEquip.exceptionOrNull()!!
-                            val failure =
-                                "${error.message} -> ${error.cause.toString()}"
-                            _uiState.update {
-                                it.copy(
-                                    flagDialog = true,
-                                    flagFailure = true,
-                                    errors = Errors.EXCEPTION,
-                                    failure = failure,
-                                )
-                            }
-                            return@launch
-                        }
-                    }
-                    _uiState.update {
-                        it.copy(
-                            flagAccess = result,
-                            flagDialog = !result,
-                            flagFailure = !result,
-                            errors = Errors.INVALID,
-                        )
-                    }
-                }
+                setNroEquip()
             }
+
             TypeButton.UPDATE -> {
                 viewModelScope.launch {
                     updateAllDatabase().collect { stateUpdate ->
@@ -160,14 +116,63 @@ class NroEquipProprioViewModel(
         }
     }
 
+    private fun setNroEquip() = viewModelScope.launch {
+        val resultCheckEquip = checkNroEquipProprio(uiState.value.nroEquip)
+        if (resultCheckEquip.isFailure) {
+            val error = resultCheckEquip.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    flagFailure = true,
+                    errors = Errors.EXCEPTION,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val result = resultCheckEquip.getOrNull()!!
+        if (result) {
+            val resultSetEquip = setNroEquipProprio(
+                nroEquip = uiState.value.nroEquip,
+                flowApp = uiState.value.flowApp,
+                typeEquip = uiState.value.typeEquip,
+                id = uiState.value.id
+            )
+            if (resultSetEquip.isFailure) {
+                val error = resultSetEquip.exceptionOrNull()!!
+                val failure =
+                    "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        flagFailure = true,
+                        errors = Errors.EXCEPTION,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+        }
+        _uiState.update {
+            it.copy(
+                flagAccess = result,
+                flagDialog = !result,
+                flagFailure = !result,
+                errors = Errors.INVALID,
+            )
+        }
+    }
+
     suspend fun updateAllDatabase(): Flow<NroEquipProprioState> = flow {
         val sizeUpdate = 4f
         var configState = NroEquipProprioState()
-        updateAllEquip(sizeUpdate, 1f).collect{ stateUpdateColab ->
+        updateAllEquip(sizeUpdate, 1f).collect { stateUpdateColab ->
             configState = stateUpdateColab
             emit(stateUpdateColab)
         }
-        if(configState.flagFailure)
+        if (configState.flagFailure)
             return@flow
         emit(
             NroEquipProprioState(

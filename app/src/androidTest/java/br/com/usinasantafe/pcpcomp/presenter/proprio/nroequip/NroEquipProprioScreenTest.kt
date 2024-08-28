@@ -126,7 +126,7 @@ class NroEquipProprioScreenTest: KoinTest {
         server.enqueue(MockResponse().setBody(resultColabRetrofit))
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,
@@ -154,7 +154,7 @@ class NroEquipProprioScreenTest: KoinTest {
         server.enqueue(MockResponse().setBody(resultEquipRetrofit))
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
         val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 password = "12345",
                 number = 16997417840,

@@ -17,7 +17,6 @@ class CleanEquipSegImplTest: KoinTest {
     private val usecase: CleanEquipSeg  by inject()
     private val movEquipProprioEquipSegSharedPreferencesDatasource: MovEquipProprioEquipSegSharedPreferencesDatasource by inject()
 
-
     @Before
     fun before() {
         val server = MockWebServer()

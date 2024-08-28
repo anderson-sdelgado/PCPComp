@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.configuration.menuinicial
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.domain.usecases.initial.CheckAccessMain
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,7 @@ data class MenuInicialState(
 )
 
 class MenuInicialViewModel(
-    private val checkAccessMain: CheckAccessMain
+    private val checkAccessMain: CheckAccessMain,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MenuInicialState())

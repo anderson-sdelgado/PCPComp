@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.entities.variable
 
-data class MovEquipProprioSeg(
+data class MovEquipProprioEquipSeg(
     var idMovEquipProprioSeg: Int? = null,
     var idMovEquipProprio: Int? = null,
-    var idEquipMovEquipProprioSeg: Int? = null,
+    var idEquip: Int? = null,
 )

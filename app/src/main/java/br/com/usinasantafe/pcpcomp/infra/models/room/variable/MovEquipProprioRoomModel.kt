@@ -27,7 +27,7 @@ data class MovEquipProprioRoomModel(
     var statusSendMovEquipProprio: StatusSend,
 )
 
-fun MovEquipProprioRoomModel.modelRoomToMovEquipProprio(): MovEquipProprio {
+fun MovEquipProprioRoomModel.roomModelToEntity(): MovEquipProprio {
     return with(this){
         MovEquipProprio(
             idMovEquipProprio = this.idMovEquipProprio,
@@ -46,7 +46,7 @@ fun MovEquipProprioRoomModel.modelRoomToMovEquipProprio(): MovEquipProprio {
     }
 }
 
-fun MovEquipProprio.entityToMovEquipProprioRoomModel(matricVigia: Int, idLocal: Int): MovEquipProprioRoomModel{
+fun MovEquipProprio.entityToRoomModel(matricVigia: Int, idLocal: Int): MovEquipProprioRoomModel{
     return with(this){
         MovEquipProprioRoomModel(
             idMovEquipProprio = idMovEquipProprio,

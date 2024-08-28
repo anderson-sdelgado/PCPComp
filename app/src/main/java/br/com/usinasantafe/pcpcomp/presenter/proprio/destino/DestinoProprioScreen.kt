@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.presenter.proprio.destino
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -117,6 +118,7 @@ fun DestinoProprioContent(
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
             }
         }
+        BackHandler {}
 
         if (flagDialog) {
             val text = if(failure.isEmpty()) {

@@ -14,6 +14,9 @@ import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListV
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip.NroEquipProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.equipseglist.EquipSegListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal.NotaFiscalViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.ObservProprioViewModel
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.*
@@ -65,6 +68,14 @@ val viewModelModule = module {
     viewModelOf(::NroEquipProprioViewModel)
     viewModelOf(::EquipSegListViewModel)
     viewModelOf(::DestinoProprioViewModel)
+    viewModelOf(::NotaFiscalViewModel)
+    viewModelOf(::ObservProprioViewModel)
+
+}
+
+val usecaseBackgroundModule = module {
+
+    singleOf(::StartProcessSendDataImpl) { bind<StartProcessSendData>() }
 
 }
 
@@ -118,11 +129,13 @@ val usecaseProprioModule = module {
     singleOf(::RecoverMovEquipProprioOpenListImpl) { bind<RecoverMovEquipProprioOpenList>() }
     singleOf(::RecoverNomeColabImpl) { bind<RecoverNomeColab>() }
     singleOf(::RecoverPassagColabListImpl) { bind<RecoverPassagColabList>() }
+    singleOf(::SaveMovEquipProprioImpl) { bind<SaveMovEquipProprio>() }
     singleOf(::SetDestinoProprioImpl) { bind<SetDestinoProprio>() }
+    singleOf(::SetNotaFiscalProprioImpl) { bind<SetNotaFiscalProprio>() }
     singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
     singleOf(::SetNroEquipProprioImpl) { bind<SetNroEquipProprio>() }
+    singleOf(::SetObservProprioImpl) { bind<SetObservProprio>() }
     singleOf(::StartMovEquipProprioImpl) { bind<StartMovEquipProprio>() }
-
 
 }
 
@@ -150,6 +163,8 @@ val repositoryModule = module {
 
     singleOf(::ConfigRepositoryImpl) { bind<ConfigRepository>() }
     singleOf(::MovEquipProprioRepositoryImpl) { bind<MovEquipProprioRepository>() }
+    singleOf(::MovEquipProprioPassagRepositoryImpl) { bind<MovEquipProprioPassagRepository>() }
+    singleOf(::MovEquipProprioEquipSegRepositoryImpl) { bind<MovEquipProprioEquipSegRepository>() }
     singleOf(::MovEquipVisitTercRepositoryImpl) { bind<MovEquipVisitTercRepository>() }
     singleOf(::MovEquipResidenciaRepositoryImpl) { bind<MovEquipResidenciaRepository>() }
     singleOf(::MovEquipProprioEquipSegRepositoryImpl) { bind<MovEquipProprioEquipSegRepository>() }
@@ -175,6 +190,8 @@ val datasourceSharedPreferencesModule = module {
 val datasourceRoomModule = module {
 
     singleOf(::MovEquipProprioRoomDatasourceImpl) { bind<MovEquipProprioRoomDatasource>() }
+    singleOf(::MovEquipProprioPassagRoomDatasourceImpl) { bind<MovEquipProprioPassagRoomDatasource>() }
+    singleOf(::MovEquipProprioEquipSegRoomDatasourceImpl) { bind<MovEquipProprioEquipSegRoomDatasource>() }
     singleOf(::MovEquipVisitTercRoomDatasourceImpl) { bind<MovEquipVisitTercRoomDatasource>() }
     singleOf(::MovEquipResidenciaRoomDatasourceImpl) { bind<MovEquipResidenciaRoomDatasource>() }
 
@@ -215,6 +232,8 @@ val apiRoomModule = module {
     single { get<AppDatabaseRoom>().terceiroDao() }
     single { get<AppDatabaseRoom>().visitanteDao() }
     single { get<AppDatabaseRoom>().movEquipProprioDao() }
+    single { get<AppDatabaseRoom>().movEquipProprioPassagDao() }
+    single { get<AppDatabaseRoom>().movEquipProprioEquipSegDao() }
     single { get<AppDatabaseRoom>().movEquipVisitTercDao() }
     single { get<AppDatabaseRoom>().movEquipResidenciaDao() }
 }
@@ -229,4 +248,8 @@ val retrofitModule = module {
 
 val roomModule = module {
     single { provideRoom(androidContext()) }
+}
+
+val workManagerModule = module {
+    single { providerWorkManager(androidContext()) }
 }

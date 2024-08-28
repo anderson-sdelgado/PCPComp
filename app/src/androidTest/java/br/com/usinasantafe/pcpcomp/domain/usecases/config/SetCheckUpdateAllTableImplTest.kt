@@ -34,7 +34,7 @@ class SetCheckUpdateAllTableImplTest: KoinTest {
             version = "6.00",
             idBD = 1,
         )
-        configSharedPreferences.saveConfig(config)
+        configSharedPreferences.save(config)
         val result = usecase(FlagUpdate.UPDATED)
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))

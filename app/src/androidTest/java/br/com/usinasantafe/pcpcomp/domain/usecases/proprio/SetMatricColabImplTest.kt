@@ -59,11 +59,11 @@ class SetMatricColabImplTest: KoinTest {
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
         val resultMov = movEquipProprioSharedPreferencesDatasource.get()
-        assertEquals(resultMov.getOrNull()!!.nroMatricColabMovEquipProprio, 19759L)
+        assertEquals(resultMov.getOrNull()!!.nroMatricColabMovEquipProprio, 19759)
     }
 
     @Test
-    fun check_return_failure_if_have_success_in_add_passag() = runTest {
+    fun check_return_true_if_have_success_in_add_passag() = runTest {
         val result = usecase(
             matricColab = "19759",
             flowApp = FlowApp.ADD,
@@ -73,6 +73,6 @@ class SetMatricColabImplTest: KoinTest {
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
         val resultMov = movEquipProprioPassagSharedPreferencesDatasource.list()
-        assertEquals(resultMov.getOrNull()!![0], 19759L)
+        assertEquals(resultMov.getOrNull()!![0], 19759)
     }
 }

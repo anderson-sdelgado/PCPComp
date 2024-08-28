@@ -38,7 +38,7 @@ class RecoverNomeVigiaImplTest: KoinTest {
 
     @Test
     fun check_return_success() = runTest {
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(matricVigia = 19759)
         )
         colabRoomDatasource.addAll(

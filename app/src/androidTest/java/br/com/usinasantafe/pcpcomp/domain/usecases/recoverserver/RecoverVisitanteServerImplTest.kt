@@ -36,7 +36,7 @@ class RecoverVisitanteServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setResponseCode(404))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",
@@ -56,7 +56,7 @@ class RecoverVisitanteServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setBody(tokenInvalidVisitante))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",
@@ -76,7 +76,7 @@ class RecoverVisitanteServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setBody(resultVisitanteIncorrect))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",
@@ -96,7 +96,7 @@ class RecoverVisitanteServerImplTest : KoinTest {
         server.start()
         server.enqueue(MockResponse().setBody(resultVisitante))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
-        configSharedPreferences.saveConfig(
+        configSharedPreferences.save(
             Config(
                 number = 16997417840,
                 password = "12345",

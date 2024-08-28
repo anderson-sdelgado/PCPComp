@@ -3,7 +3,6 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.config
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -34,7 +33,7 @@ class SetMatricVigiaConfigImplTest: KoinTest {
             version = "6.00",
             idBD = 1,
         )
-        configSharedPreferences.saveConfig(config)
+        configSharedPreferences.save(config)
         val result = usecase("19759")
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
@@ -48,9 +47,9 @@ class SetMatricVigiaConfigImplTest: KoinTest {
             version = "6.00",
             idBD = 1,
         )
-        configSharedPreferences.saveConfig(config)
+        configSharedPreferences.save(config)
         usecase("19759")
-        val result = configSharedPreferences.getConfig()
+        val result = configSharedPreferences.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.matricVigia, 19759L)
     }

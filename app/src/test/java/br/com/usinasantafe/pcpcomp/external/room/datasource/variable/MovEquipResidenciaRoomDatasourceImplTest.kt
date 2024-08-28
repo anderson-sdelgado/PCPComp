@@ -39,7 +39,6 @@ class MovEquipResidenciaRoomDatasourceImplTest {
     }
 
     private val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-        idMovEquipResidencia = 1,
         nroMatricVigiaMovEquipResidencia = 1000,
         idLocalMovEquipResidencia = 1000,
         tipoMovEquipResidencia = TypeMov.INPUT,
@@ -90,6 +89,10 @@ class MovEquipResidenciaRoomDatasourceImplTest {
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, true);
         assertEquals(movEquipResidenciaRoomModelAfter.statusMovEquipResidencia, StatusData.CLOSE)
+    }
+
+    fun `Check return id insert`() = runTest {
+
     }
 
 }

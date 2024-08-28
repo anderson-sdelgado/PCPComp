@@ -39,7 +39,6 @@ class MovEquipProprioRoomDatasourceImplTest {
     }
 
     private val movEquipProprioRoomModel = MovEquipProprioRoomModel(
-        idMovEquipProprio = 1,
         nroMatricVigiaMovEquipProprio = 19759,
         idLocalMovEquipProprio = 1,
         tipoMovEquipProprio = TypeMov.INPUT,
@@ -74,22 +73,33 @@ class MovEquipProprioRoomDatasourceImplTest {
         val result = datasource.listOpen()
         assertEquals(result.isSuccess, true)
         val resultList = result.getOrNull()!!
-        assertEquals(resultList[0], movEquipProprioRoomModel)
+        assertEquals(resultList[0].dthrMovEquipProprio, movEquipProprioRoomModel.dthrMovEquipProprio)
     }
 
     @Test
     fun `Check alter status in mov open set`() = runTest {
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
-        movEquipProprioDao.insert(
+        val id = movEquipProprioDao.insert(
             movEquipProprioRoomModel
         )
-        val movEquipProprioRoomModelBefore = movEquipProprioDao.getId(movEquipProprioRoomModel.idMovEquipProprio!!)
+        val movEquipProprioRoomModelBefore = movEquipProprioDao.getId(id.toInt())
         assertEquals(movEquipProprioRoomModelBefore.statusMovEquipProprio, StatusData.OPEN)
-        val result = datasource.setClose(movEquipProprioRoomModel)
-        val movEquipProprioRoomModelAfter = movEquipProprioDao.getId(movEquipProprioRoomModel.idMovEquipProprio!!)
+        val result = datasource.setClose(movEquipProprioRoomModelBefore)
+        val movEquipProprioRoomModelAfter = movEquipProprioDao.getId(id.toInt())
         assertEquals(result.isSuccess, true)
-        assertEquals(result.getOrNull()!!, true);
+        assertEquals(result.getOrNull()!!, true)
         assertEquals(movEquipProprioRoomModelAfter.statusMovEquipProprio, StatusData.CLOSE)
     }
 
+    @Test
+    fun `Check add movEquipProprio`() = runTest {
+        val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+        val resultSave = datasource.save(movEquipProprioRoomModel)
+        val id = resultSave.getOrNull()!!
+        val resultList = datasource.listOpen()
+        assertEquals(resultList.isSuccess, true)
+        val list = resultList.getOrNull()!!
+        assertEquals(list[0].dthrMovEquipProprio, movEquipProprioRoomModel.dthrMovEquipProprio)
+        assertEquals(list[0].idEquipMovEquipProprio, id.toInt())
+    }
 }

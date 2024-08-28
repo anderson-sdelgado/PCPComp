@@ -25,7 +25,7 @@ class MovEquipVisitTercRepositoryImpl(
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(
-                    message = "MovEquipVisitTercRepositoryImpl.listOpen",
+                    function = "MovEquipVisitTercRepositoryImpl.listOpen",
                     cause = e
                 )
             )
@@ -45,7 +45,7 @@ class MovEquipVisitTercRepositoryImpl(
         } catch (e: Exception){
             return Result.failure(
                 RepositoryException(
-                    message = "MovEquipVisitTercRepositoryImpl.setClose",
+                    function = "MovEquipVisitTercRepositoryImpl.setClose",
                     cause = e
                 )
             )

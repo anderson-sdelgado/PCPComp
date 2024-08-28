@@ -33,7 +33,7 @@ class SetIdLocalConfigImplTest: KoinTest {
             version = "6.00",
             idBD = 1,
         )
-        configSharedPreferences.saveConfig(config)
+        configSharedPreferences.save(config)
         val result = usecase(1)
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
@@ -47,9 +47,9 @@ class SetIdLocalConfigImplTest: KoinTest {
             version = "6.00",
             idBD = 1,
         )
-        configSharedPreferences.saveConfig(config)
+        configSharedPreferences.save(config)
         usecase(1)
-        val result = configSharedPreferences.getConfig()
+        val result = configSharedPreferences.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.idLocal, 1L)
     }
