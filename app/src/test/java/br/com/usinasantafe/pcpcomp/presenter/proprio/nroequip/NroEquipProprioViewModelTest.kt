@@ -7,6 +7,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
@@ -39,6 +40,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         val viewModel = NroEquipProprioViewModel(
             SavedStateHandle(
                 mapOf(
@@ -51,7 +53,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
         assertEquals(viewModel.uiState.value.nroEquip, "19759")
@@ -64,6 +67,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         val viewModel = NroEquipProprioViewModel(
             SavedStateHandle(
                 mapOf(
@@ -76,7 +80,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
         viewModel.setTextField("APAGAR", TypeButton.CLEAN)
@@ -93,6 +98,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         val viewModel = NroEquipProprioViewModel(
             SavedStateHandle(
                 mapOf(
@@ -105,7 +111,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("OK", TypeButton.OK)
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -119,6 +126,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -139,7 +147,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("100", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
@@ -156,6 +165,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
             Result.success(false)
         )
@@ -171,7 +181,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("100", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
@@ -187,6 +198,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
             Result.success(true)
         )
@@ -202,7 +214,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("100", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
@@ -218,6 +231,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
             Result.success(true)
         )
@@ -248,7 +262,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("100", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
@@ -265,6 +280,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
             Result.success(true)
         )
@@ -290,7 +306,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("100", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
@@ -307,6 +324,7 @@ class NroEquipProprioViewModelTest {
             val cleanEquip = mock<CleanEquip>()
             val recoverEquipServer = mock<RecoverEquipServer>()
             val saveAllEquip = mock<SaveAllEquip>()
+            val getNroEquip = mock<GetNroEquip>()
             whenever(
                 cleanEquip()
             ).thenReturn(
@@ -329,7 +347,8 @@ class NroEquipProprioViewModelTest {
                 setNroEquipProprio,
                 cleanEquip,
                 recoverEquipServer,
-                saveAllEquip
+                saveAllEquip,
+                getNroEquip
             )
             val result = viewModel.updateAllEquip(count = 1f, sizeAll = 4f).toList()
             assertEquals(result.count(), 2)
@@ -361,6 +380,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(
             cleanEquip()
         ).thenReturn(
@@ -388,7 +408,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         val result = viewModel.updateAllEquip(count = 1f, sizeAll = 4f).toList()
         assertEquals(result.count(), 3)
@@ -428,6 +449,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         val equipList = listOf(
             Equip(
                 idEquip = 10,
@@ -466,7 +488,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         val result = viewModel.updateAllEquip(count = 1f, sizeAll = 4f).toList()
         assertEquals(result.count(), 4)
@@ -514,6 +537,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(
             cleanEquip()
         ).thenReturn(
@@ -541,7 +565,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 3)
@@ -581,6 +606,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         whenever(
             cleanEquip()
         ).thenReturn(
@@ -603,7 +629,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 2)
@@ -640,6 +667,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         val equipList = listOf(
             Equip(
                 idEquip = 10,
@@ -673,7 +701,8 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 4)
@@ -720,6 +749,7 @@ class NroEquipProprioViewModelTest {
         val cleanEquip = mock<CleanEquip>()
         val recoverEquipServer = mock<RecoverEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
         val equipList = listOf(
             Equip(
                 idEquip = 10,
@@ -753,11 +783,77 @@ class NroEquipProprioViewModelTest {
             setNroEquipProprio,
             cleanEquip,
             recoverEquipServer,
-            saveAllEquip
+            saveAllEquip,
+            getNroEquip
         )
         viewModel.setTextField("ATUALIZAR DADOS", TypeButton.UPDATE)
         assertEquals(viewModel.uiState.value.flagDialog, true)
         assertEquals(viewModel.uiState.value.msgProgress, "Atualização de dados realizado com sucesso!")
     }
 
+    @Test
+    fun `check return failure usecase if have error in usecase GetNroEquip`() = runTest {
+        val checkNroEquipProprio = mock<CheckNroEquipProprio>()
+        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val cleanEquip = mock<CleanEquip>()
+        val recoverEquipServer = mock<RecoverEquipServer>()
+        val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
+        whenever(getNroEquip(1)).thenReturn(
+            Result.failure(
+                UsecaseException(
+                    function = "GetNroEquip",
+                    cause = Exception()
+                )
+            )
+        )
+        val viewModel = NroEquipProprioViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                    Args.TYPE_EQUIP_ARGS to TypeEquip.VEICULOSEG.ordinal,
+                    Args.ID_ARGS to 1
+                )
+            ),
+            checkNroEquipProprio,
+            setNroEquipProprio,
+            cleanEquip,
+            recoverEquipServer,
+            saveAllEquip,
+            getNroEquip
+        )
+        viewModel.getNroEquip()
+        assertEquals(viewModel.uiState.value.flagDialog, true)
+        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> GetNroEquip -> java.lang.Exception")
+    }
+
+    @Test
+    fun `check return nroEquip if GetNroEquip execute success`() = runTest {
+        val checkNroEquipProprio = mock<CheckNroEquipProprio>()
+        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val cleanEquip = mock<CleanEquip>()
+        val recoverEquipServer = mock<RecoverEquipServer>()
+        val saveAllEquip = mock<SaveAllEquip>()
+        val getNroEquip = mock<GetNroEquip>()
+        whenever(getNroEquip(1)).thenReturn(
+            Result.success("100")
+        )
+        val viewModel = NroEquipProprioViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                    Args.TYPE_EQUIP_ARGS to TypeEquip.VEICULOSEG.ordinal,
+                    Args.ID_ARGS to 1
+                )
+            ),
+            checkNroEquipProprio,
+            setNroEquipProprio,
+            cleanEquip,
+            recoverEquipServer,
+            saveAllEquip,
+            getNroEquip
+        )
+        viewModel.getNroEquip()
+        assertEquals(viewModel.uiState.value.nroEquip, "100")
+    }
 }

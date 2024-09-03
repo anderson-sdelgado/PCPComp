@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
@@ -64,7 +65,11 @@ fun MenuInicialContent(
             .padding(16.dp)
     ) {
         TitleListDesign(text = "MENU INICIAL - V ${BuildConfig.VERSION_NAME}")
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
             item {
                 ItemListDesign(
                     text = "APONTAMENTO",
@@ -88,15 +93,19 @@ fun MenuInicialContent(
         }
         BackHandler {}
 
-        if(flagDialog) {
-            val text = if(!flagFailure) stringResource(id = R.string.text_blocked_access_app) else stringResource(id = R.string.text_failure, failure)
+        if (flagDialog) {
+            val text =
+                if (!flagFailure) stringResource(id = R.string.text_blocked_access_app) else stringResource(
+                    id = R.string.text_failure,
+                    failure
+                )
             AlertDialogSimpleDesign(
                 text = text,
                 setCloseDialog = setCloseDialog,
             )
         }
 
-        if(flagAccess) {
+        if (flagAccess) {
             onNavMatricVigia()
         }
 

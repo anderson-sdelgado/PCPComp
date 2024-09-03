@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.stable
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.EquipRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.EquipRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.EquipRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -200,6 +200,20 @@ class EquipRepositoryImplTest {
     }
 
     @Test
+    fun `Check return failure if have failure in EquipRoomDatasource getNro return 0`() = runTest {
+        val equipRoomDatasource = mock<EquipRoomDatasource>()
+        val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
+        whenever(equipRoomDatasource.getNro(1)).thenReturn(
+            Result.success(0)
+        )
+        val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
+        val result = repository.getNro(1)
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> EquipRepositoryImpl.getNro")
+        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception: Nro is 0")
+    }
+
+    @Test
     fun `Check return nroEquip if EquipRoomDatasource getNro execute successfully`() = runTest {
         val equipRoomDatasource = mock<EquipRoomDatasource>()
         val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
@@ -229,6 +243,20 @@ class EquipRepositoryImplTest {
         val result = repository.getId(1)
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.getId")
+    }
+
+    @Test
+    fun `Check return failure if have failure in EquipRoomDatasource getId return 0`() = runTest {
+        val equipRoomDatasource = mock<EquipRoomDatasource>()
+        val equipRetrofitDatasource = mock<EquipRetrofitDatasource>()
+        whenever(equipRoomDatasource.getId(100)).thenReturn(
+            Result.success(0)
+        )
+        val repository = EquipRepositoryImpl(equipRoomDatasource, equipRetrofitDatasource)
+        val result = repository.getId(100)
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> EquipRepositoryImpl.getId")
+        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception: Id is 0")
     }
 
     @Test

@@ -3,8 +3,6 @@ package br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipProprioSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -13,7 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.util.Date
 
 @RunWith(RobolectricTestRunner::class)
 class MovEquipProprioSharedPreferencesDatasourceImplTest {
@@ -44,7 +41,7 @@ class MovEquipProprioSharedPreferencesDatasourceImplTest {
         val result = movEquipProprioSharedPreferencesDatasourceImpl.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
-        assertEquals(result.getOrNull()!!.nroMatricColabMovEquipProprio, 19759)
+        assertEquals(result.getOrNull()!!.matricColabMovEquipProprio, 19759)
     }
 
     @Test
@@ -74,7 +71,7 @@ class MovEquipProprioSharedPreferencesDatasourceImplTest {
         val result = movEquipProprioSharedPreferencesDatasourceImpl.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
-        assertEquals(result.getOrNull()!!.nroNotaFiscalMovEquipProprio, 123456)
+        assertEquals(result.getOrNull()!!.notaFiscalMovEquipProprio, 123456)
     }
     @Test
     fun `Check return observ correct if MovEquipProprioSharedPreferences setObserv execute correctly`() = runTest {

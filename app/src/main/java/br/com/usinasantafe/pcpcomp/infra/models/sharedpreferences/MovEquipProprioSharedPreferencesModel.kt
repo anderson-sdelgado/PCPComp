@@ -9,9 +9,9 @@ data class MovEquipProprioSharedPreferencesModel(
     var dthrMovEquipProprio: Date = Date(),
     var tipoMovEquipProprio: TypeMov,
     var idEquipMovEquipProprio: Int? = null,
-    var nroMatricColabMovEquipProprio: Int? = null,
+    var matricColabMovEquipProprio: Int? = null,
     var destinoMovEquipProprio: String? = null,
-    var nroNotaFiscalMovEquipProprio: Int? = null,
+    var notaFiscalMovEquipProprio: Int? = null,
     var observMovEquipProprio: String? = null,
 )
 
@@ -21,9 +21,9 @@ fun MovEquipProprioSharedPreferencesModel.sharedPreferencesModelToEntity(): MovE
             dthrMovEquipProprio = this.dthrMovEquipProprio,
             tipoMovEquipProprio = this.tipoMovEquipProprio,
             idEquipMovEquipProprio = this.idEquipMovEquipProprio,
-            nroMatricColabMovEquipProprio = this.nroMatricColabMovEquipProprio,
+            matricColabMovEquipProprio = this.matricColabMovEquipProprio,
             destinoMovEquipProprio = this.destinoMovEquipProprio,
-            nroNotaFiscalMovEquipProprio = this.nroNotaFiscalMovEquipProprio,
+            notaFiscalMovEquipProprio = this.notaFiscalMovEquipProprio,
             observMovEquipProprio = this.observMovEquipProprio,
         )
     }

@@ -7,12 +7,15 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.Errors
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
+import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import br.com.usinasantafe.pcpcomp.utils.porc
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
@@ -37,12 +40,20 @@ class MatricColabViewModelTest {
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
         assertEquals(viewModel.uiState.value.matricColab, "19759")
@@ -54,12 +65,20 @@ class MatricColabViewModelTest {
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
         viewModel.setTextField("APAGAR", TypeButton.CLEAN)
@@ -75,12 +94,20 @@ class MatricColabViewModelTest {
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         viewModel.setTextField("OK", TypeButton.OK)
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -93,6 +120,7 @@ class MatricColabViewModelTest {
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         whenever(checkMatricColab("19759")).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -102,18 +130,28 @@ class MatricColabViewModelTest {
             )
         )
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
         assertEquals(viewModel.uiState.value.flagDialog, true)
         assertEquals(viewModel.uiState.value.errors, Errors.EXCEPTION)
         assertEquals(viewModel.uiState.value.flagFailure, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Datasource -> CheckMatricColab -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Datasource -> CheckMatricColab -> java.lang.Exception"
+        )
     }
 
     @Test
@@ -122,15 +160,23 @@ class MatricColabViewModelTest {
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         whenever(checkMatricColab("19759")).thenReturn(
             Result.success(true)
         )
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
@@ -145,15 +191,23 @@ class MatricColabViewModelTest {
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         whenever(checkMatricColab("19759")).thenReturn(
             Result.success(false)
         )
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
         viewModel.setTextField("OK", TypeButton.OK)
@@ -163,12 +217,13 @@ class MatricColabViewModelTest {
     }
 
     @Test
-    fun `check return failure datasource if have error in usecase CleanColab is datasource`() =
+    fun `Check return failure datasource if have error in usecase CleanColab is datasource`() =
         runTest {
             val checkMatricColab = mock<CheckMatricColab>()
             val cleanColab = mock<CleanColab>()
             val recoverColabServer = mock<RecoverColabServer>()
             val saveAllColab = mock<SaveAllColab>()
+            val getMatricColab = mock<GetMatricColab>()
             whenever(
                 cleanColab()
             ).thenReturn(
@@ -180,11 +235,18 @@ class MatricColabViewModelTest {
                 )
             )
             val viewModel = MatricColabViewModel(
-                SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+                SavedStateHandle(
+                    mapOf(
+                        Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                        Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                        Args.ID_ARGS to 0
+                    )
+                ),
                 checkMatricColab,
                 cleanColab,
                 recoverColabServer,
-                saveAllColab
+                saveAllColab,
+                getMatricColab
             )
             val result = viewModel.updateAllColab(count = 1f, sizeAll = 4f).toList()
             assertEquals(result.count(), 2)
@@ -210,11 +272,12 @@ class MatricColabViewModelTest {
         }
 
     @Test
-    fun `check return failure datasource if have error in datasource RecoverAllColab`() = runTest {
+    fun `Check return failure datasource if have error in datasource RecoverAllColab`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         whenever(
             cleanColab()
         ).thenReturn(
@@ -231,11 +294,18 @@ class MatricColabViewModelTest {
             )
         )
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         val result = viewModel.updateAllColab(count = 1f, sizeAll = 4f).toList()
         assertEquals(result.count(), 3)
@@ -269,11 +339,12 @@ class MatricColabViewModelTest {
     }
 
     @Test
-    fun `check return failure datasource if have error in datasource SaveAllColab`() = runTest {
+    fun `Check return failure datasource if have error in datasource SaveAllColab`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         val colabList = listOf(
             Colab(
                 matricColab = 19759,
@@ -301,11 +372,18 @@ class MatricColabViewModelTest {
             )
         )
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         val result = viewModel.updateAllColab(count = 1f, sizeAll = 4f).toList()
         assertEquals(result.count(), 4)
@@ -347,121 +425,140 @@ class MatricColabViewModelTest {
     }
 
     @Test
-    fun `check return failure usecase execute updateAllDatabase if have error in usecase RecoverColabServer`() = runTest {
-        val checkMatricColab = mock<CheckMatricColab>()
-        val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
-        val saveAllColab = mock<SaveAllColab>()
-        whenever(
-            cleanColab()
-        ).thenReturn(
-            Result.success(true)
-        )
-        whenever(
-            recoverColabServer()
-        ).thenReturn(
-            Result.failure(
-                UsecaseException(
-                    function = "RecoverColabServer",
-                    cause = NullPointerException()
+    fun `Check return failure usecase execute updateAllDatabase if have error in usecase RecoverColabServer`() =
+        runTest {
+            val checkMatricColab = mock<CheckMatricColab>()
+            val cleanColab = mock<CleanColab>()
+            val recoverColabServer = mock<RecoverColabServer>()
+            val saveAllColab = mock<SaveAllColab>()
+            val getMatricColab = mock<GetMatricColab>()
+            whenever(
+                cleanColab()
+            ).thenReturn(
+                Result.success(true)
+            )
+            whenever(
+                recoverColabServer()
+            ).thenReturn(
+                Result.failure(
+                    UsecaseException(
+                        function = "RecoverColabServer",
+                        cause = NullPointerException()
+                    )
                 )
             )
-        )
-        val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
-            checkMatricColab,
-            cleanColab,
-            recoverColabServer,
-            saveAllColab
-        )
-        val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 3)
-        assertEquals(
-            result[0],
-            MatricColabState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = porc(1f, 4f)
+            val viewModel = MatricColabViewModel(
+                SavedStateHandle(
+                    mapOf(
+                        Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                        Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                        Args.ID_ARGS to 0
+                    )
+                ),
+                checkMatricColab,
+                cleanColab,
+                recoverColabServer,
+                saveAllColab,
+                getMatricColab
             )
-        )
-        assertEquals(
-            result[1],
-            MatricColabState(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-                currentProgress = porc(2f , 4f),
-            )
-        )
-        assertEquals(
-            result[2],
-            MatricColabState(
-                errors = Errors.UPDATE,
-                flagDialog = true,
-                flagFailure = true,
-                failure = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
-                msgProgress = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
-                currentProgress = 1f,
-            )
-        )
-    }
-
-    @Test
-    fun `check return failure usecase in setTextField if have error in usecase CleanColab`() = runTest {
-        val checkMatricColab = mock<CheckMatricColab>()
-        val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
-        val saveAllColab = mock<SaveAllColab>()
-        whenever(
-            cleanColab()
-        ).thenReturn(
-            Result.failure(
-                UsecaseException(
-                    function = "CleanColab",
-                    cause = NullPointerException()
+            val result = viewModel.updateAllDatabase().toList()
+            assertEquals(result.count(), 3)
+            assertEquals(
+                result[0],
+                MatricColabState(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_colab",
+                    currentProgress = porc(1f, 4f)
                 )
             )
-        )
-        val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
-            checkMatricColab,
-            cleanColab,
-            recoverColabServer,
-            saveAllColab,
-        )
-        val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 2)
-        assertEquals(
-            result[0],
-            MatricColabState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = porc(1f, 4f)
+            assertEquals(
+                result[1],
+                MatricColabState(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                    currentProgress = porc(2f, 4f),
+                )
             )
-        )
-        assertEquals(
-            result[1],
-            MatricColabState(
-                errors = Errors.UPDATE,
-                flagDialog = true,
-                flagFailure = true,
-                failure = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
-                msgProgress = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
-                currentProgress = 1f,
+            assertEquals(
+                result[2],
+                MatricColabState(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
+                    currentProgress = 1f,
+                )
             )
-        )
-        viewModel.setTextField("ATUALIZAR DADOS", TypeButton.UPDATE)
-        assertEquals(
-            viewModel.uiState.value.msgProgress,
-            "Failure Usecase -> CleanColab -> java.lang.NullPointerException"
-        )
-    }
+        }
 
     @Test
-    fun `check return success in updateAllDatabase if all update run correctly`() = runTest {
+    fun `Check return failure usecase in setTextField if have error in usecase CleanColab`() =
+        runTest {
+            val checkMatricColab = mock<CheckMatricColab>()
+            val cleanColab = mock<CleanColab>()
+            val recoverColabServer = mock<RecoverColabServer>()
+            val saveAllColab = mock<SaveAllColab>()
+            val getMatricColab = mock<GetMatricColab>()
+            whenever(
+                cleanColab()
+            ).thenReturn(
+                Result.failure(
+                    UsecaseException(
+                        function = "CleanColab",
+                        cause = NullPointerException()
+                    )
+                )
+            )
+            val viewModel = MatricColabViewModel(
+                SavedStateHandle(
+                    mapOf(
+                        Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                        Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                        Args.ID_ARGS to 0
+                    )
+                ),
+                checkMatricColab,
+                cleanColab,
+                recoverColabServer,
+                saveAllColab,
+                getMatricColab
+            )
+            val result = viewModel.updateAllDatabase().toList()
+            assertEquals(result.count(), 2)
+            assertEquals(
+                result[0],
+                MatricColabState(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_colab",
+                    currentProgress = porc(1f, 4f)
+                )
+            )
+            assertEquals(
+                result[1],
+                MatricColabState(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
+                    currentProgress = 1f,
+                )
+            )
+            viewModel.setTextField("ATUALIZAR DADOS", TypeButton.UPDATE)
+            assertEquals(
+                viewModel.uiState.value.msgProgress,
+                "Failure Usecase -> CleanColab -> java.lang.NullPointerException"
+            )
+        }
+
+    @Test
+    fun `Check return success in updateAllDatabase if all update run correctly`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         val colabList = listOf(
             Colab(
                 matricColab = 19759,
@@ -484,11 +581,18 @@ class MatricColabViewModelTest {
             Result.success(true)
         )
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         val result = viewModel.updateAllDatabase().toList()
         assertEquals(result.count(), 4)
@@ -529,11 +633,12 @@ class MatricColabViewModelTest {
     }
 
     @Test
-    fun `check return success if setTextField update is success`() = runTest {
+    fun `Check return success if setTextField update is success`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
         val recoverColabServer = mock<RecoverColabServer>()
         val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
         val colabList = listOf(
             Colab(
                 matricColab = 19759,
@@ -556,15 +661,91 @@ class MatricColabViewModelTest {
             Result.success(true)
         )
         val viewModel = MatricColabViewModel(
-            SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to 0)),
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 0
+                )
+            ),
             checkMatricColab,
             cleanColab,
             recoverColabServer,
-            saveAllColab
+            saveAllColab,
+            getMatricColab
         )
         viewModel.setTextField("ATUALIZAR DADOS", TypeButton.UPDATE)
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.msgProgress, "Atualização de dados realizado com sucesso!")
+        assertEquals(
+            viewModel.uiState.value.msgProgress,
+            "Atualização de dados realizado com sucesso!"
+        )
     }
 
+    @Test
+    fun `Check return failure usecase if have error in usecase GetMatricColab`() = runTest {
+        val checkMatricColab = mock<CheckMatricColab>()
+        val cleanColab = mock<CleanColab>()
+        val recoverColabServer = mock<RecoverColabServer>()
+        val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
+        whenever(
+            getMatricColab(1)
+        ).thenReturn(
+            Result.failure(
+                UsecaseException(
+                function = "GetMatricColab",
+                    cause = Exception()
+                )
+            )
+        )
+        val viewModel = MatricColabViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 1
+                )
+            ),
+            checkMatricColab,
+            cleanColab,
+            recoverColabServer,
+            saveAllColab,
+            getMatricColab
+        )
+        viewModel.getMatricColab()
+        assertEquals(viewModel.uiState.value.flagDialog, true)
+        assertEquals(viewModel.uiState.value.errors, Errors.EXCEPTION)
+        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> GetMatricColab -> java.lang.Exception")
+    }
+
+    @Test
+    fun `Check return matricColab if GetMatricColab execute with success`() = runTest {
+        val checkMatricColab = mock<CheckMatricColab>()
+        val cleanColab = mock<CleanColab>()
+        val recoverColabServer = mock<RecoverColabServer>()
+        val saveAllColab = mock<SaveAllColab>()
+        val getMatricColab = mock<GetMatricColab>()
+        whenever(
+            getMatricColab(1)
+        ).thenReturn(
+            Result.success("19759")
+        )
+        val viewModel = MatricColabViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                    Args.TYPE_OCUPANTE_ARGS to TypeOcupante.MOTORISTA.ordinal,
+                    Args.ID_ARGS to 1
+                )
+            ),
+            checkMatricColab,
+            cleanColab,
+            recoverColabServer,
+            saveAllColab,
+            getMatricColab
+        )
+        viewModel.getMatricColab()
+        assertEquals(viewModel.uiState.value.matricColab, "19759")
+    }
 }

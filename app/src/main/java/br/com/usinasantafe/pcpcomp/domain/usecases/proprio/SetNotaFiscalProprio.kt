@@ -22,7 +22,11 @@ class SetNotaFiscalProprioImpl(
         id: Int
     ): Result<Boolean> {
         return try {
-            movEquipProprioRepository.setNotaFiscal(notaFiscal = notaFiscal.toInt(), flowApp = flowApp, id = id)
+            movEquipProprioRepository.setNotaFiscal(
+                notaFiscal = notaFiscal.toInt(),
+                flowApp = flowApp,
+                id = id
+            )
         } catch (e: Exception) {
             Result.failure(
                 UsecaseException(

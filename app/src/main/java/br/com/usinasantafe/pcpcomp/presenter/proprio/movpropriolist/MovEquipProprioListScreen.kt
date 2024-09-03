@@ -32,6 +32,7 @@ import br.com.usinasantafe.pcpcomp.utils.TypeMov
 fun MovEquipProprioListScreen(
     viewModel: MovEquipProprioListViewModel,
     onNavNroEquip: () -> Unit,
+    onNavDetalhe: (Int) -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -46,6 +47,7 @@ fun MovEquipProprioListScreen(
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
                 onNavNroEquip = onNavNroEquip,
+                onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.returnHeader()
@@ -65,6 +67,7 @@ fun MovEquipProprioListContent(
     setCloseDialog: () -> Unit,
     failure: String,
     onNavNroEquip: () -> Unit,
+    onNavDetalhe: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -85,7 +88,9 @@ fun MovEquipProprioListContent(
                             "${mov.typeMov}\n" +
                             "VEÍCULO: ${mov.equip}\n" +
                             "MOTORISTA: ${mov.colab}\n",
-                    setActionItem = { }
+                    setActionItem = {
+                        onNavDetalhe(mov.id)
+                    }
                 )
             }
         }
@@ -145,12 +150,14 @@ fun MovEquipProprioListPreview() {
                 descrLocal = "1 - USINA",
                 movEquipProprioModels = listOf(
                     MovEquipProprioModel(
+                        id = 1,
                         dthr = "08/08/2024 12:00",
                         typeMov = "ENTRADA",
                         equip = "2300",
                         colab = "19759 - ANDERSON DA SILVA DELGADO"
                     ),
                     MovEquipProprioModel(
+                        id = 2,
                         dthr = "08/08/2024 12:00",
                         typeMov = "ENTRADA",
                         equip = "2300",
@@ -163,6 +170,7 @@ fun MovEquipProprioListPreview() {
                 setCloseDialog = {},
                 failure = "",
                 onNavNroEquip = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -179,12 +187,14 @@ fun MovEquipProprioListPreviewShowDialog() {
                 descrLocal = "1 - USINA",
                 movEquipProprioModels = listOf(
                     MovEquipProprioModel(
+                        id = 1,
                         dthr = "08/08/2024 12:00",
                         typeMov = "Entrada",
                         equip = "2300",
                         colab = "19759 - ANDERSON DA SILVA DELGADO"
                     ),
                     MovEquipProprioModel(
+                        id = 2,
                         dthr = "08/08/2024 12:00",
                         typeMov = "ENTRADA",
                         equip = "2300",
@@ -196,7 +206,8 @@ fun MovEquipProprioListPreviewShowDialog() {
                 flagDialog = true,
                 setCloseDialog = {},
                 failure = "Failure Datasource",
-                onNavNroEquip = { },
+                onNavNroEquip = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

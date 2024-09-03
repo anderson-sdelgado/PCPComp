@@ -31,14 +31,14 @@ class CloseAllMovOpenImplTest: KoinTest {
 
     private val movEquipProprioRoomModel = MovEquipProprioRoomModel(
         idMovEquipProprio = 1,
-        nroMatricVigiaMovEquipProprio = 19759,
+        matricVigiaMovEquipProprio = 19759,
         idLocalMovEquipProprio = 1,
         tipoMovEquipProprio = TypeMov.INPUT,
         dthrMovEquipProprio = 1723213270250,
         idEquipMovEquipProprio = 1,
-        nroMatricColabMovEquipProprio = 19759,
+        matricColabMovEquipProprio = 19759,
         destinoMovEquipProprio = "TESTE DESTINO",
-        nroNotaFiscalMovEquipProprio = 123456789,
+        notaFiscalMovEquipProprio = 123456789,
         observMovEquipProprio = "TESTE OBSERV",
         statusMovEquipProprio = StatusData.OPEN,
         statusSendMovEquipProprio = StatusSend.SEND
@@ -55,10 +55,10 @@ class CloseAllMovOpenImplTest: KoinTest {
         movEquipProprioDao.insert(
             movEquipProprioRoomModel
         )
-        val movEquipProprioRoomModelBefore = movEquipProprioDao.getId(movEquipProprioRoomModel.idMovEquipProprio!!)
+        val movEquipProprioRoomModelBefore = movEquipProprioDao.get(movEquipProprioRoomModel.idMovEquipProprio!!)
         assertEquals(movEquipProprioRoomModelBefore.statusMovEquipProprio, StatusData.OPEN)
         val result = usecase()
-        val movEquipProprioRoomModelAfter = movEquipProprioDao.getId(movEquipProprioRoomModel.idMovEquipProprio!!)
+        val movEquipProprioRoomModelAfter = movEquipProprioDao.get(movEquipProprioRoomModel.idMovEquipProprio!!)
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, true);
         assertEquals(movEquipProprioRoomModelAfter.statusMovEquipProprio, StatusData.CLOSE)

@@ -25,16 +25,15 @@ class SaveDataConfigImpl(
         version: String,
         idBD: Int
     ): Result<Boolean> {
-        try {
-            val config = Config(
+        return try {
+            configRepository.saveInitial(
                 number = number.toLong(),
                 password= password,
                 version = version,
                 idBD = idBD
             )
-            return configRepository.save(config)
         } catch (e: Exception){
-            return Result.failure(
+            Result.failure(
                 UsecaseException(
                     function = "SaveDataConfig",
                     cause = e

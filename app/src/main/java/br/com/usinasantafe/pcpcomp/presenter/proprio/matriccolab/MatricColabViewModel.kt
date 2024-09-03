@@ -5,16 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_OCUPANTE_ARGS
 import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
+import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import br.com.usinasantafe.pcpcomp.utils.porc
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +30,8 @@ import kotlinx.coroutines.launch
 data class MatricColabState(
     val matricColab: String = "",
     val flowApp: FlowApp = FlowApp.ADD,
+    val typeOcupante: TypeOcupante = TypeOcupante.MOTORISTA,
+    val id: Int = 0,
     val flagAccess: Boolean = false,
     val flagFailure: Boolean = false,
     val flagDialog: Boolean = false,
@@ -42,17 +48,23 @@ class MatricColabViewModel(
     private val cleanColab: CleanColab,
     private val recoverColabServer: RecoverColabServer,
     private val saveAllColab: SaveAllColab,
+    private val getMatricColab: GetMatricColab,
 ) : ViewModel() {
 
     private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
+    private val typeOcupante: Int = saveStateHandle[TYPE_OCUPANTE_ARGS]!!
+    private val id: Int = saveStateHandle[ID_ARGS]!!
 
     private val _uiState = MutableStateFlow(MatricColabState())
     val uiState = _uiState.asStateFlow()
 
     init {
         _uiState.update {
-            it.copy(flowApp = FlowApp.entries[flowApp])
-
+            it.copy(
+                flowApp = FlowApp.entries[flowApp],
+                typeOcupante = TypeOcupante.entries[typeOcupante],
+                id = id
+            )
         }
     }
 
@@ -99,6 +111,28 @@ class MatricColabViewModel(
                     }
                 }
             }
+        }
+    }
+
+    fun getMatricColab() = viewModelScope.launch {
+        val resultGetMatric = getMatricColab(uiState.value.id)
+        if(resultGetMatric.isFailure){
+            val error = resultGetMatric.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    flagFailure = true,
+                    errors = Errors.EXCEPTION,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val matricColab = resultGetMatric.getOrNull()!!
+        _uiState.update {
+            it.copy(matricColab = matricColab)
         }
     }
 

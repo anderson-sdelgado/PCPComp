@@ -7,6 +7,7 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipPro
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioPassagSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -17,7 +18,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class RecoverEquipSegListImplTest: KoinTest {
+class RecoverEquipSegListImplTest : KoinTest {
 
     private val usecase: RecoverEquipSegList by inject()
 
@@ -31,9 +32,12 @@ class RecoverEquipSegListImplTest: KoinTest {
     @Test
     fun check_return_error() = runTest {
         val exception = try {
-            usecase()
+            usecase(
+                flowApp = FlowApp.ADD,
+                id = 0
+            )
             null
-        } catch (exception: Exception){
+        } catch (exception: Exception) {
             exception
         }
         assertEquals(exception, null)
@@ -44,9 +48,12 @@ class RecoverEquipSegListImplTest: KoinTest {
         val movEquipProprioEquipSegSharedPreferencesDatasource: MovEquipProprioEquipSegSharedPreferencesDatasource by inject()
         movEquipProprioEquipSegSharedPreferencesDatasource.add(10)
         val exception = try {
-            usecase()
+            usecase(
+                flowApp = FlowApp.ADD,
+                id = 0
+            )
             null
-        } catch (exception: Exception){
+        } catch (exception: Exception) {
             exception
         }
         assertEquals(exception, null)
@@ -65,7 +72,11 @@ class RecoverEquipSegListImplTest: KoinTest {
                 )
             )
         )
-        val result = usecase()
+        val result =
+            usecase(
+                flowApp = FlowApp.ADD,
+                id = 0
+            )
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.size, 1)
         assertEquals(result.getOrNull()!![0].nroEquip, 100)

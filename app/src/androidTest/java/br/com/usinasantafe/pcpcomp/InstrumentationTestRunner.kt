@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.runner.AndroidJUnitRunner
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import br.com.usinasantafe.pcpcomp.di.apiRetrofitModule
 import br.com.usinasantafe.pcpcomp.di.apiRoomModule
 import br.com.usinasantafe.pcpcomp.di.datasourceRetrofitModule
@@ -20,23 +22,35 @@ import br.com.usinasantafe.pcpcomp.di.usecaseRecoverServerModule
 import br.com.usinasantafe.pcpcomp.di.usecaseUpdateTableModule
 import br.com.usinasantafe.pcpcomp.di.viewModelModule
 import br.com.usinasantafe.pcpcomp.di.workManagerModule
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.ProcessWorkManager
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.providerWorkManager
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitAndroidTest
 import br.com.usinasantafe.pcpcomp.external.room.provideRoomTest
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.dsl.workerOf
+import org.koin.androidx.workmanager.koin.workManagerFactory
+import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class TestApplication : Application() {
+class TestApplication : Application(), KoinComponent, Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
             androidLogger()
             androidContext(this@TestApplication)
+            workManagerFactory()
         }
+
     }
+
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+            .setMinimumLoggingLevel(android.util.Log.INFO)
+            .build()
 }
 
 fun generateTestAppComponent(baseTestApi: String) = listOf(
@@ -58,7 +72,7 @@ fun generateTestAppComponent(baseTestApi: String) = listOf(
     sharedModuleTest,
     retrofitModuleTest(baseTestApi),
     roomModuleTest,
-    workManagerModuleTest
+    workManagerModule
 )
 
 val sharedModuleTest = module {
@@ -75,10 +89,6 @@ fun retrofitModuleTest(baseTestApi: String) = module {
 
 val roomModuleTest = module {
     single { provideRoomTest(androidContext()) }
-}
-
-val workManagerModuleTest = module {
-    single { providerWorkManager(androidContext()) }
 }
 
 class InstrumentationTestRunner : AndroidJUnitRunner() {

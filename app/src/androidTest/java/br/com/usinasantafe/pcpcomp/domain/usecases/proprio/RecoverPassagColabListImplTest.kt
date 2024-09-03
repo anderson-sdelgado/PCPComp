@@ -4,6 +4,7 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.stable.ColabDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioPassagSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -14,7 +15,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class RecoverPassagColabListImplTest: KoinTest {
+class RecoverPassagColabListImplTest : KoinTest {
 
     private val usecase: RecoverPassagColabList by inject()
 
@@ -28,9 +29,12 @@ class RecoverPassagColabListImplTest: KoinTest {
     @Test
     fun check_return_error() = runTest {
         val exception = try {
-            usecase()
+            usecase(
+                flowApp = FlowApp.ADD,
+                id = 0
+            )
             null
-        } catch (exception: Exception){
+        } catch (exception: Exception) {
             exception
         }
         assertEquals(exception, null)
@@ -41,9 +45,12 @@ class RecoverPassagColabListImplTest: KoinTest {
         val movEquipProprioPassagSharedPreferencesDatasource: MovEquipProprioPassagSharedPreferencesDatasource by inject()
         movEquipProprioPassagSharedPreferencesDatasource.add(19759)
         val exception = try {
-            usecase()
+            usecase(
+                flowApp = FlowApp.ADD,
+                id = 0
+            )
             null
-        } catch (exception: Exception){
+        } catch (exception: Exception) {
             exception
         }
         assertEquals(exception, null)
@@ -62,7 +69,11 @@ class RecoverPassagColabListImplTest: KoinTest {
                 )
             )
         )
-        val result = usecase()
+        val result =
+            usecase(
+                flowApp = FlowApp.ADD,
+                id = 0
+            )
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.size, 1)
         assertEquals(result.getOrNull()!![0].matricColab, 19759)

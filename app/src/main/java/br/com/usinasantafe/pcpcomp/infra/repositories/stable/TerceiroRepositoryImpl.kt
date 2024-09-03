@@ -4,9 +4,8 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.TerceiroRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.TerceiroRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.TerceiroRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.TerceiroRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toTerceiroModel
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toTerceiro
 
 class TerceiroRepositoryImpl(
     private val terceiroRoomDatasource: TerceiroRoomDatasource,

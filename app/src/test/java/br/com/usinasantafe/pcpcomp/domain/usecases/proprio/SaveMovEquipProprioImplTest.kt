@@ -121,44 +121,6 @@ class SaveMovEquipProprioImplTest {
         }
 
     @Test
-    fun `Chech return failure if MovEquipProprioRepository save return zero`() =
-        runTest {
-            val configRepository = mock<ConfigRepository>()
-            val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-            val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
-            val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
-            val startProcessSendData = mock<StartProcessSendData>()
-            whenever(configRepository.getConfig()).thenReturn(
-                Result.success(
-                    Config(
-                        matricVigia = 19759,
-                        idLocal = 1
-                    )
-                )
-            )
-            whenever(movEquipProprioRepository.save(19759, 1)).thenReturn(
-                Result.success(0)
-            )
-            val usecase = SaveMovEquipProprioImpl(
-                configRepository,
-                movEquipProprioRepository,
-                movEquipProprioPassagRepository,
-                movEquipProprioEquipSegRepository,
-                startProcessSendData
-            )
-            val result = usecase()
-            assertTrue(result.isFailure)
-            assertEquals(
-                result.exceptionOrNull()!!.message,
-                "Failure Usecase -> SaveMovEquipProprioImpl"
-            )
-            assertEquals(
-                result.exceptionOrNull()!!.cause.toString(),
-                "java.lang.Exception: Id is 0"
-            )
-        }
-
-    @Test
     fun `Chech return failure if  have error in MovEquipProprioPassagRepository save`() =
         runTest {
             val configRepository = mock<ConfigRepository>()

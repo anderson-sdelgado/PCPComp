@@ -12,18 +12,10 @@ class SetMatricVigiaConfigImpl(
 ): SetMatricVigiaConfig {
 
     override suspend fun invoke(matric: String): Result<Boolean> {
-        try {
-            val resultConfig = configRepository.getConfig()
-            if(resultConfig.isFailure)
-                return Result.failure(resultConfig.exceptionOrNull()!!)
-            val config = resultConfig.getOrNull()!!
-            config.matricVigia = matric.toInt()
-            val resultSave = configRepository.save(config)
-            if(resultSave.isFailure)
-                return Result.failure(resultSave.exceptionOrNull()!!)
-            return Result.success(true)
+        return try {
+            configRepository.setMatricVigia(matric.toInt())
         } catch (e: Exception){
-            return Result.failure(
+            Result.failure(
                 UsecaseException(
                     function = "SetMatricVigiaConfig",
                     cause = e

@@ -14,18 +14,10 @@ class SetCheckUpdateAllTableImpl (
 ): SetCheckUpdateAllTable {
 
     override suspend fun invoke(flagUpdate: FlagUpdate): Result<Boolean> {
-        try {
-            val resultConfig = configRepository.getConfig()
-            if(resultConfig.isFailure)
-                return Result.failure(resultConfig.exceptionOrNull()!!)
-            val config = resultConfig.getOrNull()!!
-            config.flagUpdate = flagUpdate
-            val resultSave = configRepository.save(config)
-            if(resultSave.isFailure)
-                return Result.failure(resultSave.exceptionOrNull()!!)
-            return Result.success(true)
+        return try {
+            configRepository.setFlagUpdate(flagUpdate)
         } catch (e: Exception){
-            return Result.failure(
+            Result.failure(
                 UsecaseException(
                     function = "SetCheckUpdateAllTable",
                     cause = e

@@ -2,10 +2,8 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.stable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
-import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.LocalRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.ColabRetrofitDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.LocalRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.LocalRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

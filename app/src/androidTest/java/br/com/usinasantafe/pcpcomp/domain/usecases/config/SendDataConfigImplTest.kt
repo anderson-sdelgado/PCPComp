@@ -63,7 +63,7 @@ class SendDataConfigImplTest: KoinTest {
     }
 
     @Test
-    fun verify_return_failure_repository() = runTest {
+    fun verify_return_failure_datasource_return_empty() = runTest {
         val server = MockWebServer()
         server.start()
         server.enqueue(MockResponse().setBody(""))

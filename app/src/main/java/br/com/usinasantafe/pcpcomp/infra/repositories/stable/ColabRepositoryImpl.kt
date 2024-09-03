@@ -4,8 +4,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.ColabRetrofitDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toColab
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.ColabRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toColabModel
 
 class ColabRepositoryImpl(

@@ -4,7 +4,6 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource.MovEquipProprioSharedPreferencesDatasourceImpl
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipProprioSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
@@ -72,7 +71,6 @@ class SaveMovEquipProprioImplTest : KoinTest {
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NullPointerException")
     }
 
-
     @Test
     fun check_return_true_if_execute_correctly() = runTest {
         configSharedPreferencesDatasource.save(
@@ -85,9 +83,9 @@ class SaveMovEquipProprioImplTest : KoinTest {
             MovEquipProprioSharedPreferencesModel(
                 tipoMovEquipProprio = TypeMov.INPUT,
                 idEquipMovEquipProprio = 1,
-                nroMatricColabMovEquipProprio = 19759,
+                matricColabMovEquipProprio = 19759,
                 destinoMovEquipProprio = "Teste",
-                nroNotaFiscalMovEquipProprio = 123456,
+                notaFiscalMovEquipProprio = 123456,
                 observMovEquipProprio = "Teste Observ",
             )
         )

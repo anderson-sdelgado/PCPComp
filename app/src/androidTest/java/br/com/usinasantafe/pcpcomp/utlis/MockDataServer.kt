@@ -75042,3 +75042,5 @@ val returnDataServerVisitante = """
     }
 ]
 """.trimIndent()
+
+val returnDataSendMovEquipProprio = """[{"idMovEquipProprio":1}]"""

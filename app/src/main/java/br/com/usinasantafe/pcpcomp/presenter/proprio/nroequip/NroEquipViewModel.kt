@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
@@ -48,6 +49,7 @@ class NroEquipProprioViewModel(
     private val cleanEquip: CleanEquip,
     private val recoverEquipServer: RecoverEquipServer,
     private val saveAllEquip: SaveAllEquip,
+    private val getNroEquip: GetNroEquip,
 ) : ViewModel() {
 
     private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
@@ -113,6 +115,28 @@ class NroEquipProprioViewModel(
                     }
                 }
             }
+        }
+    }
+
+    fun getNroEquip() = viewModelScope.launch {
+       val resultGetNro = getNroEquip(uiState.value.id)
+        if(resultGetNro.isFailure) {
+            val error = resultGetNro.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    flagFailure = true,
+                    errors = Errors.EXCEPTION,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val nroEquip = resultGetNro.getOrNull()!!
+        _uiState.update {
+            it.copy(nroEquip = nroEquip)
         }
     }
 

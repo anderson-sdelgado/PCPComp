@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -28,6 +29,8 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
+
+const val TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN = "tag_observ_text_field_observ_screen"
 
 @Composable
 fun ObservProprioScreen(
@@ -92,7 +95,8 @@ fun ObservProprioContent(
             onValueChange = onObservChanged,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(1f)
+                .testTag(TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,

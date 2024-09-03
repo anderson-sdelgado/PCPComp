@@ -2,8 +2,10 @@ package br.com.usinasantafe.pcpcomp
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
@@ -15,10 +17,15 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllVisitante
+import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.presenter.MainActivity
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.resultTokenRetrofit
+import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
+import br.com.usinasantafe.pcpcomp.utils.StatusSend
+import br.com.usinasantafe.pcpcomp.utlis.returnDataSendMovEquipProprio
 import br.com.usinasantafe.pcpcomp.utlis.returnDataServerColab
 import br.com.usinasantafe.pcpcomp.utlis.returnDataServerEquip
 import br.com.usinasantafe.pcpcomp.utlis.returnDataServerLocal
@@ -37,8 +44,9 @@ import org.junit.Test
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.assertEquals
 
-class FlowMainInitialFuncionalTest: KoinTest {
+class FlowMainInitialFuncionalTest : KoinTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
@@ -74,12 +82,14 @@ class FlowMainInitialFuncionalTest: KoinTest {
         composeTestRule.onNodeWithText("1 - USINA").performClick()
 
         composeTestRule.onNodeWithText("MENU").assertIsDisplayed()
-        composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO").assertIsDisplayed()
+        composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO")
+            .assertIsDisplayed()
 
         composeTestRule.onNodeWithText("MOV. VEÍCULO PRÓPRIO").performClick()
 
         composeTestRule.onNodeWithText("CONTROLE VEÍCULO USINA").assertIsDisplayed()
-        composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO").assertIsDisplayed()
+        composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO")
+            .assertIsDisplayed()
 
         composeTestRule.onNodeWithText("ENTRADA").performClick()
 
@@ -129,8 +139,17 @@ class FlowMainInitialFuncionalTest: KoinTest {
         composeTestRule.onNodeWithText("OK").performClick()
 
         composeTestRule.onNodeWithText("DESTINO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN)
+            .performTextInput("Teste Destino")
+        composeTestRule.onNodeWithText("OK").performClick()
 
-        composeTestRule.waitUntilTimeout(2_000)
+        composeTestRule.onNodeWithText("OBSERVAÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN)
+            .performTextInput("Teste Observação")
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.waitUntilTimeout(5_000)
+
     }
 
     private suspend fun initialRegister() {
@@ -170,7 +189,8 @@ class FlowMainInitialFuncionalTest: KoinTest {
 
         val saveAllVisitante: SaveAllVisitante by inject()
         val itemTypeVisitante = object : TypeToken<List<Visitante>>() {}.type
-        val visitanteList = gson.fromJson<List<Visitante>>(returnDataServerVisitante, itemTypeVisitante)
+        val visitanteList =
+            gson.fromJson<List<Visitante>>(returnDataServerVisitante, itemTypeVisitante)
         saveAllVisitante(visitanteList)
 
     }
@@ -188,6 +208,9 @@ val dispatcherSuccessFunctional: Dispatcher = object : Dispatcher() {
             "/local.php" -> return MockResponse().setBody(returnDataServerLocal)
             "/terceiro.php" -> return MockResponse().setBody(returnDataServerTerceiro)
             "/visitante.php" -> return MockResponse().setBody(returnDataServerVisitante)
+            "/save-mov-equip-proprio.php" -> return MockResponse().setBody(
+                returnDataSendMovEquipProprio
+            )
         }
         return MockResponse().setResponseCode(404)
     }

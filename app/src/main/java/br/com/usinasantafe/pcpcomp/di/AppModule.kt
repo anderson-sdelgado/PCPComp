@@ -31,24 +31,27 @@ import br.com.usinasantafe.pcpcomp.infra.repositories.stable.*
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.*
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.*
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.*
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.*
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.variable.*
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.*
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.*
 import br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource.*
 import br.com.usinasantafe.pcpcomp.external.room.datasource.stable.*
 import br.com.usinasantafe.pcpcomp.external.room.datasource.variable.*
-import br.com.usinasantafe.pcpcomp.external.webservices.datasource.variable.*
-import br.com.usinasantafe.pcpcomp.external.webservices.datasource.stable.*
-import br.com.usinasantafe.pcpcomp.external.webservices.api.variable.*
-import br.com.usinasantafe.pcpcomp.external.webservices.api.stable.*
+import br.com.usinasantafe.pcpcomp.external.retrofit.datasource.variable.*
+import br.com.usinasantafe.pcpcomp.external.retrofit.datasource.stable.*
+import br.com.usinasantafe.pcpcomp.external.retrofit.api.variable.*
+import br.com.usinasantafe.pcpcomp.external.retrofit.api.stable.*
 import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.sharedpreferences.providerSharedPreferences
-import br.com.usinasantafe.pcpcomp.external.webservices.provideRetrofit
+import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofit
 import br.com.usinasantafe.pcpcomp.external.room.provideRoom
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.androidx.workmanager.dsl.worker
+import org.koin.androidx.workmanager.dsl.workerOf
 
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
@@ -106,6 +109,7 @@ val usecaseConfigModule = module {
     singleOf(::SetCheckUpdateAllTableImpl) { bind<SetCheckUpdateAllTable>() }
     singleOf(::SetIdLocalConfigImpl) { bind<SetIdLocalConfig>() }
     singleOf(::SetMatricVigiaConfigImpl) { bind<SetMatricVigiaConfig>() }
+    singleOf(::SetStatusSendConfigImpl) { bind<SetStatusSendConfig>() }
 
 }
 
@@ -120,21 +124,27 @@ val usecaseInitialModule = module {
 val usecaseProprioModule = module {
 
     singleOf(::CheckNroEquipProprioImpl) { bind<CheckNroEquipProprio>() }
+    singleOf(::CheckSendMovProprioImpl) { bind<CheckSendMovProprio>() }
     singleOf(::CleanEquipSegImpl) { bind<CleanEquipSeg>() }
     singleOf(::CleanPassagColabImpl) { bind<CleanPassagColab>() }
     singleOf(::DeleteEquipSegImpl) { bind<DeleteEquipSeg>() }
     singleOf(::DeletePassagColabImpl) { bind<DeletePassagColab>() }
+    singleOf(::GetMatricColabImpl) { bind<GetMatricColab>() }
+    singleOf(::GetNroEquipImpl) { bind<GetNroEquip>() }
     singleOf(::GetTypeMovImpl) { bind<GetTypeMov>() }
+    singleOf(::RecoverDetalheProprioImpl) { bind<RecoverDetalheProprio>() }
     singleOf(::RecoverEquipSegListImpl) { bind<RecoverEquipSegList>() }
     singleOf(::RecoverMovEquipProprioOpenListImpl) { bind<RecoverMovEquipProprioOpenList>() }
     singleOf(::RecoverNomeColabImpl) { bind<RecoverNomeColab>() }
     singleOf(::RecoverPassagColabListImpl) { bind<RecoverPassagColabList>() }
     singleOf(::SaveMovEquipProprioImpl) { bind<SaveMovEquipProprio>() }
+    singleOf(::SendMovProprioImpl) { bind<SendMovProprio>() }
     singleOf(::SetDestinoProprioImpl) { bind<SetDestinoProprio>() }
     singleOf(::SetNotaFiscalProprioImpl) { bind<SetNotaFiscalProprio>() }
     singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
     singleOf(::SetNroEquipProprioImpl) { bind<SetNroEquipProprio>() }
     singleOf(::SetObservProprioImpl) { bind<SetObservProprio>() }
+    singleOf(::SetStatusSentMovProprioImpl) { bind<SetStatusSentMovProprio>() }
     singleOf(::StartMovEquipProprioImpl) { bind<StartMovEquipProprio>() }
 
 }
@@ -206,6 +216,7 @@ val datasourceRoomModule = module {
 val datasourceRetrofitModule = module {
 
     singleOf(::ConfigRetrofitDatasourceImpl) { bind<ConfigRetrofitDatasource>() }
+    singleOf(::MovEquipProprioRetrofitDatasourceImpl) { bind<MovEquipProprioRetrofitDatasource>() }
 
     singleOf(::ColabRetrofitDatasourceImpl) { bind<ColabRetrofitDatasource>() }
     singleOf(::EquipRetrofitDatasourceImpl) { bind<EquipRetrofitDatasource>() }
@@ -217,6 +228,7 @@ val datasourceRetrofitModule = module {
 
 val apiRetrofitModule = module {
     single { get<Retrofit>().create(ConfigApi::class.java) }
+    single { get<Retrofit>().create(MovEquipProprioApi::class.java) }
 
     single { get<Retrofit>().create(ColabApi::class.java) }
     single { get<Retrofit>().create(EquipApi::class.java) }
@@ -252,4 +264,5 @@ val roomModule = module {
 
 val workManagerModule = module {
     single { providerWorkManager(androidContext()) }
+    workerOf(::ProcessWorkManager) { named<ProcessWorkManager>() }
 }

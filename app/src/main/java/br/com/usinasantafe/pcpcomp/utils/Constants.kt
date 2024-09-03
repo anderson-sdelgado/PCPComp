@@ -20,7 +20,7 @@ const val TB_VISITANTE = "tb_visitante"
 
 const val TB_MOV_EQUIP_PROPRIO = "tb_mov_equip_proprio"
 const val TB_MOV_EQUIP_PROPRIO_PASSAG = "tb_mov_equip_proprio_passag"
-const val TB_MOV_EQUIP_PROPRIO_SEG = "tb_mov_equip_proprio_seg"
+const val TB_MOV_EQUIP_PROPRIO_EQUIP_SEG = "tb_mov_equip_proprio_equip_seg"
 const val TB_MOV_EQUIP_RESIDENCIA = "tb_mov_equip_residencia"
 const val TB_MOV_EQUIP_VISIT_TERC = "tb_mov_equip_visit_terc"
 const val TB_MOV_EQUIP_VISIT_TERC_PASSAG = "tb_mov_equip_visit_terc_passag"

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "43365935a8b226b841b0c78fd558e992",
+    "identityHash": "cb833d88cd66e000fcffa07f27a1f8b1",
     "entities": [
       {
         "tableName": "tb_colab",
@@ -166,7 +166,7 @@
       },
       {
         "tableName": "tb_mov_equip_proprio",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprio` INTEGER PRIMARY KEY AUTOINCREMENT, `nroMatricVigiaMovEquipProprio` INTEGER NOT NULL, `idLocalMovEquipProprio` INTEGER NOT NULL, `tipoMovEquipProprio` TEXT NOT NULL, `dthrMovEquipProprio` INTEGER NOT NULL, `idEquipMovEquipProprio` INTEGER NOT NULL, `nroMatricColabMovEquipProprio` INTEGER NOT NULL, `destinoMovEquipProprio` TEXT NOT NULL, `nroNotaFiscalMovEquipProprio` INTEGER, `observMovEquipProprio` TEXT, `statusMovEquipProprio` TEXT NOT NULL, `statusSendMovEquipProprio` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprio` INTEGER PRIMARY KEY AUTOINCREMENT, `matricVigiaMovEquipProprio` INTEGER NOT NULL, `idLocalMovEquipProprio` INTEGER NOT NULL, `tipoMovEquipProprio` TEXT NOT NULL, `dthrMovEquipProprio` INTEGER NOT NULL, `idEquipMovEquipProprio` INTEGER NOT NULL, `matricColabMovEquipProprio` INTEGER NOT NULL, `destinoMovEquipProprio` TEXT NOT NULL, `notaFiscalMovEquipProprio` INTEGER, `observMovEquipProprio` TEXT, `statusMovEquipProprio` TEXT NOT NULL, `statusSendMovEquipProprio` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "idMovEquipProprio",
@@ -175,8 +175,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "nroMatricVigiaMovEquipProprio",
-            "columnName": "nroMatricVigiaMovEquipProprio",
+            "fieldPath": "matricVigiaMovEquipProprio",
+            "columnName": "matricVigiaMovEquipProprio",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -205,8 +205,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "nroMatricColabMovEquipProprio",
-            "columnName": "nroMatricColabMovEquipProprio",
+            "fieldPath": "matricColabMovEquipProprio",
+            "columnName": "matricColabMovEquipProprio",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -217,8 +217,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "nroNotaFiscalMovEquipProprio",
-            "columnName": "nroNotaFiscalMovEquipProprio",
+            "fieldPath": "notaFiscalMovEquipProprio",
+            "columnName": "notaFiscalMovEquipProprio",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -283,7 +283,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "tb_mov_equip_proprio_seg",
+        "tableName": "tb_mov_equip_proprio_equip_seg",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprioEquipSeg` INTEGER PRIMARY KEY AUTOINCREMENT, `idMovEquipProprio` INTEGER NOT NULL, `idEquip` INTEGER NOT NULL)",
         "fields": [
           {
@@ -502,7 +502,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '43365935a8b226b841b0c78fd558e992')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cb833d88cd66e000fcffa07f27a1f8b1')"
     ]
   }
 }

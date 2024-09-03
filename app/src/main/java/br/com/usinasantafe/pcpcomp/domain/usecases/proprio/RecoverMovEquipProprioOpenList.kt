@@ -31,15 +31,16 @@ class RecoverMovEquipProprioOpenListImpl(
                     if(resultNro.isFailure)
                         return Result.failure(resultNro.exceptionOrNull()!!)
                     val nroEquip = resultNro.getOrNull()!!
-                    val resultNome = colabRepository.getNome(it.nroMatricColabMovEquipProprio!!)
+                    val resultNome = colabRepository.getNome(it.matricColabMovEquipProprio!!)
                     if(resultNome.isFailure)
                         return Result.failure(resultNome.exceptionOrNull()!!)
                     val nomeColab = resultNome.getOrNull()!!
                     MovEquipProprioModel(
+                        id = it.idMovEquipProprio!!,
                         dthr = "DATA/HORA: ${SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(it.dthrMovEquipProprio)}",
                         typeMov = if (it.tipoMovEquipProprio == TypeMov.INPUT) "ENTRADA" else "SAIDA",
                         equip = "VEICULO: $nroEquip",
-                        colab = "MOTORISTA: ${it.nroMatricColabMovEquipProprio!!} - $nomeColab"
+                        colab = "MOTORISTA: ${it.matricColabMovEquipProprio!!} - $nomeColab"
                     )
                 }
             )

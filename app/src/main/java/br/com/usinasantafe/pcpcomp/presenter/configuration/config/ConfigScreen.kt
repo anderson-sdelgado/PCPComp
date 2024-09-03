@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.BuildConfig
 import br.com.usinasantafe.pcpcomp.R
@@ -98,7 +99,10 @@ fun ConfigContent(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             ),
-            textStyle = TextStyle(textAlign = TextAlign.Right),
+            textStyle = TextStyle(
+                textAlign = TextAlign.Right,
+                fontSize = 24.sp
+            ),
             value = number,
             onValueChange = onNumberChanged,
             modifier = Modifier
@@ -110,6 +114,9 @@ fun ConfigContent(
         OutlinedTextField(
             value = password,
             onValueChange = onPasswordChanged,
+            textStyle = TextStyle(
+                fontSize = 24.sp
+            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .testTag(TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN)

@@ -27,6 +27,8 @@ import br.com.usinasantafe.pcpcomp.presenter.Routes.MENU_INICIAL_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.MOV_EQUIP_PROPRIO_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_COLAB_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_VIGIA_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.NOTA_FISCAL_PROPRIO_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.OBSERV_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.SENHA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.SPLASH_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigScreen
@@ -47,6 +49,7 @@ import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioScree
 import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListScreen
 import br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe.DetalheMovProprioScreen
+import br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe.DetalheProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.equipseglist.EquipSegListScreen
 import br.com.usinasantafe.pcpcomp.presenter.proprio.equipseglist.EquipSegListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip.NroEquipScreen
@@ -57,6 +60,10 @@ import br.com.usinasantafe.pcpcomp.presenter.proprio.movpropriolist.MovEquipProp
 import br.com.usinasantafe.pcpcomp.presenter.proprio.movpropriolist.MovEquipProprioListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab.NomeColabScreen
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab.NomeColabViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal.NotaFiscalProprioScreen
+import br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal.NotaFiscalViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.ObservProprioScreen
+import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.ObservProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.splash.SplashScreen
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
@@ -137,6 +144,9 @@ fun NavigationGraph(
                         typeEquip = TypeEquip.VEICULO.ordinal,
                         id = 0
                     )
+                },
+                onNavDetalhe = {
+                    navActions.navigationToDetalheMovProprio(it)
                 }
             )
         }
@@ -151,7 +161,13 @@ fun NavigationGraph(
             MatricColabScreen(
                 viewModel = koinViewModel<MatricColabViewModel>(),
                 onNavMovVeicProprio = { navActions.navigationToMovEquipProprioList() },
-                onNavDetalheMovProprio = { navActions.navigationToDetalheMovProprio() },
+                onNavDetalheMovProprio = {
+                    navActions.navigationToDetalheMovProprio(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
                 onNavNomeColab = {
                     navActions.navigationToNomeColab(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
@@ -189,8 +205,62 @@ fun NavigationGraph(
                 }
             )
         }
-        composable(DETALHE_MOV_PROPRIO_ROUTE) {
-            DetalheMovProprioScreen()
+        composable(
+            DETALHE_MOV_PROPRIO_ROUTE,
+            arguments = listOf(
+                navArgument(ID_ARGS) { type = NavType.IntType },
+            )
+        ) { entry ->
+            DetalheMovProprioScreen(
+                viewModel = koinViewModel<DetalheProprioViewModel>(),
+                onNavMovProprioList = { navActions.navigationToMovEquipProprioList() },
+                onNavNroEquip = {
+                    navActions.navigationToNroEquip(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        typeEquip = TypeEquip.VEICULO.ordinal,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavEquipSegList = {
+                    navActions.navigationToEquipSegList(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        typeEquip = TypeEquip.VEICULOSEG.ordinal,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavMatricColab = {
+                    navActions.navigationToMatricColab(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        typeOcupante = TypeOcupante.MOTORISTA.ordinal,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavPassagList = {
+                    navActions.navigationToPassagColabList(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        typeOcupante = TypeOcupante.PASSAGEIRO.ordinal,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavDestino = {
+                    navActions.navigationToDestino(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavNotaFiscal = {
+                    navActions.navigationToNotaFiscal(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavObserv = {
+                    navActions.navigationToObserv(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                }
+            )
         }
         composable(
             PASSAG_COLAB_LIST_ROUTE,
@@ -209,7 +279,13 @@ fun NavigationGraph(
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalheMovProprio = { navActions.navigationToDetalheMovProprio() },
+                onNavDetalheMovProprio = {
+                    navActions.navigationToDetalheMovProprio(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
                 onNavMatricPassag = {
                     navActions.navigationToMatricColab(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
@@ -238,11 +314,17 @@ fun NavigationGraph(
                 onNavMovProprioList = {
                     navActions.navigationToMovEquipProprioList()
                 },
-                onNavDetalheMovProprio = { navActions.navigationToDetalheMovProprio() },
+                onNavDetalheMovProprio = {
+                    navActions.navigationToDetalheMovProprio(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
                 onNavEquipSegList = {
                     navActions.navigationToEquipSegList(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
-                        typeEquip = it,
+                        typeEquip = entry.arguments?.getInt(TYPE_EQUIP_ARGS)!!,
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 }
@@ -258,7 +340,13 @@ fun NavigationGraph(
         ) { entry ->
             EquipSegListScreen(
                 viewModel = koinViewModel<EquipSegListViewModel>(),
-                onNavDetalheMovProprio = { navActions.navigationToDetalheMovProprio() },
+                onNavDetalheMovProprio = {
+                    navActions.navigationToDetalheMovProprio(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
                 onNavNroEquip = {
                     navActions.navigationToNroEquip(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
@@ -291,7 +379,13 @@ fun NavigationGraph(
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalheMovProprio = { navActions.navigationToDetalheMovProprio() },
+                onNavDetalheMovProprio = {
+                    navActions.navigationToDetalheMovProprio(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
                 onNavNotaFiscal = {
                     navActions.navigationToNotaFiscal(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
@@ -304,6 +398,67 @@ fun NavigationGraph(
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 }
+            )
+        }
+        composable(
+            NOTA_FISCAL_PROPRIO_ROUTE,
+            arguments = listOf(
+                navArgument(FLOW_APP_ARGS) { type = NavType.IntType },
+                navArgument(ID_ARGS) { type = NavType.IntType }
+            )
+        ) { entry ->
+            NotaFiscalProprioScreen(
+                viewModel = koinViewModel<NotaFiscalViewModel>(),
+                onNavDestino = {
+                    navActions.navigationToDestino(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavObserv = {
+                    navActions.navigationToObserv(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavDetalheMovProprio = {
+                    navActions.navigationToDetalheMovProprio(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
+            )
+        }
+        composable(
+            OBSERV_PROPRIO_ROUTE,
+            arguments = listOf(
+                navArgument(FLOW_APP_ARGS) { type = NavType.IntType },
+                navArgument(ID_ARGS) { type = NavType.IntType }
+            )
+        ) { entry ->
+            ObservProprioScreen(
+                viewModel = koinViewModel<ObservProprioViewModel>(),
+                onNavDestinoProprio = {
+                    navActions.navigationToDestino(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavNotaFiscalProprio = {
+                    navActions.navigationToNotaFiscal(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavDetalheMovProprio = {
+                    navActions.navigationToDetalheMovProprio(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
+                onNavMovEquipProprioList = { navActions.navigationToMovEquipProprioList() },
             )
         }
     }

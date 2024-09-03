@@ -66,7 +66,7 @@ class EquipSegListViewModel(
 
     fun cleanVeicSeg() = viewModelScope.launch {
         val resultClean = cleanEquipSeg()
-        if(resultClean.isFailure){
+        if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"
@@ -82,8 +82,11 @@ class EquipSegListViewModel(
 
 
     fun recoverVeicSeg() = viewModelScope.launch {
-        val resultRecoverEquipSeg = recoverEquipSegList()
-        if(resultRecoverEquipSeg.isFailure){
+        val resultRecoverEquipSeg = recoverEquipSegList(
+            flowApp = _uiState.value.flowApp,
+            id = _uiState.value.id
+        )
+        if (resultRecoverEquipSeg.isFailure) {
             val error = resultRecoverEquipSeg.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"
@@ -117,7 +120,7 @@ class EquipSegListViewModel(
             flowApp = _uiState.value.flowApp,
             id = _uiState.value.id
         )
-        if(resultDeletePassag.isFailure){
+        if (resultDeletePassag.isFailure) {
             val error = resultDeletePassag.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"

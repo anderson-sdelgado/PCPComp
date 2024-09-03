@@ -118,7 +118,12 @@ fun EquipSegListContent(
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
             }
             Button(
-                onClick = { onNavMatricColab() },
+                onClick = {
+                    when (flowApp) {
+                        FlowApp.ADD -> onNavMatricColab()
+                        FlowApp.CHANGE -> onNavDetalheMovProprio()
+                    }
+                },
                 modifier = Modifier.weight(1f),
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))

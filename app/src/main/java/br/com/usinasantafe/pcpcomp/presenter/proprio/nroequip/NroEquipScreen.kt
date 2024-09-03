@@ -42,7 +42,7 @@ fun NroEquipScreen(
     viewModel: NroEquipProprioViewModel,
     onNavMovProprioList: () -> Unit,
     onNavDetalheMovProprio: () -> Unit,
-    onNavEquipSegList: (Int) -> Unit
+    onNavEquipSegList: () -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -61,11 +61,14 @@ fun NroEquipScreen(
                 flagProgress = uiState.flagProgress,
                 msgProgress = uiState.msgProgress,
                 currentProgress = uiState.currentProgress,
-                onNavPassagList = onNavMovProprioList,
+                onNavMovProprioList = onNavMovProprioList,
                 onNavDetalheMovProprio = onNavDetalheMovProprio,
                 onNavEquipSegList = onNavEquipSegList,
                 modifier = Modifier.padding(innerPadding)
             )
+            if ((uiState.flowApp == FlowApp.CHANGE) && (uiState.typeEquip == TypeEquip.VEICULO)) {
+                viewModel.getNroEquip()
+            }
         }
     }
 }
@@ -85,9 +88,9 @@ fun NroEquipContent(
     flagProgress: Boolean,
     msgProgress: String,
     currentProgress: Float,
-    onNavPassagList: () -> Unit,
+    onNavMovProprioList: () -> Unit,
     onNavDetalheMovProprio: () -> Unit,
-    onNavEquipSegList: (Int) -> Unit,
+    onNavEquipSegList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -116,14 +119,15 @@ fun NroEquipContent(
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         ButtonsGenericNumeric(setActionButton = setTextField)
         BackHandler {
-            when(typeEquip){
+            when (typeEquip) {
                 TypeEquip.VEICULO -> {
-                    when(flowApp){
-                        FlowApp.ADD -> onNavPassagList()
+                    when (flowApp) {
+                        FlowApp.ADD -> onNavMovProprioList()
                         FlowApp.CHANGE -> onNavDetalheMovProprio()
                     }
                 }
-                TypeEquip.VEICULOSEG -> onNavEquipSegList(typeEquip.ordinal)
+
+                TypeEquip.VEICULOSEG -> onNavEquipSegList()
             }
         }
 
@@ -162,7 +166,16 @@ fun NroEquipContent(
         }
 
         if (flagAccess) {
-            onNavEquipSegList(TypeEquip.VEICULOSEG.ordinal)
+            when (typeEquip) {
+                TypeEquip.VEICULO -> {
+                    when (flowApp) {
+                        FlowApp.ADD -> onNavEquipSegList()
+                        FlowApp.CHANGE -> onNavDetalheMovProprio()
+                    }
+                }
+
+                TypeEquip.VEICULOSEG -> onNavEquipSegList()
+            }
         }
     }
 }
@@ -186,7 +199,7 @@ fun NroEquipPagePreview() {
                 flagProgress = false,
                 msgProgress = "",
                 currentProgress = 0.0f,
-                onNavPassagList = {},
+                onNavMovProprioList = {},
                 onNavDetalheMovProprio = {},
                 onNavEquipSegList = {},
                 modifier = Modifier.padding(innerPadding)
@@ -214,7 +227,7 @@ fun NroEquipPagePreviewFieldEmpty() {
                 flagProgress = false,
                 msgProgress = "",
                 currentProgress = 0.0f,
-                onNavPassagList = {},
+                onNavMovProprioList = {},
                 onNavDetalheMovProprio = {},
                 onNavEquipSegList = {},
                 modifier = Modifier.padding(innerPadding)
@@ -242,7 +255,7 @@ fun NroEquipPagePreviewFailure() {
                 flagProgress = false,
                 msgProgress = "",
                 currentProgress = 0.0f,
-                onNavPassagList = {},
+                onNavMovProprioList = {},
                 onNavDetalheMovProprio = {},
                 onNavEquipSegList = {},
                 modifier = Modifier.padding(innerPadding)
@@ -270,7 +283,7 @@ fun NroEquipPagePreviewUpdate() {
                 flagProgress = false,
                 msgProgress = "",
                 currentProgress = 0.0f,
-                onNavPassagList = {},
+                onNavMovProprioList = {},
                 onNavDetalheMovProprio = {},
                 onNavEquipSegList = {},
                 modifier = Modifier.padding(innerPadding)
@@ -298,7 +311,7 @@ fun NroEquipPagePreviewBlockedAccess() {
                 flagProgress = false,
                 msgProgress = "",
                 currentProgress = 0.0f,
-                onNavPassagList = {},
+                onNavMovProprioList = {},
                 onNavDetalheMovProprio = {},
                 onNavEquipSegList = {},
                 modifier = Modifier.padding(innerPadding)
@@ -326,7 +339,7 @@ fun NroEquipPagePreviewUpdated() {
                 flagProgress = true,
                 msgProgress = "Atualizando dados",
                 currentProgress = 0.3333334f,
-                onNavPassagList = {},
+                onNavMovProprioList = {},
                 onNavDetalheMovProprio = {},
                 onNavEquipSegList = {},
                 modifier = Modifier.padding(innerPadding)

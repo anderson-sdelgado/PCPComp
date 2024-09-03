@@ -2,7 +2,9 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
+import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
+import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -13,62 +15,32 @@ import org.mockito.kotlin.whenever
 class SetIdLocalConfigImplTest {
 
     @Test
-    fun `Chech return failure Datasource if have error in getConfig`() = runTest {
+    fun `Chech return failure Datasource if have error in ConfigRepository SetIdLocal`() = runTest {
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.getConfig()).thenReturn(
+        whenever(configRepository.setIdLocal(1)).thenReturn(
             Result.failure(
-                DatasourceException(
-                    function = "ConfigRepository.getConfig",
+                RepositoryException(
+                    function = "ConfigRepository.setIdLocal",
                     cause = Exception()
                 )
             )
         )
         val usecase = SetIdLocalConfigImpl(configRepository)
         val result = usecase(1)
-        assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
-    }
-
-    @Test
-    fun `Chech return failure Datasource if have error in saveConfig`() = runTest {
-        val config = Config(
-            number = 16997417840,
-            password = "12345",
-            version = "6.00",
-            idBD = 1
-        )
-        val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(config))
-        whenever(configRepository.save(config)).thenReturn(
-            Result.failure(
-                DatasourceException(
-                    function = "ConfigRepository.save",
-                    cause = Exception()
-                )
-            )
-        )
-        val usecase = SetIdLocalConfigImpl(configRepository)
-        val result = usecase(1)
-        assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.save")
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> ConfigRepository.setIdLocal")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), Exception().toString())
     }
 
     @Test
     fun `Chech return true if usecase is success`() = runTest {
-        val config = Config(
-            number = 16997417840,
-            password = "12345",
-            version = "6.00",
-            idBD = 1
-        )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.getConfig()).thenReturn(Result.success(config))
-        whenever(configRepository.save(config)).thenReturn(Result.success(true))
+        whenever(configRepository.setIdLocal(1)).thenReturn(
+            Result.success(true)
+        )
         val usecase = SetIdLocalConfigImpl(configRepository)
         val result = usecase(1)
-        assertEquals(result.isSuccess, true)
-        assertEquals(result.getOrNull()!!, true)
+        assertTrue(result.isSuccess)
+        assertTrue(result.getOrNull()!!)
     }
 }

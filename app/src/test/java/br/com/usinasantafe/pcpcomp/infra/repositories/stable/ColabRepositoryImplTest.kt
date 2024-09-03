@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.stable
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.ColabRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.ColabRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*

@@ -16,7 +16,6 @@ import org.junit.Assert.*
 import org.junit.Before
 
 import org.junit.Test
-import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -46,16 +45,16 @@ class RecoverMovEquipProprioOpenListImplTest: KoinTest {
     fun check_return_failure_if_not_have_equip_with_id_researched() = runTest {
         movEquipProprioDao.insert(
             MovEquipProprioRoomModel(
-                nroMatricVigiaMovEquipProprio = 19759,
+                matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
                 tipoMovEquipProprio = TypeMov.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
-                nroMatricColabMovEquipProprio = 19759,
+                matricColabMovEquipProprio = 19759,
                 destinoMovEquipProprio = "TESTE",
                 statusMovEquipProprio = StatusData.OPEN,
                 statusSendMovEquipProprio = StatusSend.SEND,
-                nroNotaFiscalMovEquipProprio = null,
+                notaFiscalMovEquipProprio = null,
                 observMovEquipProprio = null,
             )
         )
@@ -69,16 +68,16 @@ class RecoverMovEquipProprioOpenListImplTest: KoinTest {
     fun check_return_success_if_have_all_data_correct() = runTest {
         movEquipProprioDao.insert(
             MovEquipProprioRoomModel(
-                nroMatricVigiaMovEquipProprio = 19759,
+                matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
                 tipoMovEquipProprio = TypeMov.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
-                nroMatricColabMovEquipProprio = 19759,
+                matricColabMovEquipProprio = 19759,
                 destinoMovEquipProprio = "TESTE",
                 statusMovEquipProprio = StatusData.OPEN,
                 statusSendMovEquipProprio = StatusSend.SEND,
-                nroNotaFiscalMovEquipProprio = null,
+                notaFiscalMovEquipProprio = null,
                 observMovEquipProprio = null,
             )
         )

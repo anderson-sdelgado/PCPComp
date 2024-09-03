@@ -87,7 +87,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
             if(resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movEquipProprio = resultGet.getOrNull()!!
-            movEquipProprio.nroNotaFiscalMovEquipProprio = notaFiscal
+            movEquipProprio.notaFiscalMovEquipProprio = notaFiscal
             save(movEquipProprio)
             return Result.success(true)
         } catch (e: Exception) {
@@ -106,7 +106,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
             if(resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movEquipProprio = resultGet.getOrNull()!!
-            movEquipProprio.nroMatricColabMovEquipProprio = matric
+            movEquipProprio.matricColabMovEquipProprio = matric
             save(movEquipProprio)
             return Result.success(true)
         } catch (e: Exception) {

@@ -67,7 +67,7 @@ class PassagColabListViewModel(
 
     fun cleanPassag() = viewModelScope.launch {
         val resultClean = cleanPassagColab()
-        if(resultClean.isFailure){
+        if (resultClean.isFailure) {
             val error = resultClean.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"
@@ -82,8 +82,12 @@ class PassagColabListViewModel(
     }
 
     fun recoverPassag() = viewModelScope.launch {
-        val resultRecoverPassag = recoverPassagColabList()
-        if(resultRecoverPassag.isFailure){
+        val resultRecoverPassag =
+            recoverPassagColabList(
+                flowApp = _uiState.value.flowApp,
+                id = _uiState.value.id
+            )
+        if (resultRecoverPassag.isFailure) {
             val error = resultRecoverPassag.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"
@@ -116,7 +120,7 @@ class PassagColabListViewModel(
             flowApp = _uiState.value.flowApp,
             id = _uiState.value.id
         )
-        if(resultDeletePassag.isFailure){
+        if (resultDeletePassag.isFailure) {
             val error = resultDeletePassag.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"

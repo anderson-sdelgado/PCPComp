@@ -22,20 +22,13 @@ interface MovEquipProprioDao {
     @Delete
     suspend fun delete(movEquipProprioRoomModel: MovEquipProprioRoomModel)
 
-    @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO WHERE statusMovEquipProprio = :status")
-    suspend fun listStatus(status: StatusData): List<MovEquipProprioRoomModel>
+    @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO WHERE statusMovEquipProprio = :statusData")
+    suspend fun listStatusData(statusData: StatusData): List<MovEquipProprioRoomModel>
 
-    @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO WHERE statusSendMovEquipProprio = :statusEnvio")
-    suspend fun listStatusSend(statusEnvio: StatusSend): List<MovEquipProprioRoomModel>
-
-    @Query("SELECT MAX(idMovEquipProprio) FROM $TB_MOV_EQUIP_PROPRIO WHERE statusMovEquipProprio = :status")
-    suspend fun lastIdStatus(status: StatusData): Int
+    @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO WHERE statusSendMovEquipProprio = :statusSend")
+    suspend fun listStatusSend(statusSend: StatusSend): List<MovEquipProprioRoomModel>
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO WHERE idMovEquipProprio = :idMov")
-    suspend fun getId(idMov: Int): MovEquipProprioRoomModel
-
-
-    @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO")
-    suspend fun list(): List<MovEquipProprioRoomModel>
+    suspend fun get(idMov: Int): MovEquipProprioRoomModel
 
 }

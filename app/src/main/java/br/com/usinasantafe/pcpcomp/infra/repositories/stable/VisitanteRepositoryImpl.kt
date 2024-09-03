@@ -4,9 +4,8 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.VisitanteRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.VisitanteRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.VisitanteRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.VisitanteRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toVisitanteModel
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toVisitante
 
 class VisitanteRepositoryImpl(
     private val visitanteRoomDatasource: VisitanteRoomDatasource,

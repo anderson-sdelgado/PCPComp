@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -28,6 +29,8 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
+
+const val TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN = "tag_destino_text_field_destino_screen"
 
 @Composable
 fun DestinoProprioScreen(
@@ -88,7 +91,8 @@ fun DestinoProprioContent(
             onValueChange = onDestinoChanged,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(1f)
+                .testTag(TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,

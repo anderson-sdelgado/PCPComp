@@ -1,13 +1,10 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.stable.LocalRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.domain.usecases.initial.RecoverLocalsImpl
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -104,7 +101,7 @@ class RecoverMovEquipProprioOpenListImplTest {
             MovEquipProprio(
                 idMovEquipProprio = 1,
                 idEquipMovEquipProprio = 1,
-                nroMatricColabMovEquipProprio = 19759
+                matricColabMovEquipProprio = 19759
             )
         )
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
@@ -138,7 +135,7 @@ class RecoverMovEquipProprioOpenListImplTest {
     fun `Check return list if all process execute successfully`() = runTest {
         val movEquipProprioList = listOf(
             MovEquipProprio(
-                nroMatricColabMovEquipProprio = 19759,
+                matricColabMovEquipProprio = 19759,
                 tipoMovEquipProprio = TypeMov.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,

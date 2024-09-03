@@ -53,7 +53,10 @@ class EquipSegListViewModelTest {
         )
         viewModel.cleanVeicSeg()
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> CleanEquipSeg -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> CleanEquipSeg -> java.lang.Exception"
+        )
     }
 
     @Test
@@ -61,7 +64,12 @@ class EquipSegListViewModelTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
         val recoverEquipSegList = mock<RecoverEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
-        whenever(recoverEquipSegList()).thenReturn(
+        whenever(
+            recoverEquipSegList(
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "RecoverEquipSeg",
@@ -83,7 +91,10 @@ class EquipSegListViewModelTest {
         )
         viewModel.recoverVeicSeg()
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> RecoverEquipSeg -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> RecoverEquipSeg -> java.lang.Exception"
+        )
     }
 
     @Test
@@ -91,7 +102,12 @@ class EquipSegListViewModelTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
         val recoverEquipSegList = mock<RecoverEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
-        whenever(recoverEquipSegList()).thenReturn(
+        whenever(
+            recoverEquipSegList(
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.success(
                 listOf(
                     Equip(
@@ -127,11 +143,13 @@ class EquipSegListViewModelTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
         val recoverEquipSegList = mock<RecoverEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
-        whenever(deleteEquipSeg(
-            10,
-            FlowApp.ADD,
-            0
-        )).thenReturn(
+        whenever(
+            deleteEquipSeg(
+                10,
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "DeleteEquipSeg",
@@ -156,7 +174,10 @@ class EquipSegListViewModelTest {
         viewModel.deleteVeicSeg()
         assertEquals(viewModel.uiState.value.flagDialogCheck, false)
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> DeleteEquipSeg -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> DeleteEquipSeg -> java.lang.Exception"
+        )
     }
 
     @Test
@@ -164,14 +185,21 @@ class EquipSegListViewModelTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
         val recoverEquipSegList = mock<RecoverEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
-        whenever(deleteEquipSeg(
-            10,
-            FlowApp.ADD,
-            0
-        )).thenReturn(
+        whenever(
+            deleteEquipSeg(
+                10,
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.success(true)
         )
-        whenever(recoverEquipSegList()).thenReturn(
+        whenever(
+            recoverEquipSegList(
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.success(
                 listOf(
                     Equip(

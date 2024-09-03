@@ -26,7 +26,8 @@ class MovEquipProprioEquipSegRoomDatasourceImplTest {
     fun before() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, AppDatabaseRoom::class.java).allowMainThreadQueries().build()
+            context, AppDatabaseRoom::class.java
+        ).allowMainThreadQueries().build()
         movEquipProprioEquipSegDao = db.movEquipProprioEquipSegDao()
     }
 
@@ -53,4 +54,73 @@ class MovEquipProprioEquipSegRoomDatasourceImplTest {
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
     }
+
+    @Test
+    fun `Check success list if have MovEquipProprioEquipSegRoomModel list`() = runTest {
+        val datasource = MovEquipProprioEquipSegRoomDatasourceImpl(movEquipProprioEquipSegDao)
+        datasource.addAll(
+            listOf(
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 1
+                ),
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 2
+                )
+            )
+        )
+        val result = datasource.list(1)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.size, 2)
+        assertEquals(result.getOrNull()!![1].idMovEquipProprioEquipSeg, 2)
+        assertEquals(result.getOrNull()!![1].idEquip, 2)
+    }
+
+    @Test
+    fun `Check success add if have row is correct`() = runTest {
+        val datasource = MovEquipProprioEquipSegRoomDatasourceImpl(movEquipProprioEquipSegDao)
+        val result = datasource.add(10, 1)
+        assertTrue(result.isSuccess)
+        assertTrue(result.getOrNull()!!)
+        val resultList = datasource.list(1)
+        assertTrue(result.isSuccess)
+        assertEquals(resultList.getOrNull()!!.size, 1)
+        assertEquals(resultList.getOrNull()!![0].idMovEquipProprioEquipSeg, 1)
+        assertEquals(resultList.getOrNull()!![0].idEquip, 10)
+    }
+
+    @Test
+    fun `Check success delete if process execute successfully`() = runTest {
+        val datasource = MovEquipProprioEquipSegRoomDatasourceImpl(movEquipProprioEquipSegDao)
+        datasource.addAll(
+            listOf(
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 1
+                ),
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 2
+                ),
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 3
+                )
+            )
+        )
+        val result = datasource.list(1)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.size, 3)
+        assertEquals(result.getOrNull()!![1].idMovEquipProprioEquipSeg, 2)
+        assertEquals(result.getOrNull()!![1].idEquip, 2)
+        val resultDelete = datasource.delete(2, 1)
+        assertTrue(resultDelete.isSuccess)
+        assertTrue(resultDelete.getOrNull()!!)
+        val resultList = datasource.list(1)
+        assertEquals(resultList.getOrNull()!!.size, 2)
+        assertEquals(resultList.getOrNull()!![1].idMovEquipProprioEquipSeg, 3)
+        assertEquals(resultList.getOrNull()!![1].idEquip, 3)
+    }
+
 }

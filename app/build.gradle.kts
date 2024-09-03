@@ -109,6 +109,7 @@ dependencies {
     implementation(libs.androidx.tracing)
     implementation(libs.koin)
     implementation(libs.koin.compose)
+    implementation(libs.koin.workmanager)
     implementation(libs.koin.test)
     implementation(libs.koin.test.junit4)
     implementation(libs.androidx.lifecycle.compose.viewmodel)

@@ -15,14 +15,15 @@ class SaveDataConfigImplTest {
 
     @Test
     fun `Chech return true if save is correct`() = runTest {
-        val config = Config(
-            number = 16997417840,
-            password = "12345",
-            version = "6.00",
-            idBD = 1
-        )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.save(config)).thenReturn(Result.success(true))
+        whenever(
+            configRepository.saveInitial(
+                number = 16997417840,
+                password = "12345",
+                version = "6.00",
+                idBD = 1
+            )
+        ).thenReturn(Result.success(true))
         val usecase = SaveDataConfigImpl(configRepository)
         val result = usecase(
             number = "16997417840",
@@ -46,19 +47,23 @@ class SaveDataConfigImplTest {
         )
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> SaveDataConfig")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NumberFormatException: For input string: \"16997417840A\"")
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            "java.lang.NumberFormatException: For input string: \"16997417840A\""
+        )
     }
 
     @Test
     fun `Chech return Failure Datasource if have error in Datasource`() = runTest {
-        val config = Config(
-            number = 16997417840,
-            password = "12345",
-            version = "6.00",
-            idBD = 1
-        )
         val configRepository = mock<ConfigRepository>()
-        whenever(configRepository.save(config)).thenReturn(
+        whenever(
+            configRepository.saveInitial(
+                number = 16997417840,
+                password = "12345",
+                version = "6.00",
+                idBD = 1
+            )
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigRepository.save",
@@ -74,6 +79,9 @@ class SaveDataConfigImplTest {
             idBD = 1
         )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.save")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> ConfigRepository.save"
+        )
     }
 }

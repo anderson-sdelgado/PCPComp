@@ -53,7 +53,10 @@ class PassagColabListViewModelTest {
         )
         viewModel.cleanPassag()
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> CleanPassagColab -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> CleanPassagColab -> java.lang.Exception"
+        )
     }
 
     @Test
@@ -61,7 +64,12 @@ class PassagColabListViewModelTest {
         val cleanPassagColab = mock<CleanPassagColab>()
         val recoverPassagColabList = mock<RecoverPassagColabList>()
         val deletePassagColab = mock<DeletePassagColab>()
-        whenever(recoverPassagColabList()).thenReturn(
+        whenever(
+            recoverPassagColabList(
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "RecoverPassagColab",
@@ -83,7 +91,10 @@ class PassagColabListViewModelTest {
         )
         viewModel.recoverPassag()
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> RecoverPassagColab -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> RecoverPassagColab -> java.lang.Exception"
+        )
     }
 
     @Test
@@ -91,7 +102,12 @@ class PassagColabListViewModelTest {
         val cleanPassagColab = mock<CleanPassagColab>()
         val recoverPassagColabList = mock<RecoverPassagColabList>()
         val deletePassagColab = mock<DeletePassagColab>()
-        whenever(recoverPassagColabList()).thenReturn(
+        whenever(
+            recoverPassagColabList(
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.success(
                 listOf(
                     Colab(
@@ -127,11 +143,13 @@ class PassagColabListViewModelTest {
         val cleanPassagColab = mock<CleanPassagColab>()
         val recoverPassagColabList = mock<RecoverPassagColabList>()
         val deletePassagColab = mock<DeletePassagColab>()
-        whenever(deletePassagColab(
-            19759,
-            FlowApp.ADD,
-            0
-        )).thenReturn(
+        whenever(
+            deletePassagColab(
+                19759,
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "DeletePassagColab",
@@ -156,7 +174,10 @@ class PassagColabListViewModelTest {
         viewModel.deletePassag()
         assertEquals(viewModel.uiState.value.flagDialogCheck, false)
         assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> DeletePassagColab -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> DeletePassagColab -> java.lang.Exception"
+        )
     }
 
     @Test
@@ -164,14 +185,21 @@ class PassagColabListViewModelTest {
         val cleanPassagColab = mock<CleanPassagColab>()
         val recoverPassagColabList = mock<RecoverPassagColabList>()
         val deletePassagColab = mock<DeletePassagColab>()
-        whenever(deletePassagColab(
-            19759,
-            FlowApp.ADD,
-            0
-        )).thenReturn(
+        whenever(
+            deletePassagColab(
+                19759,
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.success(true)
         )
-        whenever(recoverPassagColabList()).thenReturn(
+        whenever(
+            recoverPassagColabList(
+                FlowApp.ADD,
+                0
+            )
+        ).thenReturn(
             Result.success(
                 listOf(
                     Colab(

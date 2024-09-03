@@ -103,16 +103,16 @@ class MovEquipProprioScreenTest: KoinTest {
         )
         movEquipProprioDao.insert(
             MovEquipProprioRoomModel(
-                nroMatricVigiaMovEquipProprio = 19759,
+                matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
                 tipoMovEquipProprio = TypeMov.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
-                nroMatricColabMovEquipProprio = 19759,
+                matricColabMovEquipProprio = 19759,
                 destinoMovEquipProprio = "TESTE",
                 statusMovEquipProprio = StatusData.OPEN,
                 statusSendMovEquipProprio = StatusSend.SEND,
-                nroNotaFiscalMovEquipProprio = null,
+                notaFiscalMovEquipProprio = null,
                 observMovEquipProprio = null,
             )
         )
@@ -150,6 +150,7 @@ class MovEquipProprioScreenTest: KoinTest {
             MovEquipProprioListScreen(
                 viewModel = koinViewModel<MovEquipProprioListViewModel>(),
                 onNavNroEquip = {},
+                onNavDetalhe = {}
             )
         }
     }

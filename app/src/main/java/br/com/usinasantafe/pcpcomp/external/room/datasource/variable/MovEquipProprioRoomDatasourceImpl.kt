@@ -5,19 +5,60 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipProprioRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 import br.com.usinasantafe.pcpcomp.utils.StatusData
+import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 class MovEquipProprioRoomDatasourceImpl(
     private val movEquipProprioDao: MovEquipProprioDao
 ): MovEquipProprioRoomDatasource {
 
+    override suspend fun checkSend(): Result<Boolean> {
+        return try {
+            Result.success(movEquipProprioDao.listStatusSend(StatusSend.SEND).isNotEmpty())
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.checkSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun get(id: Int): Result<MovEquipProprioRoomModel> {
+        return try {
+            Result.success(movEquipProprioDao.get(id))
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.get",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun listOpen(): Result<List<MovEquipProprioRoomModel>> {
-        try{
-            val listOpen = movEquipProprioDao.listStatus(StatusData.OPEN)
+        try {
+            val listOpen = movEquipProprioDao.listStatusData(StatusData.OPEN)
             return Result.success(listOpen)
         } catch (e: Exception){
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipProprioRoomDatasourceImpl.listOpen",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSend(): Result<List<MovEquipProprioRoomModel>> {
+        try {
+            val listOpen = movEquipProprioDao.listStatusSend(StatusSend.SEND)
+            return Result.success(listOpen)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.listSend",
                     cause = e
                 )
             )
@@ -47,6 +88,102 @@ class MovEquipProprioRoomDatasourceImpl(
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipProprioRoomDatasourceImpl.setClose",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setDestino(destino: String, id: Int): Result<Boolean> {
+        try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
+            movEquipProprioRoomModel.destinoMovEquipProprio = destino
+            movEquipProprioDao.update(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.setDestino",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setIdEquip(idEquip: Int, id: Int): Result<Boolean> {
+        try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
+            movEquipProprioRoomModel.idEquipMovEquipProprio = idEquip
+            movEquipProprioDao.update(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.setIdEquip",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setMatricColab(matricColab: Int, id: Int): Result<Boolean> {
+        try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
+            movEquipProprioRoomModel.matricColabMovEquipProprio = matricColab
+            movEquipProprioDao.update(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.setIdEquip",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setNotaFiscal(notaFiscal: Int, id: Int): Result<Boolean> {
+        try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
+            movEquipProprioRoomModel.notaFiscalMovEquipProprio = notaFiscal
+            movEquipProprioDao.update(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.setIdEquip",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setObserv(observ: String, id: Int): Result<Boolean> {
+        try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
+            movEquipProprioRoomModel.observMovEquipProprio = observ
+            movEquipProprioDao.update(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.setIdEquip",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setSent(id: Int): Result<Boolean> {
+        try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
+            movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SENT
+            movEquipProprioDao.update(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.setSent",
                     cause = e
                 )
             )

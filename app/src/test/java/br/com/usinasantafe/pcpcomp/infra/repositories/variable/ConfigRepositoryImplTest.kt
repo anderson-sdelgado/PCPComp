@@ -2,10 +2,10 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.variable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.variable.ConfigRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.ConfigRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.webservice.ConfigWebServiceModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.webservice.toConfigWebServiceModel
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.ConfigWebServiceModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.toConfigWebServiceModel
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import kotlinx.coroutines.test.runTest
@@ -180,18 +180,6 @@ class ConfigRepositoryImplTest {
         assertEquals(result, Result.success(1))
     }
 
-    @Test
-    fun `Check return success save Config`() = runTest {
-        val config = Config(
-            version = "6.00",
-            number = 16997417840,
-            password = "12345",
-            idBD = 1
-        )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
-        val result = repository.save(config)
-        assertEquals(result.isSuccess, true)
-    }
 
     @Test
     fun `Check return failure if have error in execution getConfig in setStatusSend`() = runTest {

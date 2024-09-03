@@ -1,10 +1,12 @@
 package br.com.usinasantafe.pcpcomp.infra.repositories.variable
 
+import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprioPassag
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioPassagRepository
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipProprioPassagRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioPassagSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioPassagRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.variable.modelRoomToEntity
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 class MovEquipProprioPassagRepositoryImpl(
@@ -19,7 +21,7 @@ class MovEquipProprioPassagRepositoryImpl(
     ): Result<Boolean> {
         return when(flowApp){
             FlowApp.ADD -> movEquipProprioPassagSharedPreferencesDatasource.add(matricColab)
-            FlowApp.CHANGE -> TODO()
+            FlowApp.CHANGE -> movEquipProprioPassagRoomDatasource.add(matricColab, id)
         }
     }
 
@@ -27,8 +29,32 @@ class MovEquipProprioPassagRepositoryImpl(
         return movEquipProprioPassagSharedPreferencesDatasource.clear()
     }
 
-    override suspend fun list(): Result<List<Int>> {
-        return movEquipProprioPassagSharedPreferencesDatasource.list()
+    override suspend fun list(
+        flowApp: FlowApp,
+        id: Int
+    ): Result<List<MovEquipProprioPassag>> {
+        when(flowApp){
+            FlowApp.ADD -> {
+                val resultList = movEquipProprioPassagSharedPreferencesDatasource.list()
+                if (resultList.isFailure)
+                    return Result.failure(resultList.exceptionOrNull()!!)
+                val list = resultList.getOrNull()!!
+                val movEquipProprioPassagList = list.map {
+                    MovEquipProprioPassag(
+                        matricColab = it
+                    )
+                }
+                return Result.success(movEquipProprioPassagList)
+            }
+            FlowApp.CHANGE -> {
+                val resultList = movEquipProprioPassagRoomDatasource.list(id)
+                if(resultList.isFailure)
+                    return Result.failure(resultList.exceptionOrNull()!!)
+                val list = resultList.getOrNull()!!
+                val movEquipProprioPassagList = list.map { it.modelRoomToEntity() }
+                return Result.success(movEquipProprioPassagList)
+            }
+        }
     }
 
     override suspend fun delete(
@@ -38,7 +64,7 @@ class MovEquipProprioPassagRepositoryImpl(
     ): Result<Boolean> {
         return when(flowApp){
             FlowApp.ADD -> movEquipProprioPassagSharedPreferencesDatasource.delete(matricColab)
-            FlowApp.CHANGE -> TODO()
+            FlowApp.CHANGE -> movEquipProprioPassagRoomDatasource.delete(matricColab, id)
         }
     }
 

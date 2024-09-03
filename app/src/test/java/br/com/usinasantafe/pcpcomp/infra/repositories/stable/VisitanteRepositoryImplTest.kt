@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.stable
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.VisitanteRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.VisitanteRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.VisitanteRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.VisitanteRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

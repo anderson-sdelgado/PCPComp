@@ -13,15 +13,7 @@ class SetIdLocalConfigImpl(
 
     override suspend fun invoke(idLocal: Int): Result<Boolean> {
         try {
-            val resultConfig = configRepository.getConfig()
-            if(resultConfig.isFailure)
-                return Result.failure(resultConfig.exceptionOrNull()!!)
-            val config = resultConfig.getOrNull()!!
-            config.idLocal = idLocal
-            val resultSave = configRepository.save(config)
-            if(resultSave.isFailure)
-                return Result.failure(resultSave.exceptionOrNull()!!)
-            return Result.success(true)
+            return configRepository.setIdLocal(idLocal)
         } catch (e: Exception){
             return Result.failure(
                 UsecaseException(

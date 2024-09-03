@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.stable
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.TerceiroRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.webservice.stable.TerceiroRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.TerceiroRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

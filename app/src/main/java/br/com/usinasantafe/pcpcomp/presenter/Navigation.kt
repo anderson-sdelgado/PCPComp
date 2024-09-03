@@ -173,8 +173,10 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigate("${EQUIP_SEG_LIST_SCREEN}/${flowApp}/${typeEquip}/${id}")
     }
 
-    fun navigationToDetalheMovProprio() {
-        navController.navigate(DETALHE_PROPRIO_SCREEN)
+    fun navigationToDetalheMovProprio(
+        id: Int
+    ) {
+        navController.navigate("${DETALHE_PROPRIO_SCREEN}/${id}")
     }
 
     fun navigationToDestino(

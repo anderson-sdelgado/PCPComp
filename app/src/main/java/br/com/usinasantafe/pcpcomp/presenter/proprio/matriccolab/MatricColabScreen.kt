@@ -33,6 +33,8 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
+import br.com.usinasantafe.pcpcomp.utils.TypeEquip
+import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 
 @Composable
 fun MatricColabScreen(
@@ -62,6 +64,9 @@ fun MatricColabScreen(
                 onNavNomeColab = onNavNomeColab,
                 modifier = Modifier.padding(innerPadding)
             )
+            if ((uiState.flowApp == FlowApp.CHANGE) && (uiState.typeOcupante == TypeOcupante.MOTORISTA)) {
+                viewModel.getMatricColab()
+            }
         }
     }
 }

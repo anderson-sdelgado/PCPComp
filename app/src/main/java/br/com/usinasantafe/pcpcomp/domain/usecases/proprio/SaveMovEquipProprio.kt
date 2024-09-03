@@ -30,13 +30,6 @@ class SaveMovEquipProprioImpl(
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
             val id = resultSave.getOrNull()!!
-            if (id == 0)
-                return Result.failure(
-                    UsecaseException(
-                        function = "SaveMovEquipProprioImpl",
-                        cause = Exception("Id is 0")
-                    )
-                )
             val resultSavePassag = movEquipProprioPassagRepository.save(id)
             if (resultSavePassag.isFailure)
                 return Result.failure(resultSavePassag.exceptionOrNull()!!)

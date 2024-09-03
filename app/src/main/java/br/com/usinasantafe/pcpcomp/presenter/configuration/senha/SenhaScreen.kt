@@ -16,10 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
@@ -78,6 +80,9 @@ fun SenhaContent(
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             ),
+            textStyle = TextStyle(
+                fontSize = 24.sp
+            ),
             visualTransformation = PasswordVisualTransformation(),
             value = password,
             onValueChange = onPasswordChanged,
@@ -125,7 +130,7 @@ fun SenhaPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             SenhaContent(
-                password = "",
+                password = "teste",
                 onPasswordChanged = {},
                 flagDialog = false,
                 setCloseDialog = {},

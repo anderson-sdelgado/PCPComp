@@ -32,7 +32,6 @@ class ProcessWorkManagerTest {
             .setExecutor(SynchronousExecutor())
             .build()
 
-        // Initialize WorkManager for testing.
         WorkManagerTestInitHelper.initializeTestWorkManager(context, config)
     }
 

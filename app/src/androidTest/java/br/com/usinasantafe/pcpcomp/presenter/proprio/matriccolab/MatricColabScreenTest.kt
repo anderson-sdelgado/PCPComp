@@ -11,13 +11,20 @@ import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.StatusData
+import br.com.usinasantafe.pcpcomp.utils.StatusSend
+import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -30,7 +37,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class MatricColabScreenTest: KoinTest {
+class MatricColabScreenTest : KoinTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -39,6 +46,7 @@ class MatricColabScreenTest: KoinTest {
     val cleanColab: CleanColab by inject()
     val recoverColabServer: RecoverColabServer by inject()
     val saveAllColab: SaveAllColab by inject()
+    val getMatricColab: GetMatricColab by inject()
 
     @Before
     fun before() {
@@ -80,7 +88,8 @@ class MatricColabScreenTest: KoinTest {
         composeTestRule.onNodeWithText("OK").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("CAMPO VAZIO! POR FAVOR, PREENCHA O CAMPO \"MATRICULA COLABORADOR\" PARA DAR CONTINUIDADE AO APONTAMENTO.")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple")
+            .assertTextEquals("CAMPO VAZIO! POR FAVOR, PREENCHA O CAMPO \"MATRICULA COLABORADOR\" PARA DAR CONTINUIDADE AO APONTAMENTO.")
     }
 
     @Test
@@ -94,7 +103,8 @@ class MatricColabScreenTest: KoinTest {
         composeTestRule.onNodeWithText("OK").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("DADO INVÁLIDO! POR FAVOR, VERIFIQUE SE O CAMPO \"MATRICULA COLABORADOR\" FOI DIGITADO CORRETAMENTE OU ATUALIZE OS DADOS PARA VERIFICAR SE OS MESMOS NÃO ESTÃO DESATUALIZADOS.")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple")
+            .assertTextEquals("DADO INVÁLIDO! POR FAVOR, VERIFIQUE SE O CAMPO \"MATRICULA COLABORADOR\" FOI DIGITADO CORRETAMENTE OU ATUALIZE OS DADOS PARA VERIFICAR SE OS MESMOS NÃO ESTÃO DESATUALIZADOS.")
     }
 
     @Test
@@ -107,7 +117,8 @@ class MatricColabScreenTest: KoinTest {
         composeTestRule.onNodeWithText("ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple")
+            .assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException")
     }
 
     @Test
@@ -135,7 +146,8 @@ class MatricColabScreenTest: KoinTest {
         composeTestRule.onNodeWithText("ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Failure Datasource -> ColabRoomDatasourceImpl.addAll -> android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: tb_colab.matricColab (code 1555 SQLITE_CONSTRAINT_PRIMARYKEY[1555])")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple")
+            .assertTextEquals("FALHA DE ATUALIZAÇÃO DE DADOS! POR FAVOR ENTRE EM CONTATO COM TI. Failure Datasource -> ColabRoomDatasourceImpl.addAll -> android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: tb_colab.matricColab (code 1555 SQLITE_CONSTRAINT_PRIMARYKEY[1555])")
     }
 
     @Test
@@ -162,22 +174,75 @@ class MatricColabScreenTest: KoinTest {
         composeTestRule.onNodeWithText("ATUALIZAR DADOS").performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertTextEquals("Atualização de dados realizado com sucesso!")
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple")
+            .assertTextEquals("Atualização de dados realizado com sucesso!")
         composeTestRule.onNodeWithTag(BUTTON_OK_ALERT_DIALOG_SIMPLE)
             .performClick()
         composeTestRule.waitUntilTimeout(2_000)
         composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsNotDisplayed()
     }
 
-    private fun setContent(flowApp: FlowApp = FlowApp.ADD) {
+    @Test
+    fun check_return_failure_if_not_have_mov_equip() = runTest {
+        setContent(
+            flowApp = FlowApp.CHANGE,
+            typeOcupante = TypeOcupante.MOTORISTA,
+            id = 1
+        )
+        composeTestRule.waitUntilTimeout(2_000)
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("text_alert_dialog_simple")
+            .assertTextEquals("FALHA INESPERADA NO APLICATIVO! POR FAVOR ENTRE EM CONTATO COM TI. Failure Repository -> MovEquipProprioRepositoryImpl.get -> java.lang.NullPointerException")
+    }
+
+    @Test
+    fun check_return_matric_colab_if_have_mov_equip() = runTest {
+        val movEquipProprioDao: MovEquipProprioDao by inject()
+        movEquipProprioDao.insert(
+            MovEquipProprioRoomModel(
+                idMovEquipProprio = 1,
+                matricVigiaMovEquipProprio = 19759,
+                idLocalMovEquipProprio = 1,
+                tipoMovEquipProprio = TypeMov.INPUT,
+                dthrMovEquipProprio = 1723213270250,
+                idEquipMovEquipProprio = 10,
+                matricColabMovEquipProprio = 19759,
+                destinoMovEquipProprio = "TESTE DESTINO",
+                notaFiscalMovEquipProprio = 123456789,
+                observMovEquipProprio = "TESTE OBSERV",
+                statusMovEquipProprio = StatusData.OPEN,
+                statusSendMovEquipProprio = StatusSend.SEND
+            )
+        )
+        setContent(
+            flowApp = FlowApp.CHANGE,
+            typeOcupante = TypeOcupante.MOTORISTA,
+            id = 1
+        )
+        composeTestRule.waitUntilTimeout(2_000)
+        composeTestRule.onNodeWithText("19759").performClick()
+    }
+
+    private fun setContent(
+        flowApp: FlowApp = FlowApp.ADD,
+        typeOcupante: TypeOcupante = TypeOcupante.MOTORISTA,
+        id: Int = 0
+    ) {
         composeTestRule.setContent {
             MatricColabScreen(
                 viewModel = MatricColabViewModel(
-                    SavedStateHandle(mapOf(Args.FLOW_APP_ARGS to flowApp.ordinal)),
+                    SavedStateHandle(
+                        mapOf(
+                            Args.FLOW_APP_ARGS to flowApp.ordinal,
+                            Args.TYPE_OCUPANTE_ARGS to typeOcupante.ordinal,
+                            Args.ID_ARGS to id
+                        )
+                    ),
                     checkMatricColab,
                     cleanColab,
                     recoverColabServer,
-                    saveAllColab
+                    saveAllColab,
+                    getMatricColab
                 ),
                 onNavMovVeicProprio = {},
                 onNavDetalheMovProprio = {},

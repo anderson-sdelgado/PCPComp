@@ -145,6 +145,37 @@ class ObservProprioViewModelTest {
         )
     }
 
+    @Test
+    fun `Check return failure with observ empty if have errors in SaveMovEquipProprio`() = runTest {
+        val setObservProprio = mock<SetObservProprio>()
+        val saveMovEquipProprio = mock<SaveMovEquipProprio>()
+        val getTypeMov = mock<GetTypeMov>()
+        whenever(saveMovEquipProprio()).thenReturn(
+            Result.failure(
+                UsecaseException(
+                    function = "SaveMovEquipProprio",
+                    cause = Exception()
+                )
+            )
+        )
+        val viewModel = ObservProprioViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.ID_ARGS to 0,
+                )
+            ),
+            setObservProprio,
+            saveMovEquipProprio,
+            getTypeMov
+        )
+        viewModel.setObserv()
+        assertEquals(viewModel.uiState.value.flagDialog, true)
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> SaveMovEquipProprio -> java.lang.Exception"
+        )
+    }
 
     @Test
     fun `Check return failure if have errors in SaveMovEquipProprio`() = runTest {
@@ -217,6 +248,29 @@ class ObservProprioViewModelTest {
             getTypeMov
         )
         viewModel.onObservChanged("Teste")
+        viewModel.setObserv()
+        assertEquals(viewModel.uiState.value.flagAccess, true)
+    }
+
+    @Test
+    fun `Check return access with observ empty if SetObservProprio execute success`() = runTest {
+        val setObservProprio = mock<SetObservProprio>()
+        val saveMovEquipProprio = mock<SaveMovEquipProprio>()
+        val getTypeMov = mock<GetTypeMov>()
+        whenever(saveMovEquipProprio()).thenReturn(
+            Result.success(true)
+        )
+        val viewModel = ObservProprioViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    Args.ID_ARGS to 0,
+                )
+            ),
+            setObservProprio,
+            saveMovEquipProprio,
+            getTypeMov
+        )
         viewModel.setObserv()
         assertEquals(viewModel.uiState.value.flagAccess, true)
     }
