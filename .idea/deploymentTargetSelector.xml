@@ -5,19 +5,19 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_return_true_if_SetNotaFiscalProprio_execute_success_flowapp_add()">
+      <SelectionState runConfigName="check_return_true_if_have_success_in_add_passag_flowapp_change()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="check_return_success_if_have_data_in_mov_equip_proprio_internal_flowapp_change() (1)">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="check_return_true_if_SetNotaFiscalProprio_execute_success_flowapp_change()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_return_failure_if_not_have_data_in_mov_equip_proprio_internal_flowapp_add() (1)">
+      <SelectionState runConfigName="check_return_success_if_have_data_in_mov_equip_proprio_internal_flowapp_change() (2)">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_return_failure_if_not_have_data_in_mov_equip_proprio_internal_flowapp_change() (1)">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="check_return_success_if_have_data_in_mov_equip_proprio_internal_flowapp_change()">
+      <SelectionState runConfigName="verify_flow_main_initial()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

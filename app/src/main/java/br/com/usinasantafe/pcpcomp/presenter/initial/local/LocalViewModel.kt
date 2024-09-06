@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetIdLocalConfig
-import br.com.usinasantafe.pcpcomp.domain.usecases.initial.RecoverLocals
+import br.com.usinasantafe.pcpcomp.domain.usecases.initial.GetLocalList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -18,7 +18,7 @@ data class LocalState(
 )
 
 class LocalViewModel(
-    private val recoverLocals: RecoverLocals,
+    private val getLocalList: GetLocalList,
     private val setIdLocalConfig: SetIdLocalConfig,
 ) : ViewModel() {
 
@@ -32,7 +32,7 @@ class LocalViewModel(
     }
 
     fun startRecoverLocals() = viewModelScope.launch {
-        val resultRecoverLocals = recoverLocals()
+        val resultRecoverLocals = getLocalList()
         if (resultRecoverLocals.isFailure) {
             val error = resultRecoverLocals.exceptionOrNull()!!
             val failure =

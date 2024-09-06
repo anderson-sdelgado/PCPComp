@@ -98,7 +98,7 @@ fun MenuApontContent(
             }
             item {
                 ItemListDesign(
-                    "MOV. VEÍCULO RESIDÊNCIA",
+                    text = "MOV. VEÍCULO RESIDÊNCIA",
                     setActionItem = onNavMovVeicResidencia
                 )
             }

@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllEquipServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 
 data class NroEquipProprioState(
     val nroEquip: String = "",
+    val flagGetNro: Boolean = true,
     val flowApp: FlowApp = FlowApp.ADD,
     val typeEquip: TypeEquip = TypeEquip.VEICULO,
     val id: Int = 0,
@@ -45,9 +46,9 @@ data class NroEquipProprioState(
 class NroEquipProprioViewModel(
     saveStateHandle: SavedStateHandle,
     private val checkNroEquipProprio: CheckNroEquipProprio,
-    private val setNroEquipProprio: SetNroEquipProprio,
+    private val setNroEquipProprio: SetNroEquip,
     private val cleanEquip: CleanEquip,
-    private val recoverEquipServer: RecoverEquipServer,
+    private val getAllEquipServer: GetAllEquipServer,
     private val saveAllEquip: SaveAllEquip,
     private val getNroEquip: GetNroEquip,
 ) : ViewModel() {
@@ -119,24 +120,33 @@ class NroEquipProprioViewModel(
     }
 
     fun getNroEquip() = viewModelScope.launch {
-       val resultGetNro = getNroEquip(uiState.value.id)
-        if(resultGetNro.isFailure) {
-            val error = resultGetNro.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
+        if (
+            (uiState.value.flowApp == FlowApp.CHANGE) &&
+            (uiState.value.typeEquip == TypeEquip.VEICULO) &&
+            (uiState.value.flagGetNro)
+        ) {
+            val resultGetNro = getNroEquip(uiState.value.id)
+            if (resultGetNro.isFailure) {
+                val error = resultGetNro.exceptionOrNull()!!
+                val failure =
+                    "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        flagFailure = true,
+                        errors = Errors.EXCEPTION,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+            val nroEquip = resultGetNro.getOrNull()!!
             _uiState.update {
                 it.copy(
-                    flagDialog = true,
-                    flagFailure = true,
-                    errors = Errors.EXCEPTION,
-                    failure = failure,
+                    nroEquip = nroEquip,
+                    flagGetNro = false
                 )
             }
-            return@launch
-        }
-        val nroEquip = resultGetNro.getOrNull()!!
-        _uiState.update {
-            it.copy(nroEquip = nroEquip)
         }
     }
 
@@ -241,7 +251,7 @@ class NroEquipProprioViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverEquipServer()
+        val resultRecover = getAllEquipServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =

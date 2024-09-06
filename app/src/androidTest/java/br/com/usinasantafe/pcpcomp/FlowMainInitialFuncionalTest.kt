@@ -17,14 +17,12 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllVisitante
-import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.presenter.MainActivity
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.resultTokenRetrofit
-import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN
-import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.TAG_DESTINO_TEXT_FIELD_PROPRIO
+import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.TAG_OBSERV_TEXT_FIELD_PROPRIO
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utlis.returnDataSendMovEquipProprio
 import br.com.usinasantafe.pcpcomp.utlis.returnDataServerColab
 import br.com.usinasantafe.pcpcomp.utlis.returnDataServerEquip
@@ -44,7 +42,6 @@ import org.junit.Test
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import kotlin.test.assertEquals
 
 class FlowMainInitialFuncionalTest : KoinTest {
 
@@ -139,16 +136,43 @@ class FlowMainInitialFuncionalTest : KoinTest {
         composeTestRule.onNodeWithText("OK").performClick()
 
         composeTestRule.onNodeWithText("DESTINO").assertIsDisplayed()
-        composeTestRule.onNodeWithTag(TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN)
+        composeTestRule.onNodeWithTag(TAG_DESTINO_TEXT_FIELD_PROPRIO)
             .performTextInput("Teste Destino")
         composeTestRule.onNodeWithText("OK").performClick()
 
         composeTestRule.onNodeWithText("OBSERVAÇÃO").assertIsDisplayed()
-        composeTestRule.onNodeWithTag(TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN)
+        composeTestRule.onNodeWithTag(TAG_OBSERV_TEXT_FIELD_PROPRIO)
             .performTextInput("Teste Observação")
         composeTestRule.onNodeWithText("OK").performClick()
 
-        composeTestRule.waitUntilTimeout(5_000)
+        composeTestRule.onNodeWithTag("item_list_1").performClick()
+
+        composeTestRule.onNodeWithTag("item_list_1").performClick()
+
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+
+        composeTestRule.onNodeWithText("3").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithTag("item_list_2").performClick()
+
+        composeTestRule.onNodeWithTag("item_list_1").performClick()
+        composeTestRule.onNodeWithText("SIM").performClick()
+
+        composeTestRule.onNodeWithText("INSERIR").performClick()
+
+        composeTestRule.onNodeWithText("2").performClick()
+        composeTestRule.onNodeWithText("5").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.waitUntilTimeout(10_000)
 
     }
 

@@ -47,8 +47,8 @@ fun MatricColabScreen(
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             MatricColabContent(
-                matricColab = uiState.matricColab,
                 flowApp = uiState.flowApp,
+                matricColab = uiState.matricColab,
                 setTextField = viewModel::setTextField,
                 flagAccess = uiState.flagAccess,
                 flagDialog = uiState.flagDialog,
@@ -64,17 +64,15 @@ fun MatricColabScreen(
                 onNavNomeColab = onNavNomeColab,
                 modifier = Modifier.padding(innerPadding)
             )
-            if ((uiState.flowApp == FlowApp.CHANGE) && (uiState.typeOcupante == TypeOcupante.MOTORISTA)) {
-                viewModel.getMatricColab()
-            }
+            viewModel.getMatricColab()
         }
     }
 }
 
 @Composable
 fun MatricColabContent(
-    matricColab: String,
     flowApp: FlowApp,
+    matricColab: String,
     setTextField: (String, TypeButton) -> Unit,
     flagAccess: Boolean,
     flagDialog: Boolean,
@@ -94,7 +92,7 @@ fun MatricColabContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "MATRIC. COLABORADOR:")
+        TitleListDesign(text = stringResource(id = R.string.text_title_matric_colab))
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -127,7 +125,7 @@ fun MatricColabContent(
                 when (errors) {
                     Errors.FIELDEMPTY -> stringResource(
                         id = R.string.text_field_empty,
-                        "MATRICULA COLABORADOR"
+                        stringResource(id = R.string.text_title_matric_colab)
                     )
 
                     Errors.UPDATE -> stringResource(id = R.string.text_update_failure, failure)
@@ -136,7 +134,7 @@ fun MatricColabContent(
 
                     Errors.INVALID -> stringResource(
                         id = R.string.text_input_data_invalid,
-                        "MATRICULA COLABORADOR"
+                        stringResource(id = R.string.text_title_matric_colab)
                     )
                 }
             } else {

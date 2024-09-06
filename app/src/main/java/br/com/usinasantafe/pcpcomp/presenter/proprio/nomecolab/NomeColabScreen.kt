@@ -67,7 +67,7 @@ fun NomeColabContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "NOME COLABORADOR")
+        TitleListDesign(text = stringResource(id = R.string.text_title_nome_colab))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,

@@ -30,12 +30,12 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
-const val TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN = "tag_destino_text_field_destino_screen"
+const val TAG_DESTINO_TEXT_FIELD_PROPRIO = "tag_destino_text_field_proprio"
 
 @Composable
 fun DestinoProprioScreen(
     viewModel: DestinoProprioViewModel,
-    onNavEquipSegList: () -> Unit,
+    onNavPassagList: () -> Unit,
     onNavDetalheMovProprio: () -> Unit,
     onNavNotaFiscal: () -> Unit,
     onNavObserv: () -> Unit
@@ -44,8 +44,8 @@ fun DestinoProprioScreen(
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             DestinoProprioContent(
-                destino = uiState.destino,
                 flowApp = uiState.flowApp,
+                destino = uiState.destino,
                 onDestinoChanged = viewModel::onDestinoChanged,
                 setDestino = viewModel::setDestino,
                 typeMov = uiState.typeMov,
@@ -53,7 +53,7 @@ fun DestinoProprioScreen(
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
-                onNavEquipSegList = onNavEquipSegList,
+                onNavPassagList = onNavPassagList,
                 onNavDetalheMovProprio = onNavDetalheMovProprio,
                 onNavNotaFiscal = onNavNotaFiscal,
                 onNavObserv = onNavObserv,
@@ -65,8 +65,8 @@ fun DestinoProprioScreen(
 
 @Composable
 fun DestinoProprioContent(
-    destino: String,
     flowApp: FlowApp,
+    destino: String,
     onDestinoChanged: (String) -> Unit,
     setDestino: () -> Unit,
     typeMov: TypeMov,
@@ -74,7 +74,7 @@ fun DestinoProprioContent(
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavEquipSegList: () -> Unit,
+    onNavPassagList: () -> Unit,
     onNavDetalheMovProprio: () -> Unit,
     onNavNotaFiscal: () -> Unit,
     onNavObserv: () -> Unit,
@@ -84,7 +84,7 @@ fun DestinoProprioContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "DESTINO")
+        TitleListDesign(text = stringResource(id = R.string.text_title_destino))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = destino,
@@ -92,7 +92,7 @@ fun DestinoProprioContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .testTag(TAG_DESTINO_TEXT_FIELD_DESTINO_SCREEN),
+                .testTag(TAG_DESTINO_TEXT_FIELD_PROPRIO),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,
@@ -107,7 +107,7 @@ fun DestinoProprioContent(
             Button(
                 onClick = {
                     when (flowApp) {
-                        FlowApp.ADD -> onNavEquipSegList()
+                        FlowApp.ADD -> onNavPassagList()
                         FlowApp.CHANGE -> onNavDetalheMovProprio()
                     }
                 },
@@ -125,8 +125,11 @@ fun DestinoProprioContent(
         BackHandler {}
 
         if (flagDialog) {
-            val text = if(failure.isEmpty()) {
-                stringResource(R.string.text_field_empty, "DESTINO")
+            val text = if (failure.isEmpty()) {
+                stringResource(
+                    R.string.text_field_empty,
+                    stringResource(id = R.string.text_title_destino)
+                )
             } else {
                 stringResource(id = R.string.text_failure, failure)
             }
@@ -136,8 +139,8 @@ fun DestinoProprioContent(
             )
         }
 
-        if(flagAccess) {
-            when(typeMov){
+        if (flagAccess) {
+            when (typeMov) {
                 TypeMov.INPUT -> onNavObserv()
                 TypeMov.OUTPUT -> onNavNotaFiscal()
             }
@@ -152,8 +155,8 @@ fun DestinoProprioPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             DestinoProprioContent(
-                destino = "Tabatinga",
                 flowApp = FlowApp.ADD,
+                destino = "Tabatinga",
                 onDestinoChanged = {},
                 setDestino = {},
                 typeMov = TypeMov.INPUT,
@@ -161,7 +164,7 @@ fun DestinoProprioPagePreview() {
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavEquipSegList = {},
+                onNavPassagList = {},
                 onNavDetalheMovProprio = {},
                 onNavNotaFiscal = {},
                 onNavObserv = {},
@@ -186,7 +189,7 @@ fun DestinoProprioPagePreviewFieldEmpty() {
                 flagDialog = true,
                 setCloseDialog = {},
                 failure = "",
-                onNavEquipSegList = {},
+                onNavPassagList = {},
                 onNavDetalheMovProprio = {},
                 onNavNotaFiscal = {},
                 onNavObserv = {},
@@ -211,7 +214,7 @@ fun DestinoProprioPagePreviewFailure() {
                 flagDialog = true,
                 setCloseDialog = {},
                 failure = "Failure Usecase",
-                onNavEquipSegList = {},
+                onNavPassagList = {},
                 onNavDetalheMovProprio = {},
                 onNavNotaFiscal = {},
                 onNavObserv = {},

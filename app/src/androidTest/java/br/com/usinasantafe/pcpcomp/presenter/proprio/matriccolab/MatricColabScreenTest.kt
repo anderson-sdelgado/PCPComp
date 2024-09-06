@@ -12,7 +12,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
@@ -44,7 +44,7 @@ class MatricColabScreenTest : KoinTest {
 
     val checkMatricColab: CheckMatricColab by inject()
     val cleanColab: CleanColab by inject()
-    val recoverColabServer: RecoverColabServer by inject()
+    val getAllColabServer: GetAllColabServer by inject()
     val saveAllColab: SaveAllColab by inject()
     val getMatricColab: GetMatricColab by inject()
 
@@ -240,7 +240,7 @@ class MatricColabScreenTest : KoinTest {
                     ),
                     checkMatricColab,
                     cleanColab,
-                    recoverColabServer,
+                    getAllColabServer,
                     saveAllColab,
                     getMatricColab
                 ),

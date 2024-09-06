@@ -48,5 +48,8 @@ interface MovEquipProprioRepository {
     suspend fun setSent(
         list: List<MovEquipProprio>
     ): Result<Boolean>
+    suspend fun setSend(
+        id: Int
+    ): Result<Boolean>
     suspend fun start(typeMov: TypeMov): Result<Boolean>
 }

@@ -93,7 +93,7 @@ fun DetalheMovProprioContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "MOVIMENTO")
+        TitleListDesign(text = stringResource(id = R.string.text_title_detalhe))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -114,13 +114,15 @@ fun DetalheMovProprioContent(
             item {
                 ItemListDesign(
                     text = veiculo,
-                    setActionItem = onNavNroEquip
+                    setActionItem = onNavNroEquip,
+                    id = 1
                 )
             }
             item {
                 ItemListDesign(
                     text = veiculoSec,
-                    setActionItem = onNavEquipSegList
+                    setActionItem = onNavEquipSegList,
+                    id = 2
                 )
             }
             item {

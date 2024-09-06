@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CleanEquipSeg
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.DeleteEquipSeg
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverEquipSegList
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetEquipSegList
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
@@ -29,7 +29,7 @@ class EquipSegListViewModelTest {
     @Test
     fun `Check return failure if CleanEquipSeg have failure`() = runTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
-        val recoverEquipSegList = mock<RecoverEquipSegList>()
+        val getEquipSegList = mock<GetEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
         whenever(cleanEquipSeg()).thenReturn(
             Result.failure(
@@ -48,7 +48,7 @@ class EquipSegListViewModelTest {
                 )
             ),
             cleanEquipSeg,
-            recoverEquipSegList,
+            getEquipSegList,
             deleteEquipSeg
         )
         viewModel.cleanVeicSeg()
@@ -62,10 +62,10 @@ class EquipSegListViewModelTest {
     @Test
     fun `Check return failure if have failure in RecoverEquipSeg`() = runTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
-        val recoverEquipSegList = mock<RecoverEquipSegList>()
+        val getEquipSegList = mock<GetEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
         whenever(
-            recoverEquipSegList(
+            getEquipSegList(
                 FlowApp.ADD,
                 0
             )
@@ -86,7 +86,7 @@ class EquipSegListViewModelTest {
                 )
             ),
             cleanEquipSeg,
-            recoverEquipSegList,
+            getEquipSegList,
             deleteEquipSeg
         )
         viewModel.recoverVeicSeg()
@@ -100,10 +100,10 @@ class EquipSegListViewModelTest {
     @Test
     fun `Check return list Equip if RecoverEquipSeg execute successfully`() = runTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
-        val recoverEquipSegList = mock<RecoverEquipSegList>()
+        val getEquipSegList = mock<GetEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
         whenever(
-            recoverEquipSegList(
+            getEquipSegList(
                 FlowApp.ADD,
                 0
             )
@@ -130,7 +130,7 @@ class EquipSegListViewModelTest {
                 )
             ),
             cleanEquipSeg,
-            recoverEquipSegList,
+            getEquipSegList,
             deleteEquipSeg
         )
         viewModel.recoverVeicSeg()
@@ -141,7 +141,7 @@ class EquipSegListViewModelTest {
     @Test
     fun `Check return failure if have failure in DeleteEquipSeg`() = runTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
-        val recoverEquipSegList = mock<RecoverEquipSegList>()
+        val getEquipSegList = mock<GetEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
         whenever(
             deleteEquipSeg(
@@ -166,7 +166,7 @@ class EquipSegListViewModelTest {
                 )
             ),
             cleanEquipSeg,
-            recoverEquipSegList,
+            getEquipSegList,
             deleteEquipSeg
         )
         viewModel.setDelete(10)
@@ -183,7 +183,7 @@ class EquipSegListViewModelTest {
     @Test
     fun `Check return list Colab after deleteEquipSeg execute successfully`() = runTest {
         val cleanEquipSeg = mock<CleanEquipSeg>()
-        val recoverEquipSegList = mock<RecoverEquipSegList>()
+        val getEquipSegList = mock<GetEquipSegList>()
         val deleteEquipSeg = mock<DeleteEquipSeg>()
         whenever(
             deleteEquipSeg(
@@ -195,7 +195,7 @@ class EquipSegListViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipSegList(
+            getEquipSegList(
                 FlowApp.ADD,
                 0
             )
@@ -222,7 +222,7 @@ class EquipSegListViewModelTest {
                 )
             ),
             cleanEquipSeg,
-            recoverEquipSegList,
+            getEquipSegList,
             deleteEquipSeg
         )
         viewModel.setDelete(10)

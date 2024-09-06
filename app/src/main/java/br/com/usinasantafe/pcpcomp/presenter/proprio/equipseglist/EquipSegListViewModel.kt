@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CleanEquipSeg
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.DeleteEquipSeg
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverEquipSegList
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetEquipSegList
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_EQUIP_ARGS
@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 
 data class EquipSegListState(
     val equipSegList: List<Equip> = emptyList(),
+    val flagClean: Boolean = true,
     val flowApp: FlowApp = FlowApp.ADD,
     val typeEquip: TypeEquip = TypeEquip.VEICULO,
     val id: Int = 0,
@@ -31,7 +32,7 @@ data class EquipSegListState(
 class EquipSegListViewModel(
     saveStateHandle: SavedStateHandle,
     private val cleanEquipSeg: CleanEquipSeg,
-    private val recoverEquipSegList: RecoverEquipSegList,
+    private val getEquipSegList: GetEquipSegList,
     private val deleteEquipSeg: DeleteEquipSeg,
 ) : ViewModel() {
 
@@ -65,24 +66,32 @@ class EquipSegListViewModel(
     }
 
     fun cleanVeicSeg() = viewModelScope.launch {
-        val resultClean = cleanEquipSeg()
-        if (resultClean.isFailure) {
-            val error = resultClean.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
-                    flagDialog = true,
-                    failure = failure,
-                )
+        if (
+            (uiState.value.typeEquip == TypeEquip.VEICULO) &&
+            (uiState.value.flagClean)
+        ) {
+            val resultClean = cleanEquipSeg()
+            if (resultClean.isFailure) {
+                val error = resultClean.exceptionOrNull()!!
+                val failure =
+                    "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        failure = failure,
+                    )
+                }
+                return@launch
             }
-            return@launch
+            _uiState.update {
+                it.copy(flagClean = false)
+            }
         }
     }
 
 
     fun recoverVeicSeg() = viewModelScope.launch {
-        val resultRecoverEquipSeg = recoverEquipSegList(
+        val resultRecoverEquipSeg = getEquipSegList(
             flowApp = _uiState.value.flowApp,
             id = _uiState.value.id
         )

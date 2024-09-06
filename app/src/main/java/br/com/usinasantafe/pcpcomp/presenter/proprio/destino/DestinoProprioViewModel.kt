@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class DestinoProprioState(
-    val destino: String = "",
     val flowApp: FlowApp = FlowApp.ADD,
     val id: Int = 0,
+    val destino: String = "",
     val typeMov: TypeMov = TypeMov.INPUT,
     val flagAccess: Boolean = false,
     val flagDialog: Boolean = false,

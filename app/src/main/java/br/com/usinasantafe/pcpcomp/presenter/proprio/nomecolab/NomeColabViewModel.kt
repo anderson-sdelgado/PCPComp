@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverNomeColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNomeColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.MATRIC_COLAB_ARGS
@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class NomeColabState(
-    val nomeColab: String = "",
-    val matricColab: String = "",
     val flowApp: FlowApp = FlowApp.ADD,
     val typeOcupante: TypeOcupante = TypeOcupante.MOTORISTA,
     val id: Int = 0,
+    val matricColab: String = "",
+    val nomeColab: String = "",
     val flagAccess: Boolean = false,
     val flagDialog: Boolean = false,
     val failure: String = "",
@@ -29,7 +29,7 @@ data class NomeColabState(
 
 class NomeColabViewModel(
     saveStateHandle: SavedStateHandle,
-    private val recoverNomeColab: RecoverNomeColab,
+    private val getNomeColab: GetNomeColab,
     private val setMatricColab: SetMatricColab
 ) : ViewModel() {
 
@@ -59,7 +59,7 @@ class NomeColabViewModel(
     }
 
     fun returnNomeColab() = viewModelScope.launch {
-        val recoverNome = recoverNomeColab(uiState.value.matricColab)
+        val recoverNome = getNomeColab(uiState.value.matricColab)
         if (recoverNome.isFailure) {
             val error = recoverNome.exceptionOrNull()!!
             val failure =

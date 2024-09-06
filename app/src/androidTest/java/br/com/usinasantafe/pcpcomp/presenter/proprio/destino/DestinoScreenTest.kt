@@ -62,7 +62,7 @@ class DestinoScreenTest : KoinTest {
                     setDestinoProprio,
                     getTypeMov
                 ),
-                onNavEquipSegList = {},
+                onNavPassagList = {},
                 onNavDetalheMovProprio = {},
                 onNavNotaFiscal = {},
                 onNavObserv = {}

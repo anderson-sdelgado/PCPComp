@@ -66,9 +66,7 @@ fun NroEquipScreen(
                 onNavEquipSegList = onNavEquipSegList,
                 modifier = Modifier.padding(innerPadding)
             )
-            if ((uiState.flowApp == FlowApp.CHANGE) && (uiState.typeEquip == TypeEquip.VEICULO)) {
-                viewModel.getNroEquip()
-            }
+            viewModel.getNroEquip()
         }
     }
 }
@@ -97,7 +95,7 @@ fun NroEquipContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "NRO DO VEICULO:")
+        TitleListDesign(text = stringResource(id = R.string.text_title_nro_equip))
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -137,7 +135,7 @@ fun NroEquipContent(
                 when (errors) {
                     Errors.FIELDEMPTY -> stringResource(
                         id = R.string.text_field_empty,
-                        "NUMERO DO VEICULO"
+                        stringResource(id = R.string.text_title_nro_equip)
                     )
 
                     Errors.UPDATE -> stringResource(id = R.string.text_update_failure, failure)
@@ -146,7 +144,7 @@ fun NroEquipContent(
 
                     Errors.INVALID -> stringResource(
                         id = R.string.text_input_data_invalid,
-                        "NUMERO DO VEICULO"
+                        stringResource(id = R.string.text_title_nro_equip)
                     )
                 }
             } else {

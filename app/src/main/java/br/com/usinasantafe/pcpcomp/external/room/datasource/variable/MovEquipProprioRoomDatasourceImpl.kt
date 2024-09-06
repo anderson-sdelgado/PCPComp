@@ -98,6 +98,7 @@ class MovEquipProprioRoomDatasourceImpl(
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.destinoMovEquipProprio = destino
+            movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SEND
             movEquipProprioDao.update(movEquipProprioRoomModel)
             return Result.success(true)
         } catch (e: Exception) {
@@ -114,6 +115,7 @@ class MovEquipProprioRoomDatasourceImpl(
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.idEquipMovEquipProprio = idEquip
+            movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SEND
             movEquipProprioDao.update(movEquipProprioRoomModel)
             return Result.success(true)
         } catch (e: Exception) {
@@ -130,6 +132,7 @@ class MovEquipProprioRoomDatasourceImpl(
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.matricColabMovEquipProprio = matricColab
+            movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SEND
             movEquipProprioDao.update(movEquipProprioRoomModel)
             return Result.success(true)
         } catch (e: Exception) {
@@ -146,6 +149,7 @@ class MovEquipProprioRoomDatasourceImpl(
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.notaFiscalMovEquipProprio = notaFiscal
+            movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SEND
             movEquipProprioDao.update(movEquipProprioRoomModel)
             return Result.success(true)
         } catch (e: Exception) {
@@ -162,6 +166,7 @@ class MovEquipProprioRoomDatasourceImpl(
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.observMovEquipProprio = observ
+            movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SEND
             movEquipProprioDao.update(movEquipProprioRoomModel)
             return Result.success(true)
         } catch (e: Exception) {
@@ -178,6 +183,22 @@ class MovEquipProprioRoomDatasourceImpl(
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SENT
+            movEquipProprioDao.update(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.setSent",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setSend(id: Int): Result<Boolean> {
+        try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
+            movEquipProprioRoomModel.statusSendMovEquipProprio = StatusSend.SEND
             movEquipProprioDao.update(movEquipProprioRoomModel)
             return Result.success(true)
         } catch (e: Exception) {

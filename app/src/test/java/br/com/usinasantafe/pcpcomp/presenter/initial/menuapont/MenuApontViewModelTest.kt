@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.initial.menuapont
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.common.RecoverHeader
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CloseAllMovOpen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -23,9 +23,9 @@ class MenuApontViewModelTest {
 
     @Test
     fun `check return failure if recoverHeader have failure`() = runTest {
-        val recoverHeader = mock<RecoverHeader>()
+        val getHeader = mock<GetHeader>()
         val closeAllMovOpen = mock<CloseAllMovOpen>()
-        whenever(recoverHeader()).thenReturn(
+        whenever(getHeader()).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferences.hasConfig",
@@ -34,7 +34,7 @@ class MenuApontViewModelTest {
             )
         )
         val viewModel = MenuApontViewModel(
-            recoverHeader,
+            getHeader,
             closeAllMovOpen
         )
         viewModel.returnHeader()
@@ -44,7 +44,7 @@ class MenuApontViewModelTest {
 
     @Test
     fun `check return failure if closeAllMovOpen have failure`() = runTest {
-        val recoverHeader = mock<RecoverHeader>()
+        val getHeader = mock<GetHeader>()
         val closeAllMovOpen = mock<CloseAllMovOpen>()
         whenever(closeAllMovOpen()).thenReturn(
             Result.failure(
@@ -55,7 +55,7 @@ class MenuApontViewModelTest {
             )
         )
         val viewModel = MenuApontViewModel(
-            recoverHeader,
+            getHeader,
             closeAllMovOpen
         )
         viewModel.closeAllMov()
@@ -65,13 +65,13 @@ class MenuApontViewModelTest {
 
     @Test
     fun `check return Splash if closeAllMovOpen execute correctly`() = runTest {
-        val recoverHeader = mock<RecoverHeader>()
+        val getHeader = mock<GetHeader>()
         val closeAllMovOpen = mock<CloseAllMovOpen>()
         whenever(closeAllMovOpen()).thenReturn(
             Result.success(true)
         )
         val viewModel = MenuApontViewModel(
-            recoverHeader,
+            getHeader,
             closeAllMovOpen
         )
         viewModel.closeAllMov()

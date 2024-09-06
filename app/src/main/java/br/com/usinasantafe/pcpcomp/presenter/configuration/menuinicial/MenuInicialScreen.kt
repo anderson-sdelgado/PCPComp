@@ -84,7 +84,7 @@ fun MenuInicialContent(
             }
             item {
                 ItemListDesign(
-                    "SAIR",
+                    text = "SAIR",
                     setActionItem = {
                         activity?.finish()
                     }

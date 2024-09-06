@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverNomeColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNomeColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
@@ -26,7 +26,7 @@ class NomeColabViewModelTest {
 
     @Test
     fun `Check set fields initial`() {
-        val recoverNomeColab = mock<RecoverNomeColab>()
+        val getNomeColab = mock<GetNomeColab>()
         val setMatricColab = mock<SetMatricColab>()
         val viewModel = NomeColabViewModel(
             SavedStateHandle(
@@ -37,7 +37,7 @@ class NomeColabViewModelTest {
                     Args.MATRIC_COLAB_ARGS to "19759"
                 )
             ),
-            recoverNomeColab,
+            getNomeColab,
             setMatricColab
         )
         assertEquals(viewModel.uiState.value.flowApp, FlowApp.ADD)
@@ -46,9 +46,9 @@ class NomeColabViewModelTest {
 
     @Test
     fun `Check return failure if RecoverNomeColab have failure`() = runTest {
-        val recoverNomeColab = mock<RecoverNomeColab>()
+        val getNomeColab = mock<GetNomeColab>()
         val setMatricColab = mock<SetMatricColab>()
-        whenever(recoverNomeColab("19759")).thenReturn(
+        whenever(getNomeColab("19759")).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "RecoverNomeColab",
@@ -65,7 +65,7 @@ class NomeColabViewModelTest {
                     Args.MATRIC_COLAB_ARGS to "19759"
                 )
             ),
-            recoverNomeColab,
+            getNomeColab,
             setMatricColab
         )
         viewModel.returnNomeColab()
@@ -75,9 +75,9 @@ class NomeColabViewModelTest {
 
     @Test
     fun `Check return name if RecoverNomeColab execute success`() = runTest {
-        val recoverNomeColab = mock<RecoverNomeColab>()
+        val getNomeColab = mock<GetNomeColab>()
         val setMatricColab = mock<SetMatricColab>()
-        whenever(recoverNomeColab("19759")).thenReturn(
+        whenever(getNomeColab("19759")).thenReturn(
             Result.success("ANDERSON DA SILVA DELGADO")
         )
         val viewModel = NomeColabViewModel(
@@ -89,7 +89,7 @@ class NomeColabViewModelTest {
                     Args.MATRIC_COLAB_ARGS to "19759"
                 )
             ),
-            recoverNomeColab,
+            getNomeColab,
             setMatricColab
         )
         viewModel.returnNomeColab()
@@ -99,7 +99,7 @@ class NomeColabViewModelTest {
 
     @Test
     fun `Check return failure if SetMatricColab have failure in add Motorista`() = runTest {
-        val recoverNomeColab = mock<RecoverNomeColab>()
+        val getNomeColab = mock<GetNomeColab>()
         val setMatricColab = mock<SetMatricColab>()
         whenever(setMatricColab(
             matricColab = "19759",
@@ -123,7 +123,7 @@ class NomeColabViewModelTest {
                     Args.MATRIC_COLAB_ARGS to "19759"
                 )
             ),
-            recoverNomeColab,
+            getNomeColab,
             setMatricColab
         )
         viewModel.setMatric()
@@ -133,7 +133,7 @@ class NomeColabViewModelTest {
 
     @Test
     fun `Check return name if SetMatricColab execute success in add Motorista`() = runTest {
-        val recoverNomeColab = mock<RecoverNomeColab>()
+        val getNomeColab = mock<GetNomeColab>()
         val setMatricColab = mock<SetMatricColab>()
         whenever(setMatricColab(
             matricColab = "19759",
@@ -152,7 +152,7 @@ class NomeColabViewModelTest {
                     Args.MATRIC_COLAB_ARGS to "19759"
                 )
             ),
-            recoverNomeColab,
+            getNomeColab,
             setMatricColab
         )
         viewModel.setMatric()
@@ -162,7 +162,7 @@ class NomeColabViewModelTest {
 
     @Test
     fun `Check return failure if SetMatricColab have failure in add Passag`() = runTest {
-        val recoverNomeColab = mock<RecoverNomeColab>()
+        val getNomeColab = mock<GetNomeColab>()
         val setMatricColab = mock<SetMatricColab>()
         whenever(setMatricColab(
             matricColab = "19759",
@@ -186,7 +186,7 @@ class NomeColabViewModelTest {
                     Args.MATRIC_COLAB_ARGS to "19759"
                 )
             ),
-            recoverNomeColab,
+            getNomeColab,
             setMatricColab
         )
         viewModel.setMatric()
@@ -196,7 +196,7 @@ class NomeColabViewModelTest {
 
     @Test
     fun `Check return success if SetMatricColab execute success in add Passag`() = runTest {
-        val recoverNomeColab = mock<RecoverNomeColab>()
+        val getNomeColab = mock<GetNomeColab>()
         val setMatricColab = mock<SetMatricColab>()
         whenever(setMatricColab(
             matricColab = "19759",
@@ -215,7 +215,7 @@ class NomeColabViewModelTest {
                     Args.MATRIC_COLAB_ARGS to "19759"
                 )
             ),
-            recoverNomeColab,
+            getNomeColab,
             setMatricColab
         )
         viewModel.setMatric()

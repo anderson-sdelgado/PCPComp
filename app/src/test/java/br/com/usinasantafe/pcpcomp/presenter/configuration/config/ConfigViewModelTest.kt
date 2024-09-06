@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.RecoverConfigInternal
+import br.com.usinasantafe.pcpcomp.domain.usecases.config.GetConfigInternal
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SaveDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SendDataConfig
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
@@ -17,11 +17,11 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanVisitante
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetCheckUpdateAllTable
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverLocalServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverTerceiroServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverVisitanteServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllEquipServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllLocalServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllTerceiroServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllVisitanteServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
@@ -47,7 +47,7 @@ class ConfigViewModelTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
-    private val recoverConfigInternal = mock<RecoverConfigInternal>()
+    private val getConfigInternal = mock<GetConfigInternal>()
     private val sendDataConfig = mock<SendDataConfig>()
     private val saveDataConfig = mock<SaveDataConfig>()
     private val cleanColab = mock<CleanColab>()
@@ -55,11 +55,11 @@ class ConfigViewModelTest {
     private val cleanLocal = mock<CleanLocal>()
     private val cleanTerceiro = mock<CleanTerceiro>()
     private val cleanVisitante = mock<CleanVisitante>()
-    private val recoverColabServer = mock<RecoverColabServer>()
-    private val recoverEquipServer = mock<RecoverEquipServer>()
-    private val recoverLocalServer = mock<RecoverLocalServer>()
-    private val recoverTerceiroServer = mock<RecoverTerceiroServer>()
-    private val recoverVisitanteServer = mock<RecoverVisitanteServer>()
+    private val getAllColabServer = mock<GetAllColabServer>()
+    private val getAllEquipServer = mock<GetAllEquipServer>()
+    private val getAllLocalServer = mock<GetAllLocalServer>()
+    private val getAllTerceiroServer = mock<GetAllTerceiroServer>()
+    private val getAllVisitanteServer = mock<GetAllVisitanteServer>()
     private val saveAllColab = mock<SaveAllColab>()
     private val saveAllEquip = mock<SaveAllEquip>()
     private val saveAllLocal = mock<SaveAllLocal>()
@@ -69,9 +69,9 @@ class ConfigViewModelTest {
 
     @Test
     fun `check return null if don't have Config table internal`() = runTest {
-        whenever(recoverConfigInternal()).thenReturn(null)
+        whenever(getConfigInternal()).thenReturn(null)
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -79,11 +79,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -103,9 +103,9 @@ class ConfigViewModelTest {
             number = "16997417840",
             password = "12345"
         )
-        whenever(recoverConfigInternal()).thenReturn(Result.success(configModel))
+        whenever(getConfigInternal()).thenReturn(Result.success(configModel))
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -113,11 +113,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -133,7 +133,7 @@ class ConfigViewModelTest {
     @Test
     fun `check return msg when field empty`() = runTest {
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -141,11 +141,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -175,7 +175,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -183,11 +183,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -243,7 +243,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -251,11 +251,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -321,7 +321,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -329,11 +329,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -402,7 +402,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -410,11 +410,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -467,7 +467,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -475,11 +475,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -532,7 +532,7 @@ class ConfigViewModelTest {
                 )
             )
             val viewModel = ConfigViewModel(
-                recoverConfigInternal = recoverConfigInternal,
+                getConfigInternal = getConfigInternal,
                 sendDataConfig = sendDataConfig,
                 saveDataConfig = saveDataConfig,
                 cleanColab = cleanColab,
@@ -540,11 +540,11 @@ class ConfigViewModelTest {
                 cleanLocal = cleanLocal,
                 cleanTerceiro = cleanTerceiro,
                 cleanVisitante = cleanVisitante,
-                recoverColabServer = recoverColabServer,
-                recoverEquipServer = recoverEquipServer,
-                recoverLocalServer = recoverLocalServer,
-                recoverTerceiroServer = recoverTerceiroServer,
-                recoverVisitanteServer = recoverVisitanteServer,
+                getAllColabServer = getAllColabServer,
+                getAllEquipServer = getAllEquipServer,
+                getAllLocalServer = getAllLocalServer,
+                getAllTerceiroServer = getAllTerceiroServer,
+                getAllVisitanteServer = getAllVisitanteServer,
                 saveAllColab = saveAllColab,
                 saveAllEquip = saveAllEquip,
                 saveAllLocal = saveAllLocal,
@@ -585,7 +585,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -595,7 +595,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -603,11 +603,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -656,7 +656,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -671,7 +671,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -679,11 +679,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -747,7 +747,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -755,11 +755,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -837,7 +837,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -845,11 +845,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -890,7 +890,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -900,7 +900,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -908,11 +908,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -959,7 +959,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.success(equipList)
         )
@@ -974,7 +974,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -982,11 +982,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1048,7 +1048,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1056,11 +1056,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1101,7 +1101,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverLocalServer()
+            getAllLocalServer()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -1111,7 +1111,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1119,11 +1119,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1170,7 +1170,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverLocalServer()
+            getAllLocalServer()
         ).thenReturn(
             Result.success(localList)
         )
@@ -1185,7 +1185,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1193,11 +1193,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1259,7 +1259,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1267,11 +1267,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1310,7 +1310,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverTerceiroServer()
+            getAllTerceiroServer()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -1320,7 +1320,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1328,11 +1328,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1381,7 +1381,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverTerceiroServer()
+            getAllTerceiroServer()
         ).thenReturn(
             Result.success(terceiroList)
         )
@@ -1396,7 +1396,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1404,11 +1404,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1470,7 +1470,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1478,11 +1478,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1521,7 +1521,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverVisitanteServer()
+            getAllVisitanteServer()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -1531,7 +1531,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1539,11 +1539,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1590,7 +1590,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverVisitanteServer()
+            getAllVisitanteServer()
         ).thenReturn(
             Result.success(visitanteList)
         )
@@ -1605,7 +1605,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1613,11 +1613,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1680,7 +1680,7 @@ class ConfigViewModelTest {
             )
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1688,11 +1688,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1740,7 +1740,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1748,11 +1748,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1798,7 +1798,7 @@ class ConfigViewModelTest {
         wheneverSuccessTerceiro()
         wheneverSuccessVisitante()
         val viewModel = ConfigViewModel(
-            recoverConfigInternal = recoverConfigInternal,
+            getConfigInternal = getConfigInternal,
             sendDataConfig = sendDataConfig,
             saveDataConfig = saveDataConfig,
             cleanColab = cleanColab,
@@ -1806,11 +1806,11 @@ class ConfigViewModelTest {
             cleanLocal = cleanLocal,
             cleanTerceiro = cleanTerceiro,
             cleanVisitante = cleanVisitante,
-            recoverColabServer = recoverColabServer,
-            recoverEquipServer = recoverEquipServer,
-            recoverLocalServer = recoverLocalServer,
-            recoverTerceiroServer = recoverTerceiroServer,
-            recoverVisitanteServer = recoverVisitanteServer,
+            getAllColabServer = getAllColabServer,
+            getAllEquipServer = getAllEquipServer,
+            getAllLocalServer = getAllLocalServer,
+            getAllTerceiroServer = getAllTerceiroServer,
+            getAllVisitanteServer = getAllVisitanteServer,
             saveAllColab = saveAllColab,
             saveAllEquip = saveAllEquip,
             saveAllLocal = saveAllLocal,
@@ -1850,7 +1850,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -1868,7 +1868,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.success(equipList)
         )
@@ -1886,7 +1886,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverLocalServer()
+            getAllLocalServer()
         ).thenReturn(
             Result.success(localList)
         )
@@ -1904,7 +1904,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverTerceiroServer()
+            getAllTerceiroServer()
         ).thenReturn(
             Result.success(terceiroList)
         )
@@ -1922,7 +1922,7 @@ class ConfigViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverVisitanteServer()
+            getAllVisitanteServer()
         ).thenReturn(
             Result.success(visitanteList)
         )

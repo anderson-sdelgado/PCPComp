@@ -7,15 +7,15 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanVisitante
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.RecoverConfigInternal
+import br.com.usinasantafe.pcpcomp.domain.usecases.config.GetConfigInternal
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SaveDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SendDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetCheckUpdateAllTable
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverLocalServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverTerceiroServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverVisitanteServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllEquipServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllLocalServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllTerceiroServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllVisitanteServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
@@ -50,7 +50,7 @@ data class ConfigState(
 )
 
 class ConfigViewModel(
-    private val recoverConfigInternal: RecoverConfigInternal,
+    private val getConfigInternal: GetConfigInternal,
     private val sendDataConfig: SendDataConfig,
     private val saveDataConfig: SaveDataConfig,
     private val cleanColab: CleanColab,
@@ -58,11 +58,11 @@ class ConfigViewModel(
     private val cleanLocal: CleanLocal,
     private val cleanTerceiro: CleanTerceiro,
     private val cleanVisitante: CleanVisitante,
-    private val recoverColabServer: RecoverColabServer,
-    private val recoverEquipServer: RecoverEquipServer,
-    private val recoverLocalServer: RecoverLocalServer,
-    private val recoverTerceiroServer: RecoverTerceiroServer,
-    private val recoverVisitanteServer: RecoverVisitanteServer,
+    private val getAllColabServer: GetAllColabServer,
+    private val getAllEquipServer: GetAllEquipServer,
+    private val getAllLocalServer: GetAllLocalServer,
+    private val getAllTerceiroServer: GetAllTerceiroServer,
+    private val getAllVisitanteServer: GetAllVisitanteServer,
     private val saveAllColab: SaveAllColab,
     private val saveAllEquip: SaveAllEquip,
     private val saveAllLocal: SaveAllLocal,
@@ -99,7 +99,7 @@ class ConfigViewModel(
     }
 
     fun returnDataConfig() = viewModelScope.launch {
-        val recoverConfig = recoverConfigInternal()
+        val recoverConfig = getConfigInternal()
         if (recoverConfig.isFailure) {
             val error = recoverConfig.exceptionOrNull()!!
             val failure =
@@ -301,7 +301,7 @@ class ConfigViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverColabServer()
+        val resultRecover = getAllColabServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -375,7 +375,7 @@ class ConfigViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverEquipServer()
+        val resultRecover = getAllEquipServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -449,7 +449,7 @@ class ConfigViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverLocalServer()
+        val resultRecover = getAllLocalServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -524,7 +524,7 @@ class ConfigViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverTerceiroServer()
+        val resultRecover = getAllTerceiroServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -599,7 +599,7 @@ class ConfigViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverVisitanteServer()
+        val resultRecover = getAllVisitanteServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =

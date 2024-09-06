@@ -54,9 +54,7 @@ fun EquipSegListScreen(
                 onNavMatricColab = onNavMatricColab,
                 modifier = Modifier.padding(innerPadding)
             )
-            if (TypeEquip.VEICULO == uiState.typeEquip) {
-                viewModel.cleanVeicSeg()
-            }
+            viewModel.cleanVeicSeg()
             viewModel.recoverVeicSeg()
         }
     }
@@ -82,7 +80,7 @@ fun EquipSegListContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "VEÍCULO(S) SECUNDÁRIO(S)")
+        TitleListDesign(text = stringResource(id = R.string.text_title_equip_seg))
         LazyColumn(
             modifier = Modifier
                 .weight(1f),
@@ -90,7 +88,8 @@ fun EquipSegListContent(
             items(equipSegList) { equip ->
                 ItemListDesign(
                     text = "${equip.nroEquip}",
-                    setActionItem = { setDelete(equip.idEquip) }
+                    setActionItem = { setDelete(equip.idEquip) },
+                    id = 1
                 )
             }
         }

@@ -1264,6 +1264,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-590861564">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A055F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-556514749">
           <value>
             <AndroidTestResultsTableState>
@@ -1382,6 +1395,19 @@
           </value>
         </entry>
         <entry key="-443352053">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A055F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-417138807">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">

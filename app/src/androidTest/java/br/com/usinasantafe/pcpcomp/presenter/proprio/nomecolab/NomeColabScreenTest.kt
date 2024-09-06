@@ -6,7 +6,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.lifecycle.SavedStateHandle
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverNomeColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNomeColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
@@ -30,7 +30,7 @@ class NomeColabScreenTest: KoinTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    val recoverNomeColab: RecoverNomeColab by inject()
+    val getNomeColab: GetNomeColab by inject()
     val setMatricColab: SetMatricColab by inject()
 
     @Before
@@ -83,7 +83,7 @@ class NomeColabScreenTest: KoinTest {
                             Args.MATRIC_COLAB_ARGS to matricColab
                         )
                     ),
-                    recoverNomeColab,
+                    getNomeColab,
                     setMatricColab
                 ),
                 onNavMatricColab = {},

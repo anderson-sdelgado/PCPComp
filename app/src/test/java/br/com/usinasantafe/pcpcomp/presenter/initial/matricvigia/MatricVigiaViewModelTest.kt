@@ -7,16 +7,9 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetMatricVigiaConfig
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigState
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.colabList
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.sizeUpdateConfig
-import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaState
-import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaViewModel
 import br.com.usinasantafe.pcpcomp.utils.Errors
-import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.porc
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,13 +34,13 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val viewModel = MatricVigiaViewModel(
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
@@ -59,13 +52,13 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val viewModel = MatricVigiaViewModel(
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
@@ -81,13 +74,13 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val viewModel = MatricVigiaViewModel(
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("OK", TypeButton.OK)
@@ -100,7 +93,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         whenever(checkMatricColab("19759")).thenReturn(
             Result.failure(
@@ -114,7 +107,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
@@ -130,7 +123,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         whenever(checkMatricColab("19759")).thenReturn(
             Result.success(true)
@@ -147,7 +140,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
@@ -163,7 +156,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         whenever(checkMatricColab("19759")).thenReturn(
             Result.success(true)
@@ -172,7 +165,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
@@ -187,7 +180,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         whenever(checkMatricColab("19759")).thenReturn(
             Result.success(false)
@@ -196,7 +189,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("19759", TypeButton.NUMERIC)
@@ -212,7 +205,7 @@ class MatricVigiaViewModelTest {
             val checkMatricColab = mock<CheckMatricColab>()
             val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
             val cleanColab = mock<CleanColab>()
-            val recoverColabServer = mock<RecoverColabServer>()
+            val getAllColabServer = mock<GetAllColabServer>()
             val saveAllColab = mock<SaveAllColab>()
             whenever(
                 cleanColab()
@@ -228,7 +221,7 @@ class MatricVigiaViewModelTest {
                 checkMatricColab,
                 setMatricVigiaConfig,
                 cleanColab,
-                recoverColabServer,
+                getAllColabServer,
                 saveAllColab
             )
             val result = viewModel.updateAllColab(count = 1f, sizeAll = 4f).toList()
@@ -259,7 +252,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         whenever(
             cleanColab()
@@ -267,7 +260,7 @@ class MatricVigiaViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -280,7 +273,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         val result = viewModel.updateAllColab(count = 1f, sizeAll = 4f).toList()
@@ -319,7 +312,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val colabList = listOf(
             Colab(
@@ -333,7 +326,7 @@ class MatricVigiaViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -351,7 +344,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         val result = viewModel.updateAllColab(count = 1f, sizeAll = 4f).toList()
@@ -398,7 +391,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         whenever(
             cleanColab()
@@ -406,7 +399,7 @@ class MatricVigiaViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -419,7 +412,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         val result = viewModel.updateAllDatabase().toList()
@@ -458,7 +451,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         whenever(
             cleanColab()
@@ -474,7 +467,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         val result = viewModel.updateAllDatabase().toList()
@@ -510,7 +503,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val colabList = listOf(
             Colab(
@@ -524,7 +517,7 @@ class MatricVigiaViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -537,7 +530,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         val result = viewModel.updateAllDatabase().toList()
@@ -583,7 +576,7 @@ class MatricVigiaViewModelTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val setMatricVigiaConfig = mock<SetMatricVigiaConfig>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val colabList = listOf(
             Colab(
@@ -597,7 +590,7 @@ class MatricVigiaViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -610,7 +603,7 @@ class MatricVigiaViewModelTest {
             checkMatricColab,
             setMatricVigiaConfig,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab
         )
         viewModel.setTextField("ATUALIZAR DADOS", TypeButton.UPDATE)

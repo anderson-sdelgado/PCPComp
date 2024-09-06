@@ -98,7 +98,7 @@ class SetMatricColabImplTest: KoinTest {
                 notaFiscalMovEquipProprio = 123456789,
                 observMovEquipProprio = "TESTE OBSERV",
                 statusMovEquipProprio = StatusData.OPEN,
-                statusSendMovEquipProprio = StatusSend.SEND
+                statusSendMovEquipProprio = StatusSend.SENDING
             )
         )
         val result = usecase(
@@ -111,6 +111,7 @@ class SetMatricColabImplTest: KoinTest {
         assertTrue(result.getOrNull()!!)
         val resultMov = movEquipProprioDao.get(1)
         assertEquals(resultMov.matricColabMovEquipProprio, 19759)
+        assertEquals(resultMov.statusSendMovEquipProprio, StatusSend.SEND)
     }
 
     @Test
@@ -123,12 +124,28 @@ class SetMatricColabImplTest: KoinTest {
         )
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
-        val resultMov = movEquipProprioPassagSharedPreferencesDatasource.list()
-        assertEquals(resultMov.getOrNull()!![0], 19759)
+        val resultList = movEquipProprioPassagSharedPreferencesDatasource.list()
+        assertEquals(resultList.getOrNull()!![0], 19759)
     }
 
     @Test
     fun check_return_true_if_have_success_in_add_passag_flowapp_change() = runTest {
+        movEquipProprioDao.insert(
+            MovEquipProprioRoomModel(
+                idMovEquipProprio = 1,
+                matricVigiaMovEquipProprio = 19759,
+                idLocalMovEquipProprio = 1,
+                tipoMovEquipProprio = TypeMov.INPUT,
+                dthrMovEquipProprio = 1723213270250,
+                idEquipMovEquipProprio = 1,
+                matricColabMovEquipProprio = 18017,
+                destinoMovEquipProprio = "TESTE DESTINO",
+                notaFiscalMovEquipProprio = 123456789,
+                observMovEquipProprio = "TESTE OBSERV",
+                statusMovEquipProprio = StatusData.OPEN,
+                statusSendMovEquipProprio = StatusSend.SENDING
+            )
+        )
         val result = usecase(
             matricColab = "19759",
             flowApp = FlowApp.CHANGE,
@@ -137,7 +154,10 @@ class SetMatricColabImplTest: KoinTest {
         )
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
-        val resultMov = movEquipProprioPassagDao.list(1)
-        assertEquals(resultMov[0].matricColab, 19759)
+        val resultList = movEquipProprioPassagDao.list(1)
+        assertEquals(resultList[0].matricColab, 19759)
+        val resultMov = movEquipProprioDao.get(1)
+        assertEquals(resultMov.matricColabMovEquipProprio, 18017)
+        assertEquals(resultMov.statusSendMovEquipProprio, StatusSend.SEND)
     }
 }

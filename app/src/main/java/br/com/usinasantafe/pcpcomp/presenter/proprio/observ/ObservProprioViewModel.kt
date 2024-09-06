@@ -16,10 +16,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class ObservProprioState(
-    val observ: String = "",
-    val typeMov: TypeMov = TypeMov.INPUT,
     val flowApp: FlowApp = FlowApp.ADD,
     val id: Int = 0,
+    val typeMov: TypeMov = TypeMov.INPUT,
+    val observ: String = "",
     val flagAccess: Boolean = false,
     val flagReturn: Boolean = false,
     val flagDialog: Boolean = false,

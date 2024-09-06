@@ -32,7 +32,7 @@ class RecoverPassagColabImplTest {
                     )
                 )
             )
-            val usecase = RecoverPassagColabListImpl(
+            val usecase = GetPassagColabListImpl(
                 movEquipProprioPassagRepository,
                 colabRepository
             )
@@ -65,7 +65,7 @@ class RecoverPassagColabImplTest {
                 )
             )
         )
-        val usecase = RecoverPassagColabListImpl(
+        val usecase = GetPassagColabListImpl(
             movEquipProprioPassagRepository,
             colabRepository
         )
@@ -104,7 +104,7 @@ class RecoverPassagColabImplTest {
                 )
             )
         )
-        val usecase = RecoverPassagColabListImpl(
+        val usecase = GetPassagColabListImpl(
             movEquipProprioPassagRepository,
             colabRepository
         )
@@ -142,7 +142,7 @@ class RecoverPassagColabImplTest {
                 "ANDERSON DA SILVA DELGADO"
             )
         )
-        val usecase = RecoverPassagColabListImpl(
+        val usecase = GetPassagColabListImpl(
             movEquipProprioPassagRepository,
             colabRepository
         )

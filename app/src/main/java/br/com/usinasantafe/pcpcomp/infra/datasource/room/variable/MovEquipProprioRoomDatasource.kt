@@ -15,4 +15,5 @@ interface MovEquipProprioRoomDatasource {
     suspend fun setNotaFiscal(notaFiscal: Int, id: Int): Result<Boolean>
     suspend fun setObserv(observ: String, id: Int): Result<Boolean>
     suspend fun setSent(id: Int): Result<Boolean>
+    suspend fun setSend(id: Int): Result<Boolean>
 }

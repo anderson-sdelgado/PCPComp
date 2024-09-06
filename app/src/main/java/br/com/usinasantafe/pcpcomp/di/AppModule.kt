@@ -7,21 +7,22 @@ import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.MatricVigiaView
 import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.local.LocalViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontViewModel
-import br.com.usinasantafe.pcpcomp.presenter.proprio.movpropriolist.MovEquipProprioListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.movlist.MovEquipProprioListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.matriccolab.MatricColabViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab.NomeColabViewModel
-import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.passagcolablist.PassagColabListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip.NroEquipProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.equipseglist.EquipSegListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal.NotaFiscalViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.ObservProprioViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe.DetalheProprioViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.*
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.initial.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.*
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.*
@@ -46,7 +47,6 @@ import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofit
 import br.com.usinasantafe.pcpcomp.external.room.provideRoom
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
-import org.koin.androidx.workmanager.dsl.worker
 import org.koin.androidx.workmanager.dsl.workerOf
 
 import org.koin.core.module.dsl.bind
@@ -73,6 +73,7 @@ val viewModelModule = module {
     viewModelOf(::DestinoProprioViewModel)
     viewModelOf(::NotaFiscalViewModel)
     viewModelOf(::ObservProprioViewModel)
+    viewModelOf(::DetalheProprioViewModel)
 
 }
 
@@ -96,14 +97,14 @@ val usecaseCommonModule = module {
 
     singleOf(::CheckMatricColabImpl) { bind<CheckMatricColab>() }
     singleOf(::CloseAllMovOpenImpl) { bind<CloseAllMovOpen>() }
-    singleOf(::RecoverHeaderImpl) { bind<RecoverHeader>() }
+    singleOf(::GetHeaderImpl) { bind<GetHeader>() }
 
 }
 
 val usecaseConfigModule = module {
 
     singleOf(::CheckPasswordConfigImpl) { bind<CheckPasswordConfig>() }
-    singleOf(::RecoverConfigInternalImpl) { bind<RecoverConfigInternal>() }
+    singleOf(::GetConfigInternalImpl) { bind<GetConfigInternal>() }
     singleOf(::SendDataConfigImpl) { bind<SendDataConfig>() }
     singleOf(::SaveDataConfigImpl) { bind<SaveDataConfig>() }
     singleOf(::SetCheckUpdateAllTableImpl) { bind<SetCheckUpdateAllTable>() }
@@ -116,8 +117,8 @@ val usecaseConfigModule = module {
 val usecaseInitialModule = module {
 
     singleOf(::CheckAccessMainImpl) { bind<CheckAccessMain>() }
-    singleOf(::RecoverLocalsImpl) { bind<RecoverLocals>() }
-    singleOf(::RecoverNomeVigiaImpl) { bind<RecoverNomeVigia>() }
+    singleOf(::GetLocalListImpl) { bind<GetLocalList>() }
+    singleOf(::GetNomeVigiaImpl) { bind<GetNomeVigia>() }
 
 }
 
@@ -132,17 +133,17 @@ val usecaseProprioModule = module {
     singleOf(::GetMatricColabImpl) { bind<GetMatricColab>() }
     singleOf(::GetNroEquipImpl) { bind<GetNroEquip>() }
     singleOf(::GetTypeMovImpl) { bind<GetTypeMov>() }
-    singleOf(::RecoverDetalheProprioImpl) { bind<RecoverDetalheProprio>() }
-    singleOf(::RecoverEquipSegListImpl) { bind<RecoverEquipSegList>() }
-    singleOf(::RecoverMovEquipProprioOpenListImpl) { bind<RecoverMovEquipProprioOpenList>() }
-    singleOf(::RecoverNomeColabImpl) { bind<RecoverNomeColab>() }
-    singleOf(::RecoverPassagColabListImpl) { bind<RecoverPassagColabList>() }
+    singleOf(::GetDetalheProprioImpl) { bind<GetDetalheProprio>() }
+    singleOf(::GetEquipSegListImpl) { bind<GetEquipSegList>() }
+    singleOf(::GetMovEquipProprioOpenListImpl) { bind<GetMovEquipProprioOpenList>() }
+    singleOf(::GetNomeColabImpl) { bind<GetNomeColab>() }
+    singleOf(::GetPassagColabListImpl) { bind<GetPassagColabList>() }
     singleOf(::SaveMovEquipProprioImpl) { bind<SaveMovEquipProprio>() }
     singleOf(::SendMovProprioImpl) { bind<SendMovProprio>() }
     singleOf(::SetDestinoProprioImpl) { bind<SetDestinoProprio>() }
     singleOf(::SetNotaFiscalProprioImpl) { bind<SetNotaFiscalProprio>() }
     singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
-    singleOf(::SetNroEquipProprioImpl) { bind<SetNroEquipProprio>() }
+    singleOf(::SetNroEquipImpl) { bind<SetNroEquip>() }
     singleOf(::SetObservProprioImpl) { bind<SetObservProprio>() }
     singleOf(::SetStatusSentMovProprioImpl) { bind<SetStatusSentMovProprio>() }
     singleOf(::StartMovEquipProprioImpl) { bind<StartMovEquipProprio>() }
@@ -151,11 +152,11 @@ val usecaseProprioModule = module {
 
 val usecaseRecoverServerModule = module {
 
-    singleOf(::RecoverColabServerImpl) { bind<RecoverColabServer>() }
-    singleOf(::RecoverEquipServerImpl) { bind<RecoverEquipServer>() }
-    singleOf(::RecoverLocalServerImpl) { bind<RecoverLocalServer>() }
-    singleOf(::RecoverTerceiroServerImpl) { bind<RecoverTerceiroServer>() }
-    singleOf(::RecoverVisitanteServerImpl) { bind<RecoverVisitanteServer>() }
+    singleOf(::GetAllColabServerImpl) { bind<GetAllColabServer>() }
+    singleOf(::GetAllEquipServerImpl) { bind<GetAllEquipServer>() }
+    singleOf(::GetAllLocalServerImpl) { bind<GetAllLocalServer>() }
+    singleOf(::GetAllTerceiroServerImpl) { bind<GetAllTerceiroServer>() }
+    singleOf(::GetAllVisitanteServerImpl) { bind<GetAllVisitanteServer>() }
 
 }
 

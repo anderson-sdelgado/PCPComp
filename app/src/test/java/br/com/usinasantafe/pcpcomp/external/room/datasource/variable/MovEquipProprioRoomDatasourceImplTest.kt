@@ -267,7 +267,7 @@ class MovEquipProprioRoomDatasourceImplTest {
             notaFiscalMovEquipProprio = 123456789,
             observMovEquipProprio = "TESTE OBSERV",
             statusMovEquipProprio = StatusData.OPEN,
-            statusSendMovEquipProprio = StatusSend.SEND
+            statusSendMovEquipProprio = StatusSend.SENDING
         )
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
         datasource.save(movEquipProprioRoomModel)
@@ -276,6 +276,7 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertTrue(result.getOrNull()!!)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
         assertEquals(movEquipProprioRoomModelAfter.idEquipMovEquipProprio, 10)
+        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
     }
 
     @Test
@@ -292,7 +293,7 @@ class MovEquipProprioRoomDatasourceImplTest {
             notaFiscalMovEquipProprio = 123456789,
             observMovEquipProprio = "TESTE OBSERV",
             statusMovEquipProprio = StatusData.OPEN,
-            statusSendMovEquipProprio = StatusSend.SEND
+            statusSendMovEquipProprio = StatusSend.SENDING
         )
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
         datasource.save(movEquipProprioRoomModel)
@@ -301,6 +302,7 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertTrue(result.getOrNull()!!)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
         assertEquals(movEquipProprioRoomModelAfter.matricColabMovEquipProprio, 18017)
+        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
     }
 
     @Test
@@ -317,7 +319,7 @@ class MovEquipProprioRoomDatasourceImplTest {
             notaFiscalMovEquipProprio = 123456789,
             observMovEquipProprio = "TESTE OBSERV",
             statusMovEquipProprio = StatusData.OPEN,
-            statusSendMovEquipProprio = StatusSend.SEND
+            statusSendMovEquipProprio = StatusSend.SENDING
         )
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
         datasource.save(movEquipProprioRoomModel)
@@ -326,6 +328,7 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertTrue(result.getOrNull()!!)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
         assertEquals(movEquipProprioRoomModelAfter.destinoMovEquipProprio, "TESTE ALTERAR DESTINO")
+        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
     }
 
     @Test
@@ -342,7 +345,7 @@ class MovEquipProprioRoomDatasourceImplTest {
             notaFiscalMovEquipProprio = 123456789,
             observMovEquipProprio = "TESTE OBSERV",
             statusMovEquipProprio = StatusData.OPEN,
-            statusSendMovEquipProprio = StatusSend.SEND
+            statusSendMovEquipProprio = StatusSend.SENDING
         )
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
         datasource.save(movEquipProprioRoomModel)
@@ -351,6 +354,7 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertTrue(result.getOrNull()!!)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
         assertEquals(movEquipProprioRoomModelAfter.notaFiscalMovEquipProprio, 123456)
+        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
     }
 
     @Test
@@ -367,7 +371,7 @@ class MovEquipProprioRoomDatasourceImplTest {
             notaFiscalMovEquipProprio = 123456789,
             observMovEquipProprio = "TESTE OBSERV",
             statusMovEquipProprio = StatusData.OPEN,
-            statusSendMovEquipProprio = StatusSend.SEND
+            statusSendMovEquipProprio = StatusSend.SENDING
         )
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
         datasource.save(movEquipProprioRoomModel)
@@ -376,5 +380,6 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertTrue(result.getOrNull()!!)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
         assertEquals(movEquipProprioRoomModelAfter.observMovEquipProprio, "TESTE ALTERAR OBSERV")
+        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
     }
 }

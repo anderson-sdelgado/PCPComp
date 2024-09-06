@@ -3,10 +3,8 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverDetalheProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetDetalheProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
-import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -29,7 +27,7 @@ data class DetalheProprioState(
 
 class DetalheProprioViewModel(
     saveStateHandle: SavedStateHandle,
-    private val recoverDetalheProprio: RecoverDetalheProprio
+    private val getDetalheProprio: GetDetalheProprio
 ) : ViewModel() {
 
     private val id: Int = saveStateHandle[ID_ARGS]!!
@@ -52,7 +50,7 @@ class DetalheProprioViewModel(
     }
 
     fun recoverDetalhe() = viewModelScope.launch {
-        val resultRecoverDetalhe = recoverDetalheProprio(id)
+        val resultRecoverDetalhe = getDetalheProprio(id)
         if(resultRecoverDetalhe.isFailure) {
             val error = resultRecoverDetalhe.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

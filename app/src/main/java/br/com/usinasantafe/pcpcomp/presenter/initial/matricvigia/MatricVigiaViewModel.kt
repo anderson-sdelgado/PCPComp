@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetMatricVigiaConfig
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
@@ -36,7 +36,7 @@ class MatricVigiaViewModel(
     private val checkMatricColab: CheckMatricColab,
     private val setMatricVigiaConfig: SetMatricVigiaConfig,
     private val cleanColab: CleanColab,
-    private val recoverColabServer: RecoverColabServer,
+    private val getAllColabServer: GetAllColabServer,
     private val saveAllColab: SaveAllColab,
 ) : ViewModel() {
 
@@ -185,7 +185,7 @@ class MatricVigiaViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverColabServer()
+        val resultRecover = getAllColabServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =

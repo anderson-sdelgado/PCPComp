@@ -8,8 +8,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.Errors
@@ -38,7 +37,7 @@ class MatricColabViewModelTest {
     fun `Check add char in matricMotorista`() {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         val viewModel = MatricColabViewModel(
@@ -51,7 +50,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -63,7 +62,7 @@ class MatricColabViewModelTest {
     fun `Check remover and add char in matricMotorista`() {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         val viewModel = MatricColabViewModel(
@@ -76,7 +75,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -92,7 +91,7 @@ class MatricColabViewModelTest {
     fun `Check view msg if field is empty`() {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         val viewModel = MatricColabViewModel(
@@ -105,7 +104,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -118,7 +117,7 @@ class MatricColabViewModelTest {
     fun `Check return failure if have error in CheckMatricColab`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         whenever(checkMatricColab("19759")).thenReturn(
@@ -139,7 +138,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -158,7 +157,7 @@ class MatricColabViewModelTest {
     fun `Check return true if matric is valid`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         whenever(checkMatricColab("19759")).thenReturn(
@@ -174,7 +173,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -189,7 +188,7 @@ class MatricColabViewModelTest {
     fun `Check return false if matric is invalid`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         whenever(checkMatricColab("19759")).thenReturn(
@@ -205,7 +204,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -221,7 +220,7 @@ class MatricColabViewModelTest {
         runTest {
             val checkMatricColab = mock<CheckMatricColab>()
             val cleanColab = mock<CleanColab>()
-            val recoverColabServer = mock<RecoverColabServer>()
+            val getAllColabServer = mock<GetAllColabServer>()
             val saveAllColab = mock<SaveAllColab>()
             val getMatricColab = mock<GetMatricColab>()
             whenever(
@@ -244,7 +243,7 @@ class MatricColabViewModelTest {
                 ),
                 checkMatricColab,
                 cleanColab,
-                recoverColabServer,
+                getAllColabServer,
                 saveAllColab,
                 getMatricColab
             )
@@ -275,7 +274,7 @@ class MatricColabViewModelTest {
     fun `Check return failure datasource if have error in datasource RecoverAllColab`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         whenever(
@@ -284,7 +283,7 @@ class MatricColabViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -303,7 +302,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -342,7 +341,7 @@ class MatricColabViewModelTest {
     fun `Check return failure datasource if have error in datasource SaveAllColab`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         val colabList = listOf(
@@ -357,7 +356,7 @@ class MatricColabViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -381,7 +380,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -429,7 +428,7 @@ class MatricColabViewModelTest {
         runTest {
             val checkMatricColab = mock<CheckMatricColab>()
             val cleanColab = mock<CleanColab>()
-            val recoverColabServer = mock<RecoverColabServer>()
+            val getAllColabServer = mock<GetAllColabServer>()
             val saveAllColab = mock<SaveAllColab>()
             val getMatricColab = mock<GetMatricColab>()
             whenever(
@@ -438,7 +437,7 @@ class MatricColabViewModelTest {
                 Result.success(true)
             )
             whenever(
-                recoverColabServer()
+                getAllColabServer()
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -457,7 +456,7 @@ class MatricColabViewModelTest {
                 ),
                 checkMatricColab,
                 cleanColab,
-                recoverColabServer,
+                getAllColabServer,
                 saveAllColab,
                 getMatricColab
             )
@@ -497,7 +496,7 @@ class MatricColabViewModelTest {
         runTest {
             val checkMatricColab = mock<CheckMatricColab>()
             val cleanColab = mock<CleanColab>()
-            val recoverColabServer = mock<RecoverColabServer>()
+            val getAllColabServer = mock<GetAllColabServer>()
             val saveAllColab = mock<SaveAllColab>()
             val getMatricColab = mock<GetMatricColab>()
             whenever(
@@ -520,7 +519,7 @@ class MatricColabViewModelTest {
                 ),
                 checkMatricColab,
                 cleanColab,
-                recoverColabServer,
+                getAllColabServer,
                 saveAllColab,
                 getMatricColab
             )
@@ -556,7 +555,7 @@ class MatricColabViewModelTest {
     fun `Check return success in updateAllDatabase if all update run correctly`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         val colabList = listOf(
@@ -571,7 +570,7 @@ class MatricColabViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -590,7 +589,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -636,7 +635,7 @@ class MatricColabViewModelTest {
     fun `Check return success if setTextField update is success`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         val colabList = listOf(
@@ -651,7 +650,7 @@ class MatricColabViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverColabServer()
+            getAllColabServer()
         ).thenReturn(
             Result.success(colabList)
         )
@@ -670,7 +669,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -686,7 +685,7 @@ class MatricColabViewModelTest {
     fun `Check return failure usecase if have error in usecase GetMatricColab`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         whenever(
@@ -709,7 +708,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )
@@ -723,7 +722,7 @@ class MatricColabViewModelTest {
     fun `Check return matricColab if GetMatricColab execute with success`() = runTest {
         val checkMatricColab = mock<CheckMatricColab>()
         val cleanColab = mock<CleanColab>()
-        val recoverColabServer = mock<RecoverColabServer>()
+        val getAllColabServer = mock<GetAllColabServer>()
         val saveAllColab = mock<SaveAllColab>()
         val getMatricColab = mock<GetMatricColab>()
         whenever(
@@ -741,7 +740,7 @@ class MatricColabViewModelTest {
             ),
             checkMatricColab,
             cleanColab,
-            recoverColabServer,
+            getAllColabServer,
             saveAllColab,
             getMatricColab
         )

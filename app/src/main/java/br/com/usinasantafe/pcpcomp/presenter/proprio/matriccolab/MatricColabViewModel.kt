@@ -6,8 +6,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -28,9 +27,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class MatricColabState(
-    val matricColab: String = "",
     val flowApp: FlowApp = FlowApp.ADD,
+    val matricColab: String = "",
     val typeOcupante: TypeOcupante = TypeOcupante.MOTORISTA,
+    val checkGetMatricColab: Boolean = true,
     val id: Int = 0,
     val flagAccess: Boolean = false,
     val flagFailure: Boolean = false,
@@ -46,7 +46,7 @@ class MatricColabViewModel(
     saveStateHandle: SavedStateHandle,
     private val checkMatricColab: CheckMatricColab,
     private val cleanColab: CleanColab,
-    private val recoverColabServer: RecoverColabServer,
+    private val getAllColabServer: GetAllColabServer,
     private val saveAllColab: SaveAllColab,
     private val getMatricColab: GetMatricColab,
 ) : ViewModel() {
@@ -77,20 +77,22 @@ class MatricColabViewModel(
     fun setTextField(
         text: String,
         typeButton: TypeButton
-    ){
-        when(typeButton){
+    ) {
+        when (typeButton) {
             TypeButton.NUMERIC -> {
                 val matricColab = addTextField(uiState.value.matricColab, text)
                 _uiState.update {
                     it.copy(matricColab = matricColab)
                 }
             }
+
             TypeButton.CLEAN -> {
                 val matricColab = clearTextField(uiState.value.matricColab)
                 _uiState.update {
                     it.copy(matricColab = matricColab)
                 }
             }
+
             TypeButton.OK -> {
                 if (uiState.value.matricColab.isEmpty()) {
                     _uiState.update {
@@ -104,6 +106,7 @@ class MatricColabViewModel(
                 }
                 setMatricColab()
             }
+
             TypeButton.UPDATE -> {
                 viewModelScope.launch {
                     updateAllDatabase().collect { stateUpdate ->
@@ -115,30 +118,39 @@ class MatricColabViewModel(
     }
 
     fun getMatricColab() = viewModelScope.launch {
-        val resultGetMatric = getMatricColab(uiState.value.id)
-        if(resultGetMatric.isFailure){
-            val error = resultGetMatric.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
+        if (
+            (uiState.value.flowApp == FlowApp.CHANGE) &&
+            (uiState.value.typeOcupante == TypeOcupante.MOTORISTA) &&
+            (uiState.value.checkGetMatricColab)
+        ) {
+            val resultGetMatric = getMatricColab(uiState.value.id)
+            if (resultGetMatric.isFailure) {
+                val error = resultGetMatric.exceptionOrNull()!!
+                val failure =
+                    "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        flagFailure = true,
+                        errors = Errors.EXCEPTION,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+            val matricColab = resultGetMatric.getOrNull()!!
             _uiState.update {
                 it.copy(
-                    flagDialog = true,
-                    flagFailure = true,
-                    errors = Errors.EXCEPTION,
-                    failure = failure,
+                    matricColab = matricColab,
+                    checkGetMatricColab = false
                 )
             }
-            return@launch
-        }
-        val matricColab = resultGetMatric.getOrNull()!!
-        _uiState.update {
-            it.copy(matricColab = matricColab)
         }
     }
 
     private fun setMatricColab() = viewModelScope.launch {
         val resultCheckMatric = checkMatricColab(uiState.value.matricColab)
-        if(resultCheckMatric.isFailure){
+        if (resultCheckMatric.isFailure) {
             val error = resultCheckMatric.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"
@@ -166,11 +178,11 @@ class MatricColabViewModel(
     suspend fun updateAllDatabase(): Flow<MatricColabState> = flow {
         val sizeUpdate = 4f
         var configState = MatricColabState()
-        updateAllColab(sizeUpdate, 1f).collect{ stateUpdateColab ->
+        updateAllColab(sizeUpdate, 1f).collect { stateUpdateColab ->
             configState = stateUpdateColab
             emit(stateUpdateColab)
         }
-        if(configState.flagFailure)
+        if (configState.flagFailure)
             return@flow
         emit(
             MatricColabState(
@@ -215,7 +227,7 @@ class MatricColabViewModel(
                 currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
             )
         )
-        val resultRecover = recoverColabServer()
+        val resultRecover = getAllColabServer()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =

@@ -30,25 +30,25 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
-const val TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN = "tag_observ_text_field_observ_screen"
+const val TAG_OBSERV_TEXT_FIELD_PROPRIO = "tag_observ_text_field_proprio"
 
 @Composable
 fun ObservProprioScreen(
     viewModel: ObservProprioViewModel,
     onNavDestinoProprio: () -> Unit,
     onNavNotaFiscalProprio: () -> Unit,
-    onNavDetalheMovProprio: () -> Unit,
+    onNavDetalheProprio: () -> Unit,
     onNavMovEquipProprioList: () -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             ObservProprioContent(
-                observ = uiState.observ,
                 flowApp = uiState.flowApp,
+                typeMov = uiState.typeMov,
+                observ = uiState.observ,
                 onObservChanged = viewModel::onObservChanged,
                 setObserv = viewModel::setObserv,
-                typeMov = uiState.typeMov,
                 setReturn = viewModel::setReturn,
                 flagAccess = uiState.flagAccess,
                 flagReturn = uiState.flagReturn,
@@ -57,7 +57,7 @@ fun ObservProprioScreen(
                 failure = uiState.failure,
                 onNavDestinoProprio = onNavDestinoProprio,
                 onNavNotaFiscalProprio = onNavNotaFiscalProprio,
-                onNavDetalheMovProprio = onNavDetalheMovProprio,
+                onNavDetalheProprio = onNavDetalheProprio,
                 onNavMovEquipProprioList = onNavMovEquipProprioList,
                 modifier = Modifier.padding(innerPadding)
             )
@@ -67,11 +67,11 @@ fun ObservProprioScreen(
 
 @Composable
 fun ObservProprioContent(
-    observ: String,
     flowApp: FlowApp,
+    typeMov: TypeMov,
+    observ: String,
     onObservChanged: (String) -> Unit,
     setObserv: () -> Unit,
-    typeMov: TypeMov,
     setReturn: () -> Unit,
     flagAccess: Boolean,
     flagReturn: Boolean,
@@ -80,7 +80,7 @@ fun ObservProprioContent(
     failure: String,
     onNavDestinoProprio: () -> Unit,
     onNavNotaFiscalProprio: () -> Unit,
-    onNavDetalheMovProprio: () -> Unit,
+    onNavDetalheProprio: () -> Unit,
     onNavMovEquipProprioList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -88,7 +88,7 @@ fun ObservProprioContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "OBSERVAÇÃO")
+        TitleListDesign(text = stringResource(id = R.string.text_title_observ))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = observ,
@@ -96,7 +96,7 @@ fun ObservProprioContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .testTag(TAG_OBSERV_TEXT_FIELD_OBSERV_SCREEN),
+                .testTag(TAG_OBSERV_TEXT_FIELD_PROPRIO),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
                 fontSize = 22.sp,
@@ -112,7 +112,7 @@ fun ObservProprioContent(
                 onClick = {
                     when (flowApp) {
                         FlowApp.ADD -> setReturn()
-                        FlowApp.CHANGE -> onNavDetalheMovProprio()
+                        FlowApp.CHANGE -> onNavDetalheProprio()
                     }
                 },
                 modifier = Modifier.weight(1f)
@@ -139,7 +139,7 @@ fun ObservProprioContent(
         if(flagAccess){
             when(flowApp){
                 FlowApp.ADD -> onNavMovEquipProprioList()
-                FlowApp.CHANGE -> onNavDetalheMovProprio()
+                FlowApp.CHANGE -> onNavDetalheProprio()
             }
         }
 
@@ -172,7 +172,7 @@ fun ObservProprioPagePreview() {
                 failure = "",
                 onNavDestinoProprio = {},
                 onNavNotaFiscalProprio = {},
-                onNavDetalheMovProprio = {},
+                onNavDetalheProprio = {},
                 onNavMovEquipProprioList = {},
                 modifier = Modifier.padding(innerPadding)
             )
@@ -199,7 +199,7 @@ fun ObservProprioPagePreviewWithFailure() {
                 failure = "Failure Usecase",
                 onNavDestinoProprio = {},
                 onNavNotaFiscalProprio = {},
-                onNavDetalheMovProprio = {},
+                onNavDetalheProprio = {},
                 onNavMovEquipProprioList = {},
                 modifier = Modifier.padding(innerPadding)
             )

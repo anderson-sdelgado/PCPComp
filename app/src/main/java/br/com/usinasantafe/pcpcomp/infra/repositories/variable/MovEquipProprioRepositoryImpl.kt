@@ -290,6 +290,10 @@ class MovEquipProprioRepositoryImpl(
         }
     }
 
+    override suspend fun setSend(id: Int): Result<Boolean> {
+        return movEquipProprioRoomDatasource.setSend(id)
+    }
+
     override suspend fun start(typeMov: TypeMov): Result<Boolean> {
         return movEquipProprioSharedPreferencesDatasource.start(typeMov)
     }

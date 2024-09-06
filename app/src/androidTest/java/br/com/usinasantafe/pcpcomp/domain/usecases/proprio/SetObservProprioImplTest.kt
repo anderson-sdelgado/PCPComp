@@ -90,7 +90,7 @@ class SetObservProprioImplTest: KoinTest {
                 notaFiscalMovEquipProprio = 123456789,
                 observMovEquipProprio = "TESTE OBSERV",
                 statusMovEquipProprio = StatusData.OPEN,
-                statusSendMovEquipProprio = StatusSend.SEND
+                statusSendMovEquipProprio = StatusSend.SENDING
             )
         )
         val result = usecase(
@@ -102,6 +102,7 @@ class SetObservProprioImplTest: KoinTest {
         assertTrue(result.getOrNull()!!)
         val resultMov = movEquipProprioDao.get(1)
         assertEquals(resultMov.observMovEquipProprio, "Teste")
+        assertEquals(resultMov.statusSendMovEquipProprio, StatusSend.SEND)
     }
 
 }

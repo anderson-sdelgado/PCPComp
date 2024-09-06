@@ -10,7 +10,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverDetalheProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetDetalheProprio
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
@@ -34,7 +34,7 @@ class DetalheProprioScreenTest: KoinTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    val recoverDetalheProprio: RecoverDetalheProprio by inject()
+    val getDetalheProprio: GetDetalheProprio by inject()
     private val movEquipProprioDao: MovEquipProprioDao by inject()
     private val colabRepository: ColabRepository by inject()
     private val equipRepository: EquipRepository by inject()
@@ -112,7 +112,7 @@ class DetalheProprioScreenTest: KoinTest {
                             Args.ID_ARGS to 1
                         )
                     ),
-                    recoverDetalheProprio
+                    getDetalheProprio
                 ),
                 onNavMovProprioList = {},
                 onNavNroEquip = {},

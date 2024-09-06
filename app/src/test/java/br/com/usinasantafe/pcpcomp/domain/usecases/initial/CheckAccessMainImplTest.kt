@@ -2,8 +2,6 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.initial
 
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.CheckPasswordConfigImpl
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.RecoverConfigInternalImpl
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*

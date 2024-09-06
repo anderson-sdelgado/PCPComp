@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.initial.RecoverNomeVigia
+import br.com.usinasantafe.pcpcomp.domain.usecases.initial.GetNomeVigia
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -15,7 +15,7 @@ data class NomeVigiaState(
 )
 
 class NomeVigiaViewModel(
-    private val recoverNomeVigia: RecoverNomeVigia
+    private val getNomeVigia: GetNomeVigia
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(NomeVigiaState())
@@ -28,7 +28,7 @@ class NomeVigiaViewModel(
     }
 
     fun returnNomeVigia() = viewModelScope.launch {
-        val recoverNome = recoverNomeVigia()
+        val recoverNome = getNomeVigia()
         if(recoverNome.isFailure){
             val error = recoverNome.exceptionOrNull()!!
             val failure =

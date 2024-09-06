@@ -30,6 +30,7 @@ import androidx.compose.ui.window.Dialog
 
 @Composable
 fun ItemListDesign(
+    id: Int = 0,
     text: String,
     setActionItem: () -> Unit
 ) {
@@ -43,6 +44,7 @@ fun ItemListDesign(
             .clickable {
                 setActionItem()
             }
+            .testTag("item_list_$id")
     )
 }
 

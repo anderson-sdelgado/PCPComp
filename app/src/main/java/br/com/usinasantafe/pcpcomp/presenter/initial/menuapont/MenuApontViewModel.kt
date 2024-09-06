@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.initial.menuapont
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.common.RecoverHeader
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CloseAllMovOpen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +20,7 @@ data class MenuApontState(
 )
 
 class MenuApontViewModel(
-    private val recoverHeader: RecoverHeader,
+    private val getHeader: GetHeader,
     private val closeAllMovOpen: CloseAllMovOpen,
 ) : ViewModel() {
 
@@ -42,7 +42,7 @@ class MenuApontViewModel(
 
 
     fun returnHeader() = viewModelScope.launch {
-        val resultRecoverHeader = recoverHeader()
+        val resultRecoverHeader = getHeader()
         if(resultRecoverHeader.isFailure){
             val error = resultRecoverHeader.exceptionOrNull()!!
             val failure =

@@ -24,18 +24,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
-import br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia.TAG_NUMBER_TEXT_FIELD_MATRIC_VIGIA_SCREEN
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumeric
 import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumericWithoutUpdate
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
-import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeButtonWithoutUpdate
 
-const val TAG_NUMBER_TEXT_FIELD_NOTA_FISCAL_SCREEN = "tag_number_text_field_nota_fiscal_screen"
+const val TAG_NOTA_FISCAL_TEXT_FIELD_PROPRIO = "tag_nota_fiscal_text_field_proprio"
 
 @Composable
 fun NotaFiscalProprioScreen(
@@ -82,7 +78,7 @@ fun NotaFiscalProprioContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "NOTA FISCAL")
+        TitleListDesign(text = stringResource(id = R.string.text_title_nota_fiscal))
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -99,7 +95,7 @@ fun NotaFiscalProprioContent(
             onValueChange = {},
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(TAG_NUMBER_TEXT_FIELD_NOTA_FISCAL_SCREEN)
+                .testTag(TAG_NOTA_FISCAL_TEXT_FIELD_PROPRIO)
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         ButtonsGenericNumericWithoutUpdate(setActionButton = setTextField)

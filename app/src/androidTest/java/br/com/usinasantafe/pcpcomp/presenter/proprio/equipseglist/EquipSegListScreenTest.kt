@@ -10,7 +10,7 @@ import androidx.compose.ui.test.performClick
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CleanEquipSeg
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.DeleteEquipSeg
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverEquipSegList
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetEquipSegList
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioEquipSegSharedPreferencesDatasource
@@ -32,7 +32,7 @@ import org.koin.test.inject
 class EquipSegListScreenTest: KoinTest {
 
     private val cleanEquipSeg: CleanEquipSeg by inject()
-    private val recoverEquipSegList: RecoverEquipSegList by inject()
+    private val getEquipSegList: GetEquipSegList by inject()
     private val deleteEquipSeg: DeleteEquipSeg by inject()
 
     private val movEquipProprioEquipSegSharedPreferencesDatasource: MovEquipProprioEquipSegSharedPreferencesDatasource by inject()
@@ -129,7 +129,7 @@ class EquipSegListScreenTest: KoinTest {
                         )
                     ),
                     cleanEquipSeg,
-                    recoverEquipSegList,
+                    getEquipSegList,
                     deleteEquipSeg
                 ),
                 onNavDetalheMovProprio = {},

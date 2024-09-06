@@ -12,8 +12,8 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllEquipServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
@@ -46,9 +46,9 @@ class NroEquipScreenTest: KoinTest {
     val composeTestRule = createComposeRule()
 
     val checkNroEquipProprio: CheckNroEquipProprio by inject()
-    val setNroEquipProprio: SetNroEquipProprio by inject()
+    val setNroEquip: SetNroEquip by inject()
     val cleanEquip: CleanEquip by inject()
-    val recoverEquipServer: RecoverEquipServer by inject()
+    val getAllEquipServer: GetAllEquipServer by inject()
     val saveAllEquip: SaveAllEquip by inject()
     val getNroEquip: GetNroEquip by inject()
 
@@ -276,9 +276,9 @@ class NroEquipScreenTest: KoinTest {
                         )
                     ),
                     checkNroEquipProprio,
-                    setNroEquipProprio,
+                    setNroEquip,
                     cleanEquip,
-                    recoverEquipServer,
+                    getAllEquipServer,
                     saveAllEquip,
                     getNroEquip
                 ),

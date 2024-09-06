@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.RecoverDetalheProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetDetalheProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -23,8 +23,8 @@ class DetalheProprioViewModelTest {
 
     @Test
     fun `Check return failure if have error in recoverDetalhe`() = runTest {
-        val recoverDetalheProprio = mock<RecoverDetalheProprio>()
-        whenever(recoverDetalheProprio(1)).thenReturn(
+        val getDetalheProprio = mock<GetDetalheProprio>()
+        whenever(getDetalheProprio(1)).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "RecoverDetalheProprio",
@@ -38,7 +38,7 @@ class DetalheProprioViewModelTest {
                     Args.ID_ARGS to 1
                 )
             ),
-            recoverDetalheProprio
+            getDetalheProprio
         )
         viewModel.recoverDetalhe()
         assertTrue(viewModel.uiState.value.flagDialog)
@@ -50,8 +50,8 @@ class DetalheProprioViewModelTest {
 
     @Test
     fun `Check return model if recoverDetalhe execute correctly`() = runTest {
-        val recoverDetalheProprio = mock<RecoverDetalheProprio>()
-        whenever(recoverDetalheProprio(1)).thenReturn(
+        val getDetalheProprio = mock<GetDetalheProprio>()
+        whenever(getDetalheProprio(1)).thenReturn(
             Result.success(
                 DetalheProprioModel(
                     dthr = "08/08/2024 12:00",
@@ -72,7 +72,7 @@ class DetalheProprioViewModelTest {
                     Args.ID_ARGS to 1
                 )
             ),
-            recoverDetalheProprio
+            getDetalheProprio
         )
         viewModel.recoverDetalhe()
         assertEquals(viewModel.uiState.value.dthr, "08/08/2024 12:00")

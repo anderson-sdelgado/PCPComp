@@ -8,8 +8,8 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.recoverserver.RecoverEquipServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllEquipServer
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.Errors
@@ -36,9 +36,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check add char in nroEquip`() {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         val viewModel = NroEquipProprioViewModel(
@@ -50,9 +50,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -63,9 +63,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check remover and add char in nroEquip`() {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         val viewModel = NroEquipProprioViewModel(
@@ -77,9 +77,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -94,9 +94,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check view msg if field is empty`() {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         val viewModel = NroEquipProprioViewModel(
@@ -108,9 +108,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -122,9 +122,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return failure if have error in CheckMatricEquip`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
@@ -144,9 +144,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -161,9 +161,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return false if matric is invalid`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
@@ -178,9 +178,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -194,9 +194,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return true if nroEquip is valid`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
@@ -211,9 +211,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -227,16 +227,16 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return failure if have error in SetEquipProprio `() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
             Result.success(true)
         )
         whenever(
-            setNroEquipProprio(
+            setNroEquip(
                 nroEquip = "100",
                 flowApp = FlowApp.ADD,
                 typeEquip = TypeEquip.VEICULO,
@@ -259,9 +259,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -276,16 +276,16 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return true if nroEquip is valid and setEquipProprio execute success`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(checkNroEquipProprio("100")).thenReturn(
             Result.success(true)
         )
         whenever(
-            setNroEquipProprio(
+            setNroEquip(
                 nroEquip = "100",
                 flowApp = FlowApp.ADD,
                 typeEquip = TypeEquip.VEICULO,
@@ -303,9 +303,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -320,9 +320,9 @@ class NroEquipProprioViewModelTest {
     fun `check return failure datasource if have error in usecase CleanEquip is datasource`() =
         runTest {
             val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-            val setNroEquipProprio = mock<SetNroEquipProprio>()
+            val setNroEquip = mock<SetNroEquip>()
             val cleanEquip = mock<CleanEquip>()
-            val recoverEquipServer = mock<RecoverEquipServer>()
+            val getAllEquipServer = mock<GetAllEquipServer>()
             val saveAllEquip = mock<SaveAllEquip>()
             val getNroEquip = mock<GetNroEquip>()
             whenever(
@@ -344,9 +344,9 @@ class NroEquipProprioViewModelTest {
                     )
                 ),
                 checkNroEquipProprio,
-                setNroEquipProprio,
+                setNroEquip,
                 cleanEquip,
-                recoverEquipServer,
+                getAllEquipServer,
                 saveAllEquip,
                 getNroEquip
             )
@@ -376,9 +376,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `check return failure datasource if have error in datasource RecoverAllEquip`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(
@@ -387,7 +387,7 @@ class NroEquipProprioViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -405,9 +405,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -445,9 +445,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return failure datasource if have error in datasource SaveAllEquip`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         val equipList = listOf(
@@ -462,7 +462,7 @@ class NroEquipProprioViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.success(equipList)
         )
@@ -485,9 +485,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -533,9 +533,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return failure usecase execute updateAllDatabase if have error in usecase RecoverEquipServer`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(
@@ -544,7 +544,7 @@ class NroEquipProprioViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -562,9 +562,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -602,9 +602,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `check return failure usecase in setTextField if have error in usecase CleanEquip`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(
@@ -626,9 +626,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -663,9 +663,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `check return success in updateAllDatabase if all update run correctly`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         val equipList = listOf(
@@ -680,7 +680,7 @@ class NroEquipProprioViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.success(equipList)
         )
@@ -698,9 +698,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -745,9 +745,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `check return success if setTextField update is success`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         val equipList = listOf(
@@ -762,7 +762,7 @@ class NroEquipProprioViewModelTest {
             Result.success(true)
         )
         whenever(
-            recoverEquipServer()
+            getAllEquipServer()
         ).thenReturn(
             Result.success(equipList)
         )
@@ -780,9 +780,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -794,9 +794,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `check return failure usecase if have error in usecase GetNroEquip`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(getNroEquip(1)).thenReturn(
@@ -816,9 +816,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
@@ -830,9 +830,9 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `check return nroEquip if GetNroEquip execute success`() = runTest {
         val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-        val setNroEquipProprio = mock<SetNroEquipProprio>()
+        val setNroEquip = mock<SetNroEquip>()
         val cleanEquip = mock<CleanEquip>()
-        val recoverEquipServer = mock<RecoverEquipServer>()
+        val getAllEquipServer = mock<GetAllEquipServer>()
         val saveAllEquip = mock<SaveAllEquip>()
         val getNroEquip = mock<GetNroEquip>()
         whenever(getNroEquip(1)).thenReturn(
@@ -847,9 +847,9 @@ class NroEquipProprioViewModelTest {
                 )
             ),
             checkNroEquipProprio,
-            setNroEquipProprio,
+            setNroEquip,
             cleanEquip,
-            recoverEquipServer,
+            getAllEquipServer,
             saveAllEquip,
             getNroEquip
         )
