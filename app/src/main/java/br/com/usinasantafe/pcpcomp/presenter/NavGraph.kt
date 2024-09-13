@@ -67,7 +67,7 @@ import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaViewMode
 import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.SenhaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioScreen
 import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioViewModel
-import br.com.usinasantafe.pcpcomp.presenter.proprio.passagcolablist.PassagColabListScreen
+import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListScreen
 import br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe.DetalheMovProprioScreen
 import br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe.DetalheProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.equipseglist.EquipSegListScreen
@@ -84,7 +84,7 @@ import br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal.NotaFiscalPropri
 import br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal.NotaFiscalViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.ObservProprioScreen
 import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.ObservProprioViewModel
-import br.com.usinasantafe.pcpcomp.presenter.proprio.passagcolablist.PassagColabListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.residencia.detalhe.DetalheResidenciaScreen
 import br.com.usinasantafe.pcpcomp.presenter.residencia.detalhe.DetalheResidenciaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.residencia.motorista.MotoristaResidenciaScreen

@@ -10,7 +10,7 @@ import br.com.usinasantafe.pcpcomp.presenter.initial.menuapont.MenuApontViewMode
 import br.com.usinasantafe.pcpcomp.presenter.proprio.movlist.MovEquipProprioListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.matriccolab.MatricColabViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab.NomeColabViewModel
-import br.com.usinasantafe.pcpcomp.presenter.proprio.passagcolablist.PassagColabListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.proprio.passaglist.PassagColabListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip.NroEquipProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.equipseglist.EquipSegListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioViewModel
@@ -96,7 +96,7 @@ val usecaseCleanTableModule = module {
 val usecaseCommonModule = module {
 
     singleOf(::CheckMatricColabImpl) { bind<CheckMatricColab>() }
-    singleOf(::CloseAllMovOpenImpl) { bind<CloseAllMovOpen>() }
+    singleOf(::CloseAllMovImpl) { bind<CloseAllMov>() }
     singleOf(::GetHeaderImpl) { bind<GetHeader>() }
 
 }
@@ -128,21 +128,26 @@ val usecaseProprioModule = module {
     singleOf(::CheckSendMovProprioImpl) { bind<CheckSendMovProprio>() }
     singleOf(::CleanEquipSegImpl) { bind<CleanEquipSeg>() }
     singleOf(::CleanPassagColabImpl) { bind<CleanPassagColab>() }
+    singleOf(::CloseAllMovProprioOpenImpl) { bind<CloseAllMovProprioOpen>() }
+    singleOf(::CloseMovProprioImpl) { bind<CloseMovProprio>() }
     singleOf(::DeleteEquipSegImpl) { bind<DeleteEquipSeg>() }
     singleOf(::DeletePassagColabImpl) { bind<DeletePassagColab>() }
-    singleOf(::GetMatricColabImpl) { bind<GetMatricColab>() }
-    singleOf(::GetNroEquipImpl) { bind<GetNroEquip>() }
-    singleOf(::GetTypeMovImpl) { bind<GetTypeMov>() }
+    singleOf(::GetDestinoProprioImpl) { bind<GetDestinoProprio>() }
     singleOf(::GetDetalheProprioImpl) { bind<GetDetalheProprio>() }
     singleOf(::GetEquipSegListImpl) { bind<GetEquipSegList>() }
+    singleOf(::GetMatricColabImpl) { bind<GetMatricColab>() }
     singleOf(::GetMovEquipProprioOpenListImpl) { bind<GetMovEquipProprioOpenList>() }
     singleOf(::GetNomeColabImpl) { bind<GetNomeColab>() }
+    singleOf(::GetNotaFiscalProprioImpl) { bind<GetNotaFiscalProprio>() }
+    singleOf(::GetNroEquipImpl) { bind<GetNroEquip>() }
+    singleOf(::GetObservProprioImpl) { bind<GetObservProprio>() }
     singleOf(::GetPassagColabListImpl) { bind<GetPassagColabList>() }
+    singleOf(::GetTypeMovImpl) { bind<GetTypeMov>() }
     singleOf(::SaveMovEquipProprioImpl) { bind<SaveMovEquipProprio>() }
     singleOf(::SendMovProprioImpl) { bind<SendMovProprio>() }
     singleOf(::SetDestinoProprioImpl) { bind<SetDestinoProprio>() }
-    singleOf(::SetNotaFiscalProprioImpl) { bind<SetNotaFiscalProprio>() }
     singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
+    singleOf(::SetNotaFiscalProprioImpl) { bind<SetNotaFiscalProprio>() }
     singleOf(::SetNroEquipImpl) { bind<SetNroEquip>() }
     singleOf(::SetObservProprioImpl) { bind<SetObservProprio>() }
     singleOf(::SetStatusSentMovProprioImpl) { bind<SetStatusSentMovProprio>() }

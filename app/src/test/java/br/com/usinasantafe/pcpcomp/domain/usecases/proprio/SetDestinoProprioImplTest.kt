@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -16,6 +17,7 @@ class SetDestinoProprioImplTest {
     fun `Chech return failure Datasource if have error in MovEquipProprioRepository setDestino`() =
         runTest {
             val movEquipProprioRepository = mock<MovEquipProprioRepository>()
+            val startProcessSendData = mock<StartProcessSendData>()
             whenever(
                 movEquipProprioRepository.setDestino(
                     destino = "Teste",
@@ -30,7 +32,10 @@ class SetDestinoProprioImplTest {
                     )
                 )
             )
-            val usecase = SetDestinoProprioImpl(movEquipProprioRepository)
+            val usecase = SetDestinoProprioImpl(
+                movEquipProprioRepository,
+                startProcessSendData
+            )
             val result = usecase(
                 destino = "Teste",
                 flowApp = FlowApp.ADD,
@@ -47,6 +52,7 @@ class SetDestinoProprioImplTest {
     fun `Chech return true if MovEquipProprioRepository setDestino execute success`() =
         runTest {
             val movEquipProprioRepository = mock<MovEquipProprioRepository>()
+            val startProcessSendData = mock<StartProcessSendData>()
             whenever(
                 movEquipProprioRepository.setDestino(
                     destino = "Teste",
@@ -56,7 +62,10 @@ class SetDestinoProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetDestinoProprioImpl(movEquipProprioRepository)
+            val usecase = SetDestinoProprioImpl(
+                movEquipProprioRepository,
+                startProcessSendData
+            )
             val result = usecase(
                 destino = "Teste",
                 flowApp = FlowApp.ADD,

@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.initial.menuapont
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
-import br.com.usinasantafe.pcpcomp.domain.usecases.common.CloseAllMovOpen
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.CloseAllMov
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +13,6 @@ data class MenuApontState(
     val descrVigia: String = "",
     val descrLocal: String = "",
     val flagDialogCheck: Boolean = false,
-    val flagFinishCloseMov: Boolean = false,
     val flagReturn: Boolean = false,
     val flagDialog: Boolean = false,
     val failure: String = "",
@@ -21,7 +20,7 @@ data class MenuApontState(
 
 class MenuApontViewModel(
     private val getHeader: GetHeader,
-    private val closeAllMovOpen: CloseAllMovOpen,
+    private val closeAllMovOpen: CloseAllMov,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MenuApontState())
@@ -33,13 +32,11 @@ class MenuApontViewModel(
         }
     }
 
-
     fun setDialogCheck(flagDialogCheck: Boolean) {
         _uiState.update {
             it.copy(flagDialogCheck = flagDialogCheck)
         }
     }
-
 
     fun returnHeader() = viewModelScope.launch {
         val resultRecoverHeader = getHeader()

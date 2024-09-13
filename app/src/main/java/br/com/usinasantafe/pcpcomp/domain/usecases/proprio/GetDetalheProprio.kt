@@ -12,7 +12,9 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 interface GetDetalheProprio {
-    suspend operator fun invoke(id: Int): Result<DetalheProprioModel>
+    suspend operator fun invoke(
+        id: Int
+    ): Result<DetalheProprioModel>
 }
 
 class GetDetalheProprioImpl(
@@ -23,7 +25,9 @@ class GetDetalheProprioImpl(
     private val colabRepository: ColabRepository
 ) : GetDetalheProprio {
 
-    override suspend fun invoke(id: Int): Result<DetalheProprioModel> {
+    override suspend fun invoke(
+        id: Int
+    ): Result<DetalheProprioModel> {
         try {
             val resultGet = movEquipProprioRepository.get(id)
             if (resultGet.isFailure)

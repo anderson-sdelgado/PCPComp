@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
@@ -50,7 +51,8 @@ fun MovEquipVisitTercListScreen(
                 onNavMenuApont = onNavMenuApont,
                 modifier = Modifier.padding(innerPadding)
             )
-            viewModel.recoverMovEquipInputList()
+            viewModel.returnHeader()
+            viewModel.recoverMovEquipList()
         }
     }
 }

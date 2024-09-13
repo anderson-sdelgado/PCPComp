@@ -15,10 +15,10 @@ class GetNroEquipImpl(
 
     override suspend fun invoke(id: Int): Result<String> {
         try {
-            val resultMov = movEquipProprioRepository.get(id = id)
-            if (resultMov.isFailure)
-                return Result.failure(resultMov.exceptionOrNull()!!)
-            val idEquip = resultMov.getOrNull()!!.idEquipMovEquipProprio!!
+            val resultIdEquip = movEquipProprioRepository.getIdEquip(id = id)
+            if (resultIdEquip.isFailure)
+                return Result.failure(resultIdEquip.exceptionOrNull()!!)
+            val idEquip = resultIdEquip.getOrNull()!!
             val resultEquip = equipRepository.getNro(idEquip = idEquip)
             if (resultEquip.isFailure)
                 return Result.failure(resultEquip.exceptionOrNull()!!)

@@ -358,6 +358,32 @@ class MovEquipProprioRoomDatasourceImplTest {
     }
 
     @Test
+    fun `Check return true if setNotaFiscal execute correctly and value is null`() = runTest {
+        val movEquipProprioRoomModel = MovEquipProprioRoomModel(
+            idMovEquipProprio = 1,
+            matricVigiaMovEquipProprio = 19759,
+            idLocalMovEquipProprio = 1,
+            tipoMovEquipProprio = TypeMov.INPUT,
+            dthrMovEquipProprio = 1723213270250,
+            idEquipMovEquipProprio = 1,
+            matricColabMovEquipProprio = 19759,
+            destinoMovEquipProprio = "TESTE DESTINO",
+            notaFiscalMovEquipProprio = 123456789,
+            observMovEquipProprio = "TESTE OBSERV",
+            statusMovEquipProprio = StatusData.OPEN,
+            statusSendMovEquipProprio = StatusSend.SENDING
+        )
+        val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+        datasource.save(movEquipProprioRoomModel)
+        val result = datasource.setNotaFiscal(null, 1)
+        assertTrue(result.isSuccess)
+        assertTrue(result.getOrNull()!!)
+        val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
+        assertEquals(movEquipProprioRoomModelAfter.notaFiscalMovEquipProprio, null)
+        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
+    }
+
+    @Test
     fun `Check return true if setObserv execute correctly`() = runTest {
         val movEquipProprioRoomModel = MovEquipProprioRoomModel(
             idMovEquipProprio = 1,
@@ -380,6 +406,32 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertTrue(result.getOrNull()!!)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
         assertEquals(movEquipProprioRoomModelAfter.observMovEquipProprio, "TESTE ALTERAR OBSERV")
+        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
+    }
+
+    @Test
+    fun `Check return true if setObserv execute correctly and value is null`() = runTest {
+        val movEquipProprioRoomModel = MovEquipProprioRoomModel(
+            idMovEquipProprio = 1,
+            matricVigiaMovEquipProprio = 19759,
+            idLocalMovEquipProprio = 1,
+            tipoMovEquipProprio = TypeMov.INPUT,
+            dthrMovEquipProprio = 1723213270250,
+            idEquipMovEquipProprio = 1,
+            matricColabMovEquipProprio = 19759,
+            destinoMovEquipProprio = "TESTE DESTINO",
+            notaFiscalMovEquipProprio = 123456789,
+            observMovEquipProprio = "TESTE OBSERV",
+            statusMovEquipProprio = StatusData.OPEN,
+            statusSendMovEquipProprio = StatusSend.SENDING
+        )
+        val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+        datasource.save(movEquipProprioRoomModel)
+        val result = datasource.setObserv(null, 1)
+        assertTrue(result.isSuccess)
+        assertTrue(result.getOrNull()!!)
+        val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
+        assertEquals(movEquipProprioRoomModelAfter.observMovEquipProprio, null)
         assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
     }
 }

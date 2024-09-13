@@ -46,6 +46,7 @@ fun CpfVisitTercScreen(
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             CpfVisitTercContent(
                 flowApp = uiState.flowApp,
+                title = uiState.title,
                 cpf = uiState.cpf,
                 flagAccess = uiState.flagAccess,
                 flagDialog = uiState.flagDialog,
@@ -62,6 +63,8 @@ fun CpfVisitTercScreen(
                 onNavNomeVisitTerc = onNavNomeVisitTerc,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.getCpf()
+            viewModel.recoverTitle()
         }
     }
 }
@@ -69,6 +72,7 @@ fun CpfVisitTercScreen(
 @Composable
 fun CpfVisitTercContent(
     flowApp: FlowApp,
+    title: String,
     cpf: String,
     setTextField: (String, TypeButton) -> Unit,
     flagAccess: Boolean,
@@ -89,7 +93,7 @@ fun CpfVisitTercContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_cpf))
+        TitleListDesign(text = title)
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -163,6 +167,7 @@ fun CpfVisitTercPagePreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             CpfVisitTercContent(
                 flowApp = FlowApp.ADD,
+                title = "CPF TERCEIRO",
                 cpf = "123.456.789-00",
                 setTextField = { _, _ -> },
                 flagAccess = false,

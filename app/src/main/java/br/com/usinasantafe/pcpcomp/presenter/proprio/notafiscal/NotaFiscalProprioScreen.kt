@@ -56,13 +56,14 @@ fun NotaFiscalProprioScreen(
                 onNavDetalheMovProprio = onNavDetalheMovProprio,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.getNotaFiscal()
         }
     }
 }
 
 @Composable
 fun NotaFiscalProprioContent(
-    notaFiscal: String,
+    notaFiscal: String?,
     flowApp: FlowApp,
     setTextField: (String, TypeButtonWithoutUpdate) -> Unit,
     flagAccess: Boolean,
@@ -91,7 +92,7 @@ fun NotaFiscalProprioContent(
                 fontSize = 24.sp
             ),
             readOnly = true,
-            value = notaFiscal,
+            value = if(notaFiscal.isNullOrEmpty()) "" else notaFiscal,
             onValueChange = {},
             modifier = Modifier
                 .fillMaxWidth()

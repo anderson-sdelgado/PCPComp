@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.destino
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetDestinoProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetTypeMov
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetDestinoProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
@@ -19,6 +20,7 @@ data class DestinoProprioState(
     val id: Int = 0,
     val destino: String = "",
     val typeMov: TypeMov = TypeMov.INPUT,
+    val flagGetDestino: Boolean = true,
     val flagAccess: Boolean = false,
     val flagDialog: Boolean = false,
     val failure: String = "",
@@ -27,6 +29,7 @@ data class DestinoProprioState(
 class DestinoProprioViewModel(
     savedStateHandle: SavedStateHandle,
     private val setDestinoProprio: SetDestinoProprio,
+    private val getDestinoProprio: GetDestinoProprio,
     private val getTypeMov: GetTypeMov
 ) : ViewModel() {
 
@@ -57,6 +60,33 @@ class DestinoProprioViewModel(
         }
     }
 
+    fun getDestino() = viewModelScope.launch {
+        if (
+            uiState.value.flowApp == FlowApp.CHANGE &&
+            uiState.value.flagGetDestino
+        ) {
+            val resultGetDestino = getDestinoProprio(uiState.value.id)
+            if (resultGetDestino.isFailure) {
+                val error = resultGetDestino.exceptionOrNull()!!
+                val failure = "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+            val destino = resultGetDestino.getOrNull()!!
+            _uiState.update {
+                it.copy(
+                    destino = destino,
+                    flagGetDestino = false
+                )
+            }
+        }
+    }
+
     fun setDestino() {
         if (uiState.value.destino.isEmpty()) {
             _uiState.update {
@@ -72,7 +102,7 @@ class DestinoProprioViewModel(
                 uiState.value.flowApp,
                 uiState.value.id
             )
-            if (resultSetDestino.isFailure){
+            if (resultSetDestino.isFailure) {
                 val error = resultSetDestino.exceptionOrNull()!!
                 val failure = "${error.message} -> ${error.cause.toString()}"
                 _uiState.update {
@@ -84,7 +114,7 @@ class DestinoProprioViewModel(
                 return@launch
             }
             val resultGetTypeMov = getTypeMov()
-            if (resultGetTypeMov.isFailure){
+            if (resultGetTypeMov.isFailure) {
                 val error = resultGetTypeMov.exceptionOrNull()!!
                 val failure = "${error.message} -> ${error.cause.toString()}"
                 _uiState.update {

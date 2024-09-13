@@ -202,9 +202,9 @@ class NroEquipProprioViewModel(
     suspend fun updateAllDatabase(): Flow<NroEquipProprioState> = flow {
         val sizeUpdate = 4f
         var configState = NroEquipProprioState()
-        updateAllEquip(sizeUpdate, 1f).collect { stateUpdateColab ->
-            configState = stateUpdateColab
-            emit(stateUpdateColab)
+        updateAllEquip(sizeUpdate, 1f).collect { stateUpdate ->
+            configState = stateUpdate
+            emit(stateUpdate)
         }
         if (configState.flagFailure)
             return@flow

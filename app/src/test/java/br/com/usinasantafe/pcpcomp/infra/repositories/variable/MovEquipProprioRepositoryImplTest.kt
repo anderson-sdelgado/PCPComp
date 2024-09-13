@@ -364,6 +364,7 @@ class MovEquipProprioRepositoryImplTest {
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }
+
     @Test
     fun `Check failure if have failure in MovEquipProprioSharedPreferencesDatasource setIdEquip FlowApp ADD`() =
         runTest {
@@ -844,6 +845,30 @@ class MovEquipProprioRepositoryImplTest {
         }
 
     @Test
+    fun `Check return true if MovEquipProprioSharedPreferencesDatasource setObserv execute correctly FlowApp ADD and value is null`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioSharedPreferencesDatasource.setObserv(null)).thenReturn(
+                Result.success(true)
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.setObserv(
+                observ = null,
+                flowApp = FlowApp.ADD,
+                id = 0
+            )
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
+    @Test
     fun `Check return true if MovEquipProprioSharedPreferencesDatasource setObserv execute correctly FlowApp CHANGE`() =
         runTest {
             val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
@@ -860,6 +885,30 @@ class MovEquipProprioRepositoryImplTest {
             )
             val result = repository.setObserv(
                 observ = "TESTE OBSERV",
+                flowApp = FlowApp.CHANGE,
+                id = 1
+            )
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `Check return true if MovEquipProprioSharedPreferencesDatasource setObserv execute correctly FlowApp CHANGE and value is null`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.setObserv(null, 1)).thenReturn(
+                Result.success(true)
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.setObserv(
+                observ = null,
                 flowApp = FlowApp.CHANGE,
                 id = 1
             )
@@ -1152,7 +1201,7 @@ class MovEquipProprioRepositoryImplTest {
                 "Failure Datasource -> MovEquipProprioRoomDatasource.listSend"
             )
         }
-    
+
     @Test
     fun `Check return failure if MovEquipProprioRepository listSend execute successfully`() =
         runTest {
@@ -1206,7 +1255,10 @@ class MovEquipProprioRepositoryImplTest {
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
                 tipoMovEquipProprio = 1,
-                dthrMovEquipProprio = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(Date(1723213270250)),
+                dthrMovEquipProprio = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale("pt", "BR")
+                ).format(Date(1723213270250)),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
                 destinoMovEquipProprio = "TESTE DESTINO",
@@ -1268,7 +1320,10 @@ class MovEquipProprioRepositoryImplTest {
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
                 tipoMovEquipProprio = 1,
-                dthrMovEquipProprio = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(Date(1723213270250)),
+                dthrMovEquipProprio = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale("pt", "BR")
+                ).format(Date(1723213270250)),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
                 destinoMovEquipProprio = "TESTE DESTINO",
@@ -1307,7 +1362,12 @@ class MovEquipProprioRepositoryImplTest {
             val movEquipProprioSharedPreferencesDatasource =
                 mock<MovEquipProprioSharedPreferencesDatasource>()
             val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
-            whenever(movEquipProprioRetrofitDatasource.send(listRetrofitModelOutput, token)).thenReturn(
+            whenever(
+                movEquipProprioRetrofitDatasource.send(
+                    listRetrofitModelOutput,
+                    token
+                )
+            ).thenReturn(
                 Result.success(listRetrofitModelInput)
             )
             val repository = MovEquipProprioRepositoryImpl(
@@ -1505,5 +1565,264 @@ class MovEquipProprioRepositoryImplTest {
             val model = result.getOrNull()!!
             assertEquals(model.idMovEquipProprio, 1)
             assertEquals(model.destinoMovEquipProprio, "TESTE DESTINO")
+        }
+
+    @Test
+    fun `Check failure if have error in MovEquipProprioRoomDatasource GetDestino`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipProprioRoomDatasource.get",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getDestino(1)
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipProprioRoomDatasource.get"
+            )
+        }
+
+    @Test
+    fun `Check return destino if MovEquipProprioRoomDatasource Get execute successfully`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.success(
+                    MovEquipProprioRoomModel(
+                        idMovEquipProprio = 1,
+                        matricVigiaMovEquipProprio = 19759,
+                        idLocalMovEquipProprio = 1,
+                        tipoMovEquipProprio = TypeMov.INPUT,
+                        dthrMovEquipProprio = 1723213270250,
+                        idEquipMovEquipProprio = 1,
+                        matricColabMovEquipProprio = 19759,
+                        destinoMovEquipProprio = "TESTE DESTINO",
+                        notaFiscalMovEquipProprio = 123456789,
+                        observMovEquipProprio = "TESTE OBSERV",
+                        statusMovEquipProprio = StatusData.OPEN,
+                        statusSendMovEquipProprio = StatusSend.SEND
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getDestino(1)
+            assertTrue(result.isSuccess)
+            assertEquals(result.getOrNull()!!, "TESTE DESTINO")
+        }
+
+    @Test
+    fun `Check failure if have error in MovEquipProprioRoomDatasource GetNotaFiscal`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipProprioRoomDatasource.get",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getNotaFiscal(1)
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipProprioRoomDatasource.get"
+            )
+        }
+
+    @Test
+    fun `Check return Nota Fiscal if MovEquipProprioRoomDatasource Get execute successfully`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.success(
+                    MovEquipProprioRoomModel(
+                        idMovEquipProprio = 1,
+                        matricVigiaMovEquipProprio = 19759,
+                        idLocalMovEquipProprio = 1,
+                        tipoMovEquipProprio = TypeMov.INPUT,
+                        dthrMovEquipProprio = 1723213270250,
+                        idEquipMovEquipProprio = 1,
+                        matricColabMovEquipProprio = 19759,
+                        destinoMovEquipProprio = "TESTE DESTINO",
+                        notaFiscalMovEquipProprio = 123456789,
+                        observMovEquipProprio = "TESTE OBSERV",
+                        statusMovEquipProprio = StatusData.OPEN,
+                        statusSendMovEquipProprio = StatusSend.SEND
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getNotaFiscal(1)
+            assertTrue(result.isSuccess)
+            assertEquals(result.getOrNull()!!, 123456789)
+        }
+
+    @Test
+    fun `Check return Nota Fiscal if MovEquipProprioRoomDatasource Get execute successfully and field is null`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.success(
+                    MovEquipProprioRoomModel(
+                        idMovEquipProprio = 1,
+                        matricVigiaMovEquipProprio = 19759,
+                        idLocalMovEquipProprio = 1,
+                        tipoMovEquipProprio = TypeMov.INPUT,
+                        dthrMovEquipProprio = 1723213270250,
+                        idEquipMovEquipProprio = 1,
+                        matricColabMovEquipProprio = 19759,
+                        destinoMovEquipProprio = "TESTE DESTINO",
+                        notaFiscalMovEquipProprio = null,
+                        observMovEquipProprio = "TESTE OBSERV",
+                        statusMovEquipProprio = StatusData.OPEN,
+                        statusSendMovEquipProprio = StatusSend.SEND
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getNotaFiscal(1)
+            assertTrue(result.isSuccess)
+            assertEquals(result.getOrNull(), null)
+        }
+
+    @Test
+    fun `Check failure if have error in MovEquipProprioRoomDatasource GetObserv`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipProprioRoomDatasource.get",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getObserv(1)
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipProprioRoomDatasource.get"
+            )
+        }
+
+    @Test
+    fun `Check return Observ if MovEquipProprioRoomDatasource Get execute successfully`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.success(
+                    MovEquipProprioRoomModel(
+                        idMovEquipProprio = 1,
+                        matricVigiaMovEquipProprio = 19759,
+                        idLocalMovEquipProprio = 1,
+                        tipoMovEquipProprio = TypeMov.INPUT,
+                        dthrMovEquipProprio = 1723213270250,
+                        idEquipMovEquipProprio = 1,
+                        matricColabMovEquipProprio = 19759,
+                        destinoMovEquipProprio = "TESTE DESTINO",
+                        notaFiscalMovEquipProprio = 123456789,
+                        observMovEquipProprio = "TESTE OBSERV",
+                        statusMovEquipProprio = StatusData.OPEN,
+                        statusSendMovEquipProprio = StatusSend.SEND
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getObserv(1)
+            assertTrue(result.isSuccess)
+            assertEquals(result.getOrNull()!!, "TESTE OBSERV")
+        }
+
+    @Test
+    fun `Check return Observ if MovEquipProprioRoomDatasource Get execute successfully and field is null`() =
+        runTest {
+            val movEquipProprioRoomDatasource = mock<MovEquipProprioRoomDatasource>()
+            val movEquipProprioSharedPreferencesDatasource =
+                mock<MovEquipProprioSharedPreferencesDatasource>()
+            val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
+            whenever(movEquipProprioRoomDatasource.get(1)).thenReturn(
+                Result.success(
+                    MovEquipProprioRoomModel(
+                        idMovEquipProprio = 1,
+                        matricVigiaMovEquipProprio = 19759,
+                        idLocalMovEquipProprio = 1,
+                        tipoMovEquipProprio = TypeMov.INPUT,
+                        dthrMovEquipProprio = 1723213270250,
+                        idEquipMovEquipProprio = 1,
+                        matricColabMovEquipProprio = 19759,
+                        destinoMovEquipProprio = "TESTE DESTINO",
+                        notaFiscalMovEquipProprio = null,
+                        observMovEquipProprio = null,
+                        statusMovEquipProprio = StatusData.OPEN,
+                        statusSendMovEquipProprio = StatusSend.SEND
+                    )
+                )
+            )
+            val repository = MovEquipProprioRepositoryImpl(
+                movEquipProprioSharedPreferencesDatasource,
+                movEquipProprioRoomDatasource,
+                movEquipProprioRetrofitDatasource
+            )
+            val result = repository.getObserv(1)
+            assertTrue(result.isSuccess)
+            assertEquals(result.getOrNull(), null)
         }
 }

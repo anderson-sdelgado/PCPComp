@@ -67,6 +67,7 @@ class EquipSegListViewModel(
 
     fun cleanVeicSeg() = viewModelScope.launch {
         if (
+            (uiState.value.flowApp == FlowApp.ADD) &&
             (uiState.value.typeEquip == TypeEquip.VEICULO) &&
             (uiState.value.flagClean)
         ) {

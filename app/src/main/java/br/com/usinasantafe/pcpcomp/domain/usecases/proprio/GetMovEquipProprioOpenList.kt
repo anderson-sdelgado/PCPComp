@@ -25,25 +25,24 @@ class GetMovEquipProprioOpenListImpl(
             if(resultListOpen.isFailure)
                 return Result.failure(resultListOpen.exceptionOrNull()!!)
             val listOpen = resultListOpen.getOrNull()!!
-            return Result.success(
-                listOpen.map {
-                    val resultNro = equipRepository.getNro(it.idEquipMovEquipProprio!!)
-                    if(resultNro.isFailure)
-                        return Result.failure(resultNro.exceptionOrNull()!!)
-                    val nroEquip = resultNro.getOrNull()!!
-                    val resultNome = colabRepository.getNome(it.matricColabMovEquipProprio!!)
-                    if(resultNome.isFailure)
-                        return Result.failure(resultNome.exceptionOrNull()!!)
-                    val nomeColab = resultNome.getOrNull()!!
-                    MovEquipProprioModel(
-                        id = it.idMovEquipProprio!!,
-                        dthr = "DATA/HORA: ${SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(it.dthrMovEquipProprio)}",
-                        typeMov = if (it.tipoMovEquipProprio == TypeMov.INPUT) "ENTRADA" else "SAIDA",
-                        equip = "VEICULO: $nroEquip",
-                        colab = "MOTORISTA: ${it.matricColabMovEquipProprio!!} - $nomeColab"
-                    )
-                }
-            )
+            val listModel = listOpen.map {
+                val resultNro = equipRepository.getNro(it.idEquipMovEquipProprio!!)
+                if(resultNro.isFailure)
+                    return Result.failure(resultNro.exceptionOrNull()!!)
+                val nroEquip = resultNro.getOrNull()!!
+                val resultNome = colabRepository.getNome(it.matricColabMovEquipProprio!!)
+                if(resultNome.isFailure)
+                    return Result.failure(resultNome.exceptionOrNull()!!)
+                val nomeColab = resultNome.getOrNull()!!
+                MovEquipProprioModel(
+                    id = it.idMovEquipProprio!!,
+                    dthr = "DATA/HORA: ${SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(it.dthrMovEquipProprio)}",
+                    typeMov = if (it.tipoMovEquipProprio == TypeMov.INPUT) "ENTRADA" else "SAIDA",
+                    equip = "VEICULO: $nroEquip",
+                    colab = "MOTORISTA: ${it.matricColabMovEquipProprio!!} - $nomeColab"
+                )
+            }
+            return Result.success(listModel)
         } catch (e: Exception){
             return Result.failure(
                 UsecaseException(

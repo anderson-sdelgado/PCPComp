@@ -81,7 +81,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
         }
     }
 
-    override suspend fun setNotaFiscal(notaFiscal: Int): Result<Boolean> {
+    override suspend fun setNotaFiscal(notaFiscal: Int?): Result<Boolean> {
         try {
             val resultGet = get()
             if(resultGet.isFailure)
@@ -119,7 +119,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
         }
     }
 
-    override suspend fun setObserv(observ: String): Result<Boolean> {
+    override suspend fun setObserv(observ: String?): Result<Boolean> {
         try {
             val resultGet = get()
             if(resultGet.isFailure)

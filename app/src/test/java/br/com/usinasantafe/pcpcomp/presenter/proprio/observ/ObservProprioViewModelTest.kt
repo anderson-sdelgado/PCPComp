@@ -4,6 +4,7 @@ import androidx.compose.runtime.internal.composableLambda
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetObservProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetTypeMov
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SaveMovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetObservProprio
@@ -29,6 +30,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return failure if have failure in GetTypeMov`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         whenever(
@@ -49,6 +51,7 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
@@ -63,6 +66,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return TypeMov if GetTypeMov execute success`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         whenever(
@@ -78,6 +82,7 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
@@ -89,6 +94,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return access if execute SetObservProprio with field empty`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         val viewModel = ObservProprioViewModel(
@@ -99,6 +105,7 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
@@ -109,6 +116,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return failure if have errors in SetObservProprio`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         whenever(
@@ -133,6 +141,7 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
@@ -148,6 +157,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return failure with observ empty if have errors in SaveMovEquipProprio`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         whenever(saveMovEquipProprio()).thenReturn(
@@ -166,6 +176,7 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
@@ -180,6 +191,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return failure if have errors in SaveMovEquipProprio`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         whenever(
@@ -207,6 +219,7 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
@@ -222,6 +235,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return access if SetObservProprio execute success`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         whenever(
@@ -244,6 +258,7 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
@@ -255,6 +270,7 @@ class ObservProprioViewModelTest {
     @Test
     fun `Check return access with observ empty if SetObservProprio execute success`() = runTest {
         val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
         val saveMovEquipProprio = mock<SaveMovEquipProprio>()
         val getTypeMov = mock<GetTypeMov>()
         whenever(saveMovEquipProprio()).thenReturn(
@@ -268,10 +284,80 @@ class ObservProprioViewModelTest {
                 )
             ),
             setObservProprio,
+            getObservProprio,
             saveMovEquipProprio,
             getTypeMov
         )
         viewModel.setObserv()
         assertEquals(viewModel.uiState.value.flagAccess, true)
+    }
+
+    @Test
+    fun `Check return failure if have error in GetObservProprio`() = runTest {
+        val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
+        val saveMovEquipProprio = mock<SaveMovEquipProprio>()
+        val getTypeMov = mock<GetTypeMov>()
+        whenever(
+            getObservProprio(
+                id = 1
+            )
+        ).thenReturn(
+            Result.failure(
+                UsecaseException(
+                    function = "GetObservProprio",
+                    cause = Exception()
+                )
+            )
+        )
+        val viewModel = ObservProprioViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                    Args.ID_ARGS to 1,
+                )
+            ),
+            setObservProprio,
+            getObservProprio,
+            saveMovEquipProprio,
+            getTypeMov
+        )
+        viewModel.getObserv()
+        assertTrue(viewModel.uiState.value.flagDialog)
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Usecase -> GetObservProprio -> java.lang.Exception"
+        )
+    }
+
+    @Test
+    fun `Check return observ if GetObservProprio execute success`() = runTest {
+        val setObservProprio = mock<SetObservProprio>()
+        val getObservProprio = mock<GetObservProprio>()
+        val saveMovEquipProprio = mock<SaveMovEquipProprio>()
+        val getTypeMov = mock<GetTypeMov>()
+        whenever(
+            getObservProprio(
+                id = 1
+            )
+        ).thenReturn(
+            Result.success("Observação")
+        )
+        val viewModel = ObservProprioViewModel(
+            SavedStateHandle(
+                mapOf(
+                    Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                    Args.ID_ARGS to 1,
+                )
+            ),
+            setObservProprio,
+            getObservProprio,
+            saveMovEquipProprio,
+            getTypeMov
+        )
+        viewModel.getObserv()
+        val state = viewModel.uiState.value
+        assertFalse(state.flagGetObserv)
+        assertEquals(state.observ, "Observação")
     }
 }

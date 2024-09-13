@@ -62,9 +62,9 @@ class MovEquipProprioListViewModel(
     }
 
     fun recoverMovEquipOpenList() = viewModelScope.launch {
-        val resultMovOpenList = getMovEquipProprioOpenList()
-        if (resultMovOpenList.isFailure) {
-            val error = resultMovOpenList.exceptionOrNull()!!
+        val resultGetList = getMovEquipProprioOpenList()
+        if (resultGetList.isFailure) {
+            val error = resultGetList.exceptionOrNull()!!
             val failure =
                 "${error.message} -> ${error.cause.toString()}"
             _uiState.update {
@@ -75,7 +75,7 @@ class MovEquipProprioListViewModel(
             }
             return@launch
         }
-        val result = resultMovOpenList.getOrNull()!!
+        val result = resultGetList.getOrNull()!!
         _uiState.update {
             it.copy(
                 movEquipProprioModelList = result

@@ -2,7 +2,6 @@ package br.com.usinasantafe.pcpcomp.presenter.residencia.moveditlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.presenter.visitterc.moveditlist.MovEquipVisitTercEditModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

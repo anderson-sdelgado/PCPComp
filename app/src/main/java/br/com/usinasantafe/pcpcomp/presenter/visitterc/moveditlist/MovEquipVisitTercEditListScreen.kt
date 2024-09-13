@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
@@ -27,17 +29,20 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
 fun MovEquipVisitTercEditListScreen(
     viewModel: MovEquipVisitTercEditListViewModel,
     onNavMovEquipList: () -> Unit,
-    onNavDetalhe: (Int) -> Unit
+    onNavDetalhe: (Int) -> Unit,
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             MovEquipVisitTercEditListContent(
-                movEquipVisitTercEditModelList = uiState.movEquipVisitTercEditModelList,
+                movEquipVisitTercModelList = uiState.movEquipVisitTercModelList,
                 closeAllMov = viewModel::closeAllMov,
                 flagDialog = uiState.flagDialog,
                 failure = uiState.failure,
+                flagDialogCheck = uiState.flagDialogCheck,
+                setDialogCheck = viewModel::setDialogCheck,
                 setCloseDialog = viewModel::setCloseDialog,
+                flagCloseAllMov = uiState.flagCloseAllMov,
                 onNavMovEquipList = onNavMovEquipList,
                 onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
@@ -49,11 +54,14 @@ fun MovEquipVisitTercEditListScreen(
 
 @Composable
 fun MovEquipVisitTercEditListContent(
-    movEquipVisitTercEditModelList: List<MovEquipVisitTercEditModel>,
+    movEquipVisitTercModelList: List<MovEquipVisitTercModel>,
     closeAllMov: () -> Unit,
     flagDialog: Boolean,
     failure: String,
+    flagDialogCheck: Boolean,
+    setDialogCheck: (Boolean) -> Unit,
     setCloseDialog: () -> Unit,
+    flagCloseAllMov: Boolean,
     onNavMovEquipList: () -> Unit,
     onNavDetalhe: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -68,7 +76,7 @@ fun MovEquipVisitTercEditListContent(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            items(movEquipVisitTercEditModelList) { mov ->
+            items(movEquipVisitTercModelList) { mov ->
                 ItemListDesign(
                     text = "DATA/HORA: ${mov.dthr}\n" +
                             "TIPO:  ${mov.tipo}\n" +
@@ -108,6 +116,18 @@ fun MovEquipVisitTercEditListContent(
             )
         }
 
+        if(flagDialogCheck){
+            AlertDialogCheckDesign(
+                text = stringResource(id = R.string.text_question_close_mov),
+                setCloseDialog = { setDialogCheck(false)  },
+                setActionButtonOK = { closeAllMov() }
+            )
+        }
+
+        if(flagCloseAllMov){
+            onNavMovEquipList()
+        }
+
     }
 }
 
@@ -117,10 +137,13 @@ fun MovEquipVisitTercEditListPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MovEquipVisitTercEditListContent(
-                movEquipVisitTercEditModelList = emptyList(),
+                movEquipVisitTercModelList = emptyList(),
                 flagDialog = false,
                 failure = "",
+                flagDialogCheck = false,
+                setDialogCheck = {},
                 setCloseDialog = {},
+                flagCloseAllMov = false,
                 closeAllMov = {},
                 onNavMovEquipList = {},
                 onNavDetalhe = {},

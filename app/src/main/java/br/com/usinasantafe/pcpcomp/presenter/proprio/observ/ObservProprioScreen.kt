@@ -69,7 +69,7 @@ fun ObservProprioScreen(
 fun ObservProprioContent(
     flowApp: FlowApp,
     typeMov: TypeMov,
-    observ: String,
+    observ: String?,
     onObservChanged: (String) -> Unit,
     setObserv: () -> Unit,
     setReturn: () -> Unit,
@@ -91,7 +91,7 @@ fun ObservProprioContent(
         TitleListDesign(text = stringResource(id = R.string.text_title_observ))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
-            value = observ,
+            value = if(observ.isNullOrEmpty()) "" else observ,
             onValueChange = onObservChanged,
             modifier = Modifier
                 .fillMaxWidth()

@@ -2,6 +2,10 @@ package br.com.usinasantafe.pcpcomp.presenter.visitterc.movlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMovEquipVisitTercInputOpenList
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartMovEquipVisitTerc
+import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -17,6 +21,9 @@ data class MovEquipVisitTercListState(
 )
 
 class MovEquipVisitTercListViewModel(
+    private val getHeader: GetHeader,
+    private val getMovEquipVisitTercInputOpenList: GetMovEquipVisitTercInputOpenList,
+    private val startMovEquipVisitTerc: StartMovEquipVisitTerc,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MovEquipVisitTercListState())
@@ -28,12 +35,71 @@ class MovEquipVisitTercListViewModel(
         }
     }
 
-    fun startMov() = viewModelScope.launch {
-
+    fun returnHeader() = viewModelScope.launch {
+        val recoverHeader = getHeader()
+        if (recoverHeader.isFailure) {
+            val error = recoverHeader.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val result = recoverHeader.getOrNull()!!
+        _uiState.update {
+            it.copy(
+                descrVigia = result.descrVigia,
+                descrLocal = result.descrLocal,
+            )
+        }
     }
 
-    fun recoverMovEquipInputList() = viewModelScope.launch {
+    fun recoverMovEquipList() = viewModelScope.launch {
+        val resultGetList = getMovEquipVisitTercInputOpenList()
+        if (resultGetList.isFailure) {
+            val error = resultGetList.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val result = resultGetList.getOrNull()!!
+        _uiState.update {
+            it.copy(
+                movEquipVisitTercModelList = result
+            )
+        }
+    }
 
+    fun startMov() = viewModelScope.launch {
+        val resultStart = startMovEquipVisitTerc()
+        if (resultStart.isFailure) {
+            val error = resultStart.exceptionOrNull()!!
+            val failure =
+                "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        _uiState.update {
+            it.copy(
+                flagAccess = true,
+                flagDialog = false,
+            )
+        }
     }
 
 }

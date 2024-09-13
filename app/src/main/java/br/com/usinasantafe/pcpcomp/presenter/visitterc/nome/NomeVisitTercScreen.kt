@@ -36,7 +36,9 @@ fun NomeVisitTercScreen(
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             NomeVisitTercContent(
-                nomeVisitTerc = uiState.nomeVisitTerc,
+                tipo = uiState.tipo,
+                nome = uiState.nome,
+                empresa = uiState.empresa,
                 setCPF = viewModel::setCPF,
                 flagAccess = uiState.flagAccess,
                 flagDialog = uiState.flagDialog,
@@ -46,13 +48,16 @@ fun NomeVisitTercScreen(
                 onNavPassagVisitTerc = onNavPassagVisitTerc,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.returnNome()
         }
     }
 }
 
 @Composable
 fun NomeVisitTercContent(
-    nomeVisitTerc: String,
+    tipo: String,
+    nome: String,
+    empresa: String,
     setCPF: () -> Unit,
     flagAccess: Boolean,
     flagDialog: Boolean,
@@ -66,7 +71,7 @@ fun NomeVisitTercContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_nome_visit_terc))
+        TitleListDesign(text = "NOME DO $tipo")
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -76,7 +81,21 @@ fun NomeVisitTercContent(
         ) {
             Text(
                 textAlign = TextAlign.Center,
-                text = nomeVisitTerc,
+                text = nome,
+                fontSize = 26.sp,
+            )
+        }
+        TitleListDesign(text = "EMPRESA(S) DO $tipo")
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Text(
+                textAlign = TextAlign.Center,
+                text = empresa,
                 fontSize = 26.sp,
             )
         }
@@ -122,7 +141,9 @@ fun NomeVisitTercPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             NomeVisitTercContent(
-                nomeVisitTerc = "TESTE",
+                tipo = "TERCEIRO",
+                nome = "NOME TESTE",
+                empresa = "EMPRESA TESTE",
                 setCPF = {},
                 flagAccess = false,
                 flagDialog = false,

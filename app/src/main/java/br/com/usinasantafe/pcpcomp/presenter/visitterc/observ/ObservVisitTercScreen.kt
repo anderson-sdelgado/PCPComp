@@ -56,6 +56,7 @@ fun ObservVisitTercScreen(
                 onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.recoverObserv()
         }
     }
 }
@@ -64,7 +65,7 @@ fun ObservVisitTercScreen(
 fun ObservVisitTercContent(
     flowApp: FlowApp,
     typeMov: TypeMov,
-    observ: String,
+    observ: String?,
     onObservChanged: (String) -> Unit,
     setObserv: () -> Unit,
     flagAccess: Boolean,
@@ -83,7 +84,7 @@ fun ObservVisitTercContent(
         TitleListDesign(text = stringResource(id = R.string.text_title_observ))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
-            value = observ,
+            value = if(observ.isNullOrEmpty()) "" else observ,
             onValueChange = onObservChanged,
             modifier = Modifier
                 .fillMaxWidth()

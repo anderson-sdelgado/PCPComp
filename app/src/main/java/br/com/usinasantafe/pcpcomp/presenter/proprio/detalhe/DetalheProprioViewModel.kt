@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CloseMovProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetDetalheProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,11 +24,14 @@ data class DetalheProprioState(
     val observ: String = "",
     val flagDialog: Boolean = false,
     val failure: String = "",
+    val flagDialogCheck: Boolean = false,
+    val flagCloseMov: Boolean = false
 )
 
 class DetalheProprioViewModel(
     saveStateHandle: SavedStateHandle,
-    private val getDetalheProprio: GetDetalheProprio
+    private val getDetalheProprio: GetDetalheProprio,
+    private val closeMovProprio: CloseMovProprio
 ) : ViewModel() {
 
     private val id: Int = saveStateHandle[ID_ARGS]!!
@@ -49,8 +53,14 @@ class DetalheProprioViewModel(
         }
     }
 
+    fun setDialogCheck(flagDialogCheck: Boolean) {
+        _uiState.update {
+            it.copy(flagDialogCheck = flagDialogCheck)
+        }
+    }
+
     fun recoverDetalhe() = viewModelScope.launch {
-        val resultRecoverDetalhe = getDetalheProprio(id)
+        val resultRecoverDetalhe = getDetalheProprio(uiState.value.id)
         if(resultRecoverDetalhe.isFailure) {
             val error = resultRecoverDetalhe.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"
@@ -78,5 +88,26 @@ class DetalheProprioViewModel(
         }
     }
 
+    fun closeMov() = viewModelScope.launch {
+        val resultCloseMov = closeMovProprio(id)
+        if(resultCloseMov.isFailure) {
+            val error = resultCloseMov.exceptionOrNull()!!
+            val failure = "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    failure = failure
+                )
+            }
+            return@launch
+        }
+        val result = resultCloseMov.getOrNull()!!
+        _uiState.update {
+            it.copy(
+                flagDialogCheck = false,
+                flagCloseMov = result
+            )
+        }
+    }
 
 }

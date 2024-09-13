@@ -150,7 +150,9 @@ class MovEquipProprioScreenTest: KoinTest {
             MovEquipProprioListScreen(
                 viewModel = koinViewModel<MovEquipProprioListViewModel>(),
                 onNavNroEquip = {},
-                onNavDetalhe = {}
+                onNavDetalhe = {},
+                onNavMenuApont = {},
+                onNavSplashScreen = {},
             )
         }
     }

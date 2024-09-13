@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNotaFiscalProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNotaFiscalProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -16,9 +17,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class NotaFiscalState(
-    val notaFiscal: String = "",
+    val notaFiscal: String? = null,
     val flowApp: FlowApp = FlowApp.ADD,
     val id: Int = 0,
+    val flagGetNotaFiscal: Boolean = true,
     val flagAccess: Boolean = false,
     val flagDialog: Boolean = false,
     val failure: String = "",
@@ -26,7 +28,8 @@ data class NotaFiscalState(
 
 class NotaFiscalViewModel(
     savedStateHandle: SavedStateHandle,
-    private val setNotaFiscalProprio: SetNotaFiscalProprio
+    private val setNotaFiscalProprio: SetNotaFiscalProprio,
+    private val getNotaFiscalProprio: GetNotaFiscalProprio
 ) : ViewModel() {
 
     private val flowApp: Int = savedStateHandle[FLOW_APP_ARGS]!!
@@ -54,31 +57,51 @@ class NotaFiscalViewModel(
         text: String,
         typeButtonWithoutUpdate: TypeButtonWithoutUpdate
     ) {
+        val nf = if (uiState.value.notaFiscal.isNullOrEmpty()) "" else uiState.value.notaFiscal!!
         when (typeButtonWithoutUpdate) {
             TypeButtonWithoutUpdate.NUMERIC -> {
-                val notaFiscal = addTextField(uiState.value.notaFiscal, text)
+                val notaFiscal = addTextField(nf, text)
                 _uiState.update {
                     it.copy(notaFiscal = notaFiscal)
                 }
             }
 
             TypeButtonWithoutUpdate.CLEAN -> {
-                val notaFiscal = clearTextField(uiState.value.notaFiscal)
+                val notaFiscal = clearTextField(nf)
                 _uiState.update {
                     it.copy(notaFiscal = notaFiscal)
                 }
             }
 
             TypeButtonWithoutUpdate.OK -> {
-                if (uiState.value.notaFiscal.isEmpty()) {
-                    _uiState.update {
-                        it.copy(
-                            flagAccess = true,
-                        )
-                    }
-                    return
-                }
                 setNotaFiscal()
+            }
+        }
+    }
+
+    fun getNotaFiscal() = viewModelScope.launch {
+        if (
+            uiState.value.flowApp == FlowApp.CHANGE &&
+            uiState.value.flagGetNotaFiscal
+        ) {
+            val resultSetNotaFiscal = getNotaFiscalProprio(uiState.value.id)
+            if (resultSetNotaFiscal.isFailure) {
+                val error = resultSetNotaFiscal.exceptionOrNull()!!
+                val failure = "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+            val notaFiscal = resultSetNotaFiscal.getOrNull()
+            _uiState.update {
+                it.copy(
+                    notaFiscal = notaFiscal,
+                    flagGetNotaFiscal = false
+                )
             }
         }
     }

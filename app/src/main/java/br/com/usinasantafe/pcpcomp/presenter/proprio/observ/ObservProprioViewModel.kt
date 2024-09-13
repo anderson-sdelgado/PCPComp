@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.observ
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetObservProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetTypeMov
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SaveMovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetObservProprio
@@ -19,7 +20,8 @@ data class ObservProprioState(
     val flowApp: FlowApp = FlowApp.ADD,
     val id: Int = 0,
     val typeMov: TypeMov = TypeMov.INPUT,
-    val observ: String = "",
+    val observ: String? = null,
+    val flagGetObserv: Boolean = true,
     val flagAccess: Boolean = false,
     val flagReturn: Boolean = false,
     val flagDialog: Boolean = false,
@@ -29,6 +31,7 @@ data class ObservProprioState(
 class ObservProprioViewModel(
     savedStateHandle: SavedStateHandle,
     private val setObservProprio: SetObservProprio,
+    private val getObservProprio: GetObservProprio,
     private val saveMovEquipProprio: SaveMovEquipProprio,
     private val getTypeMov: GetTypeMov
 ) : ViewModel() {
@@ -60,53 +63,70 @@ class ObservProprioViewModel(
         }
     }
 
-    fun setObserv() {
-        var checkObservNotEmpty = true
-        if (uiState.value.observ.isEmpty()) {
-           checkObservNotEmpty = false
-        }
-        viewModelScope.launch {
-            if(checkObservNotEmpty){
-                val resultSetObserv = setObservProprio(
-                    observ = uiState.value.observ,
-                    flowApp = uiState.value.flowApp,
-                    id = uiState.value.id
-                )
-                if(resultSetObserv.isFailure){
-                    val error = resultSetObserv.exceptionOrNull()!!
-                    val failure = "${error.message} -> ${error.cause.toString()}"
-                    _uiState.update {
-                        it.copy(
-                            flagDialog = true,
-                            failure = failure,
-                        )
-                    }
-                    return@launch
-                }
-            }
-            val resultSaveMovEquip = saveMovEquipProprio()
-            if(resultSaveMovEquip.isFailure){
-                val error = resultSaveMovEquip.exceptionOrNull()!!
-                val failure = "${error.message} -> ${error.cause.toString()}"
-                _uiState.update {
-                    it.copy(
-                        flagDialog = true,
-                        failure = failure,
-                    )
-                }
-                return@launch
-            }
+    fun getObserv() = viewModelScope.launch {
+        val resultGetObserv = getObservProprio(
+            id = uiState.value.id
+        )
+        if (resultGetObserv.isFailure) {
+            val error = resultGetObserv.exceptionOrNull()!!
+            val failure = "${error.message} -> ${error.cause.toString()}"
             _uiState.update {
                 it.copy(
-                    flagAccess = true,
+                    flagDialog = true,
+                    failure = failure,
                 )
             }
+            return@launch
         }
+        val observ = resultGetObserv.getOrNull()
+        _uiState.update {
+            it.copy(
+                observ = observ,
+                flagGetObserv = false,
+            )
+        }
+    }
+
+    fun setObserv() = viewModelScope.launch {
+        val resultSetObserv = setObservProprio(
+            observ = uiState.value.observ,
+            flowApp = uiState.value.flowApp,
+            id = uiState.value.id
+        )
+        if (resultSetObserv.isFailure) {
+            val error = resultSetObserv.exceptionOrNull()!!
+            val failure = "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        val resultSaveMovEquip = saveMovEquipProprio()
+        if (resultSaveMovEquip.isFailure) {
+            val error = resultSaveMovEquip.exceptionOrNull()!!
+            val failure = "${error.message} -> ${error.cause.toString()}"
+            _uiState.update {
+                it.copy(
+                    flagDialog = true,
+                    failure = failure,
+                )
+            }
+            return@launch
+        }
+        _uiState.update {
+            it.copy(
+                flagAccess = true,
+            )
+        }
+
     }
 
     fun setReturn() = viewModelScope.launch {
         val resultGetTypeMov = getTypeMov()
-        if (resultGetTypeMov.isFailure){
+        if (resultGetTypeMov.isFailure) {
             val error = resultGetTypeMov.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"
             _uiState.update {

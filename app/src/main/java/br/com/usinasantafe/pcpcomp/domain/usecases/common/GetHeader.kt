@@ -4,7 +4,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.LocalRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.presenter.common.HeaderModel
+import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
 
 interface GetHeader {
     suspend operator fun invoke(): Result<HeaderModel>

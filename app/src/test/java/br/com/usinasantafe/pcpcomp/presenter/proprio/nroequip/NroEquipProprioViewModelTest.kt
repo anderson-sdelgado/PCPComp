@@ -811,7 +811,7 @@ class NroEquipProprioViewModelTest {
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
-                    Args.TYPE_EQUIP_ARGS to TypeEquip.VEICULOSEG.ordinal,
+                    Args.TYPE_EQUIP_ARGS to TypeEquip.VEICULO.ordinal,
                     Args.ID_ARGS to 1
                 )
             ),
@@ -842,7 +842,7 @@ class NroEquipProprioViewModelTest {
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
-                    Args.TYPE_EQUIP_ARGS to TypeEquip.VEICULOSEG.ordinal,
+                    Args.TYPE_EQUIP_ARGS to TypeEquip.VEICULO.ordinal,
                     Args.ID_ARGS to 1
                 )
             ),

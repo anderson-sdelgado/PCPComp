@@ -145,7 +145,7 @@ class MovEquipProprioRoomDatasourceImpl(
         }
     }
 
-    override suspend fun setNotaFiscal(notaFiscal: Int, id: Int): Result<Boolean> {
+    override suspend fun setNotaFiscal(notaFiscal: Int?, id: Int): Result<Boolean> {
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.notaFiscalMovEquipProprio = notaFiscal
@@ -162,7 +162,7 @@ class MovEquipProprioRoomDatasourceImpl(
         }
     }
 
-    override suspend fun setObserv(observ: String, id: Int): Result<Boolean> {
+    override suspend fun setObserv(observ: String?, id: Int): Result<Boolean> {
         try {
             val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.observMovEquipProprio = observ

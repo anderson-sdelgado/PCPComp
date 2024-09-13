@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.lifecycle.SavedStateHandle
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetDestinoProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetTypeMov
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetDestinoProprio
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
@@ -27,6 +28,7 @@ class DestinoScreenTest : KoinTest {
     val composeTestRule = createComposeRule()
 
     private val setDestinoProprio: SetDestinoProprio by inject()
+    private val getDestinoProprio: GetDestinoProprio by inject()
     private val getTypeMov: GetTypeMov by inject()
 
     @Before
@@ -60,6 +62,7 @@ class DestinoScreenTest : KoinTest {
                         )
                     ),
                     setDestinoProprio,
+                    getDestinoProprio,
                     getTypeMov
                 ),
                 onNavPassagList = {},

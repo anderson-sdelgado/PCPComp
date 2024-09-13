@@ -7,7 +7,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 interface SetNotaFiscalProprio {
     suspend operator fun invoke(
-        notaFiscal: String,
+        notaFiscal: String?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
@@ -19,13 +19,13 @@ class SetNotaFiscalProprioImpl(
 ) : SetNotaFiscalProprio {
 
     override suspend fun invoke(
-        notaFiscal: String,
+        notaFiscal: String?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean> {
         try {
             val resultSet = movEquipProprioRepository.setNotaFiscal(
-                notaFiscal = notaFiscal.toInt(),
+                notaFiscal = if(notaFiscal.isNullOrEmpty()) null else notaFiscal.toInt(),
                 flowApp = flowApp,
                 id = id
             )

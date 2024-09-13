@@ -135,6 +135,7 @@ class GetMovEquipProprioOpenListImplTest {
     fun `Check return list if all process execute successfully`() = runTest {
         val movEquipProprioList = listOf(
             MovEquipProprio(
+                idMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
                 tipoMovEquipProprio = TypeMov.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),

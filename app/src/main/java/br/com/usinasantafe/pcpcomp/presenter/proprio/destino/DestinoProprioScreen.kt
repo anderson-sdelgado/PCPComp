@@ -59,6 +59,7 @@ fun DestinoProprioScreen(
                 onNavObserv = onNavObserv,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.getDestino()
         }
     }
 }

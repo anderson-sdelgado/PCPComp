@@ -119,7 +119,7 @@ fun MenuApontContent(
 
         if(flagDialogCheck){
             AlertDialogCheckDesign(
-                text = stringResource(id = R.string.text_close_all_mov),
+                text = stringResource(id = R.string.text_question_close_all_mov),
                 setCloseDialog = { setDialogCheck(false)  },
                 setActionButtonOK = { closeAllMov() }
             )

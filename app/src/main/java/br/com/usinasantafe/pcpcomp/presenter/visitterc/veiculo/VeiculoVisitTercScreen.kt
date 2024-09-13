@@ -55,6 +55,7 @@ fun VeiculoVisitTercScreen(
                 onNavPlacaVisitTerc = onNavPlacaVisitTerc,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.recoverVeiculo()
         }
     }
 }

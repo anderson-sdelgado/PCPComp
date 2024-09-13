@@ -135,7 +135,7 @@ class EquipSegListViewModelTest {
         )
         viewModel.recoverVeicSeg()
         assertEquals(viewModel.uiState.value.equipSegList.size, 2)
-        assertEquals(viewModel.uiState.value.equipSegList[0].idEquip, 10L)
+        assertEquals(viewModel.uiState.value.equipSegList[0].idEquip, 10)
     }
 
     @Test
@@ -230,7 +230,7 @@ class EquipSegListViewModelTest {
         viewModel.deleteVeicSeg()
         assertEquals(viewModel.uiState.value.flagDialogCheck, false)
         assertEquals(viewModel.uiState.value.equipSegList.size, 2)
-        assertEquals(viewModel.uiState.value.equipSegList[0].idEquip, 10L)
+        assertEquals(viewModel.uiState.value.equipSegList[0].idEquip, 10)
     }
 
 }

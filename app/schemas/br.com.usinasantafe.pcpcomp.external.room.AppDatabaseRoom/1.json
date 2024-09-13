@@ -1,0 +1,508 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "cb833d88cd66e000fcffa07f27a1f8b1",
+    "entities": [
+      {
+        "tableName": "tb_colab",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matricColab` INTEGER NOT NULL, `nomeColab` TEXT NOT NULL, PRIMARY KEY(`matricColab`))",
+        "fields": [
+          {
+            "fieldPath": "matricColab",
+            "columnName": "matricColab",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeColab",
+            "columnName": "nomeColab",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "matricColab"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_equip",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idEquip` INTEGER NOT NULL, `nroEquip` INTEGER NOT NULL, PRIMARY KEY(`idEquip`))",
+        "fields": [
+          {
+            "fieldPath": "idEquip",
+            "columnName": "idEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nroEquip",
+            "columnName": "nroEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idEquip"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_local",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idLocal` INTEGER NOT NULL, `descrLocal` TEXT NOT NULL, PRIMARY KEY(`idLocal`))",
+        "fields": [
+          {
+            "fieldPath": "idLocal",
+            "columnName": "idLocal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descrLocal",
+            "columnName": "descrLocal",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idLocal"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_terceiro",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTerceiro` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idBDTerceiro` INTEGER NOT NULL, `cpfTerceiro` TEXT NOT NULL, `nomeTerceiro` TEXT NOT NULL, `empresaTerceiro` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idTerceiro",
+            "columnName": "idTerceiro",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idBDTerceiro",
+            "columnName": "idBDTerceiro",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cpfTerceiro",
+            "columnName": "cpfTerceiro",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeTerceiro",
+            "columnName": "nomeTerceiro",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "empresaTerceiro",
+            "columnName": "empresaTerceiro",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idTerceiro"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_visitante",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idVisitante` INTEGER NOT NULL, `cpfVisitante` TEXT NOT NULL, `nomeVisitante` TEXT NOT NULL, `empresaVisitante` TEXT NOT NULL, PRIMARY KEY(`idVisitante`))",
+        "fields": [
+          {
+            "fieldPath": "idVisitante",
+            "columnName": "idVisitante",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cpfVisitante",
+            "columnName": "cpfVisitante",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeVisitante",
+            "columnName": "nomeVisitante",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "empresaVisitante",
+            "columnName": "empresaVisitante",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idVisitante"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_mov_equip_proprio",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprio` INTEGER PRIMARY KEY AUTOINCREMENT, `matricVigiaMovEquipProprio` INTEGER NOT NULL, `idLocalMovEquipProprio` INTEGER NOT NULL, `tipoMovEquipProprio` TEXT NOT NULL, `dthrMovEquipProprio` INTEGER NOT NULL, `idEquipMovEquipProprio` INTEGER NOT NULL, `matricColabMovEquipProprio` INTEGER NOT NULL, `destinoMovEquipProprio` TEXT NOT NULL, `notaFiscalMovEquipProprio` INTEGER, `observMovEquipProprio` TEXT, `statusMovEquipProprio` TEXT NOT NULL, `statusSendMovEquipProprio` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipProprio",
+            "columnName": "idMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "matricVigiaMovEquipProprio",
+            "columnName": "matricVigiaMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLocalMovEquipProprio",
+            "columnName": "idLocalMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoMovEquipProprio",
+            "columnName": "tipoMovEquipProprio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dthrMovEquipProprio",
+            "columnName": "dthrMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEquipMovEquipProprio",
+            "columnName": "idEquipMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matricColabMovEquipProprio",
+            "columnName": "matricColabMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "destinoMovEquipProprio",
+            "columnName": "destinoMovEquipProprio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notaFiscalMovEquipProprio",
+            "columnName": "notaFiscalMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "observMovEquipProprio",
+            "columnName": "observMovEquipProprio",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "statusMovEquipProprio",
+            "columnName": "statusMovEquipProprio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusSendMovEquipProprio",
+            "columnName": "statusSendMovEquipProprio",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipProprio"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_mov_equip_proprio_passag",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprioPassag` INTEGER PRIMARY KEY AUTOINCREMENT, `idMovEquipProprio` INTEGER NOT NULL, `matricColab` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipProprioPassag",
+            "columnName": "idMovEquipProprioPassag",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idMovEquipProprio",
+            "columnName": "idMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matricColab",
+            "columnName": "matricColab",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipProprioPassag"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_mov_equip_proprio_equip_seg",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipProprioEquipSeg` INTEGER PRIMARY KEY AUTOINCREMENT, `idMovEquipProprio` INTEGER NOT NULL, `idEquip` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipProprioEquipSeg",
+            "columnName": "idMovEquipProprioEquipSeg",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idMovEquipProprio",
+            "columnName": "idMovEquipProprio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEquip",
+            "columnName": "idEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipProprioEquipSeg"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_mov_equip_residencia",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipResidencia` INTEGER PRIMARY KEY AUTOINCREMENT, `nroMatricVigiaMovEquipResidencia` INTEGER NOT NULL, `idLocalMovEquipResidencia` INTEGER NOT NULL, `tipoMovEquipResidencia` TEXT NOT NULL, `dthrMovEquipResidencia` INTEGER NOT NULL, `motoristaMovEquipResidencia` TEXT NOT NULL, `veiculoMovEquipResidencia` TEXT NOT NULL, `placaMovEquipResidencia` TEXT NOT NULL, `observMovEquipResidencia` TEXT, `statusMovEquipResidencia` TEXT NOT NULL, `statusSendMovEquipResidencia` TEXT NOT NULL, `statusMovEquipForeigResidencia` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipResidencia",
+            "columnName": "idMovEquipResidencia",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nroMatricVigiaMovEquipResidencia",
+            "columnName": "nroMatricVigiaMovEquipResidencia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLocalMovEquipResidencia",
+            "columnName": "idLocalMovEquipResidencia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoMovEquipResidencia",
+            "columnName": "tipoMovEquipResidencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dthrMovEquipResidencia",
+            "columnName": "dthrMovEquipResidencia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "motoristaMovEquipResidencia",
+            "columnName": "motoristaMovEquipResidencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "veiculoMovEquipResidencia",
+            "columnName": "veiculoMovEquipResidencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "placaMovEquipResidencia",
+            "columnName": "placaMovEquipResidencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observMovEquipResidencia",
+            "columnName": "observMovEquipResidencia",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "statusMovEquipResidencia",
+            "columnName": "statusMovEquipResidencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusSendMovEquipResidencia",
+            "columnName": "statusSendMovEquipResidencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusMovEquipForeigResidencia",
+            "columnName": "statusMovEquipForeigResidencia",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipResidencia"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_mov_equip_visit_terc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipVisitTerc` INTEGER PRIMARY KEY AUTOINCREMENT, `nroMatricVigiaMovEquipVisitTerc` INTEGER NOT NULL, `idLocalMovEquipVisitTerc` INTEGER NOT NULL, `tipoMovEquipVisitTerc` TEXT NOT NULL, `idVisitTercMovEquipVisitTerc` INTEGER NOT NULL, `tipoVisitTercMovEquipVisitTerc` TEXT NOT NULL, `dthrMovEquipVisitTerc` INTEGER NOT NULL, `veiculoMovEquipVisitTerc` TEXT NOT NULL, `placaMovEquipVisitTerc` TEXT NOT NULL, `destinoMovEquipVisitTerc` TEXT, `observMovEquipVisitTerc` TEXT, `statusMovEquipVisitTerc` TEXT NOT NULL, `statusSendMovEquipVisitTerc` TEXT NOT NULL, `statusMovEquipForeigVisitTerc` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipVisitTerc",
+            "columnName": "idMovEquipVisitTerc",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nroMatricVigiaMovEquipVisitTerc",
+            "columnName": "nroMatricVigiaMovEquipVisitTerc",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLocalMovEquipVisitTerc",
+            "columnName": "idLocalMovEquipVisitTerc",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoMovEquipVisitTerc",
+            "columnName": "tipoMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idVisitTercMovEquipVisitTerc",
+            "columnName": "idVisitTercMovEquipVisitTerc",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoVisitTercMovEquipVisitTerc",
+            "columnName": "tipoVisitTercMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dthrMovEquipVisitTerc",
+            "columnName": "dthrMovEquipVisitTerc",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "veiculoMovEquipVisitTerc",
+            "columnName": "veiculoMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "placaMovEquipVisitTerc",
+            "columnName": "placaMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "destinoMovEquipVisitTerc",
+            "columnName": "destinoMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "observMovEquipVisitTerc",
+            "columnName": "observMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "statusMovEquipVisitTerc",
+            "columnName": "statusMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusSendMovEquipVisitTerc",
+            "columnName": "statusSendMovEquipVisitTerc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusMovEquipForeigVisitTerc",
+            "columnName": "statusMovEquipForeigVisitTerc",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipVisitTerc"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cb833d88cd66e000fcffa07f27a1f8b1')"
+    ]
+  }
+}

@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 interface SetObservProprio {
     suspend operator fun invoke(
-        observ: String,
+        observ: String?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
@@ -18,7 +18,7 @@ class SetObservProprioImpl(
 ) : SetObservProprio {
 
     override suspend fun invoke(
-        observ: String,
+        observ: String?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean> {

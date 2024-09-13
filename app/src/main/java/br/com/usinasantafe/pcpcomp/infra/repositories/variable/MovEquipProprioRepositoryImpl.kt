@@ -40,6 +40,22 @@ class MovEquipProprioRepositoryImpl(
         }
     }
 
+    override suspend fun getDestino(id: Int): Result<String> {
+        try {
+            val resultGet = movEquipProprioRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            return Result.success(resultGet.getOrNull()!!.roomModelToEntity().destinoMovEquipProprio!!)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.get",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun getTipoMov(): Result<TypeMov> {
         try {
             val resultGet = movEquipProprioSharedPreferencesDatasource.get()
@@ -51,6 +67,70 @@ class MovEquipProprioRepositoryImpl(
             return Result.failure(
                 RepositoryException(
                     function = "MovEquipProprioRepositoryImpl.getTipoMov",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getIdEquip(id: Int): Result<Int> {
+        try {
+            val resultGet = movEquipProprioRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            return Result.success(resultGet.getOrNull()!!.roomModelToEntity().idEquipMovEquipProprio!!)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.get",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getObserv(id: Int): Result<String?> {
+        try {
+            val resultGet = movEquipProprioRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            return Result.success(resultGet.getOrNull()!!.roomModelToEntity().observMovEquipProprio)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.get",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getMatricColab(id: Int): Result<Int> {
+        try {
+            val resultGet = movEquipProprioRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            return Result.success(resultGet.getOrNull()!!.roomModelToEntity().matricColabMovEquipProprio!!)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.get",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getNotaFiscal(id: Int): Result<Int?> {
+        try {
+            val resultGet = movEquipProprioRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            return Result.success(resultGet.getOrNull()!!.roomModelToEntity().notaFiscalMovEquipProprio)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.get",
                     cause = e
                 )
             )
@@ -232,7 +312,7 @@ class MovEquipProprioRepositoryImpl(
     }
 
     override suspend fun setNotaFiscal(
-        notaFiscal: Int,
+        notaFiscal: Int?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean> {
@@ -252,7 +332,7 @@ class MovEquipProprioRepositoryImpl(
     }
 
     override suspend fun setObserv(
-        observ: String,
+        observ: String?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean> {

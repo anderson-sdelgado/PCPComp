@@ -7,6 +7,11 @@ import br.com.usinasantafe.pcpcomp.utils.TypeMov
 interface MovEquipProprioRepository {
     suspend fun checkSend(): Result<Boolean>
     suspend fun get(id: Int): Result<MovEquipProprio>
+    suspend fun getDestino(id: Int): Result<String>
+    suspend fun getIdEquip(id: Int): Result<Int>
+    suspend fun getMatricColab(id: Int): Result<Int>
+    suspend fun getNotaFiscal(id: Int): Result<Int?>
+    suspend fun getObserv(id: Int): Result<String?>
     suspend fun getTipoMov(): Result<TypeMov>
     suspend fun listOpen(): Result<List<MovEquipProprio>>
     suspend fun listSend(): Result<List<MovEquipProprio>>
@@ -31,7 +36,7 @@ interface MovEquipProprioRepository {
         id: Int
     ): Result<Boolean>
     suspend fun setNotaFiscal(
-        notaFiscal: Int,
+        notaFiscal: Int?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
@@ -41,7 +46,7 @@ interface MovEquipProprioRepository {
         id: Int
     ): Result<Boolean>
     suspend fun setObserv(
-        observ: String,
+        observ: String?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>

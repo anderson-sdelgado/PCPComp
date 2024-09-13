@@ -4,13 +4,11 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
-import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
-
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
@@ -30,7 +28,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovOpenImpl(
+        val usecase = CloseAllMovImpl(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -70,7 +68,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovOpenImpl(
+        val usecase = CloseAllMovImpl(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -113,7 +111,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovOpenImpl(
+        val usecase = CloseAllMovImpl(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -166,7 +164,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovOpenImpl(
+        val usecase = CloseAllMovImpl(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -223,7 +221,7 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            val usecase = CloseAllMovOpenImpl(
+            val usecase = CloseAllMovImpl(
                 movEquipProprioRepository,
                 movEquipVisitTercRepository,
                 movEquipResidenciaRepository
@@ -290,7 +288,7 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            val usecase = CloseAllMovOpenImpl(
+            val usecase = CloseAllMovImpl(
                 movEquipProprioRepository,
                 movEquipVisitTercRepository,
                 movEquipResidenciaRepository
@@ -353,7 +351,7 @@ class CloseAllMovOpenImplTest {
             whenever(movEquipResidenciaRepository.setClose(movEquipResidencia)).thenReturn(
                 Result.success(true)
             )
-            val usecase = CloseAllMovOpenImpl(
+            val usecase = CloseAllMovImpl(
                 movEquipProprioRepository,
                 movEquipVisitTercRepository,
                 movEquipResidenciaRepository

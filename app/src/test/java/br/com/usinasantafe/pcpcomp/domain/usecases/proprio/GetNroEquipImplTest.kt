@@ -21,7 +21,7 @@ class GetNroEquipImplTest {
     fun `Check return failure if have error in MovEquipProprioRepository get`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
         val equipRepository = mock<EquipRepository>()
-        whenever(movEquipProprioRepository.get(id = 1)).thenReturn(
+        whenever(movEquipProprioRepository.getIdEquip(id = 1)).thenReturn(
             Result.failure(
                 RepositoryException(
                     function = "MovEquipProprioRepository.get",
@@ -42,23 +42,8 @@ class GetNroEquipImplTest {
     fun `Check return failure if have error in EquipRepository getNro`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
         val equipRepository = mock<EquipRepository>()
-        whenever(movEquipProprioRepository.get(id = 1)).thenReturn(
-            Result.success(
-                MovEquipProprio(
-                    idMovEquipProprio = 1,
-                    matricVigiaMovEquipProprio = 19759,
-                    idLocalMovEquipProprio = 1,
-                    tipoMovEquipProprio = TypeMov.INPUT,
-                    dthrMovEquipProprio = Date(1723213270250),
-                    idEquipMovEquipProprio = 10,
-                    matricColabMovEquipProprio = 19759,
-                    destinoMovEquipProprio = "TESTE DESTINO",
-                    notaFiscalMovEquipProprio = 123456789,
-                    observMovEquipProprio = "TESTE OBSERV",
-                    statusMovEquipProprio = StatusData.OPEN,
-                    statusSendMovEquipProprio = StatusSend.SEND
-                )
-            )
+        whenever(movEquipProprioRepository.getIdEquip(id = 1)).thenReturn(
+            Result.success(10)
         )
         whenever(equipRepository.getNro(idEquip = 10)).thenReturn(
             Result.failure(
@@ -81,23 +66,8 @@ class GetNroEquipImplTest {
     fun `Check return nroEquip if GetNroEquipImpl execute success`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
         val equipRepository = mock<EquipRepository>()
-        whenever(movEquipProprioRepository.get(id = 1)).thenReturn(
-            Result.success(
-                MovEquipProprio(
-                    idMovEquipProprio = 1,
-                    matricVigiaMovEquipProprio = 19759,
-                    idLocalMovEquipProprio = 1,
-                    tipoMovEquipProprio = TypeMov.INPUT,
-                    dthrMovEquipProprio = Date(1723213270250),
-                    idEquipMovEquipProprio = 10,
-                    matricColabMovEquipProprio = 19759,
-                    destinoMovEquipProprio = "TESTE DESTINO",
-                    notaFiscalMovEquipProprio = 123456789,
-                    observMovEquipProprio = "TESTE OBSERV",
-                    statusMovEquipProprio = StatusData.OPEN,
-                    statusSendMovEquipProprio = StatusSend.SEND
-                )
-            )
+        whenever(movEquipProprioRepository.getIdEquip(id = 1)).thenReturn(
+            Result.success(10)
         )
         whenever(equipRepository.getNro(idEquip = 10)).thenReturn(
             Result.success(100)

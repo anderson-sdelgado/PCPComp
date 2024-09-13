@@ -178,9 +178,9 @@ class MatricColabViewModel(
     suspend fun updateAllDatabase(): Flow<MatricColabState> = flow {
         val sizeUpdate = 4f
         var configState = MatricColabState()
-        updateAllColab(sizeUpdate, 1f).collect { stateUpdateColab ->
-            configState = stateUpdateColab
-            emit(stateUpdateColab)
+        updateAllColab(sizeUpdate, 1f).collect { stateUpdate ->
+            configState = stateUpdate
+            emit(stateUpdate)
         }
         if (configState.flagFailure)
             return@flow

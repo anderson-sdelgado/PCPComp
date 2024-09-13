@@ -12,8 +12,8 @@ interface MovEquipProprioRoomDatasource {
     suspend fun setDestino(destino: String, id: Int): Result<Boolean>
     suspend fun setIdEquip(idEquip: Int, id: Int): Result<Boolean>
     suspend fun setMatricColab(matricColab: Int, id: Int): Result<Boolean>
-    suspend fun setNotaFiscal(notaFiscal: Int, id: Int): Result<Boolean>
-    suspend fun setObserv(observ: String, id: Int): Result<Boolean>
+    suspend fun setNotaFiscal(notaFiscal: Int?, id: Int): Result<Boolean>
+    suspend fun setObserv(observ: String?, id: Int): Result<Boolean>
     suspend fun setSent(id: Int): Result<Boolean>
     suspend fun setSend(id: Int): Result<Boolean>
 }

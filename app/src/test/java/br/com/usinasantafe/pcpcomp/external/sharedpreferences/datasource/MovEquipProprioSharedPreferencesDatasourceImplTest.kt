@@ -73,6 +73,17 @@ class MovEquipProprioSharedPreferencesDatasourceImplTest {
         assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
         assertEquals(result.getOrNull()!!.notaFiscalMovEquipProprio, 123456)
     }
+
+    @Test
+    fun `Check return destino correct if MovEquipProprioSharedPreferences setNotaFiscal execute correctly and value is null`() = runTest {
+        movEquipProprioSharedPreferencesDatasourceImpl.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasourceImpl.setNotaFiscal(null)
+        val result = movEquipProprioSharedPreferencesDatasourceImpl.get()
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
+        assertEquals(result.getOrNull()!!.notaFiscalMovEquipProprio, null)
+    }
+
     @Test
     fun `Check return observ correct if MovEquipProprioSharedPreferences setObserv execute correctly`() = runTest {
         movEquipProprioSharedPreferencesDatasourceImpl.start(TypeMov.INPUT)

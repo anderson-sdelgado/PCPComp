@@ -54,6 +54,8 @@ fun PassagVisitTercListScreen(
                 onNavDestino = onNavDestino,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.cleanPassag()
+            viewModel.recoverPassag()
         }
     }
 }

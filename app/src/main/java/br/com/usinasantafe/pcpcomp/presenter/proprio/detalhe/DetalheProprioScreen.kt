@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
@@ -47,8 +49,12 @@ fun DetalheMovProprioScreen(
                 veiculoSec = uiState.veiculoSec,
                 notaFiscal = uiState.notaFiscal,
                 observ = uiState.observ,
-                flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
+                closeMov = viewModel::closeMov,
+                flagCloseMov = uiState.flagCloseMov,
+                flagDialogCheck = uiState.flagDialogCheck,
+                setDialogCheck = viewModel::setDialogCheck,
+                flagDialog = uiState.flagDialog,
                 failure = uiState.failure,
                 onNavMovProprioList = onNavMovProprioList,
                 onNavNroEquip = onNavNroEquip,
@@ -76,9 +82,13 @@ fun DetalheMovProprioContent(
     veiculoSec: String,
     notaFiscal: String,
     observ: String,
+    setCloseDialog: () -> Unit,
+    closeMov: () -> Unit,
+    flagCloseMov: Boolean,
+    flagDialogCheck: Boolean,
+    setDialogCheck: (Boolean) -> Unit,
     flagDialog: Boolean,
     failure: String,
-    setCloseDialog: () -> Unit,
     onNavMovProprioList: () -> Unit,
     onNavNroEquip: () -> Unit,
     onNavEquipSegList: () -> Unit,
@@ -157,6 +167,13 @@ fun DetalheMovProprioContent(
             }
         }
         Button(
+            onClick = { setDialogCheck(true) },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            TextButtonDesign(text = stringResource(id = R.string.text_button_close_mov))
+        }
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+        Button(
             onClick = onNavMovProprioList,
             modifier = Modifier.fillMaxWidth(),
         ) {
@@ -170,6 +187,18 @@ fun DetalheMovProprioContent(
                 setCloseDialog = setCloseDialog,
                 setActionButtonOK = { onNavMovProprioList() }
             )
+        }
+
+        if(flagDialogCheck){
+            AlertDialogCheckDesign(
+                text = stringResource(id = R.string.text_question_close_all_mov),
+                setCloseDialog = { setDialogCheck(false)  },
+                setActionButtonOK = { closeMov() }
+            )
+        }
+
+        if(flagCloseMov){
+            onNavMovProprioList()
         }
 
     }
@@ -193,6 +222,10 @@ fun DetalheMovProprioPagePreview() {
                 flagDialog = false,
                 failure = "",
                 setCloseDialog = {},
+                flagDialogCheck = false,
+                setDialogCheck = {},
+                closeMov = {},
+                flagCloseMov = false,
                 onNavMovProprioList = {},
                 onNavNroEquip = {},
                 onNavEquipSegList = {},

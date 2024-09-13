@@ -13,10 +13,10 @@ class GetMatricColabImpl(
 
     override suspend fun invoke(id: Int): Result<String> {
         try {
-            val resultMov = movEquipProprioRepository.get(id = id)
-            if (resultMov.isFailure)
-                return Result.failure(resultMov.exceptionOrNull()!!)
-            val matricColab = resultMov.getOrNull()!!.matricColabMovEquipProprio!!
+            val resultMatricColab = movEquipProprioRepository.getMatricColab(id = id)
+            if (resultMatricColab.isFailure)
+                return Result.failure(resultMatricColab.exceptionOrNull()!!)
+            val matricColab = resultMatricColab.getOrNull()!!
             return Result.success(matricColab.toString())
         } catch (e: Exception) {
             return Result.failure(
