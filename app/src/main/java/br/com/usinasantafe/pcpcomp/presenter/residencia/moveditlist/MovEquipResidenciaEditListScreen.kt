@@ -17,6 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
@@ -32,8 +35,14 @@ fun MovEquipResidenciaEditListScreen(
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             MovEquipResidenciaEditListContent(
-                movEquipResidenciaEditModelList = uiState.movEquipResidenciaEditModelList,
+                movEquipResidenciaModelList = uiState.movEquipResidenciaModelList,
                 closeAllMov = viewModel::closeAllMov,
+                flagDialog = uiState.flagDialog,
+                failure = uiState.failure,
+                flagDialogCheck = uiState.flagDialogCheck,
+                setDialogCheck = viewModel::setDialogCheck,
+                setCloseDialog = viewModel::setCloseDialog,
+                flagCloseAllMov = uiState.flagCloseAllMov,
                 onNavMovEquipList = onNavMovEquipList,
                 onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
@@ -45,8 +54,14 @@ fun MovEquipResidenciaEditListScreen(
 
 @Composable
 fun MovEquipResidenciaEditListContent(
-    movEquipResidenciaEditModelList: List<MovEquipResidenciaEditModel>,
+    movEquipResidenciaModelList: List<MovEquipResidenciaModel>,
     closeAllMov: () -> Unit,
+    flagDialog: Boolean,
+    failure: String,
+    flagDialogCheck: Boolean,
+    setDialogCheck: (Boolean) -> Unit,
+    setCloseDialog: () -> Unit,
+    flagCloseAllMov: Boolean,
     onNavMovEquipList: () -> Unit,
     onNavDetalhe: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -61,7 +76,7 @@ fun MovEquipResidenciaEditListContent(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            items(movEquipResidenciaEditModelList) { mov ->
+            items(movEquipResidenciaModelList) { mov ->
                 ItemListDesign(
                     text = "DATA/HORA: ${mov.dthr}\n" +
                             "TIPO:  ${mov.tipo}\n" +
@@ -92,6 +107,27 @@ fun MovEquipResidenciaEditListContent(
             TextButtonDesign(text = stringResource(id = R.string.text_pattern_return))
         }
         BackHandler {}
+
+        if(flagDialog) {
+            AlertDialogSimpleDesign(
+                text = stringResource(id = R.string.text_failure, failure),
+                setCloseDialog = setCloseDialog,
+                setActionButtonOK = { onNavMovEquipList() }
+            )
+        }
+
+        if(flagDialogCheck){
+            AlertDialogCheckDesign(
+                text = stringResource(id = R.string.text_question_close_mov),
+                setCloseDialog = { setDialogCheck(false)  },
+                setActionButtonOK = { closeAllMov() }
+            )
+        }
+
+        if(flagCloseAllMov){
+            onNavMovEquipList()
+        }
+
     }
 }
 
@@ -101,8 +137,14 @@ fun MovEquipResidenciaEditListPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MovEquipResidenciaEditListContent(
-                movEquipResidenciaEditModelList = emptyList(),
+                movEquipResidenciaModelList = emptyList(),
                 closeAllMov = {},
+                flagDialog = false,
+                failure = "",
+                flagDialogCheck = false,
+                setDialogCheck = {},
+                setCloseDialog = {},
+                flagCloseAllMov = false,
                 onNavMovEquipList = {},
                 onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)

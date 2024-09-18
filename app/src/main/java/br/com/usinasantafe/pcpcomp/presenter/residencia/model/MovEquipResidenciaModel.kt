@@ -1,9 +1,10 @@
-package br.com.usinasantafe.pcpcomp.presenter.residencia.movlist
+package br.com.usinasantafe.pcpcomp.presenter.residencia.model
 
 data class MovEquipResidenciaModel(
     val id: Int,
     val dthr: String,
-    val motorista: String,
+    val tipo: String? = null,
     val veiculo: String,
     val placa: String,
+    val motorista: String,
 )

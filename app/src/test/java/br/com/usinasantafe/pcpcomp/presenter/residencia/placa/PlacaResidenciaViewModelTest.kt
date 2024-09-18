@@ -1,23 +1,22 @@
-package br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo
+package br.com.usinasantafe.pcpcomp.presenter.residencia.placa
 
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetVeiculoVisitTerc
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetVeiculoVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetPlacaResidencia
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.SetPlacaResidencia
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Rule
-
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-class VeiculoVisitTercViewModelTest {
+class PlacaResidenciaViewModelTest {
 
     @ExperimentalCoroutinesApi
     @get:Rule
@@ -25,145 +24,145 @@ class VeiculoVisitTercViewModelTest {
 
     @Test
     fun `Check return failure if fields is empty`() {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
-        val viewModel = VeiculoVisitTercViewModel(
+        val setPlacaResidencia = mock<SetPlacaResidencia>()
+        val getPlacaResidencia = mock<GetPlacaResidencia>()
+        val viewModel = PlacaResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     Args.ID_ARGS to 0,
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getPlacaResidencia,
+            setPlacaResidencia
         )
-        viewModel.setVeiculo()
-        assertEquals(viewModel.uiState.value.flagDialog, true)
+        viewModel.setPlaca()
+        assertTrue(viewModel.uiState.value.flagDialog)
     }
 
     @Test
-    fun `Check return failure if have error in setVeiculo`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+    fun `Check return failure if have error in setPlaca`() = runTest {
+        val setPlacaResidencia = mock<SetPlacaResidencia>()
+        val getPlacaResidencia = mock<GetPlacaResidencia>()
         whenever(
-            setVeiculoVisitTerc(
-                veiculo = "GOL",
+            setPlacaResidencia(
+                placa = "AAA-0000",
                 flowApp = FlowApp.ADD,
                 id = 0
             )
         ).thenReturn(
             Result.failure(
                 UsecaseException(
-                    function = "SetVeiculoVisitTerc",
+                    function = "SetPlacaResidencia",
                     cause = Exception()
                 )
             )
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = PlacaResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     Args.ID_ARGS to 0,
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getPlacaResidencia,
+            setPlacaResidencia
         )
-        viewModel.onVeiculoChanged("GOL")
-        viewModel.setVeiculo()
+        viewModel.onPlacaChanged("AAA-0000")
+        viewModel.setPlaca()
         assertTrue(viewModel.uiState.value.flagDialog)
         assertEquals(
             viewModel.uiState.value.failure,
-            "Failure Usecase -> SetVeiculoVisitTerc -> java.lang.Exception"
+            "Failure Usecase -> SetPlacaResidencia -> java.lang.Exception"
         )
     }
 
     @Test
-    fun `Check return true if setVeiculo execute successfully`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+    fun `Check return true if setPlaca execute successfully`() = runTest {
+        val setPlacaResidencia = mock<SetPlacaResidencia>()
+        val getPlacaResidencia = mock<GetPlacaResidencia>()
         whenever(
-            setVeiculoVisitTerc(
-                veiculo = "GOL",
+            setPlacaResidencia(
+                placa = "AAA-0000",
                 flowApp = FlowApp.ADD,
                 id = 0
             )
         ).thenReturn(
             Result.success(true)
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = PlacaResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     Args.ID_ARGS to 0,
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getPlacaResidencia,
+            setPlacaResidencia
         )
-        viewModel.onVeiculoChanged("GOL")
-        viewModel.setVeiculo()
+        viewModel.onPlacaChanged("AAA-0000")
+        viewModel.setPlaca()
         assertTrue(viewModel.uiState.value.flagAccess)
     }
 
     @Test
-    fun `Check return failure if have error in GetVeiculo`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+    fun `Check return failure if have error in GetPlaca`() = runTest {
+        val setPlacaResidencia = mock<SetPlacaResidencia>()
+        val getPlacaResidencia = mock<GetPlacaResidencia>()
         whenever(
-            getVeiculoVisitTerc(
+            getPlacaResidencia(
                 id = 1
             )
         ).thenReturn(
             Result.failure(
                 UsecaseException(
-                    function = "GetVeiculoVisitTerc",
+                    function = "GetPlacaResidencia",
                     cause = Exception()
                 )
             )
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = PlacaResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     Args.ID_ARGS to 1
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getPlacaResidencia,
+            setPlacaResidencia
         )
-        viewModel.recoverVeiculo()
+        viewModel.recoverPlaca()
         val state = viewModel.uiState.value
         assertTrue(state.flagDialog)
         assertEquals(
             state.failure,
-            "Failure Usecase -> GetVeiculoVisitTerc -> java.lang.Exception"
+            "Failure Usecase -> GetPlacaResidencia -> java.lang.Exception"
         )
     }
 
     @Test
-    fun `Check return veiculo if GetVeiculo execute successfully`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+    fun `Check return placa if GetPlaca execute successfully`() = runTest {
+        val setPlacaResidencia = mock<SetPlacaResidencia>()
+        val getPlacaResidencia = mock<GetPlacaResidencia>()
         whenever(
-            getVeiculoVisitTerc(
+            getPlacaResidencia(
                 id = 1
             )
         ).thenReturn(
-            Result.success("GOL")
+            Result.success("AAA-0000")
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = PlacaResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     Args.ID_ARGS to 1
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getPlacaResidencia,
+            setPlacaResidencia
         )
-        viewModel.recoverVeiculo()
+        viewModel.recoverPlaca()
         val state = viewModel.uiState.value
-        assertEquals(state.veiculo, "GOL")
+        assertEquals(state.placa, "AAA-0000")
     }
 }

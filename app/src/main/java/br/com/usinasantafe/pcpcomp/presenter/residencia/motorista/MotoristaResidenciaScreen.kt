@@ -54,6 +54,7 @@ fun MotoristaResidenciaScreen(
                 onNavObserv = onNavObserv,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.recoverMotorista()
         }
     }
 }

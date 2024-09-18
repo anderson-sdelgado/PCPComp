@@ -1,23 +1,22 @@
-package br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo
+package br.com.usinasantafe.pcpcomp.presenter.residencia.veiculo
 
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetVeiculoVisitTerc
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetVeiculoVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetVeiculoResidencia
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.SetVeiculoResidencia
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Rule
-
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-class VeiculoVisitTercViewModelTest {
+class VeiculoResidenciaViewModelTest {
 
     @ExperimentalCoroutinesApi
     @get:Rule
@@ -25,28 +24,28 @@ class VeiculoVisitTercViewModelTest {
 
     @Test
     fun `Check return failure if fields is empty`() {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
-        val viewModel = VeiculoVisitTercViewModel(
+        val setVeiculoResidencia = mock<SetVeiculoResidencia>()
+        val getVeiculoResidencia = mock<GetVeiculoResidencia>()
+        val viewModel = VeiculoResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     Args.ID_ARGS to 0,
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getVeiculoResidencia,
+            setVeiculoResidencia
         )
         viewModel.setVeiculo()
-        assertEquals(viewModel.uiState.value.flagDialog, true)
+        assertTrue(viewModel.uiState.value.flagDialog)
     }
 
     @Test
     fun `Check return failure if have error in setVeiculo`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+        val setVeiculoResidencia = mock<SetVeiculoResidencia>()
+        val getVeiculoResidencia = mock<GetVeiculoResidencia>()
         whenever(
-            setVeiculoVisitTerc(
+            setVeiculoResidencia(
                 veiculo = "GOL",
                 flowApp = FlowApp.ADD,
                 id = 0
@@ -54,36 +53,36 @@ class VeiculoVisitTercViewModelTest {
         ).thenReturn(
             Result.failure(
                 UsecaseException(
-                    function = "SetVeiculoVisitTerc",
+                    function = "SetVeiculoResidencia",
                     cause = Exception()
                 )
             )
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = VeiculoResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     Args.ID_ARGS to 0,
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getVeiculoResidencia,
+            setVeiculoResidencia
         )
         viewModel.onVeiculoChanged("GOL")
         viewModel.setVeiculo()
         assertTrue(viewModel.uiState.value.flagDialog)
         assertEquals(
             viewModel.uiState.value.failure,
-            "Failure Usecase -> SetVeiculoVisitTerc -> java.lang.Exception"
+            "Failure Usecase -> SetVeiculoResidencia -> java.lang.Exception"
         )
     }
 
     @Test
     fun `Check return true if setVeiculo execute successfully`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+        val setVeiculoResidencia = mock<SetVeiculoResidencia>()
+        val getVeiculoResidencia = mock<GetVeiculoResidencia>()
         whenever(
-            setVeiculoVisitTerc(
+            setVeiculoResidencia(
                 veiculo = "GOL",
                 flowApp = FlowApp.ADD,
                 id = 0
@@ -91,15 +90,15 @@ class VeiculoVisitTercViewModelTest {
         ).thenReturn(
             Result.success(true)
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = VeiculoResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     Args.ID_ARGS to 0,
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getVeiculoResidencia,
+            setVeiculoResidencia
         )
         viewModel.onVeiculoChanged("GOL")
         viewModel.setVeiculo()
@@ -108,59 +107,59 @@ class VeiculoVisitTercViewModelTest {
 
     @Test
     fun `Check return failure if have error in GetVeiculo`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+        val setVeiculoResidencia = mock<SetVeiculoResidencia>()
+        val getVeiculoResidencia = mock<GetVeiculoResidencia>()
         whenever(
-            getVeiculoVisitTerc(
+            getVeiculoResidencia(
                 id = 1
             )
         ).thenReturn(
             Result.failure(
                 UsecaseException(
-                    function = "GetVeiculoVisitTerc",
+                    function = "GetVeiculoResidencia",
                     cause = Exception()
                 )
             )
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = VeiculoResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     Args.ID_ARGS to 1
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getVeiculoResidencia,
+            setVeiculoResidencia
         )
         viewModel.recoverVeiculo()
         val state = viewModel.uiState.value
         assertTrue(state.flagDialog)
         assertEquals(
             state.failure,
-            "Failure Usecase -> GetVeiculoVisitTerc -> java.lang.Exception"
+            "Failure Usecase -> GetVeiculoResidencia -> java.lang.Exception"
         )
     }
 
     @Test
     fun `Check return veiculo if GetVeiculo execute successfully`() = runTest {
-        val setVeiculoVisitTerc = mock<SetVeiculoVisitTerc>()
-        val getVeiculoVisitTerc = mock<GetVeiculoVisitTerc>()
+        val setVeiculoResidencia = mock<SetVeiculoResidencia>()
+        val getVeiculoResidencia = mock<GetVeiculoResidencia>()
         whenever(
-            getVeiculoVisitTerc(
+            getVeiculoResidencia(
                 id = 1
             )
         ).thenReturn(
             Result.success("GOL")
         )
-        val viewModel = VeiculoVisitTercViewModel(
+        val viewModel = VeiculoResidenciaViewModel(
             SavedStateHandle(
                 mapOf(
                     Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     Args.ID_ARGS to 1
                 )
             ),
-            setVeiculoVisitTerc,
-            getVeiculoVisitTerc
+            getVeiculoResidencia,
+            setVeiculoResidencia
         )
         viewModel.recoverVeiculo()
         val state = viewModel.uiState.value

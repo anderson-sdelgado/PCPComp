@@ -138,13 +138,13 @@ fun MovEquipVisitTercEditListPagePreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MovEquipVisitTercEditListContent(
                 movEquipVisitTercModelList = emptyList(),
+                closeAllMov = {},
                 flagDialog = false,
                 failure = "",
                 flagDialogCheck = false,
                 setDialogCheck = {},
                 setCloseDialog = {},
                 flagCloseAllMov = false,
-                closeAllMov = {},
                 onNavMovEquipList = {},
                 onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)

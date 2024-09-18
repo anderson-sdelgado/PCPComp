@@ -54,6 +54,7 @@ fun VeiculoResidenciaScreen(
                 onNavPlaca = onNavPlaca,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.recoverVeiculo()
         }
     }
 }

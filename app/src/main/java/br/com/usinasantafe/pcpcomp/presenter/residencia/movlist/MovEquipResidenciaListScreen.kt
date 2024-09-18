@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
@@ -50,6 +51,8 @@ fun MovEquipResidenciaListScreen(
                 onNavMenuApont = onNavMenuApont,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.returnHeader()
+            viewModel.recoverMovEquipList()
         }
     }
 }
@@ -58,7 +61,7 @@ fun MovEquipResidenciaListScreen(
 fun MovEquipResidenciaListContent(
     descrVigia: String,
     descrLocal: String,
-    movEquipResidenciaModelList: List<MovEquipResidenciaModel> = emptyList(),
+    movEquipResidenciaModelList: List<MovEquipResidenciaModel>,
     startMov: () -> Unit,
     flagAccess: Boolean,
     flagDialog: Boolean,
