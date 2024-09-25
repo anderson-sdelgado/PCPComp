@@ -1,13 +1,17 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
+
 interface CleanPassagVisitTerc {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanPassagVisitTercImpl(): CleanPassagVisitTerc {
+class CleanPassagVisitTercImpl(
+    private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository
+): CleanPassagVisitTerc {
 
     override suspend fun invoke(): Result<Boolean> {
-        TODO("Not yet implemented")
+        return movEquipVisitTercPassagRepository.clear()
     }
 
 }

@@ -104,17 +104,19 @@ class ObservProprioViewModel(
             }
             return@launch
         }
-        val resultSaveMovEquip = saveMovEquipProprio()
-        if (resultSaveMovEquip.isFailure) {
-            val error = resultSaveMovEquip.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            _uiState.update {
-                it.copy(
-                    flagDialog = true,
-                    failure = failure,
-                )
+        if(uiState.value.flowApp == FlowApp.ADD){
+            val resultSaveMovEquip = saveMovEquipProprio()
+            if (resultSaveMovEquip.isFailure) {
+                val error = resultSaveMovEquip.exceptionOrNull()!!
+                val failure = "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        failure = failure,
+                    )
+                }
+                return@launch
             }
-            return@launch
         }
         _uiState.update {
             it.copy(

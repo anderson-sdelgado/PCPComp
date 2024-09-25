@@ -116,6 +116,7 @@ class MovEquipVisitTercListViewModelTest {
                         motorista = "MOTORISTA: 326.949.728-88 - ANDERSON DA SILVA DELGADO",
                         veiculo = "VEÍCULO: GOL",
                         placa = "PLACA: ABC1234",
+                        tipoVisitTerc = "VISITANTE"
                     )
                 )
             )

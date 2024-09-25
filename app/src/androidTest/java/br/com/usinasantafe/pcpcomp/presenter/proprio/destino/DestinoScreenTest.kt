@@ -13,7 +13,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetDestinoProprio
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
+import br.com.usinasantafe.pcpcomp.utils.waitUntilTimeout
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
 import org.junit.Rule

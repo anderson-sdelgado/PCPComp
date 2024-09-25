@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetNomeVisitTerc
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetCpfVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetIdVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.Args.CPF_VISIT_TERC_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -32,7 +32,7 @@ data class NomeVisitTercState(
 class NomeVisitTercViewModel(
     saveStateHandle: SavedStateHandle,
     private val getNomeVisitTerc: GetNomeVisitTerc,
-    private val setCpfVisitTerc: SetCpfVisitTerc,
+    private val setIdVisitTerc: SetIdVisitTerc,
 ) : ViewModel() {
 
     private val cpf: String = saveStateHandle[CPF_VISIT_TERC_ARGS]!!
@@ -64,7 +64,6 @@ class NomeVisitTercViewModel(
         val resultGetNome = getNomeVisitTerc(
             cpf = uiState.value.cpf,
             flowApp = uiState.value.flowApp,
-            typeOcupante = uiState.value.typeOcupante,
             id = uiState.value.id
         )
         if (resultGetNome.isFailure) {
@@ -89,7 +88,7 @@ class NomeVisitTercViewModel(
     }
 
     fun setCPF() = viewModelScope.launch {
-        val resultSetCpf = setCpfVisitTerc(
+        val resultSetCpf = setIdVisitTerc(
             cpf = uiState.value.cpf,
             flowApp = uiState.value.flowApp,
             typeOcupante = uiState.value.typeOcupante,

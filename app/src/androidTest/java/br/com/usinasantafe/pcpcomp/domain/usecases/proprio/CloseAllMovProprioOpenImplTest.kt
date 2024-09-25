@@ -17,7 +17,7 @@ import org.koin.test.inject
 
 class CloseAllMovProprioOpenImplTest: KoinTest {
 
-    private val usecase: CloseAllMovProprioOpen by inject()
+    private val usecase: CloseAllMovProprio by inject()
     private val movEquipProprioDao: MovEquipProprioDao by inject()
 
     @Before

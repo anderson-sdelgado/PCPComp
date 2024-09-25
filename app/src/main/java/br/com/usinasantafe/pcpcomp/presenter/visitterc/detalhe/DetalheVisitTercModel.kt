@@ -1,7 +1,6 @@
 package br.com.usinasantafe.pcpcomp.presenter.visitterc.detalhe
 
 data class DetalheVisitTercModel(
-    val id: Int,
     val dthr: String,
     val tipoMov: String,
     val veiculo: String,

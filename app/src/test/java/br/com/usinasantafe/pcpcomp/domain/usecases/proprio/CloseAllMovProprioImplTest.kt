@@ -10,7 +10,7 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class CloseAllMovProprioOpenImplTest {
+class CloseAllMovProprioImplTest {
 
     @Test
     fun `Check return failure if have failure in MovEquipProprioRepository listOpen`() = runTest {
@@ -23,7 +23,7 @@ class CloseAllMovProprioOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovProprioOpenImpl(
+        val usecase = CloseAllMovProprioImpl(
             movEquipProprioRepository,
         )
         val result = usecase()
@@ -59,7 +59,7 @@ class CloseAllMovProprioOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovProprioOpenImpl(
+        val usecase = CloseAllMovProprioImpl(
             movEquipProprioRepository
         )
         val result = usecase()
@@ -71,7 +71,7 @@ class CloseAllMovProprioOpenImplTest {
     }
 
     @Test
-    fun `Check return true if CloseAllMovProprioOpenImpl execute successfully`() = runTest {
+    fun `Check return true if CloseAllMovProprioImpl execute successfully`() = runTest {
         val movEquipProprio = MovEquipProprio(
             idMovEquipProprio = 1
         )
@@ -90,7 +90,7 @@ class CloseAllMovProprioOpenImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = CloseAllMovProprioOpenImpl(
+        val usecase = CloseAllMovProprioImpl(
             movEquipProprioRepository
         )
         val result = usecase()

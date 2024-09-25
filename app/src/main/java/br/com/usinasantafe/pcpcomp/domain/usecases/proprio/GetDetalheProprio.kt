@@ -69,7 +69,10 @@ class GetDetalheProprioImpl(
             val motorista = "MOTORISTA: ${mov.matricColabMovEquipProprio!!} - $nome"
 
             val resultPassagList =
-                movEquipProprioPassagRepository.list(FlowApp.CHANGE, mov.idMovEquipProprio!!)
+                movEquipProprioPassagRepository.list(
+                    FlowApp.CHANGE,
+                    mov.idMovEquipProprio!!
+                )
             if (resultPassagList.isFailure)
                 return Result.failure(resultPassagList.exceptionOrNull()!!)
             val passagList = resultPassagList.getOrNull()!!

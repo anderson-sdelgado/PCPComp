@@ -58,7 +58,6 @@ class DetalheVisitTercViewModelTest {
         whenever(getDetalheVisitTerc(1)).thenReturn(
             Result.success(
                 DetalheVisitTercModel(
-                    id = 1,
                     dthr = "08/08/2024 12:00",
                     tipoMov = "ENTRADA",
                     veiculo = "GOL",

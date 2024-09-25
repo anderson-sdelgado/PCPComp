@@ -4,7 +4,7 @@ import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CloseAllMovProprioOpen
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CloseAllMovProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMovEquipProprioOpenList
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.StartMovEquipProprio
 import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
@@ -30,7 +30,7 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
         whenever(getHeader()).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -43,7 +43,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.returnHeader()
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -58,7 +58,7 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
         whenever(getHeader()).thenReturn(
             Result.success(
                 HeaderModel(
@@ -71,7 +71,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.returnHeader()
         assertEquals(viewModel.uiState.value.descrVigia, "19759 - Anderson da Silva Delgado")
@@ -83,7 +83,7 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
         whenever(startMovEquipProprio(typeMov = TypeMov.INPUT)).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -96,7 +96,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.startMov(typeMov = TypeMov.INPUT)
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -111,7 +111,7 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
         whenever(startMovEquipProprio(typeMov = TypeMov.INPUT)).thenReturn(
             Result.success(true)
         )
@@ -119,7 +119,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.startMov(typeMov = TypeMov.INPUT)
         assertEquals(viewModel.uiState.value.flagDialog, false)
@@ -131,7 +131,7 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
         whenever(getMovEquipProprioOpenList()).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -144,7 +144,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.recoverMovEquipOpenList()
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -159,7 +159,7 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
         whenever(getMovEquipProprioOpenList()).thenReturn(
             Result.success(emptyList())
         )
@@ -167,7 +167,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.recoverMovEquipOpenList()
         assertEquals(viewModel.uiState.value.movEquipProprioModelList.isEmpty(), true)
@@ -185,7 +185,7 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
         whenever(getMovEquipProprioOpenList()).thenReturn(
             Result.success(
                 listOf(
@@ -197,7 +197,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.recoverMovEquipOpenList()
         assertEquals(viewModel.uiState.value.movEquipProprioModelList.size, 1)
@@ -209,8 +209,8 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
-        whenever(closeAllMovProprioOpen()).thenReturn(
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
+        whenever(closeAllMovProprio()).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "CloseAllMovProprioOpen",
@@ -222,7 +222,7 @@ class MovEquipProprioViewModelTest {
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.closeAllMov()
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -237,15 +237,15 @@ class MovEquipProprioViewModelTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
-        val closeAllMovProprioOpen = mock<CloseAllMovProprioOpen>()
-        whenever(closeAllMovProprioOpen()).thenReturn(
+        val closeAllMovProprio = mock<CloseAllMovProprio>()
+        whenever(closeAllMovProprio()).thenReturn(
             Result.success(true)
         )
         val viewModel = MovEquipProprioListViewModel(
             getHeader,
             startMovEquipProprio,
             getMovEquipProprioOpenList,
-            closeAllMovProprioOpen
+            closeAllMovProprio
         )
         viewModel.closeAllMov()
         assertEquals(viewModel.uiState.value.flagCloseAllMov, true)

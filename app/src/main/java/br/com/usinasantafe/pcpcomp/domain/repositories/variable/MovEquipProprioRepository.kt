@@ -19,42 +19,51 @@ interface MovEquipProprioRepository {
         matricVigia: Int,
         idLocal: Int
     ): Result<Int>
+
     suspend fun send(
         list: List<MovEquipProprio>,
         number: Long,
         token: String
     ): Result<List<MovEquipProprio>>
+
     suspend fun setClose(movEquipProprio: MovEquipProprio): Result<Boolean>
     suspend fun setDestino(
         destino: String,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+
     suspend fun setIdEquip(
         idEquip: Int,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+
     suspend fun setNotaFiscal(
         notaFiscal: Int?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+
     suspend fun setMatricColab(
         matricColab: Int,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+
     suspend fun setObserv(
         observ: String?,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+
     suspend fun setSent(
         list: List<MovEquipProprio>
     ): Result<Boolean>
+
     suspend fun setSend(
         id: Int
     ): Result<Boolean>
+
     suspend fun start(typeMov: TypeMov): Result<Boolean>
 }

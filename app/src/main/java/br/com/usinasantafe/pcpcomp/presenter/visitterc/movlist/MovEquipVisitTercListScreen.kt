@@ -90,6 +90,7 @@ fun MovEquipVisitTercListContent(
                     text = "DATA/HORA: ${mov.dthr}\n" +
                             "VEÍCULO: ${mov.veiculo}\n" +
                             "PLACA: ${mov.placa}\n" +
+                            "${mov.tipoVisitTerc}\n" +
                             "MOTORISTA: ${mov.motorista}\n",
                     setActionItem = {
                         onNavObserv(mov.id)
@@ -151,14 +152,16 @@ fun MovEquipVisitTercListPagePreview() {
                         dthr = "08/08/2024 12:00",
                         motorista = "326.949.728-88 - ANDERSON DA SILVA DELGADO",
                         veiculo = "GOL",
-                        placa = "ABC1234"
+                        placa = "ABC1234",
+                        tipoVisitTerc = "TERCEIRO"
                     ),
                     MovEquipVisitTercModel(
                         id = 1,
                         dthr = "08/08/2024 12:00",
                         motorista = "123.456.789-00 - TESTE",
                         veiculo = "GOL",
-                        placa = "ABC1234"
+                        placa = "ABC1234",
+                        tipoVisitTerc = "TERCEIRO"
                     )
                 ),
                 onNavObserv = {},

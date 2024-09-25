@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetObservVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SaveMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetObservVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -30,6 +31,7 @@ class ObservVisitTercViewModelTest {
     fun `Check return failure if have error in GetObserv`() = runTest {
         val setObservVisitTerc = mock<SetObservVisitTerc>()
         val getObservVisitTerc = mock<GetObservVisitTerc>()
+        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
         whenever(
             getObservVisitTerc(
                 id = 1
@@ -51,7 +53,8 @@ class ObservVisitTercViewModelTest {
                 )
             ),
             setObservVisitTerc,
-            getObservVisitTerc
+            getObservVisitTerc,
+            saveMovEquipVisitTerc
         )
         viewModel.recoverObserv()
         val state = viewModel.uiState.value
@@ -63,6 +66,7 @@ class ObservVisitTercViewModelTest {
     fun `Check return observ if GetObserv execute successfully`() = runTest {
         val setObservVisitTerc = mock<SetObservVisitTerc>()
         val getObservVisitTerc = mock<GetObservVisitTerc>()
+        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
         whenever(
             getObservVisitTerc(
                 id = 1
@@ -79,7 +83,8 @@ class ObservVisitTercViewModelTest {
                 )
             ),
             setObservVisitTerc,
-            getObservVisitTerc
+            getObservVisitTerc,
+            saveMovEquipVisitTerc
         )
         viewModel.recoverObserv()
         val state = viewModel.uiState.value
@@ -90,6 +95,7 @@ class ObservVisitTercViewModelTest {
     fun `Check return failure if have error in SetObserv`() = runTest {
         val setObservVisitTerc = mock<SetObservVisitTerc>()
         val getObservVisitTerc = mock<GetObservVisitTerc>()
+        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
         whenever(
             setObservVisitTerc(
                 observ = "Observação",
@@ -114,7 +120,8 @@ class ObservVisitTercViewModelTest {
                 )
             ),
             setObservVisitTerc,
-            getObservVisitTerc
+            getObservVisitTerc,
+            saveMovEquipVisitTerc
         )
         viewModel.onObservChanged("Observação")
         viewModel.setObserv()
@@ -127,6 +134,7 @@ class ObservVisitTercViewModelTest {
     fun `Check return true if SetObserv execute successfully`() = runTest {
         val setObservVisitTerc = mock<SetObservVisitTerc>()
         val getObservVisitTerc = mock<GetObservVisitTerc>()
+        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
         whenever(
             setObservVisitTerc(
                 observ = "Observação",
@@ -146,7 +154,8 @@ class ObservVisitTercViewModelTest {
                 )
             ),
             setObservVisitTerc,
-            getObservVisitTerc
+            getObservVisitTerc,
+            saveMovEquipVisitTerc
         )
         viewModel.onObservChanged("Observação")
         viewModel.setObserv()

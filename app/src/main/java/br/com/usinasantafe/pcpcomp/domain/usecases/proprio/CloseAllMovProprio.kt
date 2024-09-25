@@ -3,13 +3,13 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
 
-interface CloseAllMovProprioOpen {
+interface CloseAllMovProprio {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CloseAllMovProprioOpenImpl(
+class CloseAllMovProprioImpl(
     private val movEquipProprioRepository: MovEquipProprioRepository,
-) : CloseAllMovProprioOpen {
+) : CloseAllMovProprio {
 
     override suspend fun invoke(): Result<Boolean> {
         try {

@@ -10,6 +10,10 @@ class MovEquipVisitTercRoomDatasourceImpl(
     private val movEquipVisitTercDao: MovEquipVisitTercDao
 ): MovEquipVisitTercRoomDatasource {
 
+    override suspend fun get(id: Int): Result<MovEquipVisitTercRoomModel> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun listOpen(): Result<List<MovEquipVisitTercRoomModel>> {
         try{
             val listOpen = movEquipVisitTercDao.listStatus(StatusData.OPEN)

@@ -52,7 +52,8 @@ class MovEquipVisitTercEditListViewModelTest {
                 dthr = "08/08/2024 12:00",
                 motorista = "Anderson da Silva Delgado",
                 veiculo = "GOL",
-                placa = "ABC-1234"
+                placa = "ABC-1234",
+                tipoVisitTerc = "VISITANTE"
             )
         )
         val getMovEquipVisitTercOpenList = mock<GetMovEquipVisitTercOpenList>()

@@ -128,7 +128,7 @@ val usecaseProprioModule = module {
     singleOf(::CheckSendMovProprioImpl) { bind<CheckSendMovProprio>() }
     singleOf(::CleanEquipSegImpl) { bind<CleanEquipSeg>() }
     singleOf(::CleanPassagColabImpl) { bind<CleanPassagColab>() }
-    singleOf(::CloseAllMovProprioOpenImpl) { bind<CloseAllMovProprioOpen>() }
+    singleOf(::CloseAllMovProprioImpl) { bind<CloseAllMovProprio>() }
     singleOf(::CloseMovProprioImpl) { bind<CloseMovProprio>() }
     singleOf(::DeleteEquipSegImpl) { bind<DeleteEquipSeg>() }
     singleOf(::DeletePassagColabImpl) { bind<DeletePassagColab>() }

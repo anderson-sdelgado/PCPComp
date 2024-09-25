@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.variable
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipVisitTercRoomDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipVisitTercSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercRoomModel
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
@@ -54,6 +55,7 @@ class MovEquipVisitTercRepositoryImplTest {
 
     @Test
     fun `Check failure Datasource in MovEquipVisitTercRoomDatasource listOpen`() = runTest {
+        val movEquipVisitTercSharedPreferencesDatasource = mock<MovEquipVisitTercSharedPreferencesDatasource>()
         val movEquipVisitTercRoomDatasource = mock<MovEquipVisitTercRoomDatasource>()
         whenever(movEquipVisitTercRoomDatasource.listOpen()).thenReturn(
             Result.failure(
@@ -63,7 +65,10 @@ class MovEquipVisitTercRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipVisitTercRepositoryImpl(movEquipVisitTercRoomDatasource)
+        val repository = MovEquipVisitTercRepositoryImpl(
+            movEquipVisitTercSharedPreferencesDatasource,
+            movEquipVisitTercRoomDatasource
+        )
         val result = repository.listOpen()
         assertEquals(result.isFailure, true)
         assertEquals(
@@ -75,6 +80,7 @@ class MovEquipVisitTercRepositoryImplTest {
     @Test
     fun `Check failure success if have success in MovEquipVisitTercRoomDatasource listOpen`() =
         runTest {
+            val movEquipVisitTercSharedPreferencesDatasource = mock<MovEquipVisitTercSharedPreferencesDatasource>()
             val movEquipVisitTercRoomDatasource = mock<MovEquipVisitTercRoomDatasource>()
             whenever(movEquipVisitTercRoomDatasource.listOpen()).thenReturn(
                 Result.success(
@@ -83,7 +89,10 @@ class MovEquipVisitTercRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercRepositoryImpl(movEquipVisitTercRoomDatasource)
+            val repository = MovEquipVisitTercRepositoryImpl(
+                movEquipVisitTercSharedPreferencesDatasource,
+                movEquipVisitTercRoomDatasource
+            )
             val result = repository.listOpen()
             assertTrue(result.isSuccess)
             val resultList = result.getOrNull()!!
@@ -95,6 +104,7 @@ class MovEquipVisitTercRepositoryImplTest {
 
     @Test
     fun `Check failure Datasource in MovEquipVisitTercRoomDatasource setClose`() = runTest {
+        val movEquipVisitTercSharedPreferencesDatasource = mock<MovEquipVisitTercSharedPreferencesDatasource>()
         val movEquipVisitTercRoomDatasource = mock<MovEquipVisitTercRoomDatasource>()
         whenever(movEquipVisitTercRoomDatasource.setClose(movEquipVisitTercRoomModel)).thenReturn(
             Result.failure(
@@ -104,7 +114,10 @@ class MovEquipVisitTercRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipVisitTercRepositoryImpl(movEquipVisitTercRoomDatasource)
+        val repository = MovEquipVisitTercRepositoryImpl(
+            movEquipVisitTercSharedPreferencesDatasource,
+            movEquipVisitTercRoomDatasource
+        )
         val result = repository.setClose(movEquipVisitTerc)
         assertEquals(result.isFailure, true)
         assertEquals(
@@ -116,11 +129,15 @@ class MovEquipVisitTercRepositoryImplTest {
     @Test
     fun `Check failure success if have success in MovEquipVisitTercRoomDatasource setClose`() =
         runTest {
+            val movEquipVisitTercSharedPreferencesDatasource = mock<MovEquipVisitTercSharedPreferencesDatasource>()
             val movEquipVisitTercRoomDatasource = mock<MovEquipVisitTercRoomDatasource>()
             whenever(movEquipVisitTercRoomDatasource.setClose(movEquipVisitTercRoomModel)).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipVisitTercRepositoryImpl(movEquipVisitTercRoomDatasource)
+            val repository = MovEquipVisitTercRepositoryImpl(
+                movEquipVisitTercSharedPreferencesDatasource,
+                movEquipVisitTercRoomDatasource
+            )
             val result = repository.setClose(movEquipVisitTerc)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)

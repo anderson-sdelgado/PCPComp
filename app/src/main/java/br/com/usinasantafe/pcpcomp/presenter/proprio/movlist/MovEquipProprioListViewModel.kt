@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.movlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CloseAllMovProprioOpen
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CloseAllMovProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMovEquipProprioOpenList
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.StartMovEquipProprio
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
@@ -26,7 +26,7 @@ class MovEquipProprioListViewModel(
     private val getHeader: GetHeader,
     private val startMovEquipProprio: StartMovEquipProprio,
     private val getMovEquipProprioOpenList: GetMovEquipProprioOpenList,
-    private val closeAllMovProprioOpen: CloseAllMovProprioOpen,
+    private val closeAllMovProprio: CloseAllMovProprio,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MovEquipProprioListState())
@@ -107,7 +107,7 @@ class MovEquipProprioListViewModel(
 
 
     fun closeAllMov() = viewModelScope.launch {
-        val resultCloseAllMov = closeAllMovProprioOpen()
+        val resultCloseAllMov = closeAllMovProprio()
         if(resultCloseAllMov.isFailure) {
             val error = resultCloseAllMov.exceptionOrNull()!!
             val failure =

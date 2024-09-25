@@ -45,27 +45,28 @@ class DeletePassagColabImplTest {
         }
 
     @Test
-    fun `Chech return true if MovEquipProprioPassagRepository delete execute success`() = runTest {
-        val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
-        whenever(
-            movEquipProprioPassagRepository.delete(
+    fun `Check return true if MovEquipProprioPassagRepository delete execute success`() =
+        runTest {
+            val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
+            whenever(
+                movEquipProprioPassagRepository.delete(
+                    matricColab = 19759,
+                    flowApp = FlowApp.ADD,
+                    id = 0
+                )
+            ).thenReturn(
+                Result.success(true)
+            )
+            val usecase = DeletePassagColabImpl(
+                movEquipProprioPassagRepository
+            )
+            val result = usecase(
                 matricColab = 19759,
                 flowApp = FlowApp.ADD,
                 id = 0
             )
-        ).thenReturn(
-            Result.success(true)
-        )
-        val usecase = DeletePassagColabImpl(
-            movEquipProprioPassagRepository
-        )
-        val result = usecase(
-            matricColab = 19759,
-            flowApp = FlowApp.ADD,
-            id = 0
-        )
-        assertTrue(result.isSuccess)
-        assertTrue(result.getOrNull()!!)
-    }
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
 
 }

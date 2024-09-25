@@ -1,5 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
+import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 interface GetTitleCpfVisitTerc {
@@ -9,13 +11,31 @@ interface GetTitleCpfVisitTerc {
     ): Result<String>
 }
 
-class GetTitleCpfVisitTercImpl() : GetTitleCpfVisitTerc {
+class GetTitleCpfVisitTercImpl(
+    private val movEquipVisitTercRepository: MovEquipVisitTercRepository
+) : GetTitleCpfVisitTerc {
 
     override suspend fun invoke(
         flowApp: FlowApp,
         id: Int
     ): Result<String> {
-        TODO("Not yet implemented")
+        try {
+            val result = movEquipVisitTercRepository.getTypeVisitTerc(
+                flowApp = flowApp,
+                id = id
+            )
+            if (result.isFailure)
+                return Result.failure(result.exceptionOrNull()!!)
+            val typeVisitTerc = result.getOrNull()!!.name
+            return Result.success(typeVisitTerc)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "GetTitleCpfVisitTercImpl",
+                    cause = e
+                )
+            )
+        }
     }
 
 }

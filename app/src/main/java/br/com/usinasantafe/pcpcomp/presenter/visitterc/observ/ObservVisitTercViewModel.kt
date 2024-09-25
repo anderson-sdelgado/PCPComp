@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetObservVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SaveMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetObservVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -29,7 +30,8 @@ data class ObservVisitTercState(
 class ObservVisitTercViewModel(
     savedStateHandle: SavedStateHandle,
     private val setObservVisitTerc: SetObservVisitTerc,
-    private val getObservVisitTerc: GetObservVisitTerc
+    private val getObservVisitTerc: GetObservVisitTerc,
+    private val saveMovEquipVisitTerc: SaveMovEquipVisitTerc
 ) : ViewModel() {
 
     private val typeMov: Int = savedStateHandle[TYPE_MOV_ARGS]!!
@@ -107,6 +109,20 @@ class ObservVisitTercViewModel(
                 )
             }
             return@launch
+        }
+        if(uiState.value.flowApp == FlowApp.ADD){
+            val resultSaveMovEquip = saveMovEquipVisitTerc()
+            if (resultSaveMovEquip.isFailure) {
+                val error = resultSaveMovEquip.exceptionOrNull()!!
+                val failure = "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
         }
         _uiState.update {
             it.copy(

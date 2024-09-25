@@ -16,19 +16,7 @@ class GetDestinoProprioImpl(
     override suspend fun invoke(
         id: Int
     ): Result<String> {
-        try {
-            val resultDestino = movEquipProprioRepository.getDestino(id = id)
-            if (resultDestino.isFailure)
-                return Result.failure(resultDestino.exceptionOrNull()!!)
-            return Result.success(resultDestino.getOrNull()!!)
-        } catch (e: Exception) {
-            return Result.failure(
-                UsecaseException(
-                    function = "GetDestinoProprioImpl",
-                    cause = e
-                )
-            )
-        }
+        return movEquipProprioRepository.getDestino(id = id)
     }
 
 }

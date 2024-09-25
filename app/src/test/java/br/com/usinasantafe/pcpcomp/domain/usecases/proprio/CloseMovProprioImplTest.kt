@@ -66,7 +66,7 @@ class CloseMovProprioImplTest {
     }
 
     @Test
-    fun `Check return true if CloseMovProprioOpenImpl execute successfully`() = runTest {
+    fun `Check return true if CloseMovProprioImpl execute successfully`() = runTest {
         val movEquipProprio = MovEquipProprio(
             idMovEquipProprio = 1
         )

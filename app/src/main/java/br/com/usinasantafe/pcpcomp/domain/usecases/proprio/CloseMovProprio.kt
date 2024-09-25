@@ -28,7 +28,7 @@ class CloseMovProprioImpl(
         } catch (e: Exception) {
             return Result.failure(
                 UsecaseException(
-                    function = "CloseAllMovProprioOpenImpl",
+                    function = "CloseAllMovProprio",
                     cause = e
                 )
             )

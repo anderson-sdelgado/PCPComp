@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetNomeVisitTerc
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetCpfVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetIdVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
@@ -27,12 +27,11 @@ class NomeVisitTercViewModelTest {
     @Test
     fun `Check return failure if have error in GetNomeVisitTerc`() = runTest {
         val getNomeVisitTerc = mock<GetNomeVisitTerc>()
-        val setCpfVisitTerc = mock<SetCpfVisitTerc>()
+        val setIdVisitTerc = mock<SetIdVisitTerc>()
         whenever(
             getNomeVisitTerc(
                 cpf = "123.456.789-00",
                 flowApp = FlowApp.ADD,
-                typeOcupante = TypeOcupante.MOTORISTA,
                 id = 0
             )
         ).thenReturn(
@@ -53,7 +52,7 @@ class NomeVisitTercViewModelTest {
                 )
             ),
             getNomeVisitTerc,
-            setCpfVisitTerc
+            setIdVisitTerc
         )
         viewModel.returnNome()
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -66,12 +65,11 @@ class NomeVisitTercViewModelTest {
     @Test
     fun `Check return model if GetNomeVisitTerc execute successfully`() = runTest {
         val getNomeVisitTerc = mock<GetNomeVisitTerc>()
-        val setCpfVisitTerc = mock<SetCpfVisitTerc>()
+        val setIdVisitTerc = mock<SetIdVisitTerc>()
         whenever(
             getNomeVisitTerc(
                 cpf = "123.456.789-00",
                 flowApp = FlowApp.ADD,
-                typeOcupante = TypeOcupante.MOTORISTA,
                 id = 0
             )
         ).thenReturn(
@@ -93,7 +91,7 @@ class NomeVisitTercViewModelTest {
                 )
             ),
             getNomeVisitTerc,
-            setCpfVisitTerc
+            setIdVisitTerc
         )
         viewModel.returnNome()
         val state = viewModel.uiState.value
@@ -105,9 +103,9 @@ class NomeVisitTercViewModelTest {
     @Test
     fun `Check return failure if have error in SetCpfVisitTerc`() = runTest {
         val getNomeVisitTerc = mock<GetNomeVisitTerc>()
-        val setCpfVisitTerc = mock<SetCpfVisitTerc>()
+        val setIdVisitTerc = mock<SetIdVisitTerc>()
         whenever(
-            setCpfVisitTerc(
+            setIdVisitTerc(
                 cpf = "123.456.789-00",
                 flowApp = FlowApp.ADD,
                 typeOcupante = TypeOcupante.MOTORISTA,
@@ -131,7 +129,7 @@ class NomeVisitTercViewModelTest {
                 )
             ),
             getNomeVisitTerc,
-            setCpfVisitTerc
+            setIdVisitTerc
         )
         viewModel.setCPF()
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -144,9 +142,9 @@ class NomeVisitTercViewModelTest {
     @Test
     fun `Check return true if SetCpfVisitTerc execute successfully`() = runTest {
         val getNomeVisitTerc = mock<GetNomeVisitTerc>()
-        val setCpfVisitTerc = mock<SetCpfVisitTerc>()
+        val setIdVisitTerc = mock<SetIdVisitTerc>()
         whenever(
-            setCpfVisitTerc(
+            setIdVisitTerc(
                 cpf = "123.456.789-00",
                 flowApp = FlowApp.ADD,
                 typeOcupante = TypeOcupante.MOTORISTA,
@@ -165,7 +163,7 @@ class NomeVisitTercViewModelTest {
                 )
             ),
             getNomeVisitTerc,
-            setCpfVisitTerc
+            setIdVisitTerc
         )
         viewModel.setCPF()
         assertEquals(viewModel.uiState.value.flagAccess, true)

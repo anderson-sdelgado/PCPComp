@@ -12,7 +12,7 @@ import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class RecoverPassagColabImplTest {
+class GetPassagColabImplTest {
 
     @Test
     fun `Chech return failure Usecase if have failure in MovEquipProprioPassagRepository`() =

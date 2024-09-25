@@ -79,7 +79,7 @@ fun MovEquipVisitTercEditListContent(
             items(movEquipVisitTercModelList) { mov ->
                 ItemListDesign(
                     text = "DATA/HORA: ${mov.dthr}\n" +
-                            "TIPO:  ${mov.tipo}\n" +
+                            "TIPO:  ${mov.tipoMov}\n" +
                             "VEÍCULO: ${mov.veiculo}\n" +
                             "PLACA: ${mov.placa}\n" +
                             "MOTORISTA: ${mov.motorista}\n",

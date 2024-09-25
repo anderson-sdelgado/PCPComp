@@ -21,11 +21,11 @@ class GetMovEquipProprioOpenListImpl(
 
     override suspend fun invoke(): Result<List<MovEquipProprioModel>> {
         try {
-            val resultListOpen = movEquipProprioRepository.listOpen()
-            if(resultListOpen.isFailure)
-                return Result.failure(resultListOpen.exceptionOrNull()!!)
-            val listOpen = resultListOpen.getOrNull()!!
-            val listModel = listOpen.map {
+            val resultList = movEquipProprioRepository.listOpen()
+            if(resultList.isFailure)
+                return Result.failure(resultList.exceptionOrNull()!!)
+            val list = resultList.getOrNull()!!
+            val modelList = list.map {
                 val resultNro = equipRepository.getNro(it.idEquipMovEquipProprio!!)
                 if(resultNro.isFailure)
                     return Result.failure(resultNro.exceptionOrNull()!!)
@@ -36,13 +36,16 @@ class GetMovEquipProprioOpenListImpl(
                 val nomeColab = resultNome.getOrNull()!!
                 MovEquipProprioModel(
                     id = it.idMovEquipProprio!!,
-                    dthr = "DATA/HORA: ${SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(it.dthrMovEquipProprio)}",
+                    dthr = "DATA/HORA: ${SimpleDateFormat(
+                        "dd/MM/yyyy HH:mm",
+                        Locale("pt", "BR")
+                    ).format(it.dthrMovEquipProprio)}",
                     typeMov = if (it.tipoMovEquipProprio == TypeMov.INPUT) "ENTRADA" else "SAIDA",
                     equip = "VEICULO: $nroEquip",
                     colab = "MOTORISTA: ${it.matricColabMovEquipProprio!!} - $nomeColab"
                 )
             }
-            return Result.success(listModel)
+            return Result.success(modelList)
         } catch (e: Exception){
             return Result.failure(
                 UsecaseException(

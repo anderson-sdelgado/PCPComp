@@ -20,13 +20,13 @@ class StartMovEquipProprioImpl(
         try {
             val resultStart = movEquipProprioRepository.start(typeMov)
             if (resultStart.isFailure)
-                return resultStart
+                return Result.failure(resultStart.exceptionOrNull()!!)
             val resultEquipSegClear = movEquipProprioEquipSegRepository.clear()
             if (resultEquipSegClear.isFailure)
-                return resultEquipSegClear
+                return Result.failure(resultEquipSegClear.exceptionOrNull()!!)
             val resultPassagClear = movEquipProprioPassagRepository.clear()
             if (resultPassagClear.isFailure)
-                return resultPassagClear
+                return Result.failure(resultPassagClear.exceptionOrNull()!!)
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(

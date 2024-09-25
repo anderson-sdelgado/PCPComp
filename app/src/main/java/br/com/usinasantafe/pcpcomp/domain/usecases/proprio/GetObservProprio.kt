@@ -11,24 +11,12 @@ interface GetObservProprio {
 
 class GetObservProprioImpl(
     private val movEquipProprioRepository: MovEquipProprioRepository
-): GetObservProprio {
+) : GetObservProprio {
 
     override suspend fun invoke(
         id: Int
     ): Result<String?> {
-        try {
-            val resultObserv = movEquipProprioRepository.getObserv(id = id)
-            if (resultObserv.isFailure)
-                return Result.failure(resultObserv.exceptionOrNull()!!)
-            return Result.success(resultObserv.getOrNull())
-        } catch (e: Exception) {
-            return Result.failure(
-                UsecaseException(
-                    function = "GetObservProprioImpl",
-                    cause = e
-                )
-            )
-        }
+        return movEquipProprioRepository.getObserv(id = id)
     }
 
 }

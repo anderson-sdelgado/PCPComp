@@ -26,8 +26,32 @@ class VisitanteRepositoryImpl(
         }
     }
 
+    override suspend fun checkCPF(cpf: String): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteAll(): Result<Boolean> {
         return visitanteRoomDatasource.deleteAll()
+    }
+
+    override suspend fun get(id: Int): Result<Visitante> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getCpf(id: Int): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getId(cpf: String): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getNome(cpf: String): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getEmpresas(cpf: String): Result<String> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun recoverAll(token: String): Result<List<Visitante>> {

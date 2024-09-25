@@ -26,7 +26,10 @@ class SaveMovEquipProprioImpl(
             if (resultConfig.isFailure)
                 return Result.failure(resultConfig.exceptionOrNull()!!)
             val config = resultConfig.getOrNull()!!
-            val resultSave = movEquipProprioRepository.save(config.matricVigia!!, config.idLocal!!)
+            val resultSave = movEquipProprioRepository.save(
+                config.matricVigia!!,
+                config.idLocal!!
+            )
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
             val id = resultSave.getOrNull()!!

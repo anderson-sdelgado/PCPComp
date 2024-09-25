@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.utlis
+package br.com.usinasantafe.pcpcomp.utils
 
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import java.util.Timer

@@ -1,26 +1,14 @@
 package br.com.usinasantafe.pcpcomp.presenter.initial.local
 
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
-import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.LocalRoomDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
-import br.com.usinasantafe.pcpcomp.presenter.initial.local.LocalScreen
-import br.com.usinasantafe.pcpcomp.presenter.initial.local.LocalViewModel
-import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaScreen
-import br.com.usinasantafe.pcpcomp.presenter.initial.nomevigia.NomeVigiaViewModel
-import br.com.usinasantafe.pcpcomp.utlis.waitUntilTimeout
+import br.com.usinasantafe.pcpcomp.utils.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 

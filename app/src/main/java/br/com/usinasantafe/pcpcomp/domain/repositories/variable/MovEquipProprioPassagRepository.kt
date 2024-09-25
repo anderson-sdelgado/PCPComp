@@ -11,16 +11,17 @@ interface MovEquipProprioPassagRepository {
     ): Result<Boolean>
 
     suspend fun clear(): Result<Boolean>
-    suspend fun list(
-        flowApp: FlowApp,
-        id: Int
-    ): Result<List<MovEquipProprioPassag>>
 
     suspend fun delete(
         matricColab: Int,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+
+    suspend fun list(
+        flowApp: FlowApp,
+        id: Int
+    ): Result<List<MovEquipProprioPassag>>
 
     suspend fun save(
         id: Int
