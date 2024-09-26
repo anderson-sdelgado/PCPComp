@@ -37,7 +37,7 @@ interface MovEquipVisitTercRepository {
         id: Int
     ): Result<Boolean>
 
-    suspend fun setObservVisitTerc(
+    suspend fun setObserv(
         observ: String?,
         flowApp: FlowApp,
         id: Int
@@ -49,7 +49,7 @@ interface MovEquipVisitTercRepository {
         id: Int
     ): Result<Boolean>
 
-    suspend fun setTipoVisitTerc(
+    suspend fun setTipo(
         typeVisitTerc: TypeVisitTerc
     ): Result<Boolean>
 

@@ -44,10 +44,10 @@ class GetMovEquipVisitTercInputOpenListImpl(
                             "dd/MM/yyyy HH:mm",
                             Locale("pt", "BR")
                         ).format(it.dthrMovEquipVisitTerc)}",
-                    veiculo = it.veiculoMovEquipVisitTerc!!,
-                    placa = it.placaMovEquipVisitTerc!!,
+                    veiculo = "VEÍCULO: ${it.veiculoMovEquipVisitTerc!!}",
+                    placa = "PLACA: ${it.placaMovEquipVisitTerc!!}",
                     tipoVisitTerc = typeVisitTerc.name,
-                    motorista = motorista
+                    motorista = "MOTORISTA: ${motorista}"
                 )
             }
             return Result.success(modelList)

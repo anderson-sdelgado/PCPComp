@@ -57,7 +57,7 @@ class SetObservVisitTercImpl(
                     return Result.failure(resultStart.exceptionOrNull()!!)
                 return Result.success(true)
             }
-            val resultSet = movEquipVisitTercRepository.setObservVisitTerc(
+            val resultSet = movEquipVisitTercRepository.setObserv(
                 observ = observ,
                 flowApp = flowApp,
                 id = id

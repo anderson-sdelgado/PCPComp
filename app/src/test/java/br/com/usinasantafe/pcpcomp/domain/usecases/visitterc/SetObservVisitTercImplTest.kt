@@ -249,14 +249,14 @@ class SetObservVisitTercImplTest {
         }
 
     @Test
-    fun `Check return failure if have error in MovEquipVisitTercRepository setObservVisitTerc`() =
+    fun `Check return failure if have error in MovEquipVisitTercRepository setObserv`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
             val startProcessSendData = mock<StartProcessSendData>()
             whenever(
-                movEquipVisitTercRepository.setObservVisitTerc(
+                movEquipVisitTercRepository.setObserv(
                     observ = "observ",
                     flowApp = FlowApp.ADD,
                     id = 0
@@ -296,7 +296,7 @@ class SetObservVisitTercImplTest {
             val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
             val startProcessSendData = mock<StartProcessSendData>()
             whenever(
-                movEquipVisitTercRepository.setObservVisitTerc(
+                movEquipVisitTercRepository.setObserv(
                     observ = "observ",
                     flowApp = FlowApp.ADD,
                     id = 0

@@ -128,7 +128,7 @@ class MovEquipVisitTercRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun setObservVisitTerc(
+    override suspend fun setObserv(
         observ: String?,
         flowApp: FlowApp,
         id: Int
@@ -144,7 +144,7 @@ class MovEquipVisitTercRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun setTipoVisitTerc(typeVisitTerc: TypeVisitTerc): Result<Boolean> {
+    override suspend fun setTipo(typeVisitTerc: TypeVisitTerc): Result<Boolean> {
         TODO("Not yet implemented")
     }
 

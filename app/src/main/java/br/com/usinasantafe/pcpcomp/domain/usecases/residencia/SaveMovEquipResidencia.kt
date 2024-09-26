@@ -1,15 +1,14 @@
-package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
+package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
-interface SaveMovEquipVisitTerc {
+interface SaveMovEquipResidencia {
     suspend operator fun invoke(
         flowApp: FlowApp,
         typeMov: TypeMov,
@@ -17,13 +16,12 @@ interface SaveMovEquipVisitTerc {
     ): Result<Boolean>
 }
 
-class SaveMovEquipVisitTercImpl(
+class SaveMovEquipResidenciaImpl(
     private val configRepository: ConfigRepository,
-    private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
-    private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
+    private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val startProcessSendData: StartProcessSendData,
-    private val closeMovVisitTerc: CloseMovVisitTerc
-) : SaveMovEquipVisitTerc {
+    private val closeMovResidencia: CloseMovResidencia
+) : SaveMovEquipResidencia {
 
     override suspend fun invoke(
         flowApp: FlowApp,
@@ -35,7 +33,7 @@ class SaveMovEquipVisitTercImpl(
                 (flowApp == FlowApp.ADD) &&
                 (typeMov == TypeMov.OUTPUT)
             ) {
-                val resultClose = closeMovVisitTerc(id)
+                val resultClose = closeMovResidencia(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }
@@ -43,16 +41,12 @@ class SaveMovEquipVisitTercImpl(
             if (resultConfig.isFailure)
                 return Result.failure(resultConfig.exceptionOrNull()!!)
             val config = resultConfig.getOrNull()!!
-            val resultSave = movEquipVisitTercRepository.save(
+            val resultSave = movEquipResidenciaRepository.save(
                 config.matricVigia!!,
                 config.idLocal!!
             )
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
-            val idSave = resultSave.getOrNull()!!
-            val resultSavePassag = movEquipVisitTercPassagRepository.save(idSave)
-            if (resultSavePassag.isFailure)
-                return Result.failure(resultSavePassag.exceptionOrNull()!!)
             val resultSetStatusSend = configRepository.setStatusSend(StatusSend.SEND)
             if (resultSetStatusSend.isFailure)
                 return Result.failure(resultSetStatusSend.exceptionOrNull()!!)
@@ -61,7 +55,7 @@ class SaveMovEquipVisitTercImpl(
         } catch (e: Exception) {
             return Result.failure(
                 UsecaseException(
-                    function = "SaveMovEquipVisitTercImpl",
+                    function = "SaveMovEquipResidenciaImpl",
                     cause = e
                 )
             )

@@ -1,15 +1,49 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 
+import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
+import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 interface GetMovEquipResidenciaOpenList {
     suspend operator fun invoke(): Result<List<MovEquipResidenciaModel>>
 }
 
-class GetMovEquipResidenciaOpenListImpl(): GetMovEquipResidenciaOpenList {
+class GetMovEquipResidenciaOpenListImpl(
+    private val movEquipResidenciaRepository: MovEquipResidenciaRepository
+): GetMovEquipResidenciaOpenList {
 
     override suspend fun invoke(): Result<List<MovEquipResidenciaModel>> {
-        TODO("Not yet implemented")
+        try {
+            val resultList = movEquipResidenciaRepository.listOpen()
+            if(resultList.isFailure)
+                return Result.failure(resultList.exceptionOrNull()!!)
+            val list = resultList.getOrNull()!!
+            val modelList = list.map {
+                MovEquipResidenciaModel(
+                    id = it.idMovEquipResidencia!!,
+                    dthr = "DATA/HORA: ${
+                        SimpleDateFormat(
+                            "dd/MM/yyyy HH:mm",
+                            Locale("pt", "BR")
+                        ).format(it.dthrMovEquipResidencia)}",
+                    veiculo = "VEICULO: ${it.veiculoMovEquipResidencia!!}",
+                    placa = "PLACA: ${it.placaMovEquipResidencia!!}",
+                    motorista = "MOTORISTA: ${it.motoristaMovEquipResidencia!!}",
+                    tipoMov = if (it.tipoMovEquipResidencia == TypeMov.INPUT) "ENTRADA" else "SAIDA",
+                )
+            }
+            return Result.success(modelList)
+        } catch (e: Exception) {
+            return Result.failure(
+                UsecaseException(
+                    function = "GetMovEquipResidenciaOpenListImpl",
+                    cause = e
+                )
+            )
+        }
     }
 
 }

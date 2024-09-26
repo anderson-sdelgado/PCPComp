@@ -78,11 +78,11 @@ fun MovEquipVisitTercEditListContent(
         ) {
             items(movEquipVisitTercModelList) { mov ->
                 ItemListDesign(
-                    text = "DATA/HORA: ${mov.dthr}\n" +
-                            "TIPO:  ${mov.tipoMov}\n" +
-                            "VEÍCULO: ${mov.veiculo}\n" +
-                            "PLACA: ${mov.placa}\n" +
-                            "MOTORISTA: ${mov.motorista}\n",
+                    text = "${mov.dthr}\n" +
+                            "${mov.tipoMov}\n" +
+                            "${mov.veiculo}\n" +
+                            "${mov.placa}\n" +
+                            "${mov.motorista}\n",
                     setActionItem = {
                         onNavDetalhe(mov.id)
                     },

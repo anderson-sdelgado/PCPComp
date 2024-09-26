@@ -6,10 +6,31 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenc
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipResidenciaRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToMovEquipResidenciaRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.modelRoomToMovEquipResidencia
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 class MovEquipResidenciaRepositoryImpl(
     private val movEquipResidenciaRoomDatasource: MovEquipResidenciaRoomDatasource,
 ): MovEquipResidenciaRepository {
+
+    override suspend fun get(id: Int): Result<MovEquipResidencia> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMotorista(id: Int): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getObserv(id: Int): Result<String?> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getPlaca(id: Int): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getVeiculo(id: Int): Result<String> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun listOpen(): Result<List<MovEquipResidencia>> {
         try {
@@ -32,6 +53,10 @@ class MovEquipResidenciaRepositoryImpl(
         }
     }
 
+    override suspend fun listOpenInput(): Result<List<MovEquipResidencia>> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun setClose(movEquipResidencia: MovEquipResidencia): Result<Boolean> {
         try {
             val movEquipResidenciaRoomModel = movEquipResidencia.entityToMovEquipResidenciaRoomModel(
@@ -51,5 +76,37 @@ class MovEquipResidenciaRepositoryImpl(
             )
         }
     }
-    
+
+    override suspend fun setMotorista(
+        motorista: String,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setObserv(
+        observ: String?,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setPlaca(
+        placa: String,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setVeiculo(
+        veiculo: String,
+        flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
 }

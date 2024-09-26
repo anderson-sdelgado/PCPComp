@@ -1,17 +1,21 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
+
 interface GetMotoristaResidencia {
     suspend operator fun invoke(
         id: Int
     ): Result<String>
 }
 
-class GetMotoristaResidenciaImpl() : GetMotoristaResidencia {
+class GetMotoristaResidenciaImpl(
+    private val movEquipResidenciaRepository: MovEquipResidenciaRepository
+) : GetMotoristaResidencia {
 
     override suspend fun invoke(
         id: Int
     ): Result<String> {
-        TODO("Not yet implemented")
+        return movEquipResidenciaRepository.getMotorista(id = id)
     }
 
 }
