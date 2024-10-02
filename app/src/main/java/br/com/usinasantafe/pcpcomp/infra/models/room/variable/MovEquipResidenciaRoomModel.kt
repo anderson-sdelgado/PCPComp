@@ -27,7 +27,7 @@ data class MovEquipResidenciaRoomModel(
     var statusMovEquipForeigResidencia: StatusForeigner,
 )
 
-fun MovEquipResidenciaRoomModel.modelRoomToMovEquipResidencia(): MovEquipResidencia {
+fun MovEquipResidenciaRoomModel.roomModelToEntity(): MovEquipResidencia {
     return with(this){
         MovEquipResidencia(
             idMovEquipResidencia = this.idMovEquipResidencia,
@@ -46,7 +46,7 @@ fun MovEquipResidenciaRoomModel.modelRoomToMovEquipResidencia(): MovEquipResiden
     }
 }
 
-fun MovEquipResidencia.entityToMovEquipResidenciaRoomModel(matricVigia: Int, idLocal: Int): MovEquipResidenciaRoomModel{
+fun MovEquipResidencia.entityToRoomModel(matricVigia: Int, idLocal: Int): MovEquipResidenciaRoomModel{
     return with(this){
         MovEquipResidenciaRoomModel(
             idMovEquipResidencia = this.idMovEquipResidencia,

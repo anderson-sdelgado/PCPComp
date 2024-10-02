@@ -182,7 +182,8 @@ class MovEquipProprioRepositoryImpl(
         idLocal: Int
     ): Result<Int> {
         try {
-            val resultGetMov = movEquipProprioSharedPreferencesDatasource.get()
+            val resultGetMov =
+                movEquipProprioSharedPreferencesDatasource.get()
             if (resultGetMov.isFailure)
                 return Result.failure(resultGetMov.exceptionOrNull()!!)
             val movEquipProprioRoomModel =
@@ -191,18 +192,19 @@ class MovEquipProprioRepositoryImpl(
             val resultSave = movEquipProprioRoomDatasource.save(movEquipProprioRoomModel)
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
-            val resultClear = movEquipProprioSharedPreferencesDatasource.clear()
-            if (resultClear.isFailure)
-                return Result.failure(resultClear.exceptionOrNull()!!)
             val id = resultSave.getOrNull()!!.toInt()
-            if (id == 0)
+            if (id == 0) {
                 return Result.failure(
                     RepositoryException(
                         function = "MovEquipProprioRepositoryImpl.save",
                         cause = Exception("Id is 0")
                     )
                 )
-            return Result.success(resultSave.getOrNull()!!.toInt())
+            }
+            val resultClear = movEquipProprioSharedPreferencesDatasource.clear()
+            if (resultClear.isFailure)
+                return Result.failure(resultClear.exceptionOrNull()!!)
+            return Result.success(id)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

@@ -8,7 +8,6 @@ interface MovEquipVisitTercRepository {
     suspend fun get(id: Int): Result<MovEquipVisitTerc>
     suspend fun getDestino(id: Int): Result<String>
     suspend fun getIdVisitTerc(id: Int): Result<Int>
-    suspend fun getMotorista(id: Int): Result<String>
     suspend fun getObserv(id: Int): Result<String?>
     suspend fun getPlaca(id: Int): Result<String>
     suspend fun getTypeVisitTerc(
@@ -18,7 +17,7 @@ interface MovEquipVisitTercRepository {
 
     suspend fun getVeiculo(id: Int): Result<String>
     suspend fun listOpen(): Result<List<MovEquipVisitTerc>>
-    suspend fun listOpenInput(): Result<List<MovEquipVisitTerc>>
+    suspend fun listInputOpen(): Result<List<MovEquipVisitTerc>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int

@@ -118,7 +118,7 @@ class SetObservVisitTercImplTest {
             val passagList = listOf(
                 MovEquipVisitTercPassag(
                     idMovEquipVisitTercPassag = 1,
-                    idVisitTercMovEquipVisitTercPassag = 10,
+                    idVisitTerc = 10,
                     idMovEquipVisitTerc = 1,
                 )
             )
@@ -190,7 +190,7 @@ class SetObservVisitTercImplTest {
             val passagList = listOf(
                 MovEquipVisitTercPassag(
                     idMovEquipVisitTercPassag = 1,
-                    idVisitTercMovEquipVisitTercPassag = 10,
+                    idVisitTerc = 10,
                     idMovEquipVisitTerc = 1,
                 )
             )

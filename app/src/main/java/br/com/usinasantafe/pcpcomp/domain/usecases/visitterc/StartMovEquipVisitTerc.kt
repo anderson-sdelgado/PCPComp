@@ -33,7 +33,7 @@ class StartMovEquipVisitTercImpl(
             if (passagList != null) {
                 for(passag in passagList){
                     val resultAdd = movEquipVisitTercPassagRepository.add(
-                        idVisitTerc = passag.idVisitTercMovEquipVisitTercPassag!!,
+                        idVisitTerc = passag.idVisitTerc!!,
                         flowApp = FlowApp.ADD,
                         id = 0
                     )

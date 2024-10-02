@@ -22,7 +22,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listOpenInput()
+                movEquipVisitTercRepository.listInputOpen()
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
@@ -49,7 +49,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listOpenInput()
+                movEquipVisitTercRepository.listInputOpen()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -95,7 +95,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listOpenInput()
+                movEquipVisitTercRepository.listInputOpen()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -152,7 +152,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listOpenInput()
+                movEquipVisitTercRepository.listInputOpen()
             ).thenReturn(
                 Result.success(
                     listOf(

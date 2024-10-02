@@ -21,7 +21,7 @@ class GetMovEquipResidenciaInputOpenListImplTest {
         runTest {
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             whenever(
-                movEquipResidenciaRepository.listOpenInput()
+                movEquipResidenciaRepository.listInputOpen()
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
@@ -61,7 +61,7 @@ class GetMovEquipResidenciaInputOpenListImplTest {
             val list = listOf(model)
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             whenever(
-                movEquipResidenciaRepository.listOpenInput()
+                movEquipResidenciaRepository.listInputOpen()
             ).thenReturn(
                 Result.success(list)
             )

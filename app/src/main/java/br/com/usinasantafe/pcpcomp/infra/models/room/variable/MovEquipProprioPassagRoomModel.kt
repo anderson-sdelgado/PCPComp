@@ -13,16 +13,6 @@ data class MovEquipProprioPassagRoomModel(
     var matricColab: Int,
 )
 
-
-fun MovEquipProprioPassag.entityToRoomModel(id: Int): MovEquipProprioPassagRoomModel{
-    return with(this){
-        MovEquipProprioPassagRoomModel(
-            idMovEquipProprio = id,
-            matricColab = this.matricColab!!,
-        )
-    }
-}
-
 fun MovEquipProprioPassagRoomModel.modelRoomToEntity(): MovEquipProprioPassag {
     return with(this){
         MovEquipProprioPassag(

@@ -1,8 +1,6 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.repositories.stable.TerceiroRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.stable.VisitanteRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.detalhe.DetalheVisitTercModel
@@ -64,7 +62,7 @@ class GetDetalheVisitTercImpl(
             for (passag in passagList) {
                 val resultGetMotorista = getMotorista(
                     mov.tipoVisitTercMovEquipVisitTerc!!,
-                    passag.idVisitTercMovEquipVisitTercPassag!!
+                    passag.idVisitTerc!!
                 )
                 if (resultGetMotorista.isFailure)
                     return Result.failure(resultGetMotorista.exceptionOrNull()!!)

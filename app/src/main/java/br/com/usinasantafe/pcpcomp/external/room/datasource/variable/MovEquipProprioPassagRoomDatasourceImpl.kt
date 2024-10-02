@@ -4,17 +4,16 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioPassagDao
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipProprioPassagRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioPassagRoomModel
-import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 
 class MovEquipProprioPassagRoomDatasourceImpl(
     private val movEquipProprioPassagDao: MovEquipProprioPassagDao
 ) : MovEquipProprioPassagRoomDatasource {
 
-    override suspend fun add(matricColab: Int, idMov: Int): Result<Boolean> {
+    override suspend fun add(matricColab: Int, id: Int): Result<Boolean> {
         try {
             movEquipProprioPassagDao.insert(
                 MovEquipProprioPassagRoomModel(
-                    idMovEquipProprio = idMov,
+                    idMovEquipProprio = id,
                     matricColab = matricColab
                 )
             )
@@ -43,9 +42,9 @@ class MovEquipProprioPassagRoomDatasourceImpl(
         }
     }
 
-    override suspend fun delete(matricColab: Int, idMov: Int): Result<Boolean> {
+    override suspend fun delete(matricColab: Int, id: Int): Result<Boolean> {
         try {
-            val mov = movEquipProprioPassagDao.get(idMov, matricColab)
+            val mov = movEquipProprioPassagDao.get(id, matricColab)
             movEquipProprioPassagDao.delete(mov)
             return Result.success(true)
         } catch (e: Exception) {

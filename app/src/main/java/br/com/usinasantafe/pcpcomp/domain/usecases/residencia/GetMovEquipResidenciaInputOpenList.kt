@@ -16,7 +16,7 @@ class GetMovEquipResidenciaInputOpenListImpl(
 
     override suspend fun invoke(): Result<List<MovEquipResidenciaModel>> {
         try {
-            val resultList = movEquipResidenciaRepository.listOpenInput()
+            val resultList = movEquipResidenciaRepository.listInputOpen()
             if(resultList.isFailure)
                 return Result.failure(resultList.exceptionOrNull()!!)
             val list = resultList.getOrNull()!!

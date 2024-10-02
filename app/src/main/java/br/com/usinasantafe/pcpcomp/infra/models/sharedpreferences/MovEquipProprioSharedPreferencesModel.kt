@@ -28,3 +28,5 @@ fun MovEquipProprioSharedPreferencesModel.sharedPreferencesModelToEntity(): MovE
         )
     }
 }
+
+

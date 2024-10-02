@@ -28,6 +28,14 @@ class MovEquipVisitTercRoomDatasourceImpl(
         }
     }
 
+    override suspend fun listInputOpen(): Result<List<MovEquipVisitTercRoomModel>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun save(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Long> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun setClose(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean> {
         try {
             movEquipVisitTercRoomModel.statusMovEquipVisitTerc = StatusData.CLOSE
@@ -41,6 +49,41 @@ class MovEquipVisitTercRoomDatasourceImpl(
                 )
             )
         }
+    }
+
+    override suspend fun setDestino(
+        destino: String,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setIdVisitTerc(
+        idVisitTerc: Int,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setObserv(
+        observ: String?,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setPlaca(
+        placa: String,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setVeiculo(
+        veiculo: String,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
     }
 
 }

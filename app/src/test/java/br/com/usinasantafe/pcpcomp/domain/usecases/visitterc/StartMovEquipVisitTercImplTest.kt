@@ -102,7 +102,7 @@ class StartMovEquipVisitTercImplTest {
         runTest {
             val passagList = listOf(
                 MovEquipVisitTercPassag(
-                    idVisitTercMovEquipVisitTercPassag = 10,
+                    idVisitTerc = 10,
                     idMovEquipVisitTerc = 1,
                     idMovEquipVisitTercPassag = 1
                 )
@@ -143,7 +143,7 @@ class StartMovEquipVisitTercImplTest {
         runTest {
             val passagList = listOf(
                 MovEquipVisitTercPassag(
-                    idVisitTercMovEquipVisitTercPassag = 10,
+                    idVisitTerc = 10,
                     idMovEquipVisitTerc = 1,
                     idMovEquipVisitTercPassag = 1
                 )
@@ -193,7 +193,7 @@ class StartMovEquipVisitTercImplTest {
         runTest {
             val passagList = listOf(
                 MovEquipVisitTercPassag(
-                    idVisitTercMovEquipVisitTercPassag = 10,
+                    idVisitTerc = 10,
                     idMovEquipVisitTerc = 1,
                     idMovEquipVisitTercPassag = 1
                 )

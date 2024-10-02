@@ -5,10 +5,13 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipResidenciaRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidenciaRoomModel
 import br.com.usinasantafe.pcpcomp.utils.StatusData
-
 class MovEquipResidenciaRoomDatasourceImpl(
     private val movEquipResidenciaDao: MovEquipResidenciaDao
 ): MovEquipResidenciaRoomDatasource {
+
+    override suspend fun get(id: Int): Result<MovEquipResidenciaRoomModel> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun listOpen(): Result<List<MovEquipResidenciaRoomModel>> {
         try{
@@ -24,6 +27,14 @@ class MovEquipResidenciaRoomDatasourceImpl(
         }
     }
 
+    override suspend fun listInputOpen(): Result<List<MovEquipResidenciaRoomModel>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun save(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Long> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun setClose(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Boolean> {
         try {
             movEquipResidenciaRoomModel.statusMovEquipResidencia = StatusData.CLOSE
@@ -37,6 +48,25 @@ class MovEquipResidenciaRoomDatasourceImpl(
                 )
             )
         }
+    }
+
+    override suspend fun setMotorista(
+        motorista: String,
+        id: Int
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setObserv(observ: String?, id: Int): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setPlaca(placa: String, id: Int): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setVeiculo(veiculo: String, id: Int): Result<Boolean> {
+        TODO("Not yet implemented")
     }
 
 }

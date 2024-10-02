@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetObservResidencia
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.SaveMovEquipResidencia
 import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.SetObservResidencia
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -29,6 +30,7 @@ class ObservResidenciaViewModelTest {
     fun `Check return failure if have error in GetObserv`() = runTest {
         val setObservResidencia = mock<SetObservResidencia>()
         val getObservResidencia = mock<GetObservResidencia>()
+        val saveMovEquipResidencia = mock<SaveMovEquipResidencia>()
         whenever(
             getObservResidencia(
                 id = 1
@@ -50,7 +52,8 @@ class ObservResidenciaViewModelTest {
                 )
             ),
             setObservResidencia,
-            getObservResidencia
+            getObservResidencia,
+            saveMovEquipResidencia
         )
         viewModel.recoverObserv()
         val state = viewModel.uiState.value
@@ -62,6 +65,7 @@ class ObservResidenciaViewModelTest {
     fun `Check return observ if GetObserv execute successfully`() = runTest {
         val setObservResidencia = mock<SetObservResidencia>()
         val getObservResidencia = mock<GetObservResidencia>()
+        val saveMovEquipResidencia = mock<SaveMovEquipResidencia>()
         whenever(
             getObservResidencia(
                 id = 1
@@ -78,7 +82,8 @@ class ObservResidenciaViewModelTest {
                 )
             ),
             setObservResidencia,
-            getObservResidencia
+            getObservResidencia,
+            saveMovEquipResidencia
         )
         viewModel.recoverObserv()
         val state = viewModel.uiState.value
@@ -89,6 +94,7 @@ class ObservResidenciaViewModelTest {
     fun `Check return failure if have error in SetObserv`() = runTest {
         val setObservResidencia = mock<SetObservResidencia>()
         val getObservResidencia = mock<GetObservResidencia>()
+        val saveMovEquipResidencia = mock<SaveMovEquipResidencia>()
         whenever(
             setObservResidencia(
                 observ = "Observação",
@@ -113,7 +119,8 @@ class ObservResidenciaViewModelTest {
                 )
             ),
             setObservResidencia,
-            getObservResidencia
+            getObservResidencia,
+            saveMovEquipResidencia
         )
         viewModel.onObservChanged("Observação")
         viewModel.setObserv()
@@ -123,15 +130,73 @@ class ObservResidenciaViewModelTest {
     }
 
     @Test
-    fun `Check access true if SetObserv execute successfully`() = runTest {
+    fun `Check return failure if have error in SaveMovEquipResidencia`() = runTest {
         val setObservResidencia = mock<SetObservResidencia>()
         val getObservResidencia = mock<GetObservResidencia>()
+        val saveMovEquipResidencia = mock<SaveMovEquipResidencia>()
         whenever(
             setObservResidencia(
                 observ = "Observação",
                 flowApp = FlowApp.ADD,
                 typeMov = TypeMov.INPUT,
-                id = 0
+                id = 1
+            )
+        ).thenReturn(
+            Result.success(true)
+        )
+        whenever(
+            saveMovEquipResidencia(
+                flowApp = FlowApp.ADD,
+                typeMov = TypeMov.INPUT,
+                id = 1
+            )
+        ).thenReturn(
+            Result.failure(
+                UsecaseException(
+                    function = "SaveMovEquipResidencia",
+                    cause = Exception()
+                )
+            )
+        )
+        val viewModel = ObservResidenciaViewModel(
+            SavedStateHandle(
+                mapOf(
+                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    ID_ARGS to 1
+                )
+            ),
+            setObservResidencia,
+            getObservResidencia,
+            saveMovEquipResidencia
+        )
+        viewModel.onObservChanged("Observação")
+        viewModel.setObserv()
+        val state = viewModel.uiState.value
+        assertTrue(state.flagDialog)
+        assertEquals(state.failure, "Failure Usecase -> SaveMovEquipResidencia -> java.lang.Exception")
+    }
+
+    @Test
+    fun `Check access true if SetObserv execute successfully`() = runTest {
+        val setObservResidencia = mock<SetObservResidencia>()
+        val getObservResidencia = mock<GetObservResidencia>()
+        val saveMovEquipResidencia = mock<SaveMovEquipResidencia>()
+        whenever(
+            setObservResidencia(
+                observ = "Observação",
+                flowApp = FlowApp.ADD,
+                typeMov = TypeMov.INPUT,
+                id = 1
+            )
+        ).thenReturn(
+            Result.success(true)
+        )
+        whenever(
+            saveMovEquipResidencia(
+                flowApp = FlowApp.ADD,
+                typeMov = TypeMov.INPUT,
+                id = 1
             )
         ).thenReturn(
             Result.success(true)
@@ -141,11 +206,12 @@ class ObservResidenciaViewModelTest {
                 mapOf(
                     TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
-                    ID_ARGS to 0
+                    ID_ARGS to 1
                 )
             ),
             setObservResidencia,
-            getObservResidencia
+            getObservResidencia,
+            saveMovEquipResidencia
         )
         viewModel.onObservChanged("Observação")
         viewModel.setObserv()

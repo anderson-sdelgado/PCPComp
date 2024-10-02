@@ -10,7 +10,7 @@ interface MovEquipResidenciaRepository {
     suspend fun getPlaca(id: Int): Result<String>
     suspend fun getVeiculo(id: Int): Result<String>
     suspend fun listOpen(): Result<List<MovEquipResidencia>>
-    suspend fun listOpenInput(): Result<List<MovEquipResidencia>>
+    suspend fun listInputOpen(): Result<List<MovEquipResidencia>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int

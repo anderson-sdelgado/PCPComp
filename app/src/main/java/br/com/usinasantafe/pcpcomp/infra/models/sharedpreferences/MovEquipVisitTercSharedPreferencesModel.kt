@@ -30,3 +30,18 @@ fun MovEquipVisitTercSharedPreferencesModel.sharedPreferencesModelToEntity(): Mo
         )
     }
 }
+
+fun MovEquipVisitTerc.entityToSharedPreferencesModel(): MovEquipVisitTercSharedPreferencesModel {
+    return with(this){
+        MovEquipVisitTercSharedPreferencesModel(
+            dthrMovEquipVisitTerc = this.dthrMovEquipVisitTerc,
+            tipoMovEquipVisitTerc = this.tipoMovEquipVisitTerc!!,
+            idVisitTercMovEquipVisitTerc = this.idVisitTercMovEquipVisitTerc,
+            tipoVisitTercMovEquipVisitTerc = this.tipoVisitTercMovEquipVisitTerc,
+            veiculoMovEquipVisitTerc = this.veiculoMovEquipVisitTerc,
+            placaMovEquipVisitTerc = this.placaMovEquipVisitTerc,
+            destinoMovEquipVisitTerc = this.destinoMovEquipVisitTerc,
+            observMovEquipVisitTerc = this.observMovEquipVisitTerc,
+        )
+    }
+}

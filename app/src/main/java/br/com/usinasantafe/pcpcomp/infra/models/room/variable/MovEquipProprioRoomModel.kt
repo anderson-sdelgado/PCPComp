@@ -46,7 +46,10 @@ fun MovEquipProprioRoomModel.roomModelToEntity(): MovEquipProprio {
     }
 }
 
-fun MovEquipProprio.entityToRoomModel(matricVigia: Int, idLocal: Int): MovEquipProprioRoomModel{
+fun MovEquipProprio.entityToRoomModel(
+    matricVigia: Int,
+    idLocal: Int
+): MovEquipProprioRoomModel{
     return with(this){
         MovEquipProprioRoomModel(
             idMovEquipProprio = idMovEquipProprio,

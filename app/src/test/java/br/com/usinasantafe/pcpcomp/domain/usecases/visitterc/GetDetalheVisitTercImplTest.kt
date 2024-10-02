@@ -1,12 +1,8 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTercPassag
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
-import br.com.usinasantafe.pcpcomp.domain.repositories.stable.TerceiroRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.stable.VisitanteRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
@@ -247,7 +243,7 @@ class GetDetalheVisitTercImplTest {
                     MovEquipVisitTercPassag(
                         idMovEquipVisitTercPassag = 1,
                         idMovEquipVisitTerc = 1,
-                        idVisitTercMovEquipVisitTercPassag = 10
+                        idVisitTerc = 10
                     )
                 )
             )
@@ -321,7 +317,7 @@ class GetDetalheVisitTercImplTest {
                     MovEquipVisitTercPassag(
                         idMovEquipVisitTercPassag = 1,
                         idMovEquipVisitTerc = 1,
-                        idVisitTercMovEquipVisitTercPassag = 10
+                        idVisitTerc = 10
                     )
                 )
             )
@@ -395,7 +391,7 @@ class GetDetalheVisitTercImplTest {
                     MovEquipVisitTercPassag(
                         idMovEquipVisitTercPassag = 1,
                         idMovEquipVisitTerc = 1,
-                        idVisitTercMovEquipVisitTercPassag = 10
+                        idVisitTerc = 10
                     )
                 )
             )
@@ -495,7 +491,7 @@ class GetDetalheVisitTercImplTest {
                     MovEquipVisitTercPassag(
                         idMovEquipVisitTercPassag = 1,
                         idMovEquipVisitTerc = 1,
-                        idVisitTercMovEquipVisitTercPassag = 10
+                        idVisitTerc = 10
                     )
                 )
             )

@@ -18,7 +18,7 @@ class GetMovEquipVisitTercInputOpenListImpl(
 
     override suspend fun invoke(): Result<List<MovEquipVisitTercModel>> {
         try {
-            val resultList = movEquipVisitTercRepository.listOpenInput()
+            val resultList = movEquipVisitTercRepository.listInputOpen()
             if (resultList.isFailure)
                 return Result.failure(resultList.exceptionOrNull()!!)
             val list = resultList.getOrNull()!!

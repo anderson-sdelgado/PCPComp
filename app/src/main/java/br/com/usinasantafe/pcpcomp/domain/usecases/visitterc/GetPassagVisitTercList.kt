@@ -43,7 +43,7 @@ class GetPassagVisitTercListImpl(
                 when (typeVisitTerc) {
                     TypeVisitTerc.VISITANTE -> {
                         val resultCPF =
-                            visitanteRepository.getCpf(it.idVisitTercMovEquipVisitTercPassag!!)
+                            visitanteRepository.getCpf(it.idVisitTerc!!)
                         if (resultCPF.isFailure)
                             return Result.failure(resultCPF.exceptionOrNull()!!)
                         val cpf = resultCPF.getOrNull()!!
@@ -52,7 +52,7 @@ class GetPassagVisitTercListImpl(
                             return Result.failure(resultNome.exceptionOrNull()!!)
                         val nome = resultNome.getOrNull()!!
                         PassagVisitTercModel(
-                            id = it.idVisitTercMovEquipVisitTercPassag!!,
+                            id = it.idVisitTerc!!,
                             cpf = cpf,
                             nome = nome
                         )
@@ -60,7 +60,7 @@ class GetPassagVisitTercListImpl(
 
                     TypeVisitTerc.TERCEIRO -> {
                         val resultCPF =
-                            terceiroRepository.getCpf(it.idVisitTercMovEquipVisitTercPassag!!)
+                            terceiroRepository.getCpf(it.idVisitTerc!!)
                         if (resultCPF.isFailure)
                             return Result.failure(resultCPF.exceptionOrNull()!!)
                         val cpf = resultCPF.getOrNull()!!
@@ -69,7 +69,7 @@ class GetPassagVisitTercListImpl(
                             return Result.failure(resultNome.exceptionOrNull()!!)
                         val nome = resultNome.getOrNull()!!
                         PassagVisitTercModel(
-                            id = it.idVisitTercMovEquipVisitTercPassag!!,
+                            id = it.idVisitTerc!!,
                             cpf = cpf,
                             nome = nome
                         )

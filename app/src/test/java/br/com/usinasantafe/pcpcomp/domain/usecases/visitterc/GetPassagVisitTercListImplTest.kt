@@ -126,7 +126,7 @@ class GetPassagVisitTercListImplTest {
                 Result.success(
                     listOf(
                         MovEquipVisitTercPassag(
-                            idVisitTercMovEquipVisitTercPassag = 1
+                            idVisitTerc = 1
                         )
                     )
                 )
@@ -186,7 +186,7 @@ class GetPassagVisitTercListImplTest {
                 Result.success(
                     listOf(
                         MovEquipVisitTercPassag(
-                            idVisitTercMovEquipVisitTercPassag = 1
+                            idVisitTerc = 1
                         )
                     )
                 )
@@ -253,7 +253,7 @@ class GetPassagVisitTercListImplTest {
                 Result.success(
                     listOf(
                         MovEquipVisitTercPassag(
-                            idVisitTercMovEquipVisitTercPassag = 1
+                            idVisitTerc = 1
                         )
                     )
                 )
@@ -365,7 +365,7 @@ class GetPassagVisitTercListImplTest {
                 Result.success(
                     listOf(
                         MovEquipVisitTercPassag(
-                            idVisitTercMovEquipVisitTercPassag = 1
+                            idVisitTerc = 1
                         )
                     )
                 )
@@ -425,7 +425,7 @@ class GetPassagVisitTercListImplTest {
                 Result.success(
                     listOf(
                         MovEquipVisitTercPassag(
-                            idVisitTercMovEquipVisitTercPassag = 1
+                            idVisitTerc = 1
                         )
                     )
                 )
@@ -492,7 +492,7 @@ class GetPassagVisitTercListImplTest {
                 Result.success(
                     listOf(
                         MovEquipVisitTercPassag(
-                            idVisitTercMovEquipVisitTercPassag = 1
+                            idVisitTerc = 1
                         )
                     )
                 )
