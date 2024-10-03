@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidencia
 interface MovEquipResidenciaRoomDatasource {
     suspend fun get(id: Int): Result<MovEquipResidenciaRoomModel>
     suspend fun listOpen(): Result<List<MovEquipResidenciaRoomModel>>
-    suspend fun listInputOpen(): Result<List<MovEquipResidenciaRoomModel>>
+    suspend fun listInside(): Result<List<MovEquipResidenciaRoomModel>>
     suspend fun save(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Long>
     suspend fun setClose(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Boolean>
     suspend fun setMotorista(
@@ -18,6 +18,7 @@ interface MovEquipResidenciaRoomDatasource {
         id: Int
     ): Result<Boolean>
 
+    suspend fun setOutside(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Boolean>
     suspend fun setPlaca(
         placa: String,
         id: Int

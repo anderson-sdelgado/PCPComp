@@ -774,7 +774,7 @@ class MovEquipVisitTercRepositoryImplTest {
             mock<MovEquipVisitTercSharedPreferencesDatasource>()
         val movEquipVisitTercRoomDatasource =
             mock<MovEquipVisitTercRoomDatasource>()
-        whenever(movEquipVisitTercRoomDatasource.listInputOpen()).thenReturn(
+        whenever(movEquipVisitTercRoomDatasource.listInside()).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "MovEquipVisitTercRoomDatasource.listInputOpen",
@@ -786,7 +786,7 @@ class MovEquipVisitTercRepositoryImplTest {
             movEquipVisitTercSharedPreferencesDatasource,
             movEquipVisitTercRoomDatasource
         )
-        val result = repository.listInputOpen()
+        val result = repository.listInside()
         assertEquals(result.isFailure, true)
         assertEquals(
             result.exceptionOrNull()!!.message,
@@ -801,14 +801,14 @@ class MovEquipVisitTercRepositoryImplTest {
                 mock<MovEquipVisitTercSharedPreferencesDatasource>()
             val movEquipVisitTercRoomDatasource =
                 mock<MovEquipVisitTercRoomDatasource>()
-            whenever(movEquipVisitTercRoomDatasource.listInputOpen()).thenReturn(
+            whenever(movEquipVisitTercRoomDatasource.listInside()).thenReturn(
                 Result.success(listOf())
             )
             val repository = MovEquipVisitTercRepositoryImpl(
                 movEquipVisitTercSharedPreferencesDatasource,
                 movEquipVisitTercRoomDatasource
             )
-            val result = repository.listInputOpen()
+            val result = repository.listInside()
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!.isEmpty())
         }
@@ -836,14 +836,14 @@ class MovEquipVisitTercRepositoryImplTest {
                 mock<MovEquipVisitTercSharedPreferencesDatasource>()
             val movEquipVisitTercRoomDatasource =
                 mock<MovEquipVisitTercRoomDatasource>()
-            whenever(movEquipVisitTercRoomDatasource.listInputOpen()).thenReturn(
+            whenever(movEquipVisitTercRoomDatasource.listInside()).thenReturn(
                 Result.success(listOf(movEquipVisitTercRoomModel))
             )
             val repository = MovEquipVisitTercRepositoryImpl(
                 movEquipVisitTercSharedPreferencesDatasource,
                 movEquipVisitTercRoomDatasource
             )
-            val result = repository.listInputOpen()
+            val result = repository.listInside()
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!.isNotEmpty())
             assertEquals(result.getOrNull()!!.size, 1)
@@ -1851,4 +1851,116 @@ class MovEquipVisitTercRepositoryImplTest {
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
         }
+
+    @Test
+    fun `Check return failure Datasource in MovEquipVisitTercRoomDatasource setOutside`() = runTest {
+        val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
+            idMovEquipVisitTerc = 1,
+            nroMatricVigiaMovEquipVisitTerc = 1000,
+            idLocalMovEquipVisitTerc = 1000,
+            tipoMovEquipVisitTerc = TypeMov.INPUT,
+            idVisitTercMovEquipVisitTerc = 1000,
+            tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+            dthrMovEquipVisitTerc = 1723213270250,
+            veiculoMovEquipVisitTerc = "TESTE",
+            placaMovEquipVisitTerc = "TESTE",
+            destinoMovEquipVisitTerc = "TESTE",
+            observMovEquipVisitTerc = "TESTE",
+            statusMovEquipVisitTerc = StatusData.OPEN,
+            statusSendMovEquipVisitTerc = StatusSend.SEND,
+            statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+        )
+        val movEquipVisitTerc = MovEquipVisitTerc(
+            idMovEquipVisitTerc = 1,
+            nroMatricVigiaMovEquipVisitTerc = 1000,
+            idLocalMovEquipVisitTerc = 1000,
+            tipoMovEquipVisitTerc = TypeMov.INPUT,
+            idVisitTercMovEquipVisitTerc = 1000,
+            tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+            dthrMovEquipVisitTerc = Date(1723213270250),
+            veiculoMovEquipVisitTerc = "TESTE",
+            placaMovEquipVisitTerc = "TESTE",
+            destinoMovEquipVisitTerc = "TESTE",
+            observMovEquipVisitTerc = "TESTE",
+            statusMovEquipVisitTerc = StatusData.OPEN,
+            statusSendMovEquipVisitTerc = StatusSend.SEND,
+            statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+        )
+        val movEquipVisitTercSharedPreferencesDatasource =
+            mock<MovEquipVisitTercSharedPreferencesDatasource>()
+        val movEquipVisitTercRoomDatasource =
+            mock<MovEquipVisitTercRoomDatasource>()
+        whenever(
+            movEquipVisitTercRoomDatasource.setOutside(movEquipVisitTercRoomModel)
+        ).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasource.setClose",
+                    cause = Exception()
+                )
+            )
+        )
+        val repository = MovEquipVisitTercRepositoryImpl(
+            movEquipVisitTercSharedPreferencesDatasource,
+            movEquipVisitTercRoomDatasource
+        )
+        val result = repository.setOutside(movEquipVisitTerc)
+        assertEquals(result.isFailure, true)
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> MovEquipVisitTercRoomDatasource.setClose"
+        )
+    }
+
+    @Test
+    fun `Check return true if have success in MovEquipVisitTercRoomDatasource setOutside`() =
+        runTest {
+            val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
+                idMovEquipVisitTerc = 1,
+                nroMatricVigiaMovEquipVisitTerc = 1000,
+                idLocalMovEquipVisitTerc = 1000,
+                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                idVisitTercMovEquipVisitTerc = 1000,
+                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+                dthrMovEquipVisitTerc = 1723213270250,
+                veiculoMovEquipVisitTerc = "TESTE",
+                placaMovEquipVisitTerc = "TESTE",
+                destinoMovEquipVisitTerc = "TESTE",
+                observMovEquipVisitTerc = "TESTE",
+                statusMovEquipVisitTerc = StatusData.OPEN,
+                statusSendMovEquipVisitTerc = StatusSend.SEND,
+                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            )
+            val movEquipVisitTerc = MovEquipVisitTerc(
+                idMovEquipVisitTerc = 1,
+                nroMatricVigiaMovEquipVisitTerc = 1000,
+                idLocalMovEquipVisitTerc = 1000,
+                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                idVisitTercMovEquipVisitTerc = 1000,
+                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+                dthrMovEquipVisitTerc = Date(1723213270250),
+                veiculoMovEquipVisitTerc = "TESTE",
+                placaMovEquipVisitTerc = "TESTE",
+                destinoMovEquipVisitTerc = "TESTE",
+                observMovEquipVisitTerc = "TESTE",
+                statusMovEquipVisitTerc = StatusData.OPEN,
+                statusSendMovEquipVisitTerc = StatusSend.SEND,
+                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            )
+            val movEquipVisitTercSharedPreferencesDatasource =
+                mock<MovEquipVisitTercSharedPreferencesDatasource>()
+            val movEquipVisitTercRoomDatasource =
+                mock<MovEquipVisitTercRoomDatasource>()
+            whenever(movEquipVisitTercRoomDatasource.setOutside(movEquipVisitTercRoomModel)).thenReturn(
+                Result.success(true)
+            )
+            val repository = MovEquipVisitTercRepositoryImpl(
+                movEquipVisitTercSharedPreferencesDatasource,
+                movEquipVisitTercRoomDatasource
+            )
+            val result = repository.setOutside(movEquipVisitTerc)
+            assertEquals(result.isSuccess, true)
+            assertEquals(result.getOrNull()!!, true)
+        }
+
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cb833d88cd66e000fcffa07f27a1f8b1",
+    "identityHash": "86c152cf6f0eddc7cca53a5656e8dc87",
     "entities": [
       {
         "tableName": "tb_colab",
@@ -401,6 +401,38 @@
         "foreignKeys": []
       },
       {
+        "tableName": "tb_mov_equip_visit_terc_passag",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipVisitTercPassag` INTEGER PRIMARY KEY AUTOINCREMENT, `idMovEquipVisitTerc` INTEGER NOT NULL, `idVisitTerc` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovEquipVisitTercPassag",
+            "columnName": "idMovEquipVisitTercPassag",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idMovEquipVisitTerc",
+            "columnName": "idMovEquipVisitTerc",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idVisitTerc",
+            "columnName": "idVisitTerc",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovEquipVisitTercPassag"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "tb_mov_equip_visit_terc",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipVisitTerc` INTEGER PRIMARY KEY AUTOINCREMENT, `nroMatricVigiaMovEquipVisitTerc` INTEGER NOT NULL, `idLocalMovEquipVisitTerc` INTEGER NOT NULL, `tipoMovEquipVisitTerc` TEXT NOT NULL, `idVisitTercMovEquipVisitTerc` INTEGER NOT NULL, `tipoVisitTercMovEquipVisitTerc` TEXT NOT NULL, `dthrMovEquipVisitTerc` INTEGER NOT NULL, `veiculoMovEquipVisitTerc` TEXT NOT NULL, `placaMovEquipVisitTerc` TEXT NOT NULL, `destinoMovEquipVisitTerc` TEXT, `observMovEquipVisitTerc` TEXT, `statusMovEquipVisitTerc` TEXT NOT NULL, `statusSendMovEquipVisitTerc` TEXT NOT NULL, `statusMovEquipForeigVisitTerc` TEXT NOT NULL)",
         "fields": [
@@ -502,7 +534,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cb833d88cd66e000fcffa07f27a1f8b1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '86c152cf6f0eddc7cca53a5656e8dc87')"
     ]
   }
 }

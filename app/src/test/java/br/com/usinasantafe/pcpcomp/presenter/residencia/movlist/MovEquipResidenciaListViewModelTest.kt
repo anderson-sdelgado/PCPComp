@@ -4,7 +4,7 @@ import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
-import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetMovEquipResidenciaInputOpenList
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetMovEquipResidenciaInsideList
 import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.StartMovEquipResidencia
 import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
 import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
@@ -26,7 +26,7 @@ class MovEquipResidenciaListViewModelTest {
     @Test
     fun `Check return failure if have error in getHeader`() = runTest {
         val getHeader = mock<GetHeader>()
-        val getMovEquipResidenciaInputOpenList = mock<GetMovEquipResidenciaInputOpenList>()
+        val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
         val startMovEquipResidencia = mock<StartMovEquipResidencia>()
         whenever(getHeader()).thenReturn(
             Result.failure(
@@ -38,7 +38,7 @@ class MovEquipResidenciaListViewModelTest {
         )
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
-            getMovEquipResidenciaInputOpenList,
+            getMovEquipResidenciaInsideList,
             startMovEquipResidencia
         )
         viewModel.returnHeader()
@@ -52,7 +52,7 @@ class MovEquipResidenciaListViewModelTest {
     @Test
     fun `Check return Nome Vigia if getHeader execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
-        val getMovEquipResidenciaInputOpenList = mock<GetMovEquipResidenciaInputOpenList>()
+        val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
         val startMovEquipResidencia = mock<StartMovEquipResidencia>()
         whenever(getHeader()).thenReturn(
             Result.success(
@@ -64,7 +64,7 @@ class MovEquipResidenciaListViewModelTest {
         )
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
-            getMovEquipResidenciaInputOpenList,
+            getMovEquipResidenciaInsideList,
             startMovEquipResidencia
         )
         viewModel.returnHeader()
@@ -78,9 +78,9 @@ class MovEquipResidenciaListViewModelTest {
     @Test
     fun `Check return failure if have error in recoverMovEquipInputList`() = runTest {
         val getHeader = mock<GetHeader>()
-        val getMovEquipResidenciaInputOpenList = mock<GetMovEquipResidenciaInputOpenList>()
+        val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
         val startMovEquipResidencia = mock<StartMovEquipResidencia>()
-        whenever(getMovEquipResidenciaInputOpenList()).thenReturn(
+        whenever(getMovEquipResidenciaInsideList()).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "GetMovEquipResidenciaInputOpenList",
@@ -90,7 +90,7 @@ class MovEquipResidenciaListViewModelTest {
         )
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
-            getMovEquipResidenciaInputOpenList,
+            getMovEquipResidenciaInsideList,
             startMovEquipResidencia
         )
         viewModel.recoverMovEquipList()
@@ -104,9 +104,9 @@ class MovEquipResidenciaListViewModelTest {
     @Test
     fun `Check return list if recoverMovEquipInputList execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
-        val getMovEquipResidenciaInputOpenList = mock<GetMovEquipResidenciaInputOpenList>()
+        val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
         val startMovEquipResidencia = mock<StartMovEquipResidencia>()
-        whenever(getMovEquipResidenciaInputOpenList()).thenReturn(
+        whenever(getMovEquipResidenciaInsideList()).thenReturn(
             Result.success(
                 listOf(
                     MovEquipResidenciaModel(
@@ -121,7 +121,7 @@ class MovEquipResidenciaListViewModelTest {
         )
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
-            getMovEquipResidenciaInputOpenList,
+            getMovEquipResidenciaInsideList,
             startMovEquipResidencia
         )
         viewModel.recoverMovEquipList()
@@ -136,7 +136,7 @@ class MovEquipResidenciaListViewModelTest {
     @Test
     fun `Check return failure if have error in startMovEquipResidencia`() = runTest {
         val getHeader = mock<GetHeader>()
-        val getMovEquipResidenciaInputOpenList = mock<GetMovEquipResidenciaInputOpenList>()
+        val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
         val startMovEquipResidencia = mock<StartMovEquipResidencia>()
         whenever(startMovEquipResidencia()).thenReturn(
             Result.failure(
@@ -148,7 +148,7 @@ class MovEquipResidenciaListViewModelTest {
         )
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
-            getMovEquipResidenciaInputOpenList,
+            getMovEquipResidenciaInsideList,
             startMovEquipResidencia
         )
         viewModel.startMov()
@@ -162,14 +162,14 @@ class MovEquipResidenciaListViewModelTest {
     @Test
     fun `Check return true if startMovEquipResidencia execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
-        val getMovEquipResidenciaInputOpenList = mock<GetMovEquipResidenciaInputOpenList>()
+        val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
         val startMovEquipResidencia = mock<StartMovEquipResidencia>()
         whenever(startMovEquipResidencia()).thenReturn(
             Result.success(true)
         )
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
-            getMovEquipResidenciaInputOpenList,
+            getMovEquipResidenciaInsideList,
             startMovEquipResidencia
         )
         viewModel.startMov()

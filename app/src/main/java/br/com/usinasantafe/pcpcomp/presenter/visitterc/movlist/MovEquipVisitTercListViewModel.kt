@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.visitterc.movlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMovEquipVisitTercInputOpenList
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMovEquipVisitTercInsideList
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ data class MovEquipVisitTercListState(
 
 class MovEquipVisitTercListViewModel(
     private val getHeader: GetHeader,
-    private val getMovEquipVisitTercInputOpenList: GetMovEquipVisitTercInputOpenList,
+    private val getMovEquipVisitTercInsideList: GetMovEquipVisitTercInsideList,
     private val startMovEquipVisitTerc: StartMovEquipVisitTerc,
 ) : ViewModel() {
 
@@ -59,7 +59,7 @@ class MovEquipVisitTercListViewModel(
     }
 
     fun recoverMovEquipList() = viewModelScope.launch {
-        val resultGetList = getMovEquipVisitTercInputOpenList()
+        val resultGetList = getMovEquipVisitTercInsideList()
         if (resultGetList.isFailure) {
             val error = resultGetList.exceptionOrNull()!!
             val failure =

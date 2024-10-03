@@ -12,6 +12,7 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioEqu
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioPassagDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipResidenciaDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipVisitTercDao
+import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipVisitTercPassagDao
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
@@ -21,6 +22,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioEqu
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioPassagRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidenciaRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercPassagRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercRoomModel
 import br.com.usinasantafe.pcpcomp.utils.BASE_DB
 import br.com.usinasantafe.pcpcomp.utils.VERSION_DB
@@ -36,6 +38,7 @@ import br.com.usinasantafe.pcpcomp.utils.VERSION_DB
         MovEquipProprioPassagRoomModel::class,
         MovEquipProprioEquipSegRoomModel::class,
         MovEquipResidenciaRoomModel::class,
+        MovEquipVisitTercPassagRoomModel::class,
         MovEquipVisitTercRoomModel::class
     ],
     version = VERSION_DB, exportSchema = true,
@@ -50,6 +53,7 @@ abstract class AppDatabaseRoom : RoomDatabase() {
     abstract fun movEquipProprioPassagDao(): MovEquipProprioPassagDao
     abstract fun movEquipProprioEquipSegDao(): MovEquipProprioEquipSegDao
     abstract fun movEquipResidenciaDao(): MovEquipResidenciaDao
+    abstract fun movEquipVisitTercPassagDao(): MovEquipVisitTercPassagDao
     abstract fun movEquipVisitTercDao(): MovEquipVisitTercDao
 }
 

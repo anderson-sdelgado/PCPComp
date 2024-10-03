@@ -18,14 +18,14 @@ import org.mockito.kotlin.whenever
 class SaveMovEquipResidenciaImplTest {
 
     @Test
-    fun `Chech return failure if have error in ConfigRepository CloseMovResidencia`() =
+    fun `Chech return failure if have error in ConfigRepository OutsideMovResidencia`() =
         runTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val closeMovResidencia = mock<CloseMovResidencia>()
+            val outsideMovResidencia = mock<OutsideMovResidencia>()
             whenever(
-                closeMovResidencia(1)
+                outsideMovResidencia(1)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -38,7 +38,7 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                closeMovResidencia
+                outsideMovResidencia
             )
             val result = usecase(
                 flowApp = FlowApp.ADD,
@@ -58,9 +58,9 @@ class SaveMovEquipResidenciaImplTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val closeMovResidencia = mock<CloseMovResidencia>()
+            val outsideMovResidencia = mock<OutsideMovResidencia>()
             whenever(
-                closeMovResidencia(1)
+                outsideMovResidencia(1)
             ).thenReturn(
                 Result.success(true)
             )
@@ -78,7 +78,7 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                closeMovResidencia
+                outsideMovResidencia
             )
             val result = usecase(
                 flowApp = FlowApp.ADD,
@@ -98,9 +98,9 @@ class SaveMovEquipResidenciaImplTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val closeMovResidencia = mock<CloseMovResidencia>()
+            val outsideMovResidencia = mock<OutsideMovResidencia>()
             whenever(
-                closeMovResidencia(1)
+                outsideMovResidencia(1)
             ).thenReturn(
                 Result.success(true)
             )
@@ -128,7 +128,7 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                closeMovResidencia
+                outsideMovResidencia
             )
             val result = usecase(
                 flowApp = FlowApp.ADD,
@@ -148,9 +148,9 @@ class SaveMovEquipResidenciaImplTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val closeMovResidencia = mock<CloseMovResidencia>()
+            val outsideMovResidencia = mock<OutsideMovResidencia>()
             whenever(
-                closeMovResidencia(1)
+                outsideMovResidencia(1)
             ).thenReturn(
                 Result.success(true)
             )
@@ -183,7 +183,7 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                closeMovResidencia
+                outsideMovResidencia
             )
             val result = usecase(
                 flowApp = FlowApp.ADD,
@@ -204,6 +204,7 @@ class SaveMovEquipResidenciaImplTest {
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
             val closeMovResidencia = mock<CloseMovResidencia>()
+            val outsideMovResidencia = mock<OutsideMovResidencia>()
             whenever(
                 closeMovResidencia(1)
             ).thenReturn(
@@ -233,7 +234,7 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                closeMovResidencia
+                outsideMovResidencia
             )
             val result = usecase(
                 flowApp = FlowApp.ADD,

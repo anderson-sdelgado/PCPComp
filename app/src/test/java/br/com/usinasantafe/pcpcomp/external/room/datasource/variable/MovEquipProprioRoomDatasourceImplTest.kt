@@ -121,11 +121,12 @@ class MovEquipProprioRoomDatasourceImplTest {
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
         val resultSave = datasource.save(movEquipProprioRoomModel)
         val id = resultSave.getOrNull()!!
+        assertEquals(id.toInt(), 1)
         val resultList = datasource.listOpen()
         assertEquals(resultList.isSuccess, true)
-        val list = resultList.getOrNull()!!
-        assertEquals(list[0].dthrMovEquipProprio, movEquipProprioRoomModel.dthrMovEquipProprio)
-        assertEquals(list[0].idEquipMovEquipProprio, id.toInt())
+        val model = resultList.getOrNull()!![0]
+        assertEquals(model.dthrMovEquipProprio, movEquipProprioRoomModel.dthrMovEquipProprio)
+        assertEquals(model.destinoMovEquipProprio, movEquipProprioRoomModel.destinoMovEquipProprio)
     }
 
     @Test

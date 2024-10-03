@@ -4,7 +4,7 @@ import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMovEquipVisitTercInputOpenList
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMovEquipVisitTercInsideList
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
@@ -28,7 +28,7 @@ class MovEquipVisitTercListViewModelTest {
     fun `Check return failure if have error in getHeader`() = runTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-        val getMovEquipVisitTercInputOpenList = mock<GetMovEquipVisitTercInputOpenList>()
+        val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(getHeader()).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -39,7 +39,7 @@ class MovEquipVisitTercListViewModelTest {
         )
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
-            getMovEquipVisitTercInputOpenList,
+            getMovEquipVisitTercInsideList,
             startMovEquipVisitTerc
         )
         viewModel.returnHeader()
@@ -54,7 +54,7 @@ class MovEquipVisitTercListViewModelTest {
     fun `Check return Nome Vigia if getHeader execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-        val getMovEquipVisitTercInputOpenList = mock<GetMovEquipVisitTercInputOpenList>()
+        val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(getHeader()).thenReturn(
             Result.success(
                 HeaderModel(
@@ -65,7 +65,7 @@ class MovEquipVisitTercListViewModelTest {
         )
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
-            getMovEquipVisitTercInputOpenList,
+            getMovEquipVisitTercInsideList,
             startMovEquipVisitTerc
         )
         viewModel.returnHeader()
@@ -80,8 +80,8 @@ class MovEquipVisitTercListViewModelTest {
     fun `Check return failure if have error in recoverMovEquipInputList`() = runTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-        val getMovEquipVisitTercInputOpenList = mock<GetMovEquipVisitTercInputOpenList>()
-        whenever(getMovEquipVisitTercInputOpenList()).thenReturn(
+        val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
+        whenever(getMovEquipVisitTercInsideList()).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "GetMovEquipVisitTercInputOpenList",
@@ -91,7 +91,7 @@ class MovEquipVisitTercListViewModelTest {
         )
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
-            getMovEquipVisitTercInputOpenList,
+            getMovEquipVisitTercInsideList,
             startMovEquipVisitTerc
         )
         viewModel.recoverMovEquipList()
@@ -106,8 +106,8 @@ class MovEquipVisitTercListViewModelTest {
     fun `Check return list if recoverMovEquipInputList execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-        val getMovEquipVisitTercInputOpenList = mock<GetMovEquipVisitTercInputOpenList>()
-        whenever(getMovEquipVisitTercInputOpenList()).thenReturn(
+        val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
+        whenever(getMovEquipVisitTercInsideList()).thenReturn(
             Result.success(
                 listOf(
                     MovEquipVisitTercModel(
@@ -123,7 +123,7 @@ class MovEquipVisitTercListViewModelTest {
         )
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
-            getMovEquipVisitTercInputOpenList,
+            getMovEquipVisitTercInsideList,
             startMovEquipVisitTerc
         )
         viewModel.recoverMovEquipList()
@@ -138,7 +138,7 @@ class MovEquipVisitTercListViewModelTest {
     fun `Check return failure if have error in startMovEquipVisitTerc`() = runTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-        val getMovEquipVisitTercInputOpenList = mock<GetMovEquipVisitTercInputOpenList>()
+        val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(startMovEquipVisitTerc()).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -149,7 +149,7 @@ class MovEquipVisitTercListViewModelTest {
         )
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
-            getMovEquipVisitTercInputOpenList,
+            getMovEquipVisitTercInsideList,
             startMovEquipVisitTerc
         )
         viewModel.startMov()
@@ -164,13 +164,13 @@ class MovEquipVisitTercListViewModelTest {
     fun `Check return true if startMovEquipVisitTerc execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
         val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-        val getMovEquipVisitTercInputOpenList = mock<GetMovEquipVisitTercInputOpenList>()
+        val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(startMovEquipVisitTerc()).thenReturn(
             Result.success(true)
         )
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
-            getMovEquipVisitTercInputOpenList,
+            getMovEquipVisitTercInsideList,
             startMovEquipVisitTerc
         )
         viewModel.startMov()

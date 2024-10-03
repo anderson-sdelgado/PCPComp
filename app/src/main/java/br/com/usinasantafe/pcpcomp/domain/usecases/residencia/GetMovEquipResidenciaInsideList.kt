@@ -6,17 +6,17 @@ import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidencia
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-interface GetMovEquipResidenciaInputOpenList {
+interface GetMovEquipResidenciaInsideList {
     suspend operator fun invoke(): Result<List<MovEquipResidenciaModel>>
 }
 
-class GetMovEquipResidenciaInputOpenListImpl(
+class GetMovEquipResidenciaInsideListImpl(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
-): GetMovEquipResidenciaInputOpenList {
+): GetMovEquipResidenciaInsideList {
 
     override suspend fun invoke(): Result<List<MovEquipResidenciaModel>> {
         try {
-            val resultList = movEquipResidenciaRepository.listInputOpen()
+            val resultList = movEquipResidenciaRepository.listInside()
             if(resultList.isFailure)
                 return Result.failure(resultList.exceptionOrNull()!!)
             val list = resultList.getOrNull()!!

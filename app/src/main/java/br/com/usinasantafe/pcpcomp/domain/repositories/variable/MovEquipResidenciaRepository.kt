@@ -10,7 +10,7 @@ interface MovEquipResidenciaRepository {
     suspend fun getPlaca(id: Int): Result<String>
     suspend fun getVeiculo(id: Int): Result<String>
     suspend fun listOpen(): Result<List<MovEquipResidencia>>
-    suspend fun listInputOpen(): Result<List<MovEquipResidencia>>
+    suspend fun listInside(): Result<List<MovEquipResidencia>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int
@@ -29,6 +29,7 @@ interface MovEquipResidenciaRepository {
         id: Int
     ): Result<Boolean>
 
+    suspend fun setOutside(movEquipResidencia: MovEquipResidencia): Result<Boolean>
     suspend fun setPlaca(
         placa: String,
         flowApp: FlowApp,

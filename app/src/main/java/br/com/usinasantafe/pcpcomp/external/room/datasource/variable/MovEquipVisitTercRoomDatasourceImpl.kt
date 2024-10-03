@@ -5,19 +5,30 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipVisitTercD
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipVisitTercRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercRoomModel
 import br.com.usinasantafe.pcpcomp.utils.StatusData
+import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
+import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 class MovEquipVisitTercRoomDatasourceImpl(
     private val movEquipVisitTercDao: MovEquipVisitTercDao
 ): MovEquipVisitTercRoomDatasource {
 
     override suspend fun get(id: Int): Result<MovEquipVisitTercRoomModel> {
-        TODO("Not yet implemented")
+        return try {
+            Result.success(movEquipVisitTercDao.get(id))
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.get",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun listOpen(): Result<List<MovEquipVisitTercRoomModel>> {
-        try{
-            val listOpen = movEquipVisitTercDao.listStatus(StatusData.OPEN)
-            return Result.success(listOpen)
+        try {
+            val list = movEquipVisitTercDao.listStatusData(StatusData.OPEN)
+            return Result.success(list)
         } catch (e: Exception){
             return Result.failure(
                 DatasourceException(
@@ -28,12 +39,34 @@ class MovEquipVisitTercRoomDatasourceImpl(
         }
     }
 
-    override suspend fun listInputOpen(): Result<List<MovEquipVisitTercRoomModel>> {
-        TODO("Not yet implemented")
+    override suspend fun listInside(): Result<List<MovEquipVisitTercRoomModel>> {
+        try {
+            val list = movEquipVisitTercDao.listStatusForeigner(
+                statusForeigner = StatusForeigner.INSIDE
+            )
+            return Result.success(list)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.listInside",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun save(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Long> {
-        TODO("Not yet implemented")
+        try {
+            val id = movEquipVisitTercDao.insert(movEquipVisitTercRoomModel)
+            return Result.success(id)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.save",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun setClose(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean> {
@@ -55,35 +88,115 @@ class MovEquipVisitTercRoomDatasourceImpl(
         destino: String,
         id: Int
     ): Result<Boolean> {
-        TODO("Not yet implemented")
+        try {
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.destinoMovEquipVisitTerc = destino
+            roomModel.statusSendMovEquipVisitTerc = StatusSend.SEND
+            movEquipVisitTercDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setDestino",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun setIdVisitTerc(
         idVisitTerc: Int,
         id: Int
     ): Result<Boolean> {
-        TODO("Not yet implemented")
+        try {
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.idVisitTercMovEquipVisitTerc = idVisitTerc
+            roomModel.statusSendMovEquipVisitTerc = StatusSend.SEND
+            movEquipVisitTercDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setIdVisitTerc",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun setObserv(
         observ: String?,
         id: Int
     ): Result<Boolean> {
-        TODO("Not yet implemented")
+        try {
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.observMovEquipVisitTerc = observ
+            roomModel.statusSendMovEquipVisitTerc = StatusSend.SEND
+            movEquipVisitTercDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setObserv",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setOutside(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean> {
+        try {
+            movEquipVisitTercRoomModel.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTercDao.update(movEquipVisitTercRoomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setOutside",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun setPlaca(
         placa: String,
         id: Int
     ): Result<Boolean> {
-        TODO("Not yet implemented")
+        try {
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.placaMovEquipVisitTerc = placa
+            roomModel.statusSendMovEquipVisitTerc = StatusSend.SEND
+            movEquipVisitTercDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setPlaca",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun setVeiculo(
         veiculo: String,
         id: Int
     ): Result<Boolean> {
-        TODO("Not yet implemented")
+        try {
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.veiculoMovEquipVisitTerc = veiculo
+            roomModel.statusSendMovEquipVisitTerc = StatusSend.SEND
+            movEquipVisitTercDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setVeiculo",
+                    cause = e
+                )
+            )
+        }
     }
 
 }

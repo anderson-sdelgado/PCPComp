@@ -14,7 +14,7 @@ import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import java.util.Date
 
-class GetMovEquipVisitTercInputOpenListImplTest {
+class GetMovEquipVisitTercInsideListImplTest {
 
     @Test
     fun `Check return failure if have error in MovEquipVisitTercRepository ListOpenInput`() =
@@ -22,7 +22,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listInputOpen()
+                movEquipVisitTercRepository.listInside()
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
@@ -31,7 +31,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
                     )
                 )
             )
-            val usecase = GetMovEquipVisitTercInputOpenListImpl(
+            val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotorista = getMotorista
             )
@@ -49,7 +49,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listInputOpen()
+                movEquipVisitTercRepository.listInside()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -77,7 +77,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
                     )
                 )
             )
-            val usecase = GetMovEquipVisitTercInputOpenListImpl(
+            val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotorista = getMotorista
             )
@@ -95,7 +95,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listInputOpen()
+                movEquipVisitTercRepository.listInside()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -134,7 +134,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
                     )
                 )
             )
-            val usecase = GetMovEquipVisitTercInputOpenListImpl(
+            val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotorista = getMotorista
             )
@@ -152,7 +152,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val getMotorista = mock<GetMotorista>()
             whenever(
-                movEquipVisitTercRepository.listInputOpen()
+                movEquipVisitTercRepository.listInside()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -188,7 +188,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
                     "123.456.789-00 - Anderson"
                 )
             )
-            val usecase = GetMovEquipVisitTercInputOpenListImpl(
+            val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotorista = getMotorista
             )
@@ -197,7 +197,7 @@ class GetMovEquipVisitTercInputOpenListImplTest {
             val mov = result.getOrNull()!![0]
             assertEquals(
                 mov.veiculo,
-                "GOL"
+                "VEÍCULO: GOL"
             )
             assertEquals(
                 mov.placa,

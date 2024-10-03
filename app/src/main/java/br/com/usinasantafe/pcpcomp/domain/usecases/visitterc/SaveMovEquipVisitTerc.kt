@@ -22,7 +22,7 @@ class SaveMovEquipVisitTercImpl(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
     private val startProcessSendData: StartProcessSendData,
-    private val closeMovVisitTerc: CloseMovVisitTerc
+    private val outsideMovVisitTerc: OutsideMovVisitTerc
 ) : SaveMovEquipVisitTerc {
 
     override suspend fun invoke(
@@ -35,7 +35,7 @@ class SaveMovEquipVisitTercImpl(
                 (flowApp == FlowApp.ADD) &&
                 (typeMov == TypeMov.OUTPUT)
             ) {
-                val resultClose = closeMovVisitTerc(id)
+                val resultClose = outsideMovVisitTerc(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

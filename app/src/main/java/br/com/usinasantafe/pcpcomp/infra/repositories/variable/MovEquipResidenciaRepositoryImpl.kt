@@ -127,9 +127,9 @@ class MovEquipResidenciaRepositoryImpl(
         }
     }
 
-    override suspend fun listInputOpen(): Result<List<MovEquipResidencia>> {
+    override suspend fun listInside(): Result<List<MovEquipResidencia>> {
         try {
-            val resultListOpen = movEquipResidenciaRoomDatasource.listInputOpen()
+            val resultListOpen = movEquipResidenciaRoomDatasource.listInside()
             if (resultListOpen.isFailure)
                 return Result.failure(resultListOpen.exceptionOrNull()!!)
             val result = resultListOpen.getOrNull()!!.map {
@@ -243,6 +243,27 @@ class MovEquipResidenciaRepositoryImpl(
             Result.failure(
                 RepositoryException(
                     function = "MovEquipResidenciaRepositoryImpl.setObserv",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setOutside(movEquipResidencia: MovEquipResidencia): Result<Boolean> {
+        try {
+            val movEquipResidenciaRoomModel = movEquipResidencia.entityToRoomModel(
+                matricVigia = movEquipResidencia.nroMatricVigiaMovEquipResidencia!!,
+                idLocal = movEquipResidencia.idLocalMovEquipResidencia!!
+            )
+            val resultSetClose =
+                movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
+            if (resultSetClose.isFailure)
+                return Result.failure(resultSetClose.exceptionOrNull()!!)
+            return Result.success(resultSetClose.getOrNull()!!)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipResidenciaRepositoryImpl.setClose",
                     cause = e
                 )
             )

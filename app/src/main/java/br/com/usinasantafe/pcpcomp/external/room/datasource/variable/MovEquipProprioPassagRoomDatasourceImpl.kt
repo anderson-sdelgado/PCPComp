@@ -9,7 +9,10 @@ class MovEquipProprioPassagRoomDatasourceImpl(
     private val movEquipProprioPassagDao: MovEquipProprioPassagDao
 ) : MovEquipProprioPassagRoomDatasource {
 
-    override suspend fun add(matricColab: Int, id: Int): Result<Boolean> {
+    override suspend fun add(
+        matricColab: Int,
+        id: Int
+    ): Result<Boolean> {
         try {
             movEquipProprioPassagDao.insert(
                 MovEquipProprioPassagRoomModel(

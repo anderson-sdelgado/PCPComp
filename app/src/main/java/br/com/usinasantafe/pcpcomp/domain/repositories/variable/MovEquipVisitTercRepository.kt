@@ -17,7 +17,7 @@ interface MovEquipVisitTercRepository {
 
     suspend fun getVeiculo(id: Int): Result<String>
     suspend fun listOpen(): Result<List<MovEquipVisitTerc>>
-    suspend fun listInputOpen(): Result<List<MovEquipVisitTerc>>
+    suspend fun listInside(): Result<List<MovEquipVisitTerc>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int
@@ -42,6 +42,7 @@ interface MovEquipVisitTercRepository {
         id: Int
     ): Result<Boolean>
 
+    suspend fun setOutside(movEquipVisitTerc: MovEquipVisitTerc): Result<Boolean>
     suspend fun setPlaca(
         placa: String,
         flowApp: FlowApp,

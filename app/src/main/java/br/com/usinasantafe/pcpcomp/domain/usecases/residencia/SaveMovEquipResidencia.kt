@@ -20,7 +20,7 @@ class SaveMovEquipResidenciaImpl(
     private val configRepository: ConfigRepository,
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val startProcessSendData: StartProcessSendData,
-    private val closeMovResidencia: CloseMovResidencia
+    private val outsideMovResidencia: OutsideMovResidencia
 ) : SaveMovEquipResidencia {
 
     override suspend fun invoke(
@@ -33,7 +33,7 @@ class SaveMovEquipResidenciaImpl(
                 (flowApp == FlowApp.ADD) &&
                 (typeMov == TypeMov.OUTPUT)
             ) {
-                val resultClose = closeMovResidencia(id)
+                val resultClose = outsideMovResidencia(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

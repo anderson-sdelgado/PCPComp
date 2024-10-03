@@ -198,7 +198,7 @@ class GetMovEquipVisitTercOpenListImplTest {
             val mov = result.getOrNull()!![0]
             assertEquals(
                 mov.veiculo,
-                "GOL"
+                "VEÍCULO: GOL"
             )
             assertEquals(
                 mov.placa,

@@ -24,21 +24,15 @@ interface MovEquipResidenciaDao {
     suspend fun delete(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel)
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipResidencia = :status")
-    suspend fun listStatus(status: StatusData): List<MovEquipResidenciaRoomModel>
+    suspend fun listStatusData(status: StatusData): List<MovEquipResidenciaRoomModel>
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipForeigResidencia = :statusForeigner")
     suspend fun listStatusForeigner(statusForeigner: StatusForeigner): List<MovEquipResidenciaRoomModel>
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusSendMovEquipResidencia = :statusEnvio")
-    suspend fun listStatusEnvio(statusEnvio: StatusSend): List<MovEquipResidenciaRoomModel>
-
-    @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipResidencia = :status AND statusSendMovEquipResidencia = :statusEnvio")
-    suspend fun listStatusAndStatusEnvio(status: StatusData, statusEnvio: StatusSend): List<MovEquipResidenciaRoomModel>
-
-    @Query("SELECT MAX(idMovEquipResidencia) FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipResidencia = :status")
-    suspend fun lastIdStatus(status: StatusData): Int
+    suspend fun listStatusSend(statusEnvio: StatusSend): List<MovEquipResidenciaRoomModel>
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE idMovEquipResidencia = :idMov")
-    suspend fun getId(idMov: Int): MovEquipResidenciaRoomModel
+    suspend fun get(idMov: Int): MovEquipResidenciaRoomModel
 
 }

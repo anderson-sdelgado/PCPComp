@@ -14,14 +14,14 @@ import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import java.util.Date
 
-class GetMovEquipResidenciaInputOpenListImplTest {
+class GetMovEquipResidenciaInsideListImplTest {
 
     @Test
     fun `Check return failure if have error in MovEquipResidenciaRepository ListOpenInput`() =
         runTest {
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             whenever(
-                movEquipResidenciaRepository.listInputOpen()
+                movEquipResidenciaRepository.listInside()
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
@@ -30,7 +30,7 @@ class GetMovEquipResidenciaInputOpenListImplTest {
                     )
                 )
             )
-            val usecase = GetMovEquipResidenciaInputOpenListImpl(
+            val usecase = GetMovEquipResidenciaInsideListImpl(
                 movEquipResidenciaRepository
             )
             val result = usecase()
@@ -61,11 +61,11 @@ class GetMovEquipResidenciaInputOpenListImplTest {
             val list = listOf(model)
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             whenever(
-                movEquipResidenciaRepository.listInputOpen()
+                movEquipResidenciaRepository.listInside()
             ).thenReturn(
                 Result.success(list)
             )
-            val usecase = GetMovEquipResidenciaInputOpenListImpl(
+            val usecase = GetMovEquipResidenciaInsideListImpl(
                 movEquipResidenciaRepository
             )
             val result = usecase()

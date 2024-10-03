@@ -57,8 +57,8 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -71,8 +71,8 @@ class MovEquipResidenciaRepositoryImplTest {
             )
             val movEquipResidencia = MovEquipResidencia(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = Date(1723213270250),
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -113,8 +113,8 @@ class MovEquipResidenciaRepositoryImplTest {
     fun `Check failure Datasource in MovEquipResidenciaRoomDatasource setClose`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
             idMovEquipResidencia = 1,
-            nroMatricVigiaMovEquipResidencia = 1000,
-            idLocalMovEquipResidencia = 1000,
+            nroMatricVigiaMovEquipResidencia = 19759,
+            idLocalMovEquipResidencia = 1,
             tipoMovEquipResidencia = TypeMov.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -127,8 +127,8 @@ class MovEquipResidenciaRepositoryImplTest {
         )
         val movEquipResidencia = MovEquipResidencia(
             idMovEquipResidencia = 1,
-            nroMatricVigiaMovEquipResidencia = 1000,
-            idLocalMovEquipResidencia = 1000,
+            nroMatricVigiaMovEquipResidencia = 19759,
+            idLocalMovEquipResidencia = 1,
             tipoMovEquipResidencia = TypeMov.INPUT,
             dthrMovEquipResidencia = Date(1723213270250),
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -170,8 +170,8 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -184,8 +184,8 @@ class MovEquipResidenciaRepositoryImplTest {
             )
             val movEquipResidencia = MovEquipResidencia(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = Date(1723213270250),
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -247,8 +247,8 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -313,8 +313,8 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -378,8 +378,8 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -443,8 +443,8 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -508,8 +508,8 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
-                idLocalMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
@@ -548,7 +548,7 @@ class MovEquipResidenciaRepositoryImplTest {
             val movEquipResidenciaRoomDatasource =
                 mock<MovEquipResidenciaRoomDatasource>()
             whenever(
-                movEquipResidenciaRoomDatasource.listInputOpen()
+                movEquipResidenciaRoomDatasource.listInside()
             ).thenReturn(
                 Result.failure(
                     DatasourceException(
@@ -561,7 +561,7 @@ class MovEquipResidenciaRepositoryImplTest {
                 movEquipResidenciaSharedPreferencesDatasource,
                 movEquipResidenciaRoomDatasource
             )
-            val result = repository.listInputOpen()
+            val result = repository.listInside()
             assertEquals(result.isFailure, true)
             assertEquals(
                 result.exceptionOrNull()!!.message,
@@ -574,7 +574,7 @@ class MovEquipResidenciaRepositoryImplTest {
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
+                nroMatricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
                 tipoMovEquipResidencia = TypeMov.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
@@ -1432,4 +1432,110 @@ class MovEquipResidenciaRepositoryImplTest {
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
         }
+
+    @Test
+    fun `Check failure Datasource in MovEquipResidenciaRoomDatasource setOutside`() = runTest {
+        val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
+            idMovEquipResidencia = 1,
+            nroMatricVigiaMovEquipResidencia = 19759,
+            idLocalMovEquipResidencia = 1,
+            tipoMovEquipResidencia = TypeMov.INPUT,
+            dthrMovEquipResidencia = 1723213270250,
+            motoristaMovEquipResidencia = "MOTORISTA TESTE",
+            veiculoMovEquipResidencia = "VEICULO TESTE",
+            placaMovEquipResidencia = "PLACA TESTE",
+            observMovEquipResidencia = "OBSERV TESTE",
+            statusMovEquipResidencia = StatusData.OPEN,
+            statusSendMovEquipResidencia = StatusSend.SEND,
+            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+        )
+        val movEquipResidencia = MovEquipResidencia(
+            idMovEquipResidencia = 1,
+            nroMatricVigiaMovEquipResidencia = 19759,
+            idLocalMovEquipResidencia = 1,
+            tipoMovEquipResidencia = TypeMov.INPUT,
+            dthrMovEquipResidencia = Date(1723213270250),
+            motoristaMovEquipResidencia = "MOTORISTA TESTE",
+            veiculoMovEquipResidencia = "VEICULO TESTE",
+            placaMovEquipResidencia = "PLACA TESTE",
+            observMovEquipResidencia = "OBSERV TESTE",
+            statusMovEquipResidencia = StatusData.OPEN,
+            statusSendMovEquipResidencia = StatusSend.SEND,
+            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+        )
+        val movEquipResidenciaSharedPreferencesDatasource =
+            mock<MovEquipResidenciaSharedPreferencesDatasource>()
+        val movEquipResidenciaRoomDatasource =
+            mock<MovEquipResidenciaRoomDatasource>()
+        whenever(
+            movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
+        ).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipResidenciaRoomDatasource.setOutside",
+                    cause = Exception()
+                )
+            )
+        )
+        val repository = MovEquipResidenciaRepositoryImpl(
+            movEquipResidenciaSharedPreferencesDatasource,
+            movEquipResidenciaRoomDatasource
+        )
+        val result = repository.setOutside(movEquipResidencia)
+        assertEquals(result.isFailure, true)
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> MovEquipResidenciaRoomDatasource.setOutside"
+        )
+    }
+
+    @Test
+    fun `Check return true if have success in MovEquipResidenciaRoomDatasource setOutside`() =
+        runTest {
+            val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = 1723213270250,
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SEND,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            val movEquipResidencia = MovEquipResidencia(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = Date(1723213270250),
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SEND,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            val movEquipResidenciaSharedPreferencesDatasource =
+                mock<MovEquipResidenciaSharedPreferencesDatasource>()
+            val movEquipResidenciaRoomDatasource =
+                mock<MovEquipResidenciaRoomDatasource>()
+            whenever(
+                movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
+            ).thenReturn(
+                Result.success(true)
+            )
+            val repository = MovEquipResidenciaRepositoryImpl(
+                movEquipResidenciaSharedPreferencesDatasource,
+                movEquipResidenciaRoomDatasource
+            )
+            val result = repository.setOutside(movEquipResidencia)
+            assertEquals(result.isSuccess, true)
+            assertEquals(result.getOrNull()!!, true)
+        }
+
 }

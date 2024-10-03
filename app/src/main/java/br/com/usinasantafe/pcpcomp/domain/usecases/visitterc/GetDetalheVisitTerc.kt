@@ -60,13 +60,13 @@ class GetDetalheVisitTercImpl(
                 return Result.failure(resultPassagList.exceptionOrNull()!!)
             val passagList = resultPassagList.getOrNull()!!
             for (passag in passagList) {
-                val resultGetMotorista = getMotorista(
+                val resultGetPassag = getMotorista(
                     mov.tipoVisitTercMovEquipVisitTerc!!,
                     passag.idVisitTerc!!
                 )
-                if (resultGetMotorista.isFailure)
-                    return Result.failure(resultGetMotorista.exceptionOrNull()!!)
-                passageiro += "${resultGetMotorista.getOrNull()!!}; "
+                if (resultGetPassag.isFailure)
+                    return Result.failure(resultGetPassag.exceptionOrNull()!!)
+                passageiro += "${resultGetPassag.getOrNull()!!}; "
             }
 
             val descrDestino =

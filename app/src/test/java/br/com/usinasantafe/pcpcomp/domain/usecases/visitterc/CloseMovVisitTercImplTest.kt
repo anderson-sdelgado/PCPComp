@@ -39,7 +39,9 @@ class CloseMovVisitTercImplTest {
             idMovEquipVisitTerc = 1
         )
         val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-        whenever(movEquipVisitTercRepository.get(1)).thenReturn(
+        whenever(
+            movEquipVisitTercRepository.get(1)
+        ).thenReturn(
             Result.success(movEquipVisitTerc)
         )
         whenever(

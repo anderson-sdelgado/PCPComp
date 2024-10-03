@@ -7,18 +7,18 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-interface GetMovEquipVisitTercInputOpenList {
+interface GetMovEquipVisitTercInsideList {
     suspend operator fun invoke(): Result<List<MovEquipVisitTercModel>>
 }
 
-class GetMovEquipVisitTercInputOpenListImpl(
+class GetMovEquipVisitTercInsideListImpl(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val getMotorista: GetMotorista
-) : GetMovEquipVisitTercInputOpenList {
+) : GetMovEquipVisitTercInsideList {
 
     override suspend fun invoke(): Result<List<MovEquipVisitTercModel>> {
         try {
-            val resultList = movEquipVisitTercRepository.listInputOpen()
+            val resultList = movEquipVisitTercRepository.listInside()
             if (resultList.isFailure)
                 return Result.failure(resultList.exceptionOrNull()!!)
             val list = resultList.getOrNull()!!
@@ -47,7 +47,7 @@ class GetMovEquipVisitTercInputOpenListImpl(
                     veiculo = "VEÍCULO: ${it.veiculoMovEquipVisitTerc!!}",
                     placa = "PLACA: ${it.placaMovEquipVisitTerc!!}",
                     tipoVisitTerc = typeVisitTerc.name,
-                    motorista = "MOTORISTA: ${motorista}"
+                    motorista = "MOTORISTA: $motorista"
                 )
             }
             return Result.success(modelList)

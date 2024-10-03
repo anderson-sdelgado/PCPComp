@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.residencia.movlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
-import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetMovEquipResidenciaInputOpenList
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetMovEquipResidenciaInsideList
 import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.StartMovEquipResidencia
 import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ data class MovEquipResidenciaListState(
 
 class MovEquipResidenciaListViewModel(
     private val getHeader: GetHeader,
-    private val getMovEquipResidenciaInputOpenList: GetMovEquipResidenciaInputOpenList,
+    private val getMovEquipResidenciaInsideList: GetMovEquipResidenciaInsideList,
     private val startMovEquipResidencia: StartMovEquipResidencia,
 ) : ViewModel() {
 
@@ -81,7 +81,7 @@ class MovEquipResidenciaListViewModel(
     }
 
     fun recoverMovEquipList() = viewModelScope.launch {
-        val resultGetList = getMovEquipResidenciaInputOpenList()
+        val resultGetList = getMovEquipResidenciaInsideList()
         if (resultGetList.isFailure) {
             val error = resultGetList.exceptionOrNull()!!
             val failure =
