@@ -10,7 +10,7 @@ interface MovEquipVisitTercSharedPreferencesDatasource {
     suspend fun setIdVisitTerc(idVisitTerc: Int): Result<Boolean>
     suspend fun setObserv(observ: String?): Result<Boolean>
     suspend fun setPlaca(placa: String): Result<Boolean>
-    suspend fun setTipo(typeVisitTerc: TypeVisitTerc): Result<Boolean>
+    suspend fun setTipoVisitTerc(typeVisitTerc: TypeVisitTerc): Result<Boolean>
     suspend fun setVeiculo(veiculo: String): Result<Boolean>
     suspend fun start(
         movEquipVisitTercSharedPreferencesModel: MovEquipVisitTercSharedPreferencesModel =

@@ -10,7 +10,7 @@ import com.google.gson.Gson
 
 class MovEquipProprioSharedPreferencesDatasourceImpl(
     private val sharedPreferences: SharedPreferences
-): MovEquipProprioSharedPreferencesDatasource {
+) : MovEquipProprioSharedPreferencesDatasource {
 
     override suspend fun clear(): Result<Boolean> {
         try {
@@ -31,8 +31,14 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
     override suspend fun get(): Result<MovEquipProprioSharedPreferencesModel> {
         try {
             val movEquipProprio = sharedPreferences.getString(
-                BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO, null)!!
-            return Result.success(Gson().fromJson(movEquipProprio, MovEquipProprioSharedPreferencesModel::class.java))
+                BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO, null
+            )!!
+            return Result.success(
+                Gson().fromJson(
+                    movEquipProprio,
+                    MovEquipProprioSharedPreferencesModel::class.java
+                )
+            )
         } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
@@ -46,7 +52,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
     override suspend fun setDestino(destino: String): Result<Boolean> {
         try {
             val resultGet = get()
-            if(resultGet.isFailure)
+            if (resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movEquipProprio = resultGet.getOrNull()!!
             movEquipProprio.destinoMovEquipProprio = destino
@@ -65,7 +71,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
     override suspend fun setIdEquip(idEquip: Int): Result<Boolean> {
         try {
             val resultGet = get()
-            if(resultGet.isFailure)
+            if (resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movEquipProprio = resultGet.getOrNull()!!
             movEquipProprio.idEquipMovEquipProprio = idEquip
@@ -84,7 +90,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
     override suspend fun setNotaFiscal(notaFiscal: Int?): Result<Boolean> {
         try {
             val resultGet = get()
-            if(resultGet.isFailure)
+            if (resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movEquipProprio = resultGet.getOrNull()!!
             movEquipProprio.notaFiscalMovEquipProprio = notaFiscal
@@ -103,7 +109,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
     override suspend fun setMatricColab(matric: Int): Result<Boolean> {
         try {
             val resultGet = get()
-            if(resultGet.isFailure)
+            if (resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movEquipProprio = resultGet.getOrNull()!!
             movEquipProprio.matricColabMovEquipProprio = matric
@@ -122,7 +128,7 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
     override suspend fun setObserv(observ: String?): Result<Boolean> {
         try {
             val resultGet = get()
-            if(resultGet.isFailure)
+            if (resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movEquipProprio = resultGet.getOrNull()!!
             movEquipProprio.observMovEquipProprio = observ
@@ -139,10 +145,10 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
     }
 
     override suspend fun start(typeMov: TypeMov): Result<Boolean> {
-        try{
+        try {
             save(MovEquipProprioSharedPreferencesModel(tipoMovEquipProprio = typeMov))
             return Result.success(true)
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipProprioSharedPreferencesDatasourceImpl.start",
@@ -154,7 +160,10 @@ class MovEquipProprioSharedPreferencesDatasourceImpl(
 
     fun save(movEquipProprio: MovEquipProprioSharedPreferencesModel) {
         val editor = sharedPreferences.edit()
-        editor.putString(BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO, Gson().toJson(movEquipProprio))
+        editor.putString(
+            BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO,
+            Gson().toJson(movEquipProprio)
+        )
         editor.apply()
     }
 

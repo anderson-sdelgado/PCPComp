@@ -12,7 +12,7 @@ class SetTipoVisitTercImpl(
 ): SetTipoVisitTerc {
 
     override suspend fun invoke(typeVisitTerc: TypeVisitTerc): Result<Boolean> {
-        return movEquipVisitTercRepository.setTipo(typeVisitTerc)
+        return movEquipVisitTercRepository.setTipoVisitTerc(typeVisitTerc)
     }
 
 }

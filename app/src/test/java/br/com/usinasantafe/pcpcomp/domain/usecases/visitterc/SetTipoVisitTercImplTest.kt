@@ -16,7 +16,7 @@ class SetTipoVisitTercImplTest {
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             whenever(
-                movEquipVisitTercRepository.setTipo(
+                movEquipVisitTercRepository.setTipoVisitTerc(
                     typeVisitTerc = TypeVisitTerc.TERCEIRO
                 )
             ).thenReturn(
@@ -45,7 +45,7 @@ class SetTipoVisitTercImplTest {
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             whenever(
-                movEquipVisitTercRepository.setTipo(
+                movEquipVisitTercRepository.setTipoVisitTerc(
                     typeVisitTerc = TypeVisitTerc.TERCEIRO
                 )
             ).thenReturn(

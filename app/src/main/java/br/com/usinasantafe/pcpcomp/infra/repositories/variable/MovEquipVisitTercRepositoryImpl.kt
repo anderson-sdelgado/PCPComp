@@ -345,8 +345,8 @@ class MovEquipVisitTercRepositoryImpl(
         }
     }
 
-    override suspend fun setTipo(typeVisitTerc: TypeVisitTerc): Result<Boolean> {
-        return movEquipVisitTercSharedPreferencesDatasource.setTipo(typeVisitTerc)
+    override suspend fun setTipoVisitTerc(typeVisitTerc: TypeVisitTerc): Result<Boolean> {
+        return movEquipVisitTercSharedPreferencesDatasource.setTipoVisitTerc(typeVisitTerc)
     }
 
     override suspend fun setVeiculo(

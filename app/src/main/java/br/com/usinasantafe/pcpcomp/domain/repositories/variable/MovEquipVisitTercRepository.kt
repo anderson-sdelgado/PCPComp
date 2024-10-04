@@ -49,7 +49,7 @@ interface MovEquipVisitTercRepository {
         id: Int
     ): Result<Boolean>
 
-    suspend fun setTipo(
+    suspend fun setTipoVisitTerc(
         typeVisitTerc: TypeVisitTerc
     ): Result<Boolean>
 

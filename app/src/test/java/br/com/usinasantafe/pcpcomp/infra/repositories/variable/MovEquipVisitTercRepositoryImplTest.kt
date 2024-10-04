@@ -1598,7 +1598,7 @@ class MovEquipVisitTercRepositoryImplTest {
             val movEquipVisitTercRoomDatasource =
                 mock<MovEquipVisitTercRoomDatasource>()
             whenever(
-                movEquipVisitTercSharedPreferencesDatasource.setTipo(
+                movEquipVisitTercSharedPreferencesDatasource.setTipoVisitTerc(
                     typeVisitTerc = TypeVisitTerc.TERCEIRO
                 )
             ).thenReturn(
@@ -1613,7 +1613,7 @@ class MovEquipVisitTercRepositoryImplTest {
                 movEquipVisitTercSharedPreferencesDatasource,
                 movEquipVisitTercRoomDatasource
             )
-            val result = repository.setTipo(TypeVisitTerc.TERCEIRO)
+            val result = repository.setTipoVisitTerc(TypeVisitTerc.TERCEIRO)
             assertTrue(result.isFailure)
             assertEquals(
                 result.exceptionOrNull()!!.message,
@@ -1629,7 +1629,7 @@ class MovEquipVisitTercRepositoryImplTest {
             val movEquipVisitTercRoomDatasource =
                 mock<MovEquipVisitTercRoomDatasource>()
             whenever(
-                movEquipVisitTercSharedPreferencesDatasource.setTipo(
+                movEquipVisitTercSharedPreferencesDatasource.setTipoVisitTerc(
                     typeVisitTerc = TypeVisitTerc.TERCEIRO
                 )
             ).thenReturn(
@@ -1639,7 +1639,7 @@ class MovEquipVisitTercRepositoryImplTest {
                 movEquipVisitTercSharedPreferencesDatasource,
                 movEquipVisitTercRoomDatasource
             )
-            val result = repository.setTipo(TypeVisitTerc.TERCEIRO)
+            val result = repository.setTipoVisitTerc(TypeVisitTerc.TERCEIRO)
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
         }

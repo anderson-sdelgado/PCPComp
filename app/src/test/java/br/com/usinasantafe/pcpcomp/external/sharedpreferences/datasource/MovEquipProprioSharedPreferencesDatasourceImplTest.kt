@@ -35,7 +35,7 @@ class MovEquipProprioSharedPreferencesDatasourceImplTest {
     }
 
     @Test
-    fun `Check return matric correct if MovEquipProprioSharedPreferences setMatricColab execute correctly`() = runTest {
+    fun `Check altered in table if MovEquipProprioSharedPreferences setMatricColab execute correctly`() = runTest {
         movEquipProprioSharedPreferencesDatasourceImpl.start(TypeMov.INPUT)
         movEquipProprioSharedPreferencesDatasourceImpl.setMatricColab(19759)
         val result = movEquipProprioSharedPreferencesDatasourceImpl.get()
