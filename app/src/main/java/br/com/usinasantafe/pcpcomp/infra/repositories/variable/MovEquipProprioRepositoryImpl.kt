@@ -160,7 +160,8 @@ class MovEquipProprioRepositoryImpl(
 
     override suspend fun listSend(): Result<List<MovEquipProprio>> {
         try {
-            val resultListSend = movEquipProprioRoomDatasource.listSend()
+            val resultListSend =
+                movEquipProprioRoomDatasource.listSend()
             if (resultListSend.isFailure)
                 return Result.failure(resultListSend.exceptionOrNull()!!)
             val listSend = resultListSend.getOrNull()!!.map {
@@ -220,17 +221,26 @@ class MovEquipProprioRepositoryImpl(
         number: Long,
         token: String
     ): Result<List<MovEquipProprio>> {
-        val resultSend = movEquipProprioRetrofitDatasource.send(
-            list = list.map { it.entityToRetrofitModelOutput(number) },
-            token = token
-        )
-        if (resultSend.isFailure)
-            return Result.failure(resultSend.exceptionOrNull()!!)
-        val listInput = resultSend.getOrNull()!!
-        val resultList = listInput.map {
-            it.retrofitModelInputToEntity()
+        try {
+            val resultSend = movEquipProprioRetrofitDatasource.send(
+                list = list.map { it.entityToRetrofitModelOutput(number) },
+                token = token
+            )
+            if (resultSend.isFailure)
+                return Result.failure(resultSend.exceptionOrNull()!!)
+            val listInput = resultSend.getOrNull()!!
+            val resultList = listInput.map {
+                it.retrofitModelInputToEntity()
+            }
+            return Result.success(resultList)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.send",
+                    cause = e
+                )
+            )
         }
-        return Result.success(resultList)
     }
 
     override suspend fun setClose(movEquipProprio: MovEquipProprio): Result<Boolean> {
@@ -355,9 +365,9 @@ class MovEquipProprioRepositoryImpl(
 
     override suspend fun setSent(list: List<MovEquipProprio>): Result<Boolean> {
         try {
-            for (movEquipProprio in list) {
+            for (entity in list) {
                 val resultSetSent =
-                    movEquipProprioRoomDatasource.setSent(movEquipProprio.idMovEquipProprio!!)
+                    movEquipProprioRoomDatasource.setSent(entity.idMovEquipProprio!!)
                 if (resultSetSent.isFailure)
                     return Result.failure(resultSetSent.exceptionOrNull()!!)
             }

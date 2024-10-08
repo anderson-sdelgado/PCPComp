@@ -15,7 +15,10 @@ class MovEquipProprioRetrofitDatasourceImpl(
         token: String
     ): Result<List<MovEquipProprioRetrofitModelInput>> {
         try {
-            val response = api.send(auth = token, data = list)
+            val response = api.send(
+                auth = token,
+                data = list
+            )
             return Result.success(response.body()!!)
         } catch (e: Exception) {
             return Result.failure(

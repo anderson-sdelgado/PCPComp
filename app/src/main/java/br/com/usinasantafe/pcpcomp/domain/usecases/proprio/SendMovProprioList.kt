@@ -9,16 +9,16 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioR
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.token
 
-interface SendMovProprio {
+interface SendMovProprioList {
     suspend operator fun invoke(): Result<List<MovEquipProprio>>
 }
 
-class SendMovProprioImpl(
+class SendMovProprioListImpl(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository,
     private val configRepository: ConfigRepository,
-) : SendMovProprio {
+) : SendMovProprioList {
 
     override suspend fun invoke(): Result<List<MovEquipProprio>> {
         try {
@@ -26,22 +26,22 @@ class SendMovProprioImpl(
             if (resultListSend.isFailure)
                 return Result.failure(resultListSend.exceptionOrNull()!!)
             val listSend = resultListSend.getOrNull()!!
-            val listSendFull = listSend.map { movEquipProprio ->
+            val listSendFull = listSend.map { entity ->
                 val resultListEquipSeg = movEquipProprioEquipSegRepository.list(
                     FlowApp.CHANGE,
-                    movEquipProprio.idMovEquipProprio!!
+                    entity.idMovEquipProprio!!
                 )
                 if (resultListEquipSeg.isFailure)
                     return Result.failure(resultListEquipSeg.exceptionOrNull()!!)
-                movEquipProprio.movEquipProprioEquipSegList = resultListEquipSeg.getOrNull()!!
+                entity.movEquipProprioEquipSegList = resultListEquipSeg.getOrNull()!!
                 val resultListPassag = movEquipProprioPassagRepository.list(
                     FlowApp.CHANGE,
-                    movEquipProprio.idMovEquipProprio!!
+                    entity.idMovEquipProprio!!
                 )
                 if (resultListPassag.isFailure)
                     return Result.failure(resultListPassag.exceptionOrNull()!!)
-                movEquipProprio.movEquipProprioPassagList = resultListPassag.getOrNull()!!
-                return@map movEquipProprio
+                entity.movEquipProprioPassagList = resultListPassag.getOrNull()!!
+                return@map entity
             }
             val resultConfig = configRepository.getConfig()
             if (resultConfig.isFailure)
@@ -63,7 +63,7 @@ class SendMovProprioImpl(
         } catch (e: Exception) {
             return Result.failure(
                 UsecaseException(
-                    function = "SendMovProprioImpl",
+                    function = "SendMovProprioListImpl",
                     cause = e
                 )
             )

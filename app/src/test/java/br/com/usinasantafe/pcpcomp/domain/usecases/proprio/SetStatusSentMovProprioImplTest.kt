@@ -21,7 +21,9 @@ class SetStatusSentMovProprioImplTest {
                 )
             )
             val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-            whenever(movEquipProprioRepository.setSent(list)).thenReturn(
+            whenever(
+                movEquipProprioRepository.setSent(list)
+            ).thenReturn(
                 Result.failure(
                     RepositoryException(
                         function = "SetStatusSentMovProprioImpl",
@@ -47,7 +49,9 @@ class SetStatusSentMovProprioImplTest {
                 )
             )
             val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-            whenever(movEquipProprioRepository.setSent(list)).thenReturn(
+            whenever(
+                movEquipProprioRepository.setSent(list)
+            ).thenReturn(
                 Result.success(true)
             )
             val usecase = SetStatusSentMovProprioImpl(movEquipProprioRepository)

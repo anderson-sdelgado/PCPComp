@@ -20,7 +20,7 @@ import org.koin.test.inject
 
 class SendMovProprioImplTest : KoinTest {
 
-    private val usecase: SendMovProprio by inject()
+    private val usecase: SendMovProprioList by inject()
     private val movEquipProprioDao: MovEquipProprioDao by inject()
     private val configSharedPreferencesDatasource: ConfigSharedPreferencesDatasource by inject()
 

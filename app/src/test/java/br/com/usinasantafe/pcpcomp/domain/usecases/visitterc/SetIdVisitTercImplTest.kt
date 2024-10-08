@@ -277,6 +277,72 @@ class SetIdVisitTercImplTest {
         }
 
     @Test
+    fun `Check return failure if have error in MovEquipVisitTercRepository setSend`() =
+        runTest {
+            val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
+            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
+            val terceiroRepository = mock<TerceiroRepository>()
+            val visitanteRepository = mock<VisitanteRepository>()
+            val startProcessSendData = mock<StartProcessSendData>()
+            whenever(
+                movEquipVisitTercRepository.getTypeVisitTerc(
+                    flowApp = FlowApp.CHANGE,
+                    id = 1
+                )
+            ).thenReturn(
+                Result.success(
+                    TypeVisitTerc.VISITANTE
+                )
+            )
+            whenever(
+                visitanteRepository.getId(
+                    cpf = "123.456.789-00"
+                )
+            ).thenReturn(
+                Result.success(1)
+            )
+            whenever(
+                movEquipVisitTercPassagRepository.add(
+                    idVisitTerc = 1,
+                    flowApp = FlowApp.CHANGE,
+                    id = 1
+                )
+            ).thenReturn(
+                Result.success(true)
+            )
+            whenever(
+                movEquipVisitTercRepository.setSend(
+                    id = 1
+                )
+            ).thenReturn(
+                Result.failure(
+                    RepositoryException(
+                        function = "MovEquipVisitTercRepository.setSend",
+                        cause = Exception()
+                    )
+                )
+            )
+            val usecase = SetIdVisitTercImpl(
+                movEquipVisitTercRepository,
+                movEquipVisitTercPassagRepository,
+                terceiroRepository,
+                visitanteRepository,
+                startProcessSendData
+            )
+            val result = usecase(
+                cpf = "123.456.789-00",
+                flowApp = FlowApp.CHANGE,
+                typeOcupante = TypeOcupante.PASSAGEIRO,
+                id = 1
+            )
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Repository -> MovEquipVisitTercRepository.setSend"
+            )
+        }
+
+    @Test
     fun `Check return true if SetIdVisitTercImpl execute successfully MOTORISTA`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
@@ -373,6 +439,64 @@ class SetIdVisitTercImplTest {
                 flowApp = FlowApp.ADD,
                 typeOcupante = TypeOcupante.PASSAGEIRO,
                 id = 0
+            )
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `Check return true if SetIdVisitTercImpl execute successfully PASSAGEIRO and FlowApp CHANGE`() =
+        runTest {
+            val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
+            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
+            val terceiroRepository = mock<TerceiroRepository>()
+            val visitanteRepository = mock<VisitanteRepository>()
+            val startProcessSendData = mock<StartProcessSendData>()
+            whenever(
+                movEquipVisitTercRepository.getTypeVisitTerc(
+                    flowApp = FlowApp.CHANGE,
+                    id = 1
+                )
+            ).thenReturn(
+                Result.success(
+                    TypeVisitTerc.VISITANTE
+                )
+            )
+            whenever(
+                visitanteRepository.getId(
+                    cpf = "123.456.789-00"
+                )
+            ).thenReturn(
+                Result.success(1)
+            )
+            whenever(
+                movEquipVisitTercPassagRepository.add(
+                    idVisitTerc = 1,
+                    flowApp = FlowApp.CHANGE,
+                    id = 1
+                )
+            ).thenReturn(
+                Result.success(true)
+            )
+            whenever(
+                movEquipVisitTercRepository.setSend(
+                    id = 1
+                )
+            ).thenReturn(
+                Result.success(true)
+            )
+            val usecase = SetIdVisitTercImpl(
+                movEquipVisitTercRepository,
+                movEquipVisitTercPassagRepository,
+                terceiroRepository,
+                visitanteRepository,
+                startProcessSendData
+            )
+            val result = usecase(
+                cpf = "123.456.789-00",
+                flowApp = FlowApp.CHANGE,
+                typeOcupante = TypeOcupante.PASSAGEIRO,
+                id = 1
             )
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)

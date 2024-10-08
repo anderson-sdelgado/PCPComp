@@ -2,15 +2,15 @@ package br.com.usinasantafe.pcpcomp.infra.models.retrofit
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprioPassag
 
-data class MovEquipProprioPassagWebServiceModelOutput(
+data class MovEquipProprioPassagRetrofitModelOutput(
     var idMovEquipProprioPassag: Int,
     var idMovEquipProprio: Int,
     var matricColab: Int,
 )
 
-fun MovEquipProprioPassag.entityToWebServiceModel(): MovEquipProprioPassagWebServiceModelOutput {
+fun MovEquipProprioPassag.entityToRetrofitModel(): MovEquipProprioPassagRetrofitModelOutput {
     return with(this){
-        MovEquipProprioPassagWebServiceModelOutput(
+        MovEquipProprioPassagRetrofitModelOutput(
             idMovEquipProprioPassag = this.idMovEquipProprioPassag!!,
             idMovEquipProprio = this.idMovEquipProprio!!,
             matricColab = this.matricColab!!,

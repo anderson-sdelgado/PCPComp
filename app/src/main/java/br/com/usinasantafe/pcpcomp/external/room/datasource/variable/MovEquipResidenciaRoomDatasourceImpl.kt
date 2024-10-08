@@ -12,6 +12,21 @@ class MovEquipResidenciaRoomDatasourceImpl(
     private val movEquipResidenciaDao: MovEquipResidenciaDao
 ): MovEquipResidenciaRoomDatasource {
 
+    override suspend fun checkSend(): Result<Boolean> {
+        return try {
+            Result.success(
+                movEquipResidenciaDao.listStatusSend(StatusSend.SEND).isNotEmpty()
+            )
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.checkSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun get(id: Int): Result<MovEquipResidenciaRoomModel> {
         return try {
             Result.success(movEquipResidenciaDao.get(id))
@@ -49,6 +64,20 @@ class MovEquipResidenciaRoomDatasourceImpl(
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipVisitTercRoomDatasourceImpl.listInputOpen",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSend(): Result<List<MovEquipResidenciaRoomModel>> {
+        try {
+            val listOpen = movEquipResidenciaDao.listStatusSend(StatusSend.SEND)
+            return Result.success(listOpen)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipResidenciaRoomDatasourceImpl.listSend",
                     cause = e
                 )
             )
@@ -152,7 +181,7 @@ class MovEquipResidenciaRoomDatasourceImpl(
         } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
-                    function = "MovEquipVisitTercRoomDatasourceImpl.setPlaca",
+                    function = "MovEquipResidenciaRoomDatasourceImpl.setPlaca",
                     cause = e
                 )
             )
@@ -172,7 +201,23 @@ class MovEquipResidenciaRoomDatasourceImpl(
         } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
-                    function = "MovEquipVisitTercRoomDatasourceImpl.setVeiculo",
+                    function = "MovEquipResidenciaRoomDatasourceImpl.setVeiculo",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setSent(id: Int): Result<Boolean> {
+        try {
+            val roomModel = movEquipResidenciaDao.get(id)
+            roomModel.statusSendMovEquipResidencia= StatusSend.SENT
+            movEquipResidenciaDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipResidenciaRoomDatasourceImpl.setSent",
                     cause = e
                 )
             )

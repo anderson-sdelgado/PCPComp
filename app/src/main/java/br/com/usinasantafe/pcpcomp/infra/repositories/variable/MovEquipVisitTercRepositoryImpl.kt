@@ -1,10 +1,15 @@
 package br.com.usinasantafe.pcpcomp.infra.repositories.variable
 
+import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipProprioRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipVisitTercRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipVisitTercRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipVisitTercSharedPreferencesDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.entityToRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.retrofitModelInputToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.roomModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.entityToSharedPreferencesModel
@@ -15,7 +20,12 @@ import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 class MovEquipVisitTercRepositoryImpl(
     private val movEquipVisitTercSharedPreferencesDatasource: MovEquipVisitTercSharedPreferencesDatasource,
     private val movEquipVisitTercRoomDatasource: MovEquipVisitTercRoomDatasource,
+    private val movEquipVisitTercRetrofitDatasource: MovEquipVisitTercRetrofitDatasource,
 ) : MovEquipVisitTercRepository {
+
+    override suspend fun checkSend(): Result<Boolean> {
+        return movEquipVisitTercRoomDatasource.checkSend()
+    }
 
     override suspend fun get(id: Int): Result<MovEquipVisitTerc> {
         try {
@@ -165,7 +175,8 @@ class MovEquipVisitTercRepositoryImpl(
 
     override suspend fun listInside(): Result<List<MovEquipVisitTerc>> {
         try {
-            val resultListOpen = movEquipVisitTercRoomDatasource.listInside()
+            val resultListOpen =
+                movEquipVisitTercRoomDatasource.listInside()
             if (resultListOpen.isFailure)
                 return Result.failure(resultListOpen.exceptionOrNull()!!)
             val result = resultListOpen.getOrNull()!!.map {
@@ -176,6 +187,26 @@ class MovEquipVisitTercRepositoryImpl(
             return Result.failure(
                 RepositoryException(
                     function = "MovEquipVisitTercRepositoryImpl.listOpen",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSend(): Result<List<MovEquipVisitTerc>> {
+        try {
+            val resultListSend =
+                movEquipVisitTercRoomDatasource.listSend()
+            if (resultListSend.isFailure)
+                return Result.failure(resultListSend.exceptionOrNull()!!)
+            val listSend = resultListSend.getOrNull()!!.map {
+                it.roomModelToEntity()
+            }
+            return Result.success(listSend)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipVisitTercRepositoryImpl.listSend",
                     cause = e
                 )
             )
@@ -214,6 +245,33 @@ class MovEquipVisitTercRepositoryImpl(
             return Result.failure(
                 RepositoryException(
                     function = "MovEquipVisitTercRepositoryImpl.save",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun send(
+        list: List<MovEquipVisitTerc>,
+        number: Long,
+        token: String
+    ): Result<List<MovEquipVisitTerc>> {
+        try {
+            val resultSend = movEquipVisitTercRetrofitDatasource.send(
+                list = list.map { it.entityToRetrofitModelOutput(number) },
+                token = token
+            )
+            if (resultSend.isFailure)
+                return Result.failure(resultSend.exceptionOrNull()!!)
+            val listInput = resultSend.getOrNull()!!
+            val resultList = listInput.map {
+                it.retrofitModelInputToEntity()
+            }
+            return Result.success(resultList)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipVisitTercRepositoryImpl.send",
                     cause = e
                 )
             )
@@ -367,6 +425,29 @@ class MovEquipVisitTercRepositoryImpl(
                 )
             )
         }
+    }
+
+    override suspend fun setSent(list: List<MovEquipVisitTerc>): Result<Boolean> {
+        try {
+            for (entity in list) {
+                val resultSetSent =
+                    movEquipVisitTercRoomDatasource.setSent(entity.idMovEquipVisitTerc!!)
+                if (resultSetSent.isFailure)
+                    return Result.failure(resultSetSent.exceptionOrNull()!!)
+            }
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipVisitTercRepositoryImpl.setSent",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setSend(id: Int): Result<Boolean> {
+        return movEquipVisitTercRoomDatasource.setSend(id)
     }
 
     override suspend fun start(): Result<Boolean> {

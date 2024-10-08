@@ -10,12 +10,27 @@ import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 class MovEquipVisitTercRoomDatasourceImpl(
     private val movEquipVisitTercDao: MovEquipVisitTercDao
-): MovEquipVisitTercRoomDatasource {
+) : MovEquipVisitTercRoomDatasource {
+
+    override suspend fun checkSend(): Result<Boolean> {
+        return try {
+            Result.success(
+                movEquipVisitTercDao.listStatusSend(StatusSend.SEND).isNotEmpty()
+            )
+        } catch (e: Exception) {
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.checkSend",
+                    cause = e
+                )
+            )
+        }
+    }
 
     override suspend fun get(id: Int): Result<MovEquipVisitTercRoomModel> {
         return try {
             Result.success(movEquipVisitTercDao.get(id))
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(
                 DatasourceException(
                     function = "MovEquipVisitTercRoomDatasourceImpl.get",
@@ -29,7 +44,7 @@ class MovEquipVisitTercRoomDatasourceImpl(
         try {
             val list = movEquipVisitTercDao.listStatusData(StatusData.OPEN)
             return Result.success(list)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipVisitTercRoomDatasourceImpl.listOpen",
@@ -45,10 +60,24 @@ class MovEquipVisitTercRoomDatasourceImpl(
                 statusForeigner = StatusForeigner.INSIDE
             )
             return Result.success(list)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipVisitTercRoomDatasourceImpl.listInside",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSend(): Result<List<MovEquipVisitTercRoomModel>> {
+        try {
+            val listOpen = movEquipVisitTercDao.listStatusSend(StatusSend.SEND)
+            return Result.success(listOpen)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.listSend",
                     cause = e
                 )
             )
@@ -193,6 +222,38 @@ class MovEquipVisitTercRoomDatasourceImpl(
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipVisitTercRoomDatasourceImpl.setVeiculo",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setSent(id: Int): Result<Boolean> {
+        try {
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.statusSendMovEquipVisitTerc = StatusSend.SENT
+            movEquipVisitTercDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setSent",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setSend(id: Int): Result<Boolean> {
+        try {
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.statusSendMovEquipVisitTerc = StatusSend.SEND
+            movEquipVisitTercDao.update(roomModel)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setSend",
                     cause = e
                 )
             )

@@ -9,7 +9,7 @@ data class MovEquipProprioEquipSegWebServiceModelOutput(
 )
 
 
-fun MovEquipProprioEquipSeg.entityToWebServiceModel(): MovEquipProprioEquipSegWebServiceModelOutput {
+fun MovEquipProprioEquipSeg.entityToRetrofitModel(): MovEquipProprioEquipSegWebServiceModelOutput {
     return with(this){
         MovEquipProprioEquipSegWebServiceModelOutput(
             idMovEquipProprioSeg = this.idMovEquipProprioEquipSeg!!,

@@ -144,7 +144,7 @@ val usecaseProprioModule = module {
     singleOf(::GetPassagColabListImpl) { bind<GetPassagColabList>() }
     singleOf(::GetTypeMovImpl) { bind<GetTypeMov>() }
     singleOf(::SaveMovEquipProprioImpl) { bind<SaveMovEquipProprio>() }
-    singleOf(::SendMovProprioImpl) { bind<SendMovProprio>() }
+    singleOf(::SendMovProprioListImpl) { bind<SendMovProprioList>() }
     singleOf(::SetDestinoProprioImpl) { bind<SetDestinoProprio>() }
     singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
     singleOf(::SetNotaFiscalProprioImpl) { bind<SetNotaFiscalProprio>() }

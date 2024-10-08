@@ -66,6 +66,11 @@ class SetIdVisitTercImpl(
                     )
                     if (resultAdd.isFailure)
                         return Result.failure(resultAdd.exceptionOrNull()!!)
+                    if(flowApp == FlowApp.CHANGE){
+                        val resultSend = movEquipVisitTercRepository.setSend(id)
+                        if (resultSend.isFailure)
+                            return Result.failure(resultSend.exceptionOrNull()!!)
+                    }
                 }
             }
             if(flowApp == FlowApp.CHANGE)

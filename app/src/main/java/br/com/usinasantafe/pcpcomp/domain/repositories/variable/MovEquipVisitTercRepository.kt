@@ -5,6 +5,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 
 interface MovEquipVisitTercRepository {
+    suspend fun checkSend(): Result<Boolean>
     suspend fun get(id: Int): Result<MovEquipVisitTerc>
     suspend fun getDestino(id: Int): Result<String>
     suspend fun getIdVisitTerc(id: Int): Result<Int>
@@ -18,10 +19,17 @@ interface MovEquipVisitTercRepository {
     suspend fun getVeiculo(id: Int): Result<String>
     suspend fun listOpen(): Result<List<MovEquipVisitTerc>>
     suspend fun listInside(): Result<List<MovEquipVisitTerc>>
+    suspend fun listSend(): Result<List<MovEquipVisitTerc>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int
     ): Result<Int>
+
+    suspend fun send(
+        list: List<MovEquipVisitTerc>,
+        number: Long,
+        token: String
+    ): Result<List<MovEquipVisitTerc>>
 
     suspend fun setClose(movEquipVisitTerc: MovEquipVisitTerc): Result<Boolean>
     suspend fun setDestino(
@@ -56,6 +64,14 @@ interface MovEquipVisitTercRepository {
     suspend fun setVeiculo(
         veiculo: String,
         flowApp: FlowApp,
+        id: Int
+    ): Result<Boolean>
+
+    suspend fun setSent(
+        list: List<MovEquipVisitTerc>
+    ): Result<Boolean>
+
+    suspend fun setSend(
         id: Int
     ): Result<Boolean>
 

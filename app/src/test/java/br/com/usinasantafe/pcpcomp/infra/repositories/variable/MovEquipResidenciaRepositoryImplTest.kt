@@ -2,8 +2,12 @@ package br.com.usinasantafe.pcpcomp.infra.repositories.variable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipResidenciaRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipResidenciaRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipResidenciaSharedPreferencesDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipResidenciaRetrofitModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipResidenciaRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipVisitTercRetrofitModelInput
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidenciaRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipResidenciaSharedPreferencesModel
@@ -20,16 +24,29 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class MovEquipResidenciaRepositoryImplTest {
 
+    private val movEquipResidenciaSharedPreferencesDatasource =
+        mock<MovEquipResidenciaSharedPreferencesDatasource>()
+    private val movEquipResidenciaRoomDatasource =
+        mock<MovEquipResidenciaRoomDatasource>()
+    private val movEquipResidenciaRetrofitDatasource =
+        mock<MovEquipResidenciaRetrofitDatasource>()
+
+    private fun getRepository(): MovEquipResidenciaRepositoryImpl {
+        return MovEquipResidenciaRepositoryImpl(
+            movEquipResidenciaSharedPreferencesDatasource,
+            movEquipResidenciaRoomDatasource,
+            movEquipResidenciaRetrofitDatasource
+        )
+    }
+
     @Test
     fun `Check failure Datasource in MovEquipResidenciaRoomDatasource listOpen`() = runTest {
-        val movEquipResidenciaSharedPreferencesDatasource =
-            mock<MovEquipResidenciaSharedPreferencesDatasource>()
-        val movEquipResidenciaRoomDatasource =
-            mock<MovEquipResidenciaRoomDatasource>()
         whenever(
             movEquipResidenciaRoomDatasource.listOpen()
         ).thenReturn(
@@ -40,10 +57,7 @@ class MovEquipResidenciaRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipResidenciaRepositoryImpl(
-            movEquipResidenciaSharedPreferencesDatasource,
-            movEquipResidenciaRoomDatasource
-        )
+        val repository = getRepository()
         val result = repository.listOpen()
         assertEquals(result.isFailure, true)
         assertEquals(
@@ -83,10 +97,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.listOpen()
             ).thenReturn(
@@ -96,10 +106,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.listOpen()
             assertTrue(result.isSuccess)
             val resultList = result.getOrNull()!!
@@ -139,10 +146,6 @@ class MovEquipResidenciaRepositoryImplTest {
             statusSendMovEquipResidencia = StatusSend.SEND,
             statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
         )
-        val movEquipResidenciaSharedPreferencesDatasource =
-            mock<MovEquipResidenciaSharedPreferencesDatasource>()
-        val movEquipResidenciaRoomDatasource =
-            mock<MovEquipResidenciaRoomDatasource>()
         whenever(
             movEquipResidenciaRoomDatasource.setClose(movEquipResidenciaRoomModel)
         ).thenReturn(
@@ -153,10 +156,7 @@ class MovEquipResidenciaRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipResidenciaRepositoryImpl(
-            movEquipResidenciaSharedPreferencesDatasource,
-            movEquipResidenciaRoomDatasource
-        )
+        val repository = getRepository()
         val result = repository.setClose(movEquipResidencia)
         assertEquals(result.isFailure, true)
         assertEquals(
@@ -196,19 +196,12 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setClose(movEquipResidenciaRoomModel)
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setClose(movEquipResidencia)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
@@ -217,10 +210,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Get - Check return failure if have error in MovEquipResidenciaRoomDatasource Get`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
@@ -230,10 +219,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.get(1)
             assertTrue(result.isFailure)
             assertEquals(
@@ -259,19 +245,12 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
                 Result.success(movEquipResidenciaRoomModel)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.get(1)
             assertTrue(result.isSuccess)
             val entity = result.getOrNull()!!
@@ -283,10 +262,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `GetMotorista - Check return failure if have error in MovEquipResidenciaRoomDatasource Get`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
@@ -296,10 +271,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getMotorista(1)
             assertTrue(result.isFailure)
             assertEquals(
@@ -325,19 +297,12 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
                 Result.success(movEquipResidenciaRoomModel)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getMotorista(1)
             assertTrue(result.isSuccess)
             assertEquals(
@@ -348,10 +313,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `GetObserv - Check return failure if have error in MovEquipResidenciaRoomDatasource Get`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
@@ -361,10 +322,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getObserv(1)
             assertTrue(result.isFailure)
             assertEquals(
@@ -390,19 +348,12 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
                 Result.success(movEquipResidenciaRoomModel)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getObserv(1)
             assertTrue(result.isSuccess)
             assertEquals(
@@ -413,10 +364,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `GetPlaca - Check return failure if have error in MovEquipResidenciaRoomDatasource Get`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
@@ -426,10 +373,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getPlaca(1)
             assertTrue(result.isFailure)
             assertEquals(
@@ -455,19 +399,12 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
                 Result.success(movEquipResidenciaRoomModel)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getPlaca(1)
             assertTrue(result.isSuccess)
             assertEquals(
@@ -478,10 +415,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `GetVeiculo - Check return failure if have error in MovEquipResidenciaRoomDatasource Get`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
@@ -491,10 +424,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getVeiculo(1)
             assertTrue(result.isFailure)
             assertEquals(
@@ -520,19 +450,12 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.get(1)
             ).thenReturn(
                 Result.success(movEquipResidenciaRoomModel)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.getVeiculo(1)
             assertTrue(result.isSuccess)
             assertEquals(
@@ -543,10 +466,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaRoomDatasource listInputOpen`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.listInside()
             ).thenReturn(
@@ -557,10 +476,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.listInside()
             assertEquals(result.isFailure, true)
             assertEquals(
@@ -586,10 +502,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.listOpen()
             ).thenReturn(
@@ -599,10 +511,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.listOpen()
             assertTrue(result.isSuccess)
             val resultList = result.getOrNull()!!
@@ -614,10 +523,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaSharedPreferencesDatasource Get`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.get()
             ).thenReturn(
@@ -628,10 +533,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val usecase = repository.save(
                 matricVigia = 19759,
                 idLocal = 1
@@ -654,10 +556,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 placaMovEquipResidencia = "PLACA TESTE",
                 observMovEquipResidencia = "OBSERV TESTE",
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.get()
             ).thenReturn(
@@ -678,10 +576,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val usecase = repository.save(
                 matricVigia = 19759,
                 idLocal = 1
@@ -704,10 +599,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 placaMovEquipResidencia = "PLACA TESTE",
                 observMovEquipResidencia = "OBSERV TESTE",
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.get()
             ).thenReturn(
@@ -724,10 +615,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(0)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.save(
                 matricVigia = 19759,
                 idLocal = 1
@@ -754,10 +642,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 placaMovEquipResidencia = "PLACA TESTE",
                 observMovEquipResidencia = "OBSERV TESTE",
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.get()
             ).thenReturn(
@@ -784,10 +668,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.save(
                 matricVigia = 19759,
                 idLocal = 1
@@ -810,10 +691,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 placaMovEquipResidencia = "PLACA TESTE",
                 observMovEquipResidencia = "OBSERV TESTE",
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.get()
             ).thenReturn(
@@ -835,10 +712,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.save(
                 matricVigia = 19759,
                 idLocal = 1
@@ -850,10 +724,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaSharedPreferencesDatasource setMotorista - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setMotorista(
                     motorista = "MOTORISTA TESTE"
@@ -866,10 +736,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setMotorista(
                 motorista = "MOTORISTA TESTE",
                 flowApp = FlowApp.ADD,
@@ -885,10 +752,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaRoomDatasource setMotorista - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setMotorista(
                     motorista = "MOTORISTA TESTE",
@@ -902,10 +765,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setMotorista(
                 motorista = "MOTORISTA TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -921,10 +781,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetMotorista execute successfully - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setMotorista(
                     motorista = "MOTORISTA TESTE"
@@ -932,10 +788,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setMotorista(
                 motorista = "MOTORISTA TESTE",
                 flowApp = FlowApp.ADD,
@@ -948,10 +801,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetMotorista execute successfully - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setMotorista(
                     motorista = "MOTORISTA TESTE",
@@ -960,10 +809,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setMotorista(
                 motorista = "MOTORISTA TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -976,10 +822,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaSharedPreferencesDatasource setObserv - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setObserv(
                     observ = "OBSERV TESTE"
@@ -992,10 +834,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setObserv(
                 observ = "OBSERV TESTE",
                 flowApp = FlowApp.ADD,
@@ -1011,10 +850,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaRoomDatasource setObserv - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setObserv(
                     observ = "OBSERV TESTE",
@@ -1028,10 +863,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setObserv(
                 observ = "OBSERV TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -1047,10 +879,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetObserv execute successfully - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setObserv(
                     observ = "OBSERV TESTE"
@@ -1058,10 +886,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setObserv(
                 observ = "OBSERV TESTE",
                 flowApp = FlowApp.ADD,
@@ -1074,10 +899,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetObserv execute successfully - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setObserv(
                     observ = "OBSERV TESTE",
@@ -1086,10 +907,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setObserv(
                 observ = "OBSERV TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -1102,10 +920,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaSharedPreferencesDatasource setPlaca - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setPlaca(
                     placa = "PLACA TESTE"
@@ -1118,10 +932,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setPlaca(
                 placa = "PLACA TESTE",
                 flowApp = FlowApp.ADD,
@@ -1137,10 +948,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaRoomDatasource setPlaca - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setPlaca(
                     placa = "PLACA TESTE",
@@ -1154,10 +961,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setPlaca(
                 placa = "PLACA TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -1173,10 +977,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetPlaca execute successfully - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setPlaca(
                     placa = "PLACA TESTE"
@@ -1184,10 +984,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setPlaca(
                 placa = "PLACA TESTE",
                 flowApp = FlowApp.ADD,
@@ -1200,10 +997,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetPlaca execute successfully - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setPlaca(
                     placa = "PLACA TESTE",
@@ -1212,10 +1005,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setPlaca(
                 placa = "PLACA TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -1228,10 +1018,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaSharedPreferencesDatasource setVeiculo - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setVeiculo(
                     veiculo = "VEICULO TESTE"
@@ -1244,10 +1030,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setVeiculo(
                 veiculo = "VEICULO TESTE",
                 flowApp = FlowApp.ADD,
@@ -1263,10 +1046,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipResidenciaRoomDatasource setVeiculo - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setVeiculo(
                     veiculo = "VEICULO TESTE",
@@ -1280,10 +1059,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setVeiculo(
                 veiculo = "VEICULO TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -1299,10 +1075,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetVeiculo execute successfully - FlowApp ADD`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.setVeiculo(
                     veiculo = "VEICULO TESTE"
@@ -1310,10 +1082,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setVeiculo(
                 veiculo = "VEICULO TESTE",
                 flowApp = FlowApp.ADD,
@@ -1326,10 +1095,6 @@ class MovEquipResidenciaRepositoryImplTest {
     @Test
     fun `Check return true if SetVeiculo execute successfully - FlowApp CHANGE`() =
         runTest {
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setVeiculo(
                     veiculo = "VEICULO TESTE",
@@ -1338,10 +1103,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setVeiculo(
                 veiculo = "VEICULO TESTE",
                 flowApp = FlowApp.CHANGE,
@@ -1368,10 +1130,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.start(
                     movEquipResidencia.entityToSharedPreferencesModel()
@@ -1384,10 +1142,7 @@ class MovEquipResidenciaRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.start(movEquipResidencia)
             assertTrue(result.isFailure)
             assertEquals(
@@ -1413,10 +1168,6 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaSharedPreferencesDatasource.start(
                     movEquipResidencia.entityToSharedPreferencesModel()
@@ -1424,10 +1175,7 @@ class MovEquipResidenciaRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.start(movEquipResidencia)
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
@@ -1463,10 +1211,6 @@ class MovEquipResidenciaRepositoryImplTest {
             statusSendMovEquipResidencia = StatusSend.SEND,
             statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
         )
-        val movEquipResidenciaSharedPreferencesDatasource =
-            mock<MovEquipResidenciaSharedPreferencesDatasource>()
-        val movEquipResidenciaRoomDatasource =
-            mock<MovEquipResidenciaRoomDatasource>()
         whenever(
             movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
         ).thenReturn(
@@ -1477,10 +1221,7 @@ class MovEquipResidenciaRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipResidenciaRepositoryImpl(
-            movEquipResidenciaSharedPreferencesDatasource,
-            movEquipResidenciaRoomDatasource
-        )
+        val repository = getRepository()
         val result = repository.setOutside(movEquipResidencia)
         assertEquals(result.isFailure, true)
         assertEquals(
@@ -1520,22 +1261,341 @@ class MovEquipResidenciaRepositoryImplTest {
                 statusSendMovEquipResidencia = StatusSend.SEND,
                 statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
             )
-            val movEquipResidenciaSharedPreferencesDatasource =
-                mock<MovEquipResidenciaSharedPreferencesDatasource>()
-            val movEquipResidenciaRoomDatasource =
-                mock<MovEquipResidenciaRoomDatasource>()
             whenever(
                 movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipResidenciaRepositoryImpl(
-                movEquipResidenciaSharedPreferencesDatasource,
-                movEquipResidenciaRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.setOutside(movEquipResidencia)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }
 
+    @Test
+    fun `Check return failure if have errors in MovEquipResidenciaRoomDatasource checkSend`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.checkSend()
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRoomDatasource.checkSend",
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.checkSend()
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRoomDatasource.checkSend"
+            )
+        }
+
+    @Test
+    fun `CheckSend - Check return false if not have MovEquipResidencia to send`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.checkSend()
+            ).thenReturn(
+                Result.success(false)
+            )
+            val repository = getRepository()
+            val result = repository.checkSend()
+            assertTrue(result.isSuccess)
+            assertFalse(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `CheckSend - Check return true if have MovEquipResidencia to send`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.checkSend()
+            ).thenReturn(
+                Result.success(true)
+            )
+            val repository = getRepository()
+            val result = repository.checkSend()
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `Check return failure if have errors in MovEquipResidenciaRoomDatasource listSend`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.listSend()
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRoomDatasource.listSend",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.listSend()
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRoomDatasource.listSend"
+            )
+        }
+
+    @Test
+    fun `Check return list if MovEquipVisitTercRepository listSend execute successfully`() =
+        runTest {
+            val roomModel = MovEquipResidenciaRoomModel(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = 1723213270250,
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SEND,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.listSend()
+            ).thenReturn(
+                Result.success(
+                    listOf(roomModel)
+                )
+            )
+            val repository = getRepository()
+            val result = repository.listSend()
+            assertTrue(result.isSuccess)
+            val resultList = result.getOrNull()!!
+            assertEquals(resultList[0].idMovEquipResidencia, 1)
+            assertEquals(resultList[0].observMovEquipResidencia, "OBSERV TESTE")
+        }
+
+    @Test
+    fun `Check return failure if have error in MovEquipProprioRetrofitDatasource send`() =
+        runTest {
+            val retrofitModel = MovEquipResidenciaRetrofitModelOutput(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT.ordinal + 1,
+                dthrMovEquipResidencia = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale("pt", "BR")
+                ).format(
+                    Date(1723213270250)
+                ),
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                nroAparelhoMovEquipResidencia = 16997417840L
+            )
+            val entity = MovEquipResidencia(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = Date(1723213270250),
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SEND,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            val retrofitModelList = listOf(retrofitModel)
+            val list = listOf(entity)
+            val token = "123456"
+            val number = 16997417840L
+            whenever(
+                movEquipResidenciaRetrofitDatasource.send(
+                    list = retrofitModelList,
+                    token = token
+                )
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRetrofitDatasource.send",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.send(
+                list = list,
+                token = token,
+                number = number
+            )
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRetrofitDatasource.send"
+            )
+        }
+
+    @Test
+    fun `Check return list if Send execute successfully`() =
+        runTest {
+            val retrofitModel = MovEquipResidenciaRetrofitModelOutput(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT.ordinal + 1,
+                dthrMovEquipResidencia = SimpleDateFormat(
+                    "dd/MM/yyyy HH:mm",
+                    Locale("pt", "BR")
+                ).format(
+                    Date(1723213270250)
+                ),
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                nroAparelhoMovEquipResidencia = 16997417840L
+            )
+            val entity = MovEquipResidencia(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = Date(1723213270250),
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SEND,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            val retrofitModelInput = MovEquipResidenciaRetrofitModelInput(
+                idMovEquipResidencia = 1,
+            )
+            val retrofitModelList = listOf(retrofitModel)
+            val entityList = listOf(entity)
+            val token = "123456"
+            val number = 16997417840L
+            whenever(
+                movEquipResidenciaRetrofitDatasource.send(
+                    list = retrofitModelList,
+                    token = token
+                )
+            ).thenReturn(
+                Result.success(
+                    listOf(retrofitModelInput)
+                )
+            )
+            val repository = getRepository()
+            val result = repository.send(
+                list = entityList,
+                token = token,
+                number = number
+            )
+            assertTrue(result.isSuccess)
+            val list = result.getOrNull()!!
+            assertEquals(list.size, 1)
+            val entityRet = list[0]
+            assertEquals(entityRet.idMovEquipResidencia, 1)
+        }
+
+    @Test
+    fun `Check return failure if have error in MovEquipResidenciaRoomDatasource setSent`() =
+        runTest {
+            val entity = MovEquipResidencia(
+                idMovEquipResidencia = 1,
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.setSent(1)
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRoomDatasource.setSent",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.setSent(
+                list = listOf(
+                    entity
+                )
+            )
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRoomDatasource.setSent"
+            )
+        }
+
+    @Test
+    fun `Check return failure with 2 elements if have error in MovEquipResidenciaRoomDatasource setSent`() =
+        runTest {
+            val entity1 = MovEquipResidencia(
+                idMovEquipResidencia = 1,
+            )
+            val entity2 = MovEquipResidencia(
+                idMovEquipResidencia = 2,
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.setSent(1)
+            ).thenReturn(
+                Result.success(true)
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.setSent(2)
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRoomDatasource.setSent",
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.setSent(
+                list = listOf(
+                    entity1,
+                    entity2
+                )
+            )
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRoomDatasource.setSent"
+            )
+        }
+
+    @Test
+    fun `Check return true with 2 elements if MovEquipResidenciaRoomDatasource setSent execute successfully`() =
+        runTest {
+            val entity1 = MovEquipResidencia(
+                idMovEquipResidencia = 1,
+            )
+            val entity2 = MovEquipResidencia(
+                idMovEquipResidencia = 2,
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.setSent(1)
+            ).thenReturn(
+                Result.success(true)
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.setSent(2)
+            ).thenReturn(
+                Result.success(true)
+            )
+            val repository = getRepository()
+            val result = repository.setSent(
+                list = listOf(
+                    entity1,
+                    entity2
+                )
+            )
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
 }

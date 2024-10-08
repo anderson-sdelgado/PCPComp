@@ -23,7 +23,10 @@ class MovEquipProprioRetrofitDatasourceImplTest {
             matricVigiaMovEquipProprio = 19759,
             idLocalMovEquipProprio = 1,
             tipoMovEquipProprio = 1,
-            dthrMovEquipProprio = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(
+            dthrMovEquipProprio = SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale("pt", "BR")
+            ).format(
                 Date(1723213270250)
             ),
             idEquipMovEquipProprio = 1,
@@ -35,7 +38,6 @@ class MovEquipProprioRetrofitDatasourceImplTest {
             movEquipProprioEquipSegList = emptyList(),
             movEquipProprioPassagList = emptyList(),
         )
-
         val server = MockWebServer()
         server.start()
         server.enqueue(MockResponse().setBody("""[{"idMovEquipProprio":1}]"""))
@@ -58,7 +60,10 @@ class MovEquipProprioRetrofitDatasourceImplTest {
             matricVigiaMovEquipProprio = 19759,
             idLocalMovEquipProprio = 1,
             tipoMovEquipProprio = 1,
-            dthrMovEquipProprio = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(
+            dthrMovEquipProprio = SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale("pt", "BR")
+            ).format(
                 Date(1723213270250)
             ),
             idEquipMovEquipProprio = 1,
@@ -83,8 +88,14 @@ class MovEquipProprioRetrofitDatasourceImplTest {
             , "123456"
         )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> MovEquipProprioRetrofitDatasourceImpl.send")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> MovEquipProprioRetrofitDatasourceImpl.send"
+        )
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            NullPointerException().toString()
+        )
     }
 
     @Test
@@ -94,7 +105,10 @@ class MovEquipProprioRetrofitDatasourceImplTest {
             matricVigiaMovEquipProprio = 19759,
             idLocalMovEquipProprio = 1,
             tipoMovEquipProprio = 1,
-            dthrMovEquipProprio = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(
+            dthrMovEquipProprio = SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale("pt", "BR")
+            ).format(
                 Date(1723213270250)
             ),
             idEquipMovEquipProprio = 1,
@@ -119,10 +133,15 @@ class MovEquipProprioRetrofitDatasourceImplTest {
             , "123456"
         )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> MovEquipProprioRetrofitDatasourceImpl.send")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), "com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 1 path \$")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> MovEquipProprioRetrofitDatasourceImpl.send"
+        )
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            "com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 1 path \$"
+        )
     }
-
 
     @Test
     fun `Check return failure if have data incorrect`() = runTest {
@@ -156,7 +175,13 @@ class MovEquipProprioRetrofitDatasourceImplTest {
             , "123456"
         )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> MovEquipProprioRetrofitDatasourceImpl.send")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), "com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 23 path \$[0].idMovEquipProprio")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> MovEquipProprioRetrofitDatasourceImpl.send"
+        )
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            "com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 23 path \$[0].idMovEquipProprio"
+        )
     }
 }

@@ -13,7 +13,9 @@ class MovEquipProprioRoomDatasourceImpl(
 
     override suspend fun checkSend(): Result<Boolean> {
         return try {
-            Result.success(movEquipProprioDao.listStatusSend(StatusSend.SEND).isNotEmpty())
+            Result.success(
+                movEquipProprioDao.listStatusSend(StatusSend.SEND).isNotEmpty()
+            )
         } catch (e: Exception){
             Result.failure(
                 DatasourceException(
@@ -219,7 +221,7 @@ class MovEquipProprioRoomDatasourceImpl(
         } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
-                    function = "MovEquipProprioRoomDatasourceImpl.setSent",
+                    function = "MovEquipProprioRoomDatasourceImpl.setSend",
                     cause = e
                 )
             )

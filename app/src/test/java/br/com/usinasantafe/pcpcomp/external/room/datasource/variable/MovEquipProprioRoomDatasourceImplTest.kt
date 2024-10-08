@@ -37,7 +37,6 @@ class MovEquipProprioRoomDatasourceImplTest {
         db.close()
     }
 
-
     @Test
     fun `Check exception if not have mov`() = runTest {
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
@@ -154,9 +153,9 @@ class MovEquipProprioRoomDatasourceImplTest {
     @Test
     fun `Check return false if not have mov send`() = runTest {
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
-        val resultCheckSend = datasource.checkSend()
-        assertTrue(resultCheckSend.isSuccess)
-        assertFalse(resultCheckSend.getOrNull()!!)
+        val result = datasource.checkSend()
+        assertTrue(result.isSuccess)
+        assertFalse(result.getOrNull()!!)
     }
 
     @Test
@@ -184,16 +183,22 @@ class MovEquipProprioRoomDatasourceImplTest {
     }
 
     @Test
-    fun `Check return failure if not have mov`() = runTest {
+    fun `Sent - Check return failure if not have mov`() = runTest {
         val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
         val result = datasource.setSent(1)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> MovEquipProprioRoomDatasourceImpl.setSent")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NullPointerException: Cannot invoke \"br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel.setStatusSendMovEquipProprio(br.com.usinasantafe.pcpcomp.utils.StatusSend)\" because \"movEquipProprioRoomModel\" is null")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> MovEquipProprioRoomDatasourceImpl.setSent"
+        )
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            "java.lang.NullPointerException: Cannot invoke \"br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel.setStatusSendMovEquipProprio(br.com.usinasantafe.pcpcomp.utils.StatusSend)\" because \"movEquipProprioRoomModel\" is null"
+        )
     }
 
     @Test
-    fun `Check return true if setSent execute correctly`() = runTest {
+    fun `Sent - Check return true if setSent execute correctly`() = runTest {
         val movEquipProprioRoomModel = MovEquipProprioRoomModel(
             idMovEquipProprio = 1,
             matricVigiaMovEquipProprio = 19759,
@@ -214,8 +219,14 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
-        assertEquals(movEquipProprioRoomModelAfter.observMovEquipProprio, "TESTE OBSERV")
-        assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SENT)
+        assertEquals(
+            movEquipProprioRoomModelAfter.observMovEquipProprio,
+            "TESTE OBSERV"
+        )
+        assertEquals(
+            movEquipProprioRoomModelAfter.statusSendMovEquipProprio,
+            StatusSend.SENT
+        )
     }
 
     @Test
@@ -435,4 +446,52 @@ class MovEquipProprioRoomDatasourceImplTest {
         assertEquals(movEquipProprioRoomModelAfter.observMovEquipProprio, null)
         assertEquals(movEquipProprioRoomModelAfter.statusSendMovEquipProprio, StatusSend.SEND)
     }
+
+    @Test
+    fun `Send - Check return failure if not have mov`() = runTest {
+        val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+        val result = datasource.setSend(1)
+        assertTrue(result.isFailure)
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> MovEquipProprioRoomDatasourceImpl.setSend"
+        )
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            "java.lang.NullPointerException: Cannot invoke \"br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel.setStatusSendMovEquipProprio(br.com.usinasantafe.pcpcomp.utils.StatusSend)\" because \"movEquipProprioRoomModel\" is null"
+        )
+    }
+
+    @Test
+    fun `Send - Check return true if setSend execute correctly`() = runTest {
+        val movEquipProprioRoomModel = MovEquipProprioRoomModel(
+            idMovEquipProprio = 1,
+            matricVigiaMovEquipProprio = 19759,
+            idLocalMovEquipProprio = 1,
+            tipoMovEquipProprio = TypeMov.INPUT,
+            dthrMovEquipProprio = 1723213270250,
+            idEquipMovEquipProprio = 1,
+            matricColabMovEquipProprio = 19759,
+            destinoMovEquipProprio = "TESTE DESTINO",
+            notaFiscalMovEquipProprio = 123456789,
+            observMovEquipProprio = "TESTE OBSERV",
+            statusMovEquipProprio = StatusData.OPEN,
+            statusSendMovEquipProprio = StatusSend.SEND
+        )
+        val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+        datasource.save(movEquipProprioRoomModel)
+        val result = datasource.setSend(1)
+        assertTrue(result.isSuccess)
+        assertTrue(result.getOrNull()!!)
+        val movEquipProprioRoomModelAfter = movEquipProprioDao.get(1)
+        assertEquals(
+            movEquipProprioRoomModelAfter.observMovEquipProprio,
+            "TESTE OBSERV"
+        )
+        assertEquals(
+            movEquipProprioRoomModelAfter.statusSendMovEquipProprio,
+            StatusSend.SEND
+        )
+    }
+
 }

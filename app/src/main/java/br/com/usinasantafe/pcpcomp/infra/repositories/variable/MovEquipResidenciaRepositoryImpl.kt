@@ -1,10 +1,14 @@
 package br.com.usinasantafe.pcpcomp.infra.repositories.variable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipResidencia
+import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipResidenciaRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipResidenciaRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipResidenciaSharedPreferencesDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.entityToRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.retrofitModelInputToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.roomModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.entityToSharedPreferencesModel
@@ -14,7 +18,12 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 class MovEquipResidenciaRepositoryImpl(
     private val movEquipResidenciaSharedPreferencesDatasource: MovEquipResidenciaSharedPreferencesDatasource,
     private val movEquipResidenciaRoomDatasource: MovEquipResidenciaRoomDatasource,
+    private val movEquipResidenciaRetrofitDatasource: MovEquipResidenciaRetrofitDatasource
 ) : MovEquipResidenciaRepository {
+
+    override suspend fun checkSend(): Result<Boolean> {
+        return movEquipResidenciaRoomDatasource.checkSend()
+    }
 
     override suspend fun get(id: Int): Result<MovEquipResidencia> {
         try {
@@ -148,6 +157,26 @@ class MovEquipResidenciaRepositoryImpl(
         }
     }
 
+    override suspend fun listSend(): Result<List<MovEquipResidencia>> {
+        try {
+            val resultListSend =
+                movEquipResidenciaRoomDatasource.listSend()
+            if (resultListSend.isFailure)
+                return Result.failure(resultListSend.exceptionOrNull()!!)
+            val listSend = resultListSend.getOrNull()!!.map {
+                it.roomModelToEntity()
+            }
+            return Result.success(listSend)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipResidenciaRepositoryImpl.listSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun save(
         matricVigia: Int,
         idLocal: Int
@@ -182,6 +211,33 @@ class MovEquipResidenciaRepositoryImpl(
             return Result.failure(
                 RepositoryException(
                     function = "MovEquipResidenciaRepositoryImpl.save",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun send(
+        list: List<MovEquipResidencia>,
+        number: Long,
+        token: String
+    ): Result<List<MovEquipResidencia>> {
+        try {
+            val resultSend = movEquipResidenciaRetrofitDatasource.send(
+                list = list.map { it.entityToRetrofitModelOutput(number) },
+                token = token
+            )
+            if (resultSend.isFailure)
+                return Result.failure(resultSend.exceptionOrNull()!!)
+            val listInput = resultSend.getOrNull()!!
+            val resultList = listInput.map {
+                it.retrofitModelInputToEntity()
+            }
+            return Result.success(resultList)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipResidenciaRepositoryImpl.send",
                     cause = e
                 )
             )
@@ -304,6 +360,25 @@ class MovEquipResidenciaRepositoryImpl(
             Result.failure(
                 RepositoryException(
                     function = "MovEquipResidenciaRepositoryImpl.setVeiculo",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setSent(list: List<MovEquipResidencia>): Result<Boolean> {
+        try {
+            for (entity in list) {
+                val resultSetSent =
+                    movEquipResidenciaRoomDatasource.setSent(entity.idMovEquipResidencia!!)
+                if (resultSetSent.isFailure)
+                    return Result.failure(resultSetSent.exceptionOrNull()!!)
+            }
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipResidenciaRepositoryImpl.setSent",
                     cause = e
                 )
             )

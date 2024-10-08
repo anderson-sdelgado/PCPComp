@@ -17,11 +17,11 @@ data class MovEquipProprioRetrofitModelOutput(
     var notaFiscalMovEquipProprio: Int?,
     var observMovEquipProprio: String?,
     var movEquipProprioEquipSegList: List<MovEquipProprioEquipSegWebServiceModelOutput>?,
-    var movEquipProprioPassagList: List<MovEquipProprioPassagWebServiceModelOutput>?,
+    var movEquipProprioPassagList: List<MovEquipProprioPassagRetrofitModelOutput>?,
 )
 
 data class MovEquipProprioRetrofitModelInput(
-    val idMovEquipProprio: Int,
+    val idMovEquipProprio: Int
 )
 
 fun MovEquipProprio.entityToRetrofitModelOutput(nroAparelho: Long): MovEquipProprioRetrofitModelOutput {
@@ -31,15 +31,18 @@ fun MovEquipProprio.entityToRetrofitModelOutput(nroAparelho: Long): MovEquipProp
             nroAparelhoMovEquipProprio = nroAparelho,
             matricVigiaMovEquipProprio = this.matricVigiaMovEquipProprio!!,
             idLocalMovEquipProprio = this.idLocalMovEquipProprio!!,
-            dthrMovEquipProprio = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale("pt", "BR")).format(this.dthrMovEquipProprio),
+            dthrMovEquipProprio = SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale("pt", "BR")
+            ).format(this.dthrMovEquipProprio),
             tipoMovEquipProprio = this.tipoMovEquipProprio!!.ordinal + 1,
             idEquipMovEquipProprio = this.idEquipMovEquipProprio!!,
             matricColabMovEquipProprio = this.matricColabMovEquipProprio!!,
             destinoMovEquipProprio = this.destinoMovEquipProprio!!,
             notaFiscalMovEquipProprio = this.notaFiscalMovEquipProprio,
             observMovEquipProprio = this.observMovEquipProprio,
-            movEquipProprioEquipSegList = this.movEquipProprioEquipSegList?.map { it.entityToWebServiceModel() },
-            movEquipProprioPassagList = this.movEquipProprioPassagList?.map { it.entityToWebServiceModel() }
+            movEquipProprioEquipSegList = this.movEquipProprioEquipSegList?.map { it.entityToRetrofitModel() },
+            movEquipProprioPassagList = this.movEquipProprioPassagList?.map { it.entityToRetrofitModel() }
         )
     }
 }

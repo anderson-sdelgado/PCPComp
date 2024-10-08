@@ -11,6 +11,9 @@ import retrofit2.http.POST
 interface MovEquipProprioApi {
 
     @POST(WEB_SAVE_MOV_EQUIP_PROPRIO)
-    suspend fun send(@Header("Authorization") auth: String, @Body data: List<MovEquipProprioRetrofitModelOutput>): Response<List<MovEquipProprioRetrofitModelInput>>
+    suspend fun send(
+        @Header("Authorization") auth: String,
+        @Body data: List<MovEquipProprioRetrofitModelOutput>
+    ): Response<List<MovEquipProprioRetrofitModelInput>>
 
 }
