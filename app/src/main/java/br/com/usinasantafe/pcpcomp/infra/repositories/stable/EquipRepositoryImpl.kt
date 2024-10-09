@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.EquipRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.EquipRetrofitDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toEquipModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.entityToRoomModel
 
 class EquipRepositoryImpl(
     private val equipRoomDatasource: EquipRoomDatasource,
@@ -14,7 +14,7 @@ class EquipRepositoryImpl(
     
     override suspend fun addAll(list: List<Equip>): Result<Boolean> {
         try {
-            val equipModelList = list.map { it.toEquipModel() }
+            val equipModelList = list.map { it.entityToRoomModel() }
             return equipRoomDatasource.addAll(equipModelList)
         } catch (e: Exception){
             return Result.failure(

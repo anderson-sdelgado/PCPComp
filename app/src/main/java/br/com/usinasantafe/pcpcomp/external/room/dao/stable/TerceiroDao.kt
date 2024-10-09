@@ -16,12 +16,12 @@ interface TerceiroDao {
     suspend fun deleteAll()
 
     @Query("SELECT count(*) FROM $TB_TERCEIRO WHERE cpfTerceiro = :cpf")
-    suspend fun checkCPFTerceiro(cpf: String): Int
+    suspend fun check(cpf: String): Int
 
     @Query("SELECT * FROM $TB_TERCEIRO WHERE cpfTerceiro = :cpf")
-    suspend fun getTerceiroCPF(cpf: String): List<TerceiroRoomModel>
+    suspend fun get(cpf: String): List<TerceiroRoomModel>
 
     @Query("SELECT * FROM $TB_TERCEIRO WHERE idBDTerceiro = :id")
-    suspend fun getTerceiroId(id: Int): List<TerceiroRoomModel>
+    suspend fun get(id: Int): List<TerceiroRoomModel>
 
 }

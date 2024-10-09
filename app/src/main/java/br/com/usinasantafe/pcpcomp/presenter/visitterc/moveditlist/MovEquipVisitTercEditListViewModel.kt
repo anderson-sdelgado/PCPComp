@@ -1,9 +1,9 @@
 package br.com.usinasantafe.pcpcomp.presenter.visitterc.moveditlist
 
-import GetMovEquipVisitTercOpenList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.CloseAllMovVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMovEquipVisitTercOpenList
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

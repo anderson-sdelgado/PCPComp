@@ -25,6 +25,8 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.common.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.initial.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.*
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.*
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.*
 import br.com.usinasantafe.pcpcomp.infra.repositories.variable.*
@@ -155,6 +157,60 @@ val usecaseProprioModule = module {
 
 }
 
+val usecaseVisitTercModule = module {
+
+    singleOf(::CheckCpfVisitTercImpl) { bind<CheckCpfVisitTerc>() }
+    singleOf(::CheckSendMovVisitTercImpl) { bind<CheckSendMovVisitTerc>() }
+    singleOf(::CleanPassagVisitTercImpl) { bind<CleanPassagVisitTerc>() }
+    singleOf(::CloseMovVisitTercImpl) { bind<CloseMovVisitTerc>() }
+    singleOf(::DeletePassagVisitTercImpl) { bind<DeletePassagVisitTerc>() }
+    singleOf(::GetCpfVisitTercImpl) { bind<GetCpfVisitTerc>() }
+    singleOf(::GetDestinoVisitTercImpl) { bind<GetDestinoVisitTerc>() }
+    singleOf(::GetDetalheVisitTercImpl) { bind<GetDetalheVisitTerc>() }
+    singleOf(::GetMotoristaVisitTercImpl) { bind<GetMotoristaVisitTerc>() }
+    singleOf(::GetMovEquipVisitTercInsideListImpl) { bind<GetMovEquipVisitTercInsideList>() }
+    singleOf(::GetMovEquipVisitTercOpenListImpl) { bind<GetMovEquipVisitTercOpenList>() }
+    singleOf(::GetNomeVisitTercImpl) { bind<GetNomeVisitTerc>() }
+    singleOf(::GetObservVisitTercImpl) { bind<GetObservVisitTerc>() }
+    singleOf(::GetPassagVisitTercListImpl) { bind<GetPassagVisitTercList>() }
+    singleOf(::GetPlacaVisitTercImpl) { bind<GetPlacaVisitTerc>() }
+    singleOf(::GetTitleCpfVisitTercImpl) { bind<GetTitleCpfVisitTerc>() }
+    singleOf(::GetVeiculoVisitTercImpl) { bind<GetVeiculoVisitTerc>() }
+    singleOf(::SaveMovEquipVisitTercImpl) { bind<SaveMovEquipVisitTerc>() }
+    singleOf(::SendMovVisitTercListImpl) { bind<SendMovVisitTercList>() }
+    singleOf(::SetDestinoVisitTercImpl) { bind<SetDestinoVisitTerc>() }
+    singleOf(::SetIdVisitTercImpl) { bind<SetIdVisitTerc>() }
+    singleOf(::SetObservVisitTercImpl) { bind<SetObservVisitTerc>() }
+    singleOf(::SetStatusSentMovVisitTercImpl) { bind<SetStatusSentMovVisitTerc>() }
+    singleOf(::SetTipoVisitTercImpl) { bind<SetTipoVisitTerc>() }
+    singleOf(::SetVeiculoVisitTercImpl) { bind<SetVeiculoVisitTerc>() }
+    singleOf(::StartMovEquipVisitTercImpl) { bind<StartMovEquipVisitTerc>() }
+
+}
+
+val usecaseResidenciaModule = module {
+
+    singleOf(::CheckSendMovResidenciaImpl) { bind<CheckSendMovResidencia>() }
+    singleOf(::CloseAllMovResidenciaImpl) { bind<CloseAllMovResidencia>() }
+    singleOf(::CloseMovResidenciaImpl) { bind<CloseMovResidencia>() }
+    singleOf(::GetDetalheResidenciaImpl) { bind<GetDetalheResidencia>() }
+    singleOf(::GetMotoristaResidenciaImpl) { bind<GetMotoristaResidencia>() }
+    singleOf(::GetMovEquipResidenciaInsideListImpl) { bind<GetMovEquipResidenciaInsideList>() }
+    singleOf(::GetMovEquipResidenciaOpenListImpl) { bind<GetMovEquipResidenciaOpenList>() }
+    singleOf(::GetObservResidenciaImpl) { bind<GetObservResidencia>() }
+    singleOf(::GetPlacaResidenciaImpl) { bind<GetPlacaResidencia>() }
+    singleOf(::GetVeiculoResidenciaImpl) { bind<GetVeiculoResidencia>() }
+    singleOf(::OutsideMovResidenciaImpl) { bind<OutsideMovResidencia>() }
+    singleOf(::SaveMovEquipResidenciaImpl) { bind<SaveMovEquipResidencia>() }
+    singleOf(::SendMovResidenciaListImpl) { bind<SendMovResidenciaList>() }
+    singleOf(::SetMotoristaResidenciaImpl) { bind<SetMotoristaResidencia>() }
+    singleOf(::SetObservResidenciaImpl) { bind<SetObservResidencia>() }
+    singleOf(::SetStatusSentMovResidenciaImpl) { bind<SetStatusSentMovResidencia>() }
+    singleOf(::SetVeiculoResidenciaImpl) { bind<SetVeiculoResidencia>() }
+    singleOf(::StartMovEquipResidenciaImpl) { bind<StartMovEquipResidencia>() }
+
+}
+
 val usecaseRecoverServerModule = module {
 
     singleOf(::GetAllColabServerImpl) { bind<GetAllColabServer>() }
@@ -200,6 +256,9 @@ val datasourceSharedPreferencesModule = module {
     singleOf(::MovEquipProprioSharedPreferencesDatasourceImpl) { bind<MovEquipProprioSharedPreferencesDatasource>() }
     singleOf(::MovEquipProprioEquipSegSharedPreferencesDatasourceImpl) { bind<MovEquipProprioEquipSegSharedPreferencesDatasource>() }
     singleOf(::MovEquipProprioPassagSharedPreferencesDatasourceImpl) { bind<MovEquipProprioPassagSharedPreferencesDatasource>() }
+    singleOf(::MovEquipVisitTercSharedPreferencesDatasourceImpl) { bind<MovEquipVisitTercSharedPreferencesDatasource>() }
+    singleOf(::MovEquipResidenciaSharedPreferencesDatasourceImpl) { bind<MovEquipResidenciaSharedPreferencesDatasource>() }
+    singleOf(::MovEquipVisitTercPassagSharedPreferencesDatasourceImpl) { bind<MovEquipVisitTercPassagSharedPreferencesDatasource>() }
 
 }
 
@@ -223,6 +282,8 @@ val datasourceRetrofitModule = module {
 
     singleOf(::ConfigRetrofitDatasourceImpl) { bind<ConfigRetrofitDatasource>() }
     singleOf(::MovEquipProprioRetrofitDatasourceImpl) { bind<MovEquipProprioRetrofitDatasource>() }
+    singleOf(::MovEquipVisitTercRetrofitDatasourceImpl) { bind<MovEquipVisitTercRetrofitDatasource>() }
+    singleOf(::MovEquipResidenciaRetrofitDatasourceImpl) { bind<MovEquipResidenciaRetrofitDatasource>() }
 
     singleOf(::ColabRetrofitDatasourceImpl) { bind<ColabRetrofitDatasource>() }
     singleOf(::EquipRetrofitDatasourceImpl) { bind<EquipRetrofitDatasource>() }
@@ -233,17 +294,22 @@ val datasourceRetrofitModule = module {
 }
 
 val apiRetrofitModule = module {
+
     single { get<Retrofit>().create(ConfigApi::class.java) }
     single { get<Retrofit>().create(MovEquipProprioApi::class.java) }
+    single { get<Retrofit>().create(MovEquipVisitTercApi::class.java) }
+    single { get<Retrofit>().create(MovEquipResidenciaApi::class.java) }
 
     single { get<Retrofit>().create(ColabApi::class.java) }
     single { get<Retrofit>().create(EquipApi::class.java) }
     single { get<Retrofit>().create(LocalApi::class.java) }
     single { get<Retrofit>().create(TerceiroApi::class.java) }
     single { get<Retrofit>().create(VisitanteApi::class.java) }
+
 }
 
 val apiRoomModule = module {
+
     single { get<AppDatabaseRoom>().colabDao() }
     single { get<AppDatabaseRoom>().equipDao() }
     single { get<AppDatabaseRoom>().localDao() }
@@ -253,7 +319,9 @@ val apiRoomModule = module {
     single { get<AppDatabaseRoom>().movEquipProprioPassagDao() }
     single { get<AppDatabaseRoom>().movEquipProprioEquipSegDao() }
     single { get<AppDatabaseRoom>().movEquipVisitTercDao() }
+    single { get<AppDatabaseRoom>().movEquipVisitTercPassagDao() }
     single { get<AppDatabaseRoom>().movEquipResidenciaDao() }
+
 }
 
 val sharedPreferencesModule = module {

@@ -29,14 +29,11 @@ class MovEquipProprioRepositoryImplTest {
     private val movEquipProprioSharedPreferencesDatasource =
         mock<MovEquipProprioSharedPreferencesDatasource>()
     private val movEquipProprioRetrofitDatasource = mock<MovEquipProprioRetrofitDatasource>()
-
-    private fun getRepository(): MovEquipProprioRepositoryImpl {
-        return MovEquipProprioRepositoryImpl(
-            movEquipProprioSharedPreferencesDatasource,
-            movEquipProprioRoomDatasource,
-            movEquipProprioRetrofitDatasource
-        )
-    }
+    private fun getRepository() = MovEquipProprioRepositoryImpl(
+        movEquipProprioSharedPreferencesDatasource,
+        movEquipProprioRoomDatasource,
+        movEquipProprioRetrofitDatasource
+    )
 
     @Test
     fun `Check failure Datasource in MovEquipProprioRoomDatasource listOpen`() = runTest {
@@ -1532,6 +1529,7 @@ class MovEquipProprioRepositoryImplTest {
                 "Failure Datasource -> MovEquipProprioRoomDatasource.setSend"
             )
         }
+
     @Test
     fun `Check return true if MovEquipProprioSharedPreferencesDatasource setSend execute successfully`() =
         runTest {

@@ -4,17 +4,17 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.TerceiroRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.VisitanteRepository
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 
-interface GetMotorista {
+interface GetMotoristaVisitTerc {
     suspend operator fun invoke(
         typeVisitTerc: TypeVisitTerc,
         idVisitTerc: Int
     ): Result<String>
 }
 
-class GetMotoristaImpl(
+class GetMotoristaVisitTercImpl(
     private val terceiroRepository: TerceiroRepository,
     private val visitanteRepository: VisitanteRepository
-): GetMotorista {
+): GetMotoristaVisitTerc {
 
     override suspend fun invoke(
         typeVisitTerc: TypeVisitTerc,

@@ -23,6 +23,20 @@ class TerceiroRoomDatasourceImpl(
         }
     }
 
+    override suspend fun checkCpf(cpf: String): Result<Boolean> {
+        try {
+            val result = terceiroDao.check(cpf) > 0
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "TerceiroRoomDatasourceImpl.checkCPF",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun deleteAll(): Result<Boolean> {
         try {
             terceiroDao.deleteAll()
@@ -31,6 +45,34 @@ class TerceiroRoomDatasourceImpl(
             return Result.failure(
                 DatasourceException(
                     function = "TerceiroRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun get(id: Int): Result<List<TerceiroRoomModel>> {
+        try {
+            val result = terceiroDao.get(id)
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "TerceiroRoomDatasourceImpl.get(ID)",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun get(cpf: String): Result<List<TerceiroRoomModel>> {
+        try {
+            val result = terceiroDao.get(cpf)
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "TerceiroRoomDatasourceImpl.get(CPF)",
                     cause = e
                 )
             )

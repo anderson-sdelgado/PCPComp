@@ -18,19 +18,24 @@ import org.mockito.kotlin.whenever
 
 class ConfigRepositoryImplTest {
 
-    private lateinit var configSharedPreferencesDatasource: ConfigSharedPreferencesDatasource
-    private lateinit var configRetrofitDatasource: ConfigRetrofitDatasource
+    private val configSharedPreferencesDatasource =
+        mock<ConfigSharedPreferencesDatasource>()
+    private val configRetrofitDatasource =
+        mock<ConfigRetrofitDatasource>()
 
-    @Before
-    fun init() {
-        configSharedPreferencesDatasource = mock()
-        configRetrofitDatasource = mock()
-    }
+    private fun getRepository() = ConfigRepositoryImpl(
+        configSharedPreferencesDatasource,
+        configRetrofitDatasource
+    )
 
     @Test
     fun `Check return true if have data in table Config internal`() = runTest {
-        whenever(configSharedPreferencesDatasource.has()).thenReturn(Result.success(true))
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        whenever(
+            configSharedPreferencesDatasource.has()
+        ).thenReturn(
+            Result.success(true)
+        )
+        val repository = getRepository()
         val result = repository.hasConfig()
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
@@ -38,8 +43,12 @@ class ConfigRepositoryImplTest {
 
     @Test
     fun `Check return false if don't have data in table Config internal`() = runTest {
-        whenever(configSharedPreferencesDatasource.has()).thenReturn(Result.success(false))
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        whenever(
+            configSharedPreferencesDatasource.has()
+        ).thenReturn(
+            Result.success(false)
+        )
+        val repository = getRepository()
         val result = repository.hasConfig()
         assertTrue(result.isSuccess)
         assertFalse(result.getOrNull()!!)
@@ -47,7 +56,9 @@ class ConfigRepositoryImplTest {
 
     @Test
     fun `Check return failure Datasource if have failure in hasConfig`() = runTest {
-        whenever(configSharedPreferencesDatasource.has()).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.has()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferencesDatasource.hasConfig",
@@ -55,20 +66,25 @@ class ConfigRepositoryImplTest {
                 )
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.hasConfig()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.hasConfig")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> ConfigSharedPreferencesDatasource.hasConfig"
+        )
     }
 
     @Test
     fun `Check return password input table Config internal`() = runTest {
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.get()
+        ).thenReturn(
             Result.success(
                 Config(password = "12345")
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getPassword()
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, "12345")
@@ -76,7 +92,9 @@ class ConfigRepositoryImplTest {
 
     @Test
     fun `Check return failure if have failure in execution getConfig getPassword`() = runTest {
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.get()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferencesDatasource.getConfig",
@@ -84,20 +102,25 @@ class ConfigRepositoryImplTest {
                 )
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getPassword()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig"
+        )
     }
 
     @Test
     fun `Check return flagUpdate input table Config internal`() = runTest {
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.get()
+        ).thenReturn(
             Result.success(
                 Config(flagUpdate = FlagUpdate.UPDATED)
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getFlagUpdate()
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, FlagUpdate.UPDATED)
@@ -105,7 +128,9 @@ class ConfigRepositoryImplTest {
 
     @Test
     fun `Check return failure if have failure in execution getConfig getFlagUpdate`() = runTest {
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.get()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferencesDatasource.getConfig",
@@ -113,10 +138,13 @@ class ConfigRepositoryImplTest {
                 )
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getFlagUpdate()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig"
+        )
     }
 
     @Test
@@ -125,8 +153,12 @@ class ConfigRepositoryImplTest {
             password = "12345",
             number = 16997417840
         )
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(Result.success(config))
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        whenever(
+            configSharedPreferencesDatasource.get()
+        ).thenReturn(
+            Result.success(config)
+        )
+        val repository = getRepository()
         val result = repository.getConfig()
         assertEquals(result.getOrNull()!!.number, 16997417840)
         assertEquals(result.getOrNull()!!.password, "12345")
@@ -134,10 +166,15 @@ class ConfigRepositoryImplTest {
 
     @Test
     fun `Check return failure de Repository if Config is null`() = runTest {
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
-        val result = repository.send((Config()))
+        val repository = getRepository()
+        val result = repository.send(
+            Config()
+        )
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> ConfigRepositoryImpl.send")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Repository -> ConfigRepositoryImpl.send"
+        )
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -147,7 +184,11 @@ class ConfigRepositoryImplTest {
             version = "6.00",
             number = 16997417840,
         )
-        whenever(configRetrofitDatasource.recoverToken(config.toConfigWebServiceModel())).thenReturn(
+        whenever(
+            configRetrofitDatasource.recoverToken(
+                config.toConfigWebServiceModel()
+            )
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigRetrofitDatasource.recoverToken",
@@ -155,10 +196,13 @@ class ConfigRepositoryImplTest {
                 )
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.send(config)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message,"Failure Datasource -> ConfigRetrofitDatasource.recoverToken")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> ConfigRetrofitDatasource.recoverToken"
+        )
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 
@@ -171,10 +215,14 @@ class ConfigRepositoryImplTest {
         val configWebServiceModelInput = ConfigWebServiceModelInput(
             idBD = 1
         )
-        whenever(configRetrofitDatasource.recoverToken(config.toConfigWebServiceModel())).thenReturn(
+        whenever(
+            configRetrofitDatasource.recoverToken(
+                config.toConfigWebServiceModel()
+            )
+        ).thenReturn(
             Result.success(configWebServiceModelInput)
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.send(config)
         assertEquals(result.isSuccess, true)
         assertEquals(result, Result.success(1))
@@ -183,7 +231,9 @@ class ConfigRepositoryImplTest {
 
     @Test
     fun `Check return failure if have error in execution getConfig in setStatusSend`() = runTest {
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.get()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferencesDatasource.getConfig",
@@ -191,10 +241,13 @@ class ConfigRepositoryImplTest {
                 )
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.setStatusSend(StatusSend.SEND)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig"
+        )
     }
 
     @Test
@@ -202,14 +255,18 @@ class ConfigRepositoryImplTest {
         val config = Config(
             statusSend = StatusSend.SEND
         )
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.get()
+        ).thenReturn(
             Result.success(
                 Config(
                     statusSend = StatusSend.SEND
                 )
             )
         )
-        whenever(configSharedPreferencesDatasource.save(config)).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.save(config)
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferencesDatasource.saveConfig",
@@ -217,10 +274,13 @@ class ConfigRepositoryImplTest {
                 )
             )
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.setStatusSend(StatusSend.SEND)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigSharedPreferencesDatasource.saveConfig")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> ConfigSharedPreferencesDatasource.saveConfig"
+        )
     }
 
     @Test
@@ -235,10 +295,12 @@ class ConfigRepositoryImplTest {
                 )
             )
         )
-        whenever(configSharedPreferencesDatasource.save(config)).thenReturn(
+        whenever(
+            configSharedPreferencesDatasource.save(config)
+        ).thenReturn(
             Result.success(true)
         )
-        val repository = ConfigRepositoryImpl(configSharedPreferencesDatasource, configRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.setStatusSend(StatusSend.SEND)
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)

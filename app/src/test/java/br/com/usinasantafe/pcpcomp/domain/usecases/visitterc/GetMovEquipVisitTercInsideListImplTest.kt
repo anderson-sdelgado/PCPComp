@@ -20,7 +20,7 @@ class GetMovEquipVisitTercInsideListImplTest {
     fun `Check return failure if have error in MovEquipVisitTercRepository ListOpenInput`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val getMotorista = mock<GetMotorista>()
+            val getMotoristaVisitTerc = mock<GetMotoristaVisitTerc>()
             whenever(
                 movEquipVisitTercRepository.listInside()
             ).thenReturn(
@@ -33,7 +33,7 @@ class GetMovEquipVisitTercInsideListImplTest {
             )
             val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
-                getMotorista = getMotorista
+                getMotoristaVisitTerc = getMotoristaVisitTerc
             )
             val result = usecase()
             assertTrue(result.isFailure)
@@ -47,7 +47,7 @@ class GetMovEquipVisitTercInsideListImplTest {
     fun `Check return failure if have error in MovEquipVisitTercRepository GetTypeVisitTerc`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val getMotorista = mock<GetMotorista>()
+            val getMotoristaVisitTerc = mock<GetMotoristaVisitTerc>()
             whenever(
                 movEquipVisitTercRepository.listInside()
             ).thenReturn(
@@ -79,7 +79,7 @@ class GetMovEquipVisitTercInsideListImplTest {
             )
             val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
-                getMotorista = getMotorista
+                getMotoristaVisitTerc = getMotoristaVisitTerc
             )
             val result = usecase()
             assertTrue(result.isFailure)
@@ -93,7 +93,7 @@ class GetMovEquipVisitTercInsideListImplTest {
     fun `Check return failure if have error in GetMotorista`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val getMotorista = mock<GetMotorista>()
+            val getMotoristaVisitTerc = mock<GetMotoristaVisitTerc>()
             whenever(
                 movEquipVisitTercRepository.listInside()
             ).thenReturn(
@@ -122,7 +122,7 @@ class GetMovEquipVisitTercInsideListImplTest {
                 )
             )
             whenever(
-                getMotorista(
+                getMotoristaVisitTerc(
                     typeVisitTerc = TypeVisitTerc.TERCEIRO,
                     idVisitTerc = 1
                 )
@@ -136,7 +136,7 @@ class GetMovEquipVisitTercInsideListImplTest {
             )
             val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
-                getMotorista = getMotorista
+                getMotoristaVisitTerc = getMotoristaVisitTerc
             )
             val result = usecase()
             assertTrue(result.isFailure)
@@ -150,7 +150,7 @@ class GetMovEquipVisitTercInsideListImplTest {
     fun `Check return list model if GetMovEquipVisitTercInputOpenListImpl execute successfully`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val getMotorista = mock<GetMotorista>()
+            val getMotoristaVisitTerc = mock<GetMotoristaVisitTerc>()
             whenever(
                 movEquipVisitTercRepository.listInside()
             ).thenReturn(
@@ -179,7 +179,7 @@ class GetMovEquipVisitTercInsideListImplTest {
                 )
             )
             whenever(
-                getMotorista(
+                getMotoristaVisitTerc(
                     typeVisitTerc = TypeVisitTerc.TERCEIRO,
                     idVisitTerc = 1
                 )
@@ -190,7 +190,7 @@ class GetMovEquipVisitTercInsideListImplTest {
             )
             val usecase = GetMovEquipVisitTercInsideListImpl(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
-                getMotorista = getMotorista
+                getMotoristaVisitTerc = getMotoristaVisitTerc
             )
             val result = usecase()
             assertTrue(result.isSuccess)

@@ -36,14 +36,11 @@ class MovEquipResidenciaRepositoryImplTest {
         mock<MovEquipResidenciaRoomDatasource>()
     private val movEquipResidenciaRetrofitDatasource =
         mock<MovEquipResidenciaRetrofitDatasource>()
-
-    private fun getRepository(): MovEquipResidenciaRepositoryImpl {
-        return MovEquipResidenciaRepositoryImpl(
-            movEquipResidenciaSharedPreferencesDatasource,
-            movEquipResidenciaRoomDatasource,
-            movEquipResidenciaRetrofitDatasource
-        )
-    }
+    private fun getRepository() = MovEquipResidenciaRepositoryImpl(
+        movEquipResidenciaSharedPreferencesDatasource,
+        movEquipResidenciaRoomDatasource,
+        movEquipResidenciaRetrofitDatasource
+    )
 
     @Test
     fun `Check failure Datasource in MovEquipResidenciaRoomDatasource listOpen`() = runTest {

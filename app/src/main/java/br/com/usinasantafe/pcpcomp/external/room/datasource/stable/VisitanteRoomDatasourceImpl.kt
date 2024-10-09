@@ -23,6 +23,20 @@ class VisitanteRoomDatasourceImpl(
         }
     }
 
+    override suspend fun checkCpf(cpf: String): Result<Boolean> {
+        try {
+            val result = visitanteDao.check(cpf) > 0
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "VisitanteRoomDatasourceImpl.checkCpf",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun deleteAll(): Result<Boolean> {
         try {
             visitanteDao.deleteAll()
@@ -31,6 +45,34 @@ class VisitanteRoomDatasourceImpl(
             return Result.failure(
                 DatasourceException(
                     function = "VisitanteRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun get(id: Int): Result<VisitanteRoomModel> {
+        try{
+            val result = visitanteDao.get(id)
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "VisitanteRoomDatasourceImpl.get(ID)",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun get(cpf: String): Result<VisitanteRoomModel> {
+        try{
+            val result = visitanteDao.get(cpf)
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "VisitanteRoomDatasourceImpl.get(CPF)",
                     cause = e
                 )
             )

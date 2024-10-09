@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import br.com.usinasantafe.pcpcomp.utils.TB_TERCEIRO
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
-import kotlinx.serialization.Serializable
 
 @Entity(tableName = TB_TERCEIRO)
 data class TerceiroRoomModel (
@@ -16,7 +15,7 @@ data class TerceiroRoomModel (
     val empresaTerceiro: String,
 )
 
-fun TerceiroRoomModel.toTerceiro(): Terceiro {
+fun TerceiroRoomModel.roomModelToEntity(): Terceiro {
     return with(this){
         Terceiro(
             idTerceiro = this.idTerceiro,
@@ -28,7 +27,7 @@ fun TerceiroRoomModel.toTerceiro(): Terceiro {
     }
 }
 
-fun Terceiro.toTerceiroModel(): TerceiroRoomModel{
+fun Terceiro.entityToRoomModel(): TerceiroRoomModel{
     return with(this){
         TerceiroRoomModel(
             idTerceiro = this.idTerceiro,

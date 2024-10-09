@@ -12,7 +12,7 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class GetMotoristaImplTest {
+class GetMotoristaVisitTercImplTest {
 
     @Test
     fun `Check return failure if have error in VisitanteRepository `() = runTest{
@@ -28,7 +28,7 @@ class GetMotoristaImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaImpl(
+        val usecase = GetMotoristaVisitTercImpl(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )
@@ -57,7 +57,7 @@ class GetMotoristaImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaImpl(
+        val usecase = GetMotoristaVisitTercImpl(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )
@@ -88,7 +88,7 @@ class GetMotoristaImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaImpl(
+        val usecase = GetMotoristaVisitTercImpl(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )
@@ -120,7 +120,7 @@ class GetMotoristaImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaImpl(
+        val usecase = GetMotoristaVisitTercImpl(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )

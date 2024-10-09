@@ -25,7 +25,7 @@ class ColabRoomDatasourceImpl(
 
     override suspend fun checkMatric(matric: Int): Result<Boolean> {
         try {
-            val result = colabDao.checkMatric(matric) > 0
+            val result = colabDao.check(matric) > 0
             return Result.success(result)
         } catch (e: Exception) {
             return Result.failure(

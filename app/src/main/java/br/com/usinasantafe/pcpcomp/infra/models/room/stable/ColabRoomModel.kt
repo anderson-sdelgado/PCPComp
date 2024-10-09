@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
-import kotlinx.serialization.Serializable
 
 @Entity(tableName = TB_COLAB)
 data class ColabRoomModel(
@@ -13,16 +12,7 @@ data class ColabRoomModel(
     val nomeColab: String,
 )
 
-fun ColabRoomModel.toColab(): Colab {
-    return with(this) {
-        Colab(
-            matricColab = this.matricColab,
-            nomeColab = this.nomeColab,
-        )
-    }
-}
-
-fun Colab.toColabModel(): ColabRoomModel {
+fun Colab.entityToRoomModel(): ColabRoomModel {
     return with(this) {
         ColabRoomModel(
             matricColab = this.matricColab,

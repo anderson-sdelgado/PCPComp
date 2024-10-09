@@ -9,6 +9,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -90,5 +91,100 @@ class TerceiroRoomDatasourceImplTest {
         )
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
+    }
+
+    @Test
+    fun `Check return false if not exist Cpf researched`() = runTest {
+        val datasource = TerceiroRoomDatasourceImpl(terceiroDao)
+        val result = datasource.checkCpf("123.456.789-00")
+        assertTrue(result.isSuccess)
+        assertFalse(result.getOrNull()!!)
+    }
+
+    @Test
+    fun `Check return true if exist Cpf researched`() = runTest {
+        val datasource = TerceiroRoomDatasourceImpl(terceiroDao)
+        datasource.addAll(
+            listOf(
+                TerceiroRoomModel(
+                    idTerceiro = 1,
+                    idBDTerceiro = 1,
+                    cpfTerceiro = "123.456.789-00",
+                    nomeTerceiro = "Terceiro",
+                    empresaTerceiro = "Empresa Terceiro"
+                ),
+                TerceiroRoomModel(
+                    idTerceiro = 2,
+                    idBDTerceiro = 1,
+                    cpfTerceiro = "123.456.789-00",
+                    nomeTerceiro = "Terceiro",
+                    empresaTerceiro = "Empresa Terceiro 2"
+                )
+            )
+        )
+        val result = datasource.checkCpf("123.456.789-00")
+        assertTrue(result.isSuccess)
+        assertTrue(result.getOrNull()!!)
+    }
+
+    @Test
+    fun `Check return roomModel if have data researched in get id`() = runTest {
+        val datasource = TerceiroRoomDatasourceImpl(terceiroDao)
+        datasource.addAll(
+            listOf(
+                TerceiroRoomModel(
+                    idTerceiro = 1,
+                    idBDTerceiro = 1,
+                    cpfTerceiro = "123.456.789-00",
+                    nomeTerceiro = "Terceiro",
+                    empresaTerceiro = "Empresa Terceiro"
+                ),
+                TerceiroRoomModel(
+                    idTerceiro = 2,
+                    idBDTerceiro = 1,
+                    cpfTerceiro = "123.456.789-00",
+                    nomeTerceiro = "Terceiro",
+                    empresaTerceiro = "Empresa Terceiro 2"
+                )
+            )
+        )
+        val resultList = datasource.get(1)
+        assertTrue(resultList.isSuccess)
+        val list = resultList.getOrNull()!!
+        assertEquals(list.size, 2)
+        val roomModel = list[0]
+        assertEquals(roomModel.idTerceiro, 1)
+        assertEquals(roomModel.empresaTerceiro, "Empresa Terceiro")
+    }
+
+
+    @Test
+    fun `Check return roomModel if have data researched in get cpf`() = runTest {
+        val datasource = TerceiroRoomDatasourceImpl(terceiroDao)
+        datasource.addAll(
+            listOf(
+                TerceiroRoomModel(
+                    idTerceiro = 1,
+                    idBDTerceiro = 1,
+                    cpfTerceiro = "123.456.789-00",
+                    nomeTerceiro = "Terceiro",
+                    empresaTerceiro = "Empresa Terceiro"
+                ),
+                TerceiroRoomModel(
+                    idTerceiro = 2,
+                    idBDTerceiro = 1,
+                    cpfTerceiro = "123.456.789-00",
+                    nomeTerceiro = "Terceiro",
+                    empresaTerceiro = "Empresa Terceiro 2"
+                )
+            )
+        )
+        val resultList = datasource.get("123.456.789-00")
+        assertTrue(resultList.isSuccess)
+        val list = resultList.getOrNull()!!
+        assertEquals(list.size, 2)
+        val roomModel = list[1]
+        assertEquals(roomModel.idTerceiro, 2)
+        assertEquals(roomModel.empresaTerceiro, "Empresa Terceiro 2")
     }
 }

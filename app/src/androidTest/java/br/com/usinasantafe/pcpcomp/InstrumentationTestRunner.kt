@@ -19,7 +19,9 @@ import br.com.usinasantafe.pcpcomp.di.usecaseConfigModule
 import br.com.usinasantafe.pcpcomp.di.usecaseInitialModule
 import br.com.usinasantafe.pcpcomp.di.usecaseProprioModule
 import br.com.usinasantafe.pcpcomp.di.usecaseRecoverServerModule
+import br.com.usinasantafe.pcpcomp.di.usecaseResidenciaModule
 import br.com.usinasantafe.pcpcomp.di.usecaseUpdateTableModule
+import br.com.usinasantafe.pcpcomp.di.usecaseVisitTercModule
 import br.com.usinasantafe.pcpcomp.di.viewModelModule
 import br.com.usinasantafe.pcpcomp.di.workManagerModule
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.ProcessWorkManager
@@ -61,6 +63,8 @@ fun generateTestAppComponent(baseTestApi: String) = listOf(
     usecaseConfigModule,
     usecaseInitialModule,
     usecaseProprioModule,
+    usecaseVisitTercModule,
+    usecaseResidenciaModule,
     usecaseRecoverServerModule,
     usecaseUpdateTableModule,
     repositoryModule,

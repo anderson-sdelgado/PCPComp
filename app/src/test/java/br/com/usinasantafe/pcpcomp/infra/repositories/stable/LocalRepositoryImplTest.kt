@@ -14,12 +14,21 @@ import org.mockito.kotlin.whenever
 
 class LocalRepositoryImplTest {
 
+    private val localRoomDatasource = mock<LocalRoomDatasource>()
+    private val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
+    private fun getRepository() = LocalRepositoryImpl(
+        localRoomDatasource,
+        localRetrofitDatasource
+    )
+
     @Test
     fun `Check execution correct deleteAll`() = runTest {
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.deleteAll()).thenReturn(Result.success(true))
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        whenever(
+            localRoomDatasource.deleteAll()
+        ).thenReturn(
+            Result.success(true)
+        )
+        val repository = getRepository()
         val result = repository.deleteAll()
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull(), true)
@@ -27,9 +36,9 @@ class LocalRepositoryImplTest {
 
     @Test
     fun `Check execution incorrect deleteAll`() = runTest {
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.deleteAll()).thenReturn(
+        whenever(
+            localRoomDatasource.deleteAll()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "LocalRoomDatasource.deleteAll",
@@ -37,7 +46,7 @@ class LocalRepositoryImplTest {
                 )
             )
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.deleteAll()
         assertEquals(result.isFailure, true)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRoomDatasource.deleteAll")
@@ -47,9 +56,9 @@ class LocalRepositoryImplTest {
 
     @Test
     fun `Check failure Datasource in recover data`() = runTest {
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRetrofitDatasource.recoverAll(token)).thenReturn(
+        whenever(
+            localRetrofitDatasource.recoverAll(token)
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "LocalRetrofitDatasource.recoverAll",
@@ -57,7 +66,7 @@ class LocalRepositoryImplTest {
                 )
             )
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.recoverAll(token)
         assertEquals(result.isFailure, true)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRetrofitDatasource.recoverAll")
@@ -71,10 +80,12 @@ class LocalRepositoryImplTest {
                 descrLocal = "USINA"
             )
         )
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRetrofitDatasource.recoverAll(token)).thenReturn(Result.success(local))
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        whenever(
+            localRetrofitDatasource.recoverAll(token)
+        ).thenReturn(
+            Result.success(local)
+        )
+        val repository = getRepository()
         val result = repository.recoverAll(token)
         assertEquals(result.isSuccess, true)
         assertEquals(result, Result.success(local))
@@ -94,14 +105,14 @@ class LocalRepositoryImplTest {
                 descrLocal = "USINA"
             )
         )
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.addAll(localRoomModelList)).thenReturn(
+        whenever(
+            localRoomDatasource.addAll(localRoomModelList)
+        ).thenReturn(
             Result.success(
                 true
             )
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.addAll(localList)
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull(), true)
@@ -121,9 +132,9 @@ class LocalRepositoryImplTest {
                 descrLocal = "USINA"
             )
         )
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.addAll(localRoomModelList)).thenReturn(
+        whenever(
+            localRoomDatasource.addAll(localRoomModelList)
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "LocalRoomDatasource.addAll",
@@ -131,7 +142,7 @@ class LocalRepositoryImplTest {
                 )
             )
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.addAll(localList)
         assertEquals(result.isFailure, true)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRoomDatasource.addAll")
@@ -139,9 +150,9 @@ class LocalRepositoryImplTest {
 
     @Test
     fun `Check failure Datasource in getAll`() = runTest {
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.getAll()).thenReturn(
+        whenever(
+            localRoomDatasource.getAll()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "LocalRoomDatasource.getAll",
@@ -149,7 +160,7 @@ class LocalRepositoryImplTest {
                 )
             )
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getAll()
         assertEquals(result.isFailure, true)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRoomDatasource.getAll")
@@ -169,14 +180,14 @@ class LocalRepositoryImplTest {
                 descrLocal = "USINA"
             )
         )
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.getAll()).thenReturn(
+        whenever(
+            localRoomDatasource.getAll()
+        ).thenReturn(
             Result.success(
                 localRoomModels
             )
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getAll()
         assertEquals(result.isSuccess, true)
         val localsResult = result.getOrNull()!!
@@ -186,12 +197,12 @@ class LocalRepositoryImplTest {
 
     @Test
     fun `Check return DescrLocal if have success in getDescr`() = runTest {
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.getDescr(1)).thenReturn(
+        whenever(
+            localRoomDatasource.getDescr(1)
+        ).thenReturn(
             Result.success("USINA")
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getDescr(1)
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, "USINA")
@@ -199,9 +210,9 @@ class LocalRepositoryImplTest {
 
     @Test
     fun `Check return failure if have error in getNome Datasource`() = runTest {
-        val localRoomDatasource = mock<LocalRoomDatasource>()
-        val localRetrofitDatasource = mock<LocalRetrofitDatasource>()
-        whenever(localRoomDatasource.getDescr(1)).thenReturn(
+        whenever(
+            localRoomDatasource.getDescr(1)
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "LocalRoomDatasource.getDescr",
@@ -209,7 +220,7 @@ class LocalRepositoryImplTest {
                 )
             )
         )
-        val repository = LocalRepositoryImpl(localRoomDatasource, localRetrofitDatasource)
+        val repository = getRepository()
         val result = repository.getDescr(1)
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRoomDatasource.getDescr")

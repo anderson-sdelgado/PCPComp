@@ -13,7 +13,7 @@ interface GetMovEquipVisitTercInsideList {
 
 class GetMovEquipVisitTercInsideListImpl(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
-    private val getMotorista: GetMotorista
+    private val getMotoristaVisitTerc: GetMotoristaVisitTerc
 ) : GetMovEquipVisitTercInsideList {
 
     override suspend fun invoke(): Result<List<MovEquipVisitTercModel>> {
@@ -30,7 +30,7 @@ class GetMovEquipVisitTercInsideListImpl(
                 if (resultTipo.isFailure)
                     return Result.failure(resultTipo.exceptionOrNull()!!)
                 val typeVisitTerc = resultTipo.getOrNull()!!
-                val resultMotorista = getMotorista(
+                val resultMotorista = getMotoristaVisitTerc(
                     typeVisitTerc = typeVisitTerc,
                     idVisitTerc = it.idVisitTercMovEquipVisitTerc!!
                 )

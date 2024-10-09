@@ -14,13 +14,18 @@ import org.mockito.kotlin.whenever
 
 class MovEquipVisitTercPassagRepositoryImplTest {
 
+    private val movEquipVisitTercPassagSharedPreferencesDatasource =
+        mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
+    private val movEquipVisitTercPassagRoomDatasource =
+        mock<MovEquipVisitTercPassagRoomDatasource>()
+    private fun getRepository() = MovEquipVisitTercPassagRepositoryImpl(
+        movEquipVisitTercPassagSharedPreferencesDatasource,
+        movEquipVisitTercPassagRoomDatasource
+    )
+
     @Test
     fun `Check return failure if have error in MovEquipVisitTercPassagSharedPreferencesDatasource add - FlowApp ADD`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.add(10)
             ).thenReturn(
@@ -31,10 +36,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 idVisitTerc = 10,
                 flowApp = FlowApp.ADD,
@@ -50,10 +52,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipVisitTercPassagRepository add - FlowApp CHANGE`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagRoomDatasource.add(10, 1)
             ).thenReturn(
@@ -64,10 +62,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 idVisitTerc = 10,
                 flowApp = FlowApp.CHANGE,
@@ -83,19 +78,12 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return true if Add execute successfully - FlowApp ADD`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.add(10)
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 idVisitTerc = 10,
                 flowApp = FlowApp.ADD,
@@ -108,19 +96,12 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return true if Add execute successfully - FlowApp CHANGE`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagRoomDatasource.add(10, 1)
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 idVisitTerc = 10,
                 flowApp = FlowApp.CHANGE,
@@ -133,10 +114,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipVisitTercPassagRepository clear`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.clear()
             ).thenReturn(
@@ -146,10 +123,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.clear()
             assertTrue(result.isFailure)
             assertEquals(
@@ -161,19 +135,12 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return true if MovEquipVisitTercPassagRepositoryImpl Clear execute successfully`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.clear()
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.clear()
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
@@ -182,10 +149,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipVisitTercPassagSharedPreferencesDatasource delete - FlowApp ADD`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.delete(10)
             ).thenReturn(
@@ -196,10 +159,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 idVisitTerc = 10,
                 flowApp = FlowApp.ADD,
@@ -215,10 +175,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipVisitTercPassagRepository delete - FlowApp CHANGE`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagRoomDatasource.delete(10, 1)
             ).thenReturn(
@@ -229,10 +185,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 idVisitTerc = 10,
                 flowApp = FlowApp.CHANGE,
@@ -248,19 +201,12 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return true if Delete execute successfully - FlowApp ADD`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.delete(10)
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 idVisitTerc = 10,
                 flowApp = FlowApp.ADD,
@@ -273,19 +219,12 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return true if Delete execute successfully - FlowApp CHANGE`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagRoomDatasource.delete(10, 1)
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 idVisitTerc = 10,
                 flowApp = FlowApp.CHANGE,
@@ -298,10 +237,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipVisitTercPassagSharedPreferencesDatasource list - FlowApp ADD`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.list()
             ).thenReturn(
@@ -312,10 +247,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.list(
                 FlowApp.ADD,
                 0
@@ -330,10 +262,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check failure Datasource in MovEquipVisitTercPassagRoomDatasource list - FlowApp CHANGE`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagRoomDatasource.list(1)
             ).thenReturn(
@@ -344,10 +272,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.list(
                 FlowApp.CHANGE,
                 1
@@ -362,10 +287,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return list if have success in MovEquipVisitTercPassagRepository list - FlowApp ADD`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.list()
             ).thenReturn(
@@ -373,10 +294,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     listOf(10)
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.list(
                 FlowApp.ADD,
                 0
@@ -389,10 +307,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
     @Test
     fun `Check return list if have success in MovEquipVisitTercPassagRepository list - FlowApp CHANGE`() =
         runTest {
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagRoomDatasource.list(1)
             ).thenReturn(
@@ -406,10 +320,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.list(
                 FlowApp.CHANGE,
                 1
@@ -421,10 +332,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
 
     @Test
     fun `Check return failure if have error in MovEquipVisitTercPassagRepository list`() = runTest {
-        val movEquipVisitTercPassagSharedPreferencesDatasource =
-            mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-        val movEquipVisitTercPassagRoomDatasource =
-            mock<MovEquipVisitTercPassagRoomDatasource>()
         whenever(
             movEquipVisitTercPassagSharedPreferencesDatasource.list()
         ).thenReturn(
@@ -435,10 +342,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipVisitTercPassagRepositoryImpl(
-            movEquipVisitTercPassagSharedPreferencesDatasource,
-            movEquipVisitTercPassagRoomDatasource
-        )
+        val repository = getRepository()
         val result = repository.save(1)
         assertTrue(result.isFailure)
         assertEquals(
@@ -457,10 +361,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     idVisitTerc = it
                 )
             }
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.list()
             ).thenReturn(
@@ -476,10 +376,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.save(1)
             assertTrue(result.isFailure)
             assertEquals(
@@ -498,10 +395,6 @@ class MovEquipVisitTercPassagRepositoryImplTest {
                     idVisitTerc = it
                 )
             }
-            val movEquipVisitTercPassagSharedPreferencesDatasource =
-                mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
-            val movEquipVisitTercPassagRoomDatasource =
-                mock<MovEquipVisitTercPassagRoomDatasource>()
             whenever(
                 movEquipVisitTercPassagSharedPreferencesDatasource.list()
             ).thenReturn(
@@ -512,10 +405,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipVisitTercPassagRepositoryImpl(
-                movEquipVisitTercPassagSharedPreferencesDatasource,
-                movEquipVisitTercPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.save(1)
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)

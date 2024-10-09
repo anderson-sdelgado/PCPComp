@@ -14,12 +14,21 @@ import org.mockito.kotlin.whenever
 
 class MovEquipProprioPassagRepositoryImplTest {
 
+    private val movEquipProprioPassagSharedPreferencesDatasource =
+        mock<MovEquipProprioPassagSharedPreferencesDatasource>()
+    private val movEquipProprioPassagRoomDatasource =
+        mock<MovEquipProprioPassagRoomDatasource>()
+
+    private fun getRepository() = MovEquipProprioPassagRepositoryImpl(
+        movEquipProprioPassagSharedPreferencesDatasource,
+        movEquipProprioPassagRoomDatasource
+    )
+
     @Test
     fun `Check failure Datasource in MovEquipProprioPassagRepository clear`() = runTest {
-        val movEquipProprioPassagSharedPreferencesDatasource =
-            mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-        val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-        whenever(movEquipProprioPassagSharedPreferencesDatasource.clear()).thenReturn(
+        whenever(
+            movEquipProprioPassagSharedPreferencesDatasource.clear()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "MovEquipProprioPassagSharedPreferencesDatasource.clear",
@@ -27,10 +36,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipProprioPassagRepositoryImpl(
-            movEquipProprioPassagSharedPreferencesDatasource,
-            movEquipProprioPassagRoomDatasource
-        )
+        val repository = getRepository()
         val result = repository.clear()
         assertEquals(result.isFailure, true)
         assertEquals(
@@ -41,56 +47,48 @@ class MovEquipProprioPassagRepositoryImplTest {
 
     @Test
     fun `Check true if have success in MovEquipProprioPassagRepository clear`() = runTest {
-        val movEquipProprioPassagSharedPreferencesDatasource =
-            mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-        val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-        whenever(movEquipProprioPassagSharedPreferencesDatasource.clear()).thenReturn(
+        whenever(
+            movEquipProprioPassagSharedPreferencesDatasource.clear()
+        ).thenReturn(
             Result.success(true)
         )
-        val repository = MovEquipProprioPassagRepositoryImpl(
-            movEquipProprioPassagSharedPreferencesDatasource,
-            movEquipProprioPassagRoomDatasource
-        )
+        val repository = getRepository()
         val result = repository.clear()
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
     }
 
     @Test
-    fun `Check failure Datasource in MovEquipProprioPassagRepository list - FlowApp ADD`() = runTest {
-        val movEquipProprioPassagSharedPreferencesDatasource =
-            mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-        val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-        whenever(movEquipProprioPassagSharedPreferencesDatasource.list()).thenReturn(
-            Result.failure(
-                DatasourceException(
-                    function = "MovEquipProprioPassagSharedPreferencesDatasource.list",
-                    cause = Exception()
+    fun `Check failure Datasource in MovEquipProprioPassagRepository list - FlowApp ADD`() =
+        runTest {
+            whenever(
+                movEquipProprioPassagSharedPreferencesDatasource.list()
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipProprioPassagSharedPreferencesDatasource.list",
+                        cause = Exception()
+                    )
                 )
             )
-        )
-        val repository = MovEquipProprioPassagRepositoryImpl(
-            movEquipProprioPassagSharedPreferencesDatasource,
-            movEquipProprioPassagRoomDatasource
-        )
-        val result = repository.list(
-            FlowApp.ADD,
-            0
-        )
-        assertEquals(result.isFailure, true)
-        assertEquals(
-            result.exceptionOrNull()!!.message,
-            "Failure Datasource -> MovEquipProprioPassagSharedPreferencesDatasource.list"
-        )
-    }
+            val repository = getRepository()
+            val result = repository.list(
+                FlowApp.ADD,
+                0
+            )
+            assertEquals(result.isFailure, true)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipProprioPassagSharedPreferencesDatasource.list"
+            )
+        }
 
     @Test
     fun `Check failure Datasource in MovEquipProprioPassagRepository list - FlowApp CHANGE`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagRoomDatasource.list(1)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.list(1)
+            ).thenReturn(
                 Result.failure(
                     DatasourceException(
                         function = "MovEquipProprioPassagRoomDatasource.list",
@@ -98,10 +96,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.list(
                 FlowApp.CHANGE,
                 1
@@ -116,18 +111,14 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return list if have success in MovEquipProprioPassagRepository list - FlowApp ADD`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagSharedPreferencesDatasource.list()).thenReturn(
+            whenever(
+                movEquipProprioPassagSharedPreferencesDatasource.list()
+            ).thenReturn(
                 Result.success(
                     listOf(19759)
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.list(
                 FlowApp.ADD,
                 0
@@ -140,10 +131,9 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return list if have success in MovEquipProprioPassagRepository list - FlowApp CHANGE`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagRoomDatasource.list(1)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.list(1)
+            ).thenReturn(
                 Result.success(
                     listOf(
                         MovEquipProprioPassagRoomModel(
@@ -154,10 +144,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.list(
                 FlowApp.CHANGE,
                 1
@@ -170,10 +157,9 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return failure Datasource if have error in MovEquipProprioPassagRepository delete - FlowApp ADD`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagSharedPreferencesDatasource.delete(19759)).thenReturn(
+            whenever(
+                movEquipProprioPassagSharedPreferencesDatasource.delete(19759)
+            ).thenReturn(
                 Result.failure(
                     DatasourceException(
                         function = "MovEquipProprioPassagSharedPreferencesDatasource.delete",
@@ -181,10 +167,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 matricColab = 19759,
                 flowApp = FlowApp.ADD,
@@ -200,10 +183,9 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return failure Datasource if have error in MovEquipProprioPassagRepository delete - FlowApp CHANGE`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagRoomDatasource.delete(19759, 1)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.delete(19759, 1)
+            ).thenReturn(
                 Result.failure(
                     DatasourceException(
                         function = "MovEquipProprioPassagSharedPreferencesDatasource.delete",
@@ -211,10 +193,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 matricColab = 19759,
                 flowApp = FlowApp.CHANGE,
@@ -230,16 +209,12 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return true if MovEquipProprioPassagRepository delete execute success - FlowApp ADD`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagSharedPreferencesDatasource.delete(19759)).thenReturn(
+            whenever(
+                movEquipProprioPassagSharedPreferencesDatasource.delete(19759)
+            ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 matricColab = 19759,
                 flowApp = FlowApp.ADD,
@@ -252,16 +227,12 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return true if MovEquipProprioPassagRepository delete execute success - FlowApp CHANGE`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagRoomDatasource.delete(19759, 1)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.delete(19759, 1)
+            ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.delete(
                 matricColab = 19759,
                 flowApp = FlowApp.CHANGE,
@@ -274,9 +245,6 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipProprioPassagRepository add - FlowApp ADD`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
             whenever(
                 movEquipProprioPassagSharedPreferencesDatasource.add(19759)
             ).thenReturn(
@@ -287,10 +255,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 matricColab = 19759,
                 flowApp = FlowApp.ADD,
@@ -306,10 +271,9 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return failure if have error in MovEquipProprioPassagRepository add - FlowApp CHANGE`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagRoomDatasource.add(19759, 1)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.add(19759, 1)
+            ).thenReturn(
                 Result.failure(
                     DatasourceException(
                         function = "MovEquipProprioPassagSharedPreferencesDatasource.add",
@@ -317,10 +281,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 matricColab = 19759,
                 flowApp = FlowApp.CHANGE,
@@ -336,16 +297,10 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return true if MovEquipProprioPassagRepository add execute success - FlowApp ADD`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
             whenever(movEquipProprioPassagSharedPreferencesDatasource.add(19759)).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 matricColab = 19759,
                 flowApp = FlowApp.ADD,
@@ -358,16 +313,12 @@ class MovEquipProprioPassagRepositoryImplTest {
     @Test
     fun `Check return true if MovEquipProprioPassagRepository add execute success - FlowApp CHANGE`() =
         runTest {
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagRoomDatasource.add(19759, 1)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.add(19759, 1)
+            ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.add(
                 matricColab = 19759,
                 flowApp = FlowApp.CHANGE,
@@ -379,10 +330,9 @@ class MovEquipProprioPassagRepositoryImplTest {
 
     @Test
     fun `Check return failure if have error in MovEquipProprioPassagRepository list`() = runTest {
-        val movEquipProprioPassagSharedPreferencesDatasource =
-            mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-        val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-        whenever(movEquipProprioPassagSharedPreferencesDatasource.list()).thenReturn(
+        whenever(
+            movEquipProprioPassagSharedPreferencesDatasource.list()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "MovEquipProprioPassagSharedPreferencesDatasource.list",
@@ -390,10 +340,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                 )
             )
         )
-        val repository = MovEquipProprioPassagRepositoryImpl(
-            movEquipProprioPassagSharedPreferencesDatasource,
-            movEquipProprioPassagRoomDatasource
-        )
+        val repository = getRepository()
         val result = repository.save(1)
         assertEquals(result.isFailure, true)
         assertEquals(
@@ -412,13 +359,16 @@ class MovEquipProprioPassagRepositoryImplTest {
                     matricColab = it
                 )
             }
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagSharedPreferencesDatasource.list()).thenReturn(
+            whenever(
+                movEquipProprioPassagSharedPreferencesDatasource.list()
+            ).thenReturn(
                 Result.success(list)
             )
-            whenever(movEquipProprioPassagRoomDatasource.addAll(movEquipProprioPassagRoomModelList)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.addAll(
+                    movEquipProprioPassagRoomModelList
+                )
+            ).thenReturn(
                 Result.failure(
                     DatasourceException(
                         function = "MovEquipProprioPassagRoomDatasource.addAll",
@@ -426,10 +376,7 @@ class MovEquipProprioPassagRepositoryImplTest {
                     )
                 )
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.save(1)
             assertEquals(result.isFailure, true)
             assertEquals(
@@ -448,19 +395,19 @@ class MovEquipProprioPassagRepositoryImplTest {
                     matricColab = it
                 )
             }
-            val movEquipProprioPassagSharedPreferencesDatasource =
-                mock<MovEquipProprioPassagSharedPreferencesDatasource>()
-            val movEquipProprioPassagRoomDatasource = mock<MovEquipProprioPassagRoomDatasource>()
-            whenever(movEquipProprioPassagSharedPreferencesDatasource.list()).thenReturn(
+            whenever(
+                movEquipProprioPassagSharedPreferencesDatasource.list()
+            ).thenReturn(
                 Result.success(list)
             )
-            whenever(movEquipProprioPassagRoomDatasource.addAll(movEquipProprioPassagRoomModelList)).thenReturn(
+            whenever(
+                movEquipProprioPassagRoomDatasource.addAll(
+                    movEquipProprioPassagRoomModelList
+                )
+            ).thenReturn(
                 Result.success(true)
             )
-            val repository = MovEquipProprioPassagRepositoryImpl(
-                movEquipProprioPassagSharedPreferencesDatasource,
-                movEquipProprioPassagRoomDatasource
-            )
+            val repository = getRepository()
             val result = repository.save(1)
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)

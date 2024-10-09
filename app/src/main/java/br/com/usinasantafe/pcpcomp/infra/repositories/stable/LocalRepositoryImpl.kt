@@ -5,8 +5,8 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.LocalRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.LocalRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.LocalRetrofitDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toLocalModel
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toLocal
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.entityToRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.roomModelToEntity
 
 class LocalRepositoryImpl(
     private val localRoomDatasource: LocalRoomDatasource,
@@ -15,7 +15,7 @@ class LocalRepositoryImpl(
     
     override suspend fun addAll(list: List<Local>): Result<Boolean> {
         try {
-            val localModelList = list.map { it.toLocalModel() }
+            val localModelList = list.map { it.entityToRoomModel() }
             return localRoomDatasource.addAll(localModelList)
         } catch (e: Exception){
             return Result.failure(
@@ -37,7 +37,7 @@ class LocalRepositoryImpl(
             if (resultAll.isFailure)
                 return Result.failure(resultAll.exceptionOrNull()!!)
             val localRoomModels = resultAll.getOrNull()!!
-            val locals = localRoomModels.map { it.toLocal() }
+            val locals = localRoomModels.map { it.roomModelToEntity() }
             return Result.success(locals)
         } catch (e: Exception){
             return Result.failure(

@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import br.com.usinasantafe.pcpcomp.utils.TB_LOCAL
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
-import kotlinx.serialization.Serializable
 
 @Entity(tableName = TB_LOCAL)
 data class LocalRoomModel (
@@ -13,7 +12,7 @@ data class LocalRoomModel (
     val descrLocal: String,
 )
 
-fun LocalRoomModel.toLocal(): Local {
+fun LocalRoomModel.roomModelToEntity(): Local {
     return with(this){
         Local(
             idLocal = this.idLocal,
@@ -22,7 +21,7 @@ fun LocalRoomModel.toLocal(): Local {
     }
 }
 
-fun Local.toLocalModel(): LocalRoomModel{
+fun Local.entityToRoomModel(): LocalRoomModel{
     return with(this){
         LocalRoomModel(
             idLocal = this.idLocal,

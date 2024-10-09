@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.ColabRetrofitDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.room.stable.toColabModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.entityToRoomModel
 
 class ColabRepositoryImpl(
     private val colabRoomDatasource: ColabRoomDatasource,
@@ -14,7 +14,7 @@ class ColabRepositoryImpl(
 
     override suspend fun addAll(list: List<Colab>): Result<Boolean> {
         try {
-            val colabModelList = list.map { it.toColabModel() }
+            val colabModelList = list.map { it.entityToRoomModel() }
             return colabRoomDatasource.addAll(colabModelList)
         } catch (e: Exception){
             return Result.failure(

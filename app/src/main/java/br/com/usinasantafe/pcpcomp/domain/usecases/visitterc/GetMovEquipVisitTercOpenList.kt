@@ -1,6 +1,7 @@
+package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
+
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMotorista
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
@@ -13,7 +14,7 @@ interface GetMovEquipVisitTercOpenList {
 
 class GetMovEquipVisitTercOpenListImpl(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
-    private val getMotorista: GetMotorista
+    private val getMotoristaVisitTerc: GetMotoristaVisitTerc
 ) : GetMovEquipVisitTercOpenList {
 
     override suspend fun invoke(): Result<List<MovEquipVisitTercModel>> {
@@ -30,7 +31,7 @@ class GetMovEquipVisitTercOpenListImpl(
                 if (resultTipo.isFailure)
                     return Result.failure(resultTipo.exceptionOrNull()!!)
                 val typeVisitTerc = resultTipo.getOrNull()!!
-                val resultMotorista = getMotorista(
+                val resultMotorista = getMotoristaVisitTerc(
                     typeVisitTerc = typeVisitTerc,
                     idVisitTerc = it.idVisitTercMovEquipVisitTerc!!
                 )

@@ -18,7 +18,7 @@ interface GetDetalheVisitTerc {
 class GetDetalheVisitTercImpl(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
-    private val getMotorista: GetMotorista,
+    private val getMotoristaVisitTerc: GetMotoristaVisitTerc,
 ) : GetDetalheVisitTerc {
 
     override suspend fun invoke(
@@ -42,7 +42,7 @@ class GetDetalheVisitTercImpl(
                 TypeVisitTerc.VISITANTE -> "VISITANTE"
                 TypeVisitTerc.TERCEIRO -> "TERCEIRO"
             }
-            val resultGetMotorista = getMotorista(
+            val resultGetMotorista = getMotoristaVisitTerc(
                 mov.tipoVisitTercMovEquipVisitTerc!!,
                 mov.idVisitTercMovEquipVisitTerc!!
             )
@@ -60,7 +60,7 @@ class GetDetalheVisitTercImpl(
                 return Result.failure(resultPassagList.exceptionOrNull()!!)
             val passagList = resultPassagList.getOrNull()!!
             for (passag in passagList) {
-                val resultGetPassag = getMotorista(
+                val resultGetPassag = getMotoristaVisitTerc(
                     mov.tipoVisitTercMovEquipVisitTerc!!,
                     passag.idVisitTerc!!
                 )

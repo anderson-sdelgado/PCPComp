@@ -16,7 +16,7 @@ interface ColabDao {
     suspend fun deleteAll()
 
     @Query("SELECT count(*) FROM $TB_COLAB WHERE matricColab = :matric")
-    suspend fun checkMatric(matric: Int): Int
+    suspend fun check(matric: Int): Int
 
     @Query("SELECT nomeColab FROM $TB_COLAB WHERE matricColab = :matric")
     suspend fun getNome(matric: Int): String

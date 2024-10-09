@@ -19,7 +19,9 @@ import br.com.usinasantafe.pcpcomp.di.usecaseConfigModule
 import br.com.usinasantafe.pcpcomp.di.usecaseInitialModule
 import br.com.usinasantafe.pcpcomp.di.usecaseProprioModule
 import br.com.usinasantafe.pcpcomp.di.usecaseRecoverServerModule
+import br.com.usinasantafe.pcpcomp.di.usecaseResidenciaModule
 import br.com.usinasantafe.pcpcomp.di.usecaseUpdateTableModule
+import br.com.usinasantafe.pcpcomp.di.usecaseVisitTercModule
 import br.com.usinasantafe.pcpcomp.di.viewModelModule
 import br.com.usinasantafe.pcpcomp.di.workManagerModule
 import org.koin.android.ext.koin.androidContext
@@ -45,6 +47,8 @@ class PCPComp : Application(), KoinComponent, Configuration.Provider {
                     usecaseConfigModule,
                     usecaseInitialModule,
                     usecaseProprioModule,
+                    usecaseVisitTercModule,
+                    usecaseResidenciaModule,
                     usecaseRecoverServerModule,
                     usecaseUpdateTableModule,
                     repositoryModule,

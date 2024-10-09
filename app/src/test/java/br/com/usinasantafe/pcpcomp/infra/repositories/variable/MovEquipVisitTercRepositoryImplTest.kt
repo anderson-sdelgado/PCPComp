@@ -37,13 +37,11 @@ class MovEquipVisitTercRepositoryImplTest {
     private val movEquipVisitTercRetrofitDatasource =
         mock<MovEquipVisitTercRetrofitDatasource>()
 
-    private fun getRepository(): MovEquipVisitTercRepositoryImpl {
-        return MovEquipVisitTercRepositoryImpl(
-            movEquipVisitTercSharedPreferencesDatasource,
-            movEquipVisitTercRoomDatasource,
-            movEquipVisitTercRetrofitDatasource
-        )
-    }
+    private fun getRepository() = MovEquipVisitTercRepositoryImpl(
+        movEquipVisitTercSharedPreferencesDatasource,
+        movEquipVisitTercRoomDatasource,
+        movEquipVisitTercRetrofitDatasource
+    )
 
     @Test
     fun `Check return failure Datasource in MovEquipVisitTercRoomDatasource listOpen`() =

@@ -8,7 +8,7 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class GetMotoristaResidenciaImplTest {
+class GetMotoristaVisitTercResidenciaImplTest {
 
     @Test
     fun `Check return failure if have error in MovEquipResidenciaRepository GetMotorista`() =

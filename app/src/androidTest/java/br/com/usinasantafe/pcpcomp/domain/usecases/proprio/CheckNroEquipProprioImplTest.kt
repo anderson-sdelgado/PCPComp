@@ -33,7 +33,7 @@ class CheckNroEquipProprioImplTest: KoinTest {
     }
 
     @Test
-    fun check_return_true_if_nor_equip_is_valid() = runTest {
+    fun check_return_true_if_nro_equip_is_valid() = runTest {
         val equipList = listOf(
             EquipRoomModel(
                 idEquip = 10,
