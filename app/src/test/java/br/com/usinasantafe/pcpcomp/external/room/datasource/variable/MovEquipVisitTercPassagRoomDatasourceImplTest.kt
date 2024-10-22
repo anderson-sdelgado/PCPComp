@@ -125,4 +125,32 @@ class MovEquipVisitTercPassagRoomDatasourceImplTest {
         assertEquals(modelAfter.idVisitTerc, 30)
     }
 
+    @Test
+    fun `Check success delete Mov All if process execute successfully`() = runTest {
+        val datasource = MovEquipVisitTercPassagRoomDatasourceImpl(movEquipVisitTercPassagDao)
+        datasource.addAll(
+            listOf(
+                MovEquipVisitTercPassagRoomModel(
+                    idMovEquipVisitTerc = 1,
+                    idVisitTerc = 10
+                ),
+                MovEquipVisitTercPassagRoomModel(
+                    idMovEquipVisitTerc = 1,
+                    idVisitTerc = 20
+                ),
+                MovEquipVisitTercPassagRoomModel(
+                    idMovEquipVisitTerc = 1,
+                    idVisitTerc = 30
+                ),
+            )
+        )
+        val result = datasource.list(1)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.size, 3)
+        val resultDelete = datasource.delete(1)
+        assertTrue(resultDelete.isSuccess)
+        assertTrue(resultDelete.getOrNull()!!)
+        val resultList = datasource.list(1)
+        assertEquals(resultList.getOrNull()!!.size, 0)
+    }
 }

@@ -18,7 +18,7 @@ data class DetalheResidenciaState(
     val veiculo: String = "",
     val placa: String = "",
     val motorista: String = "",
-    val observ: String = "",
+    val observ: String? = null,
     val flagDialog: Boolean = false,
     val failure: String = "",
     val flagDialogCheck: Boolean = false,

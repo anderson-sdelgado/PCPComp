@@ -18,6 +18,7 @@ class MovEquipVisitTercPassagRepositoryImplTest {
         mock<MovEquipVisitTercPassagSharedPreferencesDatasource>()
     private val movEquipVisitTercPassagRoomDatasource =
         mock<MovEquipVisitTercPassagRoomDatasource>()
+
     private fun getRepository() = MovEquipVisitTercPassagRepositoryImpl(
         movEquipVisitTercPassagSharedPreferencesDatasource,
         movEquipVisitTercPassagRoomDatasource
@@ -407,6 +408,42 @@ class MovEquipVisitTercPassagRepositoryImplTest {
             )
             val repository = getRepository()
             val result = repository.save(1)
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `Check return failure if have error in movEquipVisitTercPassagRoomDatasource delete`() =
+        runTest {
+            whenever(
+                movEquipVisitTercPassagRoomDatasource.delete(1)
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipVisitTercPassagRoomDatasource.delete",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.delete(1)
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipVisitTercPassagRoomDatasource.delete"
+            )
+        }
+
+    @Test
+    fun `Check return true if MovEquipVisitTercPassagRepository delete execute successfully`() =
+        runTest {
+            whenever(
+                movEquipVisitTercPassagRoomDatasource.delete(1)
+            ).thenReturn(
+                Result.success(true)
+            )
+            val repository = getRepository()
+            val result = repository.delete(1)
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
         }

@@ -5,6 +5,8 @@ import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 interface ConfigRepository {
+
+    suspend fun cleanConfig(): Result<Boolean>
     suspend fun getConfig(): Result<Config>
     suspend fun getFlagUpdate(): Result<FlagUpdate>
     suspend fun getPassword(): Result<String>
@@ -21,5 +23,4 @@ interface ConfigRepository {
     suspend fun setFlagUpdate(flagUpdate: FlagUpdate): Result<Boolean>
     suspend fun setIdLocal(idLocal: Int): Result<Boolean>
     suspend fun setMatricVigia(matric: Int): Result<Boolean>
-    suspend fun setStatusSend(statusSend: StatusSend): Result<Boolean>
 }

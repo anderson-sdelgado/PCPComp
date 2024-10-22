@@ -513,7 +513,7 @@ class MovEquipResidenciaRepositoryImplTest {
             assertTrue(result.isSuccess)
             val resultList = result.getOrNull()!!
             assertEquals(resultList[0].idMovEquipResidencia, 1)
-            assertEquals(resultList[0].nroMatricVigiaMovEquipResidencia, 1000)
+            assertEquals(resultList[0].nroMatricVigiaMovEquipResidencia, 19759)
             assertEquals(resultList[0].idLocalMovEquipResidencia, 1)
         }
 
@@ -1595,4 +1595,215 @@ class MovEquipResidenciaRepositoryImplTest {
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
         }
+
+    @Test
+    fun `Check return failure if have error in movEquipResidenciaRoomDatasource get`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.get(1)
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRoomDatasource.get",
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.delete(1)
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRoomDatasource.get"
+            )
+        }
+
+    @Test
+    fun `Check return failure if have error in movEquipResidenciaRoomDatasource delete`() =
+        runTest {
+            val roomModel = MovEquipResidenciaRoomModel(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = 1723213270250,
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SEND,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.get(1)
+            ).thenReturn(
+                Result.success(roomModel)
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.delete(roomModel)
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRoomDatasource.delete",
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.delete(1)
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRoomDatasource.delete"
+            )
+        }
+
+    @Test
+    fun `Check return true if MovEquipProprioRepository delete execute successfully`() =
+        runTest {
+            val roomModel = MovEquipResidenciaRoomModel(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = 1723213270250,
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SEND,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.get(1)
+            ).thenReturn(
+                Result.success(roomModel)
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.delete(roomModel)
+            ).thenReturn(
+                Result.success(true)
+            )
+            val repository = getRepository()
+            val result = repository.delete(1)
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `Check return failure if have errors in MovEquipResidenciaRoomDatasource listSent`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.listSent()
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipResidenciaRoomDatasource.listSent",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.listSent()
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipResidenciaRoomDatasource.listSent"
+            )
+        }
+
+    @Test
+    fun `Check return list if MovEquipResidenciaRepository listSent execute successfully`() =
+        runTest {
+            val roomModel = MovEquipResidenciaRoomModel(
+                idMovEquipResidencia = 1,
+                nroMatricVigiaMovEquipResidencia = 19759,
+                idLocalMovEquipResidencia = 1,
+                tipoMovEquipResidencia = TypeMov.INPUT,
+                dthrMovEquipResidencia = 1723213270250,
+                motoristaMovEquipResidencia = "MOTORISTA TESTE",
+                veiculoMovEquipResidencia = "VEICULO TESTE",
+                placaMovEquipResidencia = "PLACA TESTE",
+                observMovEquipResidencia = "OBSERV TESTE",
+                statusMovEquipResidencia = StatusData.OPEN,
+                statusSendMovEquipResidencia = StatusSend.SENT,
+                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            )
+            whenever(
+                movEquipResidenciaRoomDatasource.listSent()
+            ).thenReturn(
+                Result.success(
+                    listOf(roomModel)
+                )
+            )
+            val repository = getRepository()
+            val result = repository.listSent()
+            assertTrue(result.isSuccess)
+            val list = result.getOrNull()!!
+            assertEquals(list.size, 1)
+            val model = list[0]
+            assertEquals(
+                model.idMovEquipResidencia,
+                1
+            )
+            assertEquals(
+                model.placaMovEquipResidencia,
+                "PLACA TESTE"
+            )
+            assertEquals(
+                model.statusSendMovEquipResidencia,
+                StatusSend.SENT
+            )
+        }
+
+    @Test
+    fun `Check return failure if have errors in MovEquipResidenciaRoomDatasource checkOpen`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.checkOpen()
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipProprioRoomDatasource.checkOpen",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.checkOpen()
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipProprioRoomDatasource.checkOpen"
+            )
+        }
+
+    @Test
+    fun `CheckOpen - Check return false if not have MovEquipResidencia to open`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.checkOpen()
+            ).thenReturn(
+                Result.success(false)
+            )
+            val repository = getRepository()
+            val result = repository.checkOpen()
+            assertTrue(result.isSuccess)
+            assertFalse(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `CheckSend - Check return true if have MovEquipResidencia to open`() =
+        runTest {
+            whenever(
+                movEquipResidenciaRoomDatasource.checkOpen()
+            ).thenReturn(
+                Result.success(true)
+            )
+            val repository = getRepository()
+            val result = repository.checkOpen()
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
 }

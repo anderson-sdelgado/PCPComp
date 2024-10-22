@@ -29,7 +29,7 @@ class CheckNroEquipProprioImplTest: KoinTest {
     fun check_return_false_if_nro_equip_is_invalid() = runTest {
         val result = usecase("100")
         assertTrue(result.isSuccess)
-        assertEquals(result, Result.success(false))
+        assertFalse(result.getOrNull()!!)
     }
 
     @Test
@@ -43,6 +43,6 @@ class CheckNroEquipProprioImplTest: KoinTest {
         equipDao.insertAll(equipList)
         val result = usecase("100")
         assertTrue(result.isSuccess)
-        assertEquals(result, Result.success(true))
+        assertTrue(result.getOrNull()!!)
     }
 }

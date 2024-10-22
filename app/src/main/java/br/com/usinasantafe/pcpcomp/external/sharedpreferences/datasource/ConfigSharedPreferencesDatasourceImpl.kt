@@ -11,6 +11,22 @@ class ConfigSharedPreferencesDatasourceImpl(
     private val sharedPreferences: SharedPreferences
 ) : ConfigSharedPreferencesDatasource {
 
+    override suspend fun clear(): Result<Boolean> {
+        try {
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
+            return Result.success(true)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "ConfigSharedPreferencesDatasourceImpl.saveConfig",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun has(): Result<Boolean> {
         try {
             val result = sharedPreferences.getString(BASE_SHARE_PREFERENCES_TABLE_CONFIG, null)

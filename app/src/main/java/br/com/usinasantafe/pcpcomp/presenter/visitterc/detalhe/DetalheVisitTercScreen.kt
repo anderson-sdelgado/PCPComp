@@ -78,8 +78,8 @@ fun DetalheVisitTercContent(
     tipoVisitTerc: String,
     motorista: String,
     passageiro: String,
-    destino: String,
-    observ: String,
+    destino: String?,
+    observ: String?,
     flagDialog: Boolean,
     failure: String,
     setCloseDialog: () -> Unit,
@@ -108,7 +108,7 @@ fun DetalheVisitTercContent(
         ) {
             item {
                 ItemListDesign(
-                    text = dthr,
+                    text = "DATA/HORA: $dthr",
                     setActionItem = {}
                 )
             }
@@ -120,14 +120,14 @@ fun DetalheVisitTercContent(
             }
             item {
                 ItemListDesign(
-                    text = veiculo,
+                    text = "VEICULO: $veiculo",
                     setActionItem = onNavVeiculo,
                     id = 1
                 )
             }
             item {
                 ItemListDesign(
-                    text = placa,
+                    text = "PLACA: $placa",
                     setActionItem = onNavPlaca,
                     id = 1
                 )
@@ -140,25 +140,25 @@ fun DetalheVisitTercContent(
             }
             item {
                 ItemListDesign(
-                    text = motorista,
+                    text = "MOTORISTA: $motorista",
                     setActionItem = onNavCpf
                 )
             }
             item {
                 ItemListDesign(
-                    text = passageiro,
+                    text = "PASSAGEIRO(S): $passageiro",
                     setActionItem = onNavPassagList
                 )
             }
             item {
                 ItemListDesign(
-                    text = destino,
+                    text = "DESTINO: ${if(destino.isNullOrEmpty()) "" else destino}" ,
                     setActionItem = onNavDestino
                 )
             }
             item {
                 ItemListDesign(
-                    text = observ,
+                    text = "OBSERVAÇÃO: ${if(observ.isNullOrEmpty()) "" else observ}",
                     setActionItem = onNavObserv
                 )
             }
@@ -207,15 +207,15 @@ fun DetalheVisitTercPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             DetalheVisitTercContent(
-                dthr = "DATA/HORA: 29/08/2024 16:14",
+                dthr = "29/08/2024 16:14",
                 tipoMov = "ENTRADA",
-                veiculo = "VEÍCULO: 100",
-                placa = "PLACA: ABC-1234",
+                veiculo = "100",
+                placa = "ABC-1234",
                 tipoVisitTerc = "VISITANTE",
-                motorista = "MOTORISTA: 123.456.789-00 - ANDERSON DA SILVA DELGADO",
-                passageiro = "PASSAGEIRO(S): 123.456.789-00 - JOSE DONIZETE;",
-                destino = "DESTINO: TESTE DESTINO",
-                observ = "OBSERVAÇÃO: TESTE OBSERVAÇÃO",
+                motorista = "123.456.789-00 - ANDERSON DA SILVA DELGADO",
+                passageiro = "123.456.789-00 - JOSE DONIZETE;",
+                destino = null,
+                observ = "TESTE OBSERVAÇÃO",
                 setCloseDialog = {},
                 closeMov = {},
                 flagCloseMov = false,

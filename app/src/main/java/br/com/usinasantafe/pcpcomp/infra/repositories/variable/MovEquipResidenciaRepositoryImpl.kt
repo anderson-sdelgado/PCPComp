@@ -21,8 +21,29 @@ class MovEquipResidenciaRepositoryImpl(
     private val movEquipResidenciaRetrofitDatasource: MovEquipResidenciaRetrofitDatasource
 ) : MovEquipResidenciaRepository {
 
+    override suspend fun checkOpen(): Result<Boolean> {
+        return movEquipResidenciaRoomDatasource.checkOpen()
+    }
+
     override suspend fun checkSend(): Result<Boolean> {
         return movEquipResidenciaRoomDatasource.checkSend()
+    }
+
+    override suspend fun delete(id: Int): Result<Boolean> {
+        try {
+            val resultGet = movEquipResidenciaRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            val model = resultGet.getOrNull()!!
+            return movEquipResidenciaRoomDatasource.delete(model)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipResidenciaRepositoryImpl.delete",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun get(id: Int): Result<MovEquipResidencia> {
@@ -164,6 +185,26 @@ class MovEquipResidenciaRepositoryImpl(
             if (resultListSend.isFailure)
                 return Result.failure(resultListSend.exceptionOrNull()!!)
             val listSend = resultListSend.getOrNull()!!.map {
+                it.roomModelToEntity()
+            }
+            return Result.success(listSend)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipResidenciaRepositoryImpl.listSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSent(): Result<List<MovEquipResidencia>> {
+        try {
+            val resultListSent =
+                movEquipResidenciaRoomDatasource.listSent()
+            if (resultListSent.isFailure)
+                return Result.failure(resultListSent.exceptionOrNull()!!)
+            val listSend = resultListSent.getOrNull()!!.map {
                 it.roomModelToEntity()
             }
             return Result.success(listSend)

@@ -45,6 +45,23 @@ class MovEquipProprioPassagRoomDatasourceImpl(
         }
     }
 
+    override suspend fun delete(id: Int): Result<Boolean> {
+        try {
+            val list = movEquipProprioPassagDao.get(id)
+            for(mov in list) {
+                movEquipProprioPassagDao.delete(mov)
+            }
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioPassagRoomDatasourceImpl.delete",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun delete(matricColab: Int, id: Int): Result<Boolean> {
         try {
             val mov = movEquipProprioPassagDao.get(id, matricColab)

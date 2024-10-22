@@ -4,7 +4,9 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 interface MovEquipResidenciaRepository {
+    suspend fun checkOpen(): Result<Boolean>
     suspend fun checkSend(): Result<Boolean>
+    suspend fun delete(id: Int): Result<Boolean>
     suspend fun get(id: Int): Result<MovEquipResidencia>
     suspend fun getMotorista(id: Int): Result<String>
     suspend fun getObserv(id: Int): Result<String?>
@@ -13,6 +15,7 @@ interface MovEquipResidenciaRepository {
     suspend fun listOpen(): Result<List<MovEquipResidencia>>
     suspend fun listInside(): Result<List<MovEquipResidencia>>
     suspend fun listSend(): Result<List<MovEquipResidencia>>
+    suspend fun listSent(): Result<List<MovEquipResidencia>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int

@@ -81,6 +81,10 @@ class ConfigRepositoryImpl(
         }
     }
 
+    override suspend fun cleanConfig(): Result<Boolean> {
+        return configSharedPreferencesDatasource.clear()
+    }
+
     override suspend fun getConfig(): Result<Config> {
         return configSharedPreferencesDatasource.get()
     }
@@ -158,27 +162,6 @@ class ConfigRepositoryImpl(
             return Result.failure(
                 RepositoryException(
                     function = "ConfigRepositoryImpl.setMatricVigia",
-                    cause = e
-                )
-            )
-        }
-    }
-
-    override suspend fun setStatusSend(statusSend: StatusSend): Result<Boolean> {
-        try {
-            val resultConfig = configSharedPreferencesDatasource.get()
-            if (resultConfig.isFailure)
-                return Result.failure(resultConfig.exceptionOrNull()!!)
-            val config = resultConfig.getOrNull()!!
-            config.statusSend = statusSend
-            val resultSave = configSharedPreferencesDatasource.save(config)
-            if (resultSave.isFailure)
-                return Result.failure(resultSave.exceptionOrNull()!!)
-            return Result.success(true)
-        } catch (e: Exception) {
-            return Result.failure(
-                RepositoryException(
-                    function = "ConfigRepositoryImpl.setStatusSend",
                     cause = e
                 )
             )

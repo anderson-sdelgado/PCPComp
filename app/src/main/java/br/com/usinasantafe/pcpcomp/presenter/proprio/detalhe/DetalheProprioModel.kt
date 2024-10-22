@@ -8,6 +8,6 @@ data class DetalheProprioModel(
     val passageiro: String,
     val destino: String,
     val veiculoSec: String,
-    val notaFiscal: String,
-    val observ: String,
+    val notaFiscal: String?,
+    val observ: String?,
 )

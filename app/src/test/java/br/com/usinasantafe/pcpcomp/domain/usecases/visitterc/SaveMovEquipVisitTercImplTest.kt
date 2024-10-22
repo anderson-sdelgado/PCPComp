@@ -7,7 +7,6 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
@@ -25,9 +24,9 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovVisitTerc = mock<OutsideMovVisitTerc>()
+            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
-                outsideMovVisitTerc(1)
+                setStatusOutsideMovVisitTerc(1)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -41,10 +40,9 @@ class SaveMovEquipVisitTercImplTest {
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 startProcessSendData,
-                outsideMovVisitTerc
+                setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 1
             )
@@ -62,7 +60,7 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovVisitTerc = mock<OutsideMovVisitTerc>()
+            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -78,10 +76,9 @@ class SaveMovEquipVisitTercImplTest {
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 startProcessSendData,
-                outsideMovVisitTerc
+                setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 0
             )
@@ -99,7 +96,7 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovVisitTerc = mock<OutsideMovVisitTerc>()
+            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -124,10 +121,9 @@ class SaveMovEquipVisitTercImplTest {
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 startProcessSendData,
-                outsideMovVisitTerc
+                setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 0
             )
@@ -145,7 +141,7 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovVisitTerc = mock<OutsideMovVisitTerc>()
+            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -176,10 +172,9 @@ class SaveMovEquipVisitTercImplTest {
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 startProcessSendData,
-                outsideMovVisitTerc
+                setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 0
             )
@@ -191,69 +186,13 @@ class SaveMovEquipVisitTercImplTest {
         }
 
     @Test
-    fun `Chech return failure if have error in ConfigRepository SetStatusSend`() =
-        runTest {
-            val configRepository = mock<ConfigRepository>()
-            val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
-            val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovVisitTerc = mock<OutsideMovVisitTerc>()
-            whenever(
-                configRepository.getConfig()
-            ).thenReturn(
-                Result.success(
-                    Config(
-                        matricVigia = 19759,
-                        idLocal = 1
-                    )
-                )
-            )
-            whenever(
-                movEquipVisitTercRepository.save(19759, 1)
-            ).thenReturn(
-                Result.success(1)
-            )
-            whenever(
-                movEquipVisitTercPassagRepository.save(1)
-            ).thenReturn(
-                Result.success(true)
-            )
-            whenever(
-                configRepository.setStatusSend(StatusSend.SEND)
-            ).thenReturn(
-                Result.failure(
-                    RepositoryException(
-                        function = "ConfigRepository.setStatusSend",
-                    )
-                )
-            )
-            val usecase = SaveMovEquipVisitTercImpl(
-                configRepository,
-                movEquipVisitTercRepository,
-                movEquipVisitTercPassagRepository,
-                startProcessSendData,
-                outsideMovVisitTerc
-            )
-            val result = usecase(
-                flowApp = FlowApp.ADD,
-                typeMov = TypeMov.OUTPUT,
-                id = 0
-            )
-            assertTrue(result.isFailure)
-            assertEquals(
-                result.exceptionOrNull()!!.message,
-                "Failure Repository -> ConfigRepository.setStatusSend"
-            )
-        }
-
-    @Test
     fun `Chech return true if SaveMovEquipVisitTercImpl execute successfully`() =
         runTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovVisitTerc = mock<OutsideMovVisitTerc>()
+            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -274,20 +213,14 @@ class SaveMovEquipVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            whenever(
-                configRepository.setStatusSend(StatusSend.SEND)
-            ).thenReturn(
-                Result.success(true)
-            )
             val usecase = SaveMovEquipVisitTercImpl(
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 startProcessSendData,
-                outsideMovVisitTerc
+                setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 0
             )

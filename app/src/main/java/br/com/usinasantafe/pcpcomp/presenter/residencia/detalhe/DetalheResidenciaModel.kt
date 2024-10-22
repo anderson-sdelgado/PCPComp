@@ -7,5 +7,5 @@ data class DetalheResidenciaModel(
     val veiculo: String,
     val placa: String,
     val motorista: String,
-    val observ: String,
+    val observ: String?,
 )

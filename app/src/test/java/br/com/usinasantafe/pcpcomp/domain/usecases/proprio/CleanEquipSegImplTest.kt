@@ -12,7 +12,6 @@ import org.mockito.kotlin.whenever
 
 class CleanEquipSegImplTest {
 
-
     @Test
     fun `Chech return failure Datasource if have error in cleanEquipSeg`() = runTest {
         val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()

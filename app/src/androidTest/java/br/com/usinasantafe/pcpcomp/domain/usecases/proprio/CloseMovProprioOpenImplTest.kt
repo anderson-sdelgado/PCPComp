@@ -15,7 +15,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class CloseMovProprioOpenImplTest: KoinTest {
+class CloseMovProprioOpenImplTest : KoinTest {
 
     private val usecase: CloseMovProprio by inject()
     private val movEquipProprioDao: MovEquipProprioDao by inject()
@@ -27,38 +27,43 @@ class CloseMovProprioOpenImplTest: KoinTest {
         loadKoinModules(generateTestAppComponent(server.url("").toString()))
     }
 
-    private val movEquipProprioRoomModel = MovEquipProprioRoomModel(
-        idMovEquipProprio = 1,
-        matricVigiaMovEquipProprio = 19759,
-        idLocalMovEquipProprio = 1,
-        tipoMovEquipProprio = TypeMov.INPUT,
-        dthrMovEquipProprio = 1723213270250,
-        idEquipMovEquipProprio = 1,
-        matricColabMovEquipProprio = 19759,
-        destinoMovEquipProprio = "TESTE DESTINO",
-        notaFiscalMovEquipProprio = 123456789,
-        observMovEquipProprio = "TESTE OBSERV",
-        statusMovEquipProprio = StatusData.OPEN,
-        statusSendMovEquipProprio = StatusSend.SEND
-    )
-
     @Test
     fun check_return_failure_if_not_have_mov_open() = runTest {
         val result = usecase(1)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> MovEquipProprioRepositoryImpl.get")
-        assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.NullPointerException")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Repository -> MovEquipProprioRepositoryImpl.get"
+        )
+        assertEquals(
+            result.exceptionOrNull()!!.cause.toString(),
+            "java.lang.NullPointerException"
+        )
     }
 
     @Test
     fun check_close_mov_open() = runTest {
-        movEquipProprioDao.insert(
-            movEquipProprioRoomModel
+        val roomModel = MovEquipProprioRoomModel(
+            idMovEquipProprio = 1,
+            matricVigiaMovEquipProprio = 19759,
+            idLocalMovEquipProprio = 1,
+            tipoMovEquipProprio = TypeMov.INPUT,
+            dthrMovEquipProprio = 1723213270250,
+            idEquipMovEquipProprio = 1,
+            matricColabMovEquipProprio = 19759,
+            destinoMovEquipProprio = "TESTE DESTINO",
+            notaFiscalMovEquipProprio = 123456789,
+            observMovEquipProprio = "TESTE OBSERV",
+            statusMovEquipProprio = StatusData.OPEN,
+            statusSendMovEquipProprio = StatusSend.SEND
         )
-        val movEquipProprioRoomModelBefore = movEquipProprioDao.get(movEquipProprioRoomModel.idMovEquipProprio!!)
+        movEquipProprioDao.insert(roomModel)
+        val movEquipProprioRoomModelBefore =
+            movEquipProprioDao.get(roomModel.idMovEquipProprio!!)
         assertEquals(movEquipProprioRoomModelBefore.statusMovEquipProprio, StatusData.OPEN)
         val result = usecase(1)
-        val movEquipProprioRoomModelAfter = movEquipProprioDao.get(movEquipProprioRoomModel.idMovEquipProprio!!)
+        val movEquipProprioRoomModelAfter =
+            movEquipProprioDao.get(roomModel.idMovEquipProprio!!)
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, true);
         assertEquals(movEquipProprioRoomModelAfter.statusMovEquipProprio, StatusData.CLOSE)

@@ -29,6 +29,10 @@ class MovEquipProprioEquipSegRepositoryImpl(
         return movEquipProprioEquipSegSharedPreferencesDatasource.clear()
     }
 
+    override suspend fun delete(id: Int): Result<Boolean> {
+        return movEquipProprioEquipSegRoomDatasource.delete(id)
+    }
+
     override suspend fun list(
         flowApp: FlowApp,
         id: Int

@@ -23,9 +23,9 @@ class SaveMovEquipResidenciaImplTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovResidencia = mock<OutsideMovResidencia>()
+            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
-                outsideMovResidencia(1)
+                setStatusOutsideMovResidencia(1)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -38,10 +38,9 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                outsideMovResidencia
+                setStatusOutsideMovResidencia
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 1
             )
@@ -58,9 +57,9 @@ class SaveMovEquipResidenciaImplTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovResidencia = mock<OutsideMovResidencia>()
+            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
-                outsideMovResidencia(1)
+                setStatusOutsideMovResidencia(1)
             ).thenReturn(
                 Result.success(true)
             )
@@ -78,10 +77,9 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                outsideMovResidencia
+                setStatusOutsideMovResidencia
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 1
             )
@@ -98,9 +96,9 @@ class SaveMovEquipResidenciaImplTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovResidencia = mock<OutsideMovResidencia>()
+            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
-                outsideMovResidencia(1)
+                setStatusOutsideMovResidencia(1)
             ).thenReturn(
                 Result.success(true)
             )
@@ -128,10 +126,9 @@ class SaveMovEquipResidenciaImplTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                outsideMovResidencia
+                setStatusOutsideMovResidencia
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 1
             )
@@ -143,68 +140,13 @@ class SaveMovEquipResidenciaImplTest {
         }
 
     @Test
-    fun `Chech return failure if have error in ConfigRepository SetStatusSend`() =
-        runTest {
-            val configRepository = mock<ConfigRepository>()
-            val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
-            val startProcessSendData = mock<StartProcessSendData>()
-            val outsideMovResidencia = mock<OutsideMovResidencia>()
-            whenever(
-                outsideMovResidencia(1)
-            ).thenReturn(
-                Result.success(true)
-            )
-            whenever(
-                configRepository.getConfig()
-            ).thenReturn(
-                Result.success(
-                    Config(
-                        matricVigia = 19759,
-                        idLocal = 1
-                    )
-                )
-            )
-            whenever(
-                movEquipResidenciaRepository.save(19759, 1)
-            ).thenReturn(
-                Result.success(1)
-            )
-            whenever(
-                configRepository.setStatusSend(StatusSend.SEND)
-            ).thenReturn(
-                Result.failure(
-                    RepositoryException(
-                        function = "ConfigRepository.setStatusSend",
-                        cause = Exception()
-                    )
-                )
-            )
-            val usecase = SaveMovEquipResidenciaImpl(
-                configRepository,
-                movEquipResidenciaRepository,
-                startProcessSendData,
-                outsideMovResidencia
-            )
-            val result = usecase(
-                flowApp = FlowApp.ADD,
-                typeMov = TypeMov.OUTPUT,
-                id = 1
-            )
-            assertTrue(result.isFailure)
-            assertEquals(
-                result.exceptionOrNull()!!.message,
-                "Failure Repository -> ConfigRepository.setStatusSend"
-            )
-        }
-
-    @Test
     fun `Chech return true if SaveMovEquipResidenciaImpl execute successfully`() =
         runTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
             val closeMovResidencia = mock<CloseMovResidencia>()
-            val outsideMovResidencia = mock<OutsideMovResidencia>()
+            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
                 closeMovResidencia(1)
             ).thenReturn(
@@ -225,19 +167,13 @@ class SaveMovEquipResidenciaImplTest {
             ).thenReturn(
                 Result.success(1)
             )
-            whenever(
-                configRepository.setStatusSend(StatusSend.SEND)
-            ).thenReturn(
-                Result.success(true)
-            )
             val usecase = SaveMovEquipResidenciaImpl(
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                outsideMovResidencia
+                setStatusOutsideMovResidencia
             )
             val result = usecase(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.OUTPUT,
                 id = 1
             )

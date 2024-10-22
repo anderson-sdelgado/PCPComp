@@ -12,6 +12,21 @@ class MovEquipResidenciaRoomDatasourceImpl(
     private val movEquipResidenciaDao: MovEquipResidenciaDao
 ): MovEquipResidenciaRoomDatasource {
 
+    override suspend fun checkOpen(): Result<Boolean> {
+        return try {
+            Result.success(
+                movEquipResidenciaDao.listStatusData(StatusData.OPEN).isNotEmpty()
+            )
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipResidenciaRoomDatasourceImpl.checkOpen",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun checkSend(): Result<Boolean> {
         return try {
             Result.success(
@@ -21,6 +36,20 @@ class MovEquipResidenciaRoomDatasourceImpl(
             Result.failure(
                 DatasourceException(
                     function = "MovEquipVisitTercRoomDatasourceImpl.checkSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun delete(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Boolean> {
+        try {
+            movEquipResidenciaDao.delete(movEquipResidenciaRoomModel)
+            return Result.success(true)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipResidenciaRoomDatasourceImpl.delete",
                     cause = e
                 )
             )
@@ -42,8 +71,8 @@ class MovEquipResidenciaRoomDatasourceImpl(
 
     override suspend fun listOpen(): Result<List<MovEquipResidenciaRoomModel>> {
         try{
-            val listOpen = movEquipResidenciaDao.listStatusData(StatusData.OPEN)
-            return Result.success(listOpen)
+            val list = movEquipResidenciaDao.listStatusData(StatusData.OPEN)
+            return Result.success(list)
         } catch (e: Exception){
             return Result.failure(
                 DatasourceException(
@@ -72,9 +101,23 @@ class MovEquipResidenciaRoomDatasourceImpl(
 
     override suspend fun listSend(): Result<List<MovEquipResidenciaRoomModel>> {
         try {
-            val listOpen = movEquipResidenciaDao.listStatusSend(StatusSend.SEND)
-            return Result.success(listOpen)
+            val list = movEquipResidenciaDao.listStatusSend(StatusSend.SEND)
+            return Result.success(list)
         } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipResidenciaRoomDatasourceImpl.listSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSent(): Result<List<MovEquipResidenciaRoomModel>> {
+        try {
+            val list = movEquipResidenciaDao.listStatusSend(StatusSend.SENT)
+            return Result.success(list)
+        } catch (e: Exception){
             return Result.failure(
                 DatasourceException(
                     function = "MovEquipResidenciaRoomDatasourceImpl.listSend",

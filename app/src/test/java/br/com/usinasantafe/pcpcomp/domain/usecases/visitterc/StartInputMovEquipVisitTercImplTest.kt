@@ -1,98 +1,100 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTercPassag
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class OutsideMovVisitTercImplTest {
+class StartInputMovEquipVisitTercImplTest {
 
     @Test
-    fun `Check return failure if have failure in MovEquipVisitTercRepository get`() =
+    fun `Check return failure if have error in MovEquipVisitTercRepository start`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            whenever(movEquipVisitTercRepository.get(1)).thenReturn(
+            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
+            whenever(
+                movEquipVisitTercRepository.start()
+            ).thenReturn(
                 Result.failure(
                     RepositoryException(
-                        function = "MovEquipVisitTercRepository.get",
+                        function = "MovEquipVisitTercRepository.start",
                         cause = Exception()
                     )
                 )
             )
-            val usecase = OutsideMovVisitTercImpl(
+            val usecase = StartInputMovEquipVisitTercImpl(
                 movEquipVisitTercRepository,
+                movEquipVisitTercPassagRepository
             )
-            val result = usecase(1)
+            val result = usecase()
             assertTrue(result.isFailure)
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> MovEquipVisitTercRepository.get"
+                "Failure Repository -> MovEquipVisitTercRepository.start"
             )
         }
 
     @Test
-    fun `Check return failure if have failure in MovEquipVisitTercRepository setOutside`() =
+    fun `Check return failure if have error in MovEquipVisitTercPassagRepository clear`() =
         runTest {
-            val movEquipVisitTerc = MovEquipVisitTerc(
-                idMovEquipVisitTerc = 1
-            )
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
+            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             whenever(
-                movEquipVisitTercRepository.get(1)
-            ).thenReturn(
-                Result.success(movEquipVisitTerc)
-            )
-            whenever(
-                movEquipVisitTercRepository.setOutside(
-                    movEquipVisitTerc
-                )
-            ).thenReturn(
-                Result.failure(
-                    RepositoryException(
-                        function = "MovEquipVisitTercRepository.setOutside",
-                        cause = Exception()
-                    )
-                )
-            )
-            val usecase = OutsideMovVisitTercImpl(
-                movEquipVisitTercRepository,
-            )
-            val result = usecase(1)
-            assertTrue(result.isFailure)
-            assertEquals(
-                result.exceptionOrNull()!!.message,
-                "Failure Repository -> MovEquipVisitTercRepository.setOutside"
-            )
-        }
-
-    @Test
-    fun `Check return true if OutsideMovVisitTercImplTest execute successfully`() =
-        runTest {
-            val movEquipVisitTerc = MovEquipVisitTerc(
-                idMovEquipVisitTerc = 1
-            )
-            val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            whenever(
-                movEquipVisitTercRepository.get(1)
-            ).thenReturn(
-                Result.success(movEquipVisitTerc)
-            )
-            whenever(
-                movEquipVisitTercRepository.setOutside(
-                    movEquipVisitTerc
-                )
+                movEquipVisitTercRepository.start()
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = OutsideMovVisitTercImpl(
-                movEquipVisitTercRepository,
+            whenever(
+                movEquipVisitTercPassagRepository.clear()
+            ).thenReturn(
+                Result.failure(
+                    RepositoryException(
+                        function = "MovEquipVisitTercPassagRepository.clear",
+                        cause = Exception()
+                    )
+                )
             )
-            val result = usecase(1)
+            val usecase = StartInputMovEquipVisitTercImpl(
+                movEquipVisitTercRepository,
+                movEquipVisitTercPassagRepository
+            )
+            val result = usecase()
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Repository -> MovEquipVisitTercPassagRepository.clear"
+            )
+        }
+
+    @Test
+    fun `Check return true if StartMovEquipVisitTercImpl execute successfully`() =
+        runTest {
+            val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
+            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
+            whenever(
+                movEquipVisitTercRepository.start()
+            ).thenReturn(
+                Result.success(true)
+            )
+            whenever(
+                movEquipVisitTercPassagRepository.clear()
+            ).thenReturn(
+                Result.success(true)
+            )
+            val usecase = StartInputMovEquipVisitTercImpl(
+                movEquipVisitTercRepository,
+                movEquipVisitTercPassagRepository
+            )
+            val result = usecase()
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
         }
+
 }

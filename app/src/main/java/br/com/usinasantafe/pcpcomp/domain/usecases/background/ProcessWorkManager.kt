@@ -3,7 +3,6 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.background
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetStatusSendConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckSendMovProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SendMovProprioList
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetStatusSentMovProprio
@@ -18,7 +17,6 @@ import br.com.usinasantafe.pcpcomp.utils.StatusSend
 class ProcessWorkManager(
     context: Context,
     workerParameters: WorkerParameters,
-    private val setStatusSendConfig: SetStatusSendConfig,
     private val checkSendMovProprio: CheckSendMovProprio,
     private val sendMovProprioList: SendMovProprioList,
     private val setStatusSentMovProprio: SetStatusSentMovProprio,
@@ -31,7 +29,6 @@ class ProcessWorkManager(
 ): CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
-        setStatusSendConfig(StatusSend.SENDING)
         val resultCheckProprio = checkSendMovProprio()
         if(resultCheckProprio.isFailure)
             return Result.retry()
@@ -68,7 +65,6 @@ class ProcessWorkManager(
             if(resultSetResidencia.isFailure)
                 return Result.retry()
         }
-        setStatusSendConfig(StatusSend.SENT)
         return Result.success()
     }
 }

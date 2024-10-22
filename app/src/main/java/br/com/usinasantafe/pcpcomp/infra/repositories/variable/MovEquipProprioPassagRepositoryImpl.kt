@@ -39,6 +39,10 @@ class MovEquipProprioPassagRepositoryImpl(
         return movEquipProprioPassagSharedPreferencesDatasource.clear()
     }
 
+    override suspend fun delete(id: Int): Result<Boolean> {
+        return movEquipProprioPassagRoomDatasource.delete(id)
+    }
+
     override suspend fun delete(
         matricColab: Int,
         flowApp: FlowApp,

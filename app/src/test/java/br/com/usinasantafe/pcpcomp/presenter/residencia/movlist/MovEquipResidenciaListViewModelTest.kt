@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
 import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.GetMovEquipResidenciaInsideList
-import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.StartMovEquipResidencia
+import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.StartInputMovEquipResidencia
 import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
 import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +27,7 @@ class MovEquipResidenciaListViewModelTest {
     fun `Check return failure if have error in getHeader`() = runTest {
         val getHeader = mock<GetHeader>()
         val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
-        val startMovEquipResidencia = mock<StartMovEquipResidencia>()
+        val startINputMovEquipResidencia = mock<StartInputMovEquipResidencia>()
         whenever(getHeader()).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -39,7 +39,7 @@ class MovEquipResidenciaListViewModelTest {
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
             getMovEquipResidenciaInsideList,
-            startMovEquipResidencia
+            startINputMovEquipResidencia
         )
         viewModel.returnHeader()
         assertTrue(viewModel.uiState.value.flagDialog)
@@ -53,7 +53,7 @@ class MovEquipResidenciaListViewModelTest {
     fun `Check return Nome Vigia if getHeader execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
         val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
-        val startMovEquipResidencia = mock<StartMovEquipResidencia>()
+        val startINputMovEquipResidencia = mock<StartInputMovEquipResidencia>()
         whenever(getHeader()).thenReturn(
             Result.success(
                 HeaderModel(
@@ -65,7 +65,7 @@ class MovEquipResidenciaListViewModelTest {
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
             getMovEquipResidenciaInsideList,
-            startMovEquipResidencia
+            startINputMovEquipResidencia
         )
         viewModel.returnHeader()
         assertEquals(viewModel.uiState.value.descrVigia, "19759 - Anderson da Silva Delgado")
@@ -79,7 +79,7 @@ class MovEquipResidenciaListViewModelTest {
     fun `Check return failure if have error in recoverMovEquipInputList`() = runTest {
         val getHeader = mock<GetHeader>()
         val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
-        val startMovEquipResidencia = mock<StartMovEquipResidencia>()
+        val startINputMovEquipResidencia = mock<StartInputMovEquipResidencia>()
         whenever(getMovEquipResidenciaInsideList()).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -91,7 +91,7 @@ class MovEquipResidenciaListViewModelTest {
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
             getMovEquipResidenciaInsideList,
-            startMovEquipResidencia
+            startINputMovEquipResidencia
         )
         viewModel.recoverMovEquipList()
         assertTrue(viewModel.uiState.value.flagDialog)
@@ -105,7 +105,7 @@ class MovEquipResidenciaListViewModelTest {
     fun `Check return list if recoverMovEquipInputList execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
         val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
-        val startMovEquipResidencia = mock<StartMovEquipResidencia>()
+        val startINputMovEquipResidencia = mock<StartInputMovEquipResidencia>()
         whenever(getMovEquipResidenciaInsideList()).thenReturn(
             Result.success(
                 listOf(
@@ -122,7 +122,7 @@ class MovEquipResidenciaListViewModelTest {
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
             getMovEquipResidenciaInsideList,
-            startMovEquipResidencia
+            startINputMovEquipResidencia
         )
         viewModel.recoverMovEquipList()
         val state = viewModel.uiState.value
@@ -137,8 +137,8 @@ class MovEquipResidenciaListViewModelTest {
     fun `Check return failure if have error in startMovEquipResidencia`() = runTest {
         val getHeader = mock<GetHeader>()
         val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
-        val startMovEquipResidencia = mock<StartMovEquipResidencia>()
-        whenever(startMovEquipResidencia()).thenReturn(
+        val startINputMovEquipResidencia = mock<StartInputMovEquipResidencia>()
+        whenever(startINputMovEquipResidencia()).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "StartMovEquipResidencia",
@@ -149,7 +149,7 @@ class MovEquipResidenciaListViewModelTest {
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
             getMovEquipResidenciaInsideList,
-            startMovEquipResidencia
+            startINputMovEquipResidencia
         )
         viewModel.startMov()
         assertTrue(viewModel.uiState.value.flagDialog)
@@ -163,14 +163,14 @@ class MovEquipResidenciaListViewModelTest {
     fun `Check return true if startMovEquipResidencia execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
         val getMovEquipResidenciaInsideList = mock<GetMovEquipResidenciaInsideList>()
-        val startMovEquipResidencia = mock<StartMovEquipResidencia>()
-        whenever(startMovEquipResidencia()).thenReturn(
+        val startINputMovEquipResidencia = mock<StartInputMovEquipResidencia>()
+        whenever(startINputMovEquipResidencia()).thenReturn(
             Result.success(true)
         )
         val viewModel = MovEquipResidenciaListViewModel(
             getHeader,
             getMovEquipResidenciaInsideList,
-            startMovEquipResidencia
+            startINputMovEquipResidencia
         )
         viewModel.startMov()
         assertTrue(viewModel.uiState.value.flagAccess)

@@ -4,23 +4,17 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 
-interface StartMovEquipResidencia {
+interface StartInputMovEquipResidencia {
     suspend operator fun invoke(movEquipResidencia: MovEquipResidencia? = null): Result<Boolean>
 }
 
-class StartMovEquipResidenciaImpl(
+class StartInputMovEquipResidenciaImpl(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
-): StartMovEquipResidencia {
+): StartInputMovEquipResidencia {
 
     override suspend fun invoke(movEquipResidencia: MovEquipResidencia?): Result<Boolean> {
         try {
-            if (movEquipResidencia == null) {
-                val resultStart = movEquipResidenciaRepository.start()
-                if (resultStart.isFailure)
-                    return Result.failure(resultStart.exceptionOrNull()!!)
-                return Result.success(true)
-            }
-            val resultStart = movEquipResidenciaRepository.start(movEquipResidencia)
+            val resultStart = movEquipResidenciaRepository.start()
             if (resultStart.isFailure)
                 return Result.failure(resultStart.exceptionOrNull()!!)
             return Result.success(true)

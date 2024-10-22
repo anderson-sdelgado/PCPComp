@@ -38,6 +38,10 @@ class MovEquipVisitTercPassagRepositoryImpl(
         return movEquipVisitTercPassagSharedPreferencesDatasource.clear()
     }
 
+    override suspend fun delete(id: Int): Result<Boolean> {
+        return movEquipVisitTercPassagRoomDatasource.delete(id)
+    }
+
     override suspend fun delete(
         idVisitTerc: Int,
         flowApp: FlowApp,

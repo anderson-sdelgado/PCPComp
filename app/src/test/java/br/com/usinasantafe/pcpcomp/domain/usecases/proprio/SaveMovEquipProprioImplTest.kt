@@ -208,54 +208,6 @@ class SaveMovEquipProprioImplTest {
         }
 
     @Test
-    fun `Chech return failure if  have error in ConfigRepository setStatusSend`() =
-        runTest {
-            val configRepository = mock<ConfigRepository>()
-            val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-            val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
-            val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
-            val startProcessSendData = mock<StartProcessSendData>()
-            whenever(configRepository.getConfig()).thenReturn(
-                Result.success(
-                    Config(
-                        matricVigia = 19759,
-                        idLocal = 1
-                    )
-                )
-            )
-            whenever(movEquipProprioRepository.save(19759, 1)).thenReturn(
-                Result.success(1)
-            )
-            whenever(movEquipProprioPassagRepository.save(1)).thenReturn(
-                Result.success(true)
-            )
-            whenever(movEquipProprioEquipSegRepository.save(1)).thenReturn(
-                Result.success(true)
-            )
-            whenever(configRepository.setStatusSend(StatusSend.SEND)).thenReturn(
-                Result.failure(
-                    RepositoryException(
-                        function = "ConfigRepository.setStatusSend",
-                        cause = Exception()
-                    )
-                )
-            )
-            val usecase = SaveMovEquipProprioImpl(
-                configRepository,
-                movEquipProprioRepository,
-                movEquipProprioPassagRepository,
-                movEquipProprioEquipSegRepository,
-                startProcessSendData
-            )
-            val result = usecase()
-            assertTrue(result.isFailure)
-            assertEquals(
-                result.exceptionOrNull()!!.message,
-                "Failure Repository -> ConfigRepository.setStatusSend"
-            )
-        }
-
-    @Test
     fun `Chech return true if SaveMovEquipProprio execute successfully`() =
         runTest {
             val configRepository = mock<ConfigRepository>()
@@ -278,9 +230,6 @@ class SaveMovEquipProprioImplTest {
                 Result.success(true)
             )
             whenever(movEquipProprioEquipSegRepository.save(1)).thenReturn(
-                Result.success(true)
-            )
-            whenever(configRepository.setStatusSend(StatusSend.SEND)).thenReturn(
                 Result.success(true)
             )
             val usecase = SaveMovEquipProprioImpl(

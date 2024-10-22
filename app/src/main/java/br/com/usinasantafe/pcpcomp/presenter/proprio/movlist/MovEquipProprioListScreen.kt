@@ -94,10 +94,10 @@ fun MovEquipProprioListContent(
         ) {
             items(movEquipProprioModelList) { mov ->
                 ItemListDesign(
-                    text = "${mov.dthr}\n" +
+                    text = "DATA/HORA: ${mov.dthr}\n" +
                             "${mov.typeMov}\n" +
-                            "${mov.equip}\n" +
-                            "${mov.colab}\n",
+                            "VEÍCULO: ${mov.equip}\n" +
+                            "MOTORISTA: ${mov.colab}\n",
                     setActionItem = {
                         onNavDetalhe(mov.id)
                     },

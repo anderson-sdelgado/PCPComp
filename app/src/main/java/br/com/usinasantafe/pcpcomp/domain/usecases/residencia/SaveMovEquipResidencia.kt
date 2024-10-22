@@ -10,7 +10,6 @@ import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 interface SaveMovEquipResidencia {
     suspend operator fun invoke(
-        flowApp: FlowApp,
         typeMov: TypeMov,
         id: Int
     ): Result<Boolean>
@@ -20,20 +19,16 @@ class SaveMovEquipResidenciaImpl(
     private val configRepository: ConfigRepository,
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val startProcessSendData: StartProcessSendData,
-    private val outsideMovResidencia: OutsideMovResidencia
+    private val setStatusOutsideMovResidencia: SetStatusOutsideMovResidencia
 ) : SaveMovEquipResidencia {
 
     override suspend fun invoke(
-        flowApp: FlowApp,
         typeMov: TypeMov,
         id: Int
     ): Result<Boolean> {
         try {
-            if (
-                (flowApp == FlowApp.ADD) &&
-                (typeMov == TypeMov.OUTPUT)
-            ) {
-                val resultClose = outsideMovResidencia(id)
+            if (typeMov == TypeMov.OUTPUT) {
+                val resultClose = setStatusOutsideMovResidencia(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }
@@ -47,9 +42,12 @@ class SaveMovEquipResidenciaImpl(
             )
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
-            val resultSetStatusSend = configRepository.setStatusSend(StatusSend.SEND)
-            if (resultSetStatusSend.isFailure)
-                return Result.failure(resultSetStatusSend.exceptionOrNull()!!)
+            val idSave = resultSave.getOrNull()!!
+            if (typeMov == TypeMov.OUTPUT) {
+                val resultClose = setStatusOutsideMovResidencia(idSave)
+                if (resultClose.isFailure)
+                    return Result.failure(resultClose.exceptionOrNull()!!)
+            }
             startProcessSendData()
             return Result.success(true)
         } catch (e: Exception) {

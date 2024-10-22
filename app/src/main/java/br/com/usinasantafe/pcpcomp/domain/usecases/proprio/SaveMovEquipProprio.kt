@@ -39,9 +39,6 @@ class SaveMovEquipProprioImpl(
             val resultSaveEquipSeg = movEquipProprioEquipSegRepository.save(id)
             if (resultSaveEquipSeg.isFailure)
                 return Result.failure(resultSaveEquipSeg.exceptionOrNull()!!)
-            val resultSetStatusSend = configRepository.setStatusSend(StatusSend.SEND)
-            if (resultSetStatusSend.isFailure)
-                return Result.failure(resultSetStatusSend.exceptionOrNull()!!)
             startProcessSendData()
             return Result.success(true)
         } catch (e: Exception) {

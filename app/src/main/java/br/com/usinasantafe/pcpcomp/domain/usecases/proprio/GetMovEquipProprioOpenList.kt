@@ -36,13 +36,13 @@ class GetMovEquipProprioOpenListImpl(
                 val nomeColab = resultNome.getOrNull()!!
                 MovEquipProprioModel(
                     id = it.idMovEquipProprio!!,
-                    dthr = "DATA/HORA: ${SimpleDateFormat(
+                    dthr = SimpleDateFormat(
                         "dd/MM/yyyy HH:mm",
                         Locale("pt", "BR")
-                    ).format(it.dthrMovEquipProprio)}",
+                    ).format(it.dthrMovEquipProprio),
                     typeMov = if (it.tipoMovEquipProprio == TypeMov.INPUT) "ENTRADA" else "SAIDA",
-                    equip = "VEICULO: $nroEquip",
-                    colab = "MOTORISTA: ${it.matricColabMovEquipProprio!!} - $nomeColab"
+                    equip = "$nroEquip",
+                    colab = " ${it.matricColabMovEquipProprio!!} - $nomeColab"
                 )
             }
             return Result.success(modelList)

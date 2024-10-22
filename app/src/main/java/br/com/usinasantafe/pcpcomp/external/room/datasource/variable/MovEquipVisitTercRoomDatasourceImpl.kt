@@ -12,6 +12,21 @@ class MovEquipVisitTercRoomDatasourceImpl(
     private val movEquipVisitTercDao: MovEquipVisitTercDao
 ) : MovEquipVisitTercRoomDatasource {
 
+    override suspend fun checkOpen(): Result<Boolean> {
+        return try {
+            Result.success(
+                movEquipVisitTercDao.listStatusData(StatusData.OPEN).isNotEmpty()
+            )
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.checkOpen",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun checkSend(): Result<Boolean> {
         return try {
             Result.success(
@@ -25,6 +40,10 @@ class MovEquipVisitTercRoomDatasourceImpl(
                 )
             )
         }
+    }
+
+    override suspend fun delete(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun get(id: Int): Result<MovEquipVisitTercRoomModel> {
@@ -73,6 +92,20 @@ class MovEquipVisitTercRoomDatasourceImpl(
     override suspend fun listSend(): Result<List<MovEquipVisitTercRoomModel>> {
         try {
             val listOpen = movEquipVisitTercDao.listStatusSend(StatusSend.SEND)
+            return Result.success(listOpen)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercRoomDatasourceImpl.listSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSent(): Result<List<MovEquipVisitTercRoomModel>> {
+        try {
+            val listOpen = movEquipVisitTercDao.listStatusSend(StatusSend.SENT)
             return Result.success(listOpen)
         } catch (e: Exception){
             return Result.failure(

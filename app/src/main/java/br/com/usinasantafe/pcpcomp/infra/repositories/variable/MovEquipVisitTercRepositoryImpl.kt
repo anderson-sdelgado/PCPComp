@@ -1,10 +1,8 @@
 package br.com.usinasantafe.pcpcomp.infra.repositories.variable
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
-import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipProprioRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipVisitTercRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipVisitTercRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipVisitTercSharedPreferencesDatasource
@@ -23,8 +21,29 @@ class MovEquipVisitTercRepositoryImpl(
     private val movEquipVisitTercRetrofitDatasource: MovEquipVisitTercRetrofitDatasource,
 ) : MovEquipVisitTercRepository {
 
+    override suspend fun checkOpen(): Result<Boolean> {
+        return movEquipVisitTercRoomDatasource.checkOpen()
+    }
+
     override suspend fun checkSend(): Result<Boolean> {
         return movEquipVisitTercRoomDatasource.checkSend()
+    }
+
+    override suspend fun delete(id: Int): Result<Boolean> {
+        try {
+            val resultGet = movEquipVisitTercRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            val model = resultGet.getOrNull()!!
+            return movEquipVisitTercRoomDatasource.delete(model)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipVisitTercRepositoryImpl.get",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun get(id: Int): Result<MovEquipVisitTerc> {
@@ -200,6 +219,26 @@ class MovEquipVisitTercRepositoryImpl(
             if (resultListSend.isFailure)
                 return Result.failure(resultListSend.exceptionOrNull()!!)
             val listSend = resultListSend.getOrNull()!!.map {
+                it.roomModelToEntity()
+            }
+            return Result.success(listSend)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipVisitTercRepositoryImpl.listSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSent(): Result<List<MovEquipVisitTerc>> {
+        try {
+            val resultListSent =
+                movEquipVisitTercRoomDatasource.listSent()
+            if (resultListSent.isFailure)
+                return Result.failure(resultListSent.exceptionOrNull()!!)
+            val listSend = resultListSent.getOrNull()!!.map {
                 it.roomModelToEntity()
             }
             return Result.success(listSend)

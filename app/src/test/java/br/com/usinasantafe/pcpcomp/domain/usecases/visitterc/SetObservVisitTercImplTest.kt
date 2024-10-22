@@ -23,8 +23,6 @@ class SetObservVisitTercImplTest {
     fun `Check return failure if have error in MovEquipVisitTercRepository Get`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
-            val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
             val startProcessSendData = mock<StartProcessSendData>()
             whenever(
                 movEquipVisitTercRepository.get(
@@ -40,14 +38,11 @@ class SetObservVisitTercImplTest {
             )
             val usecase = SetObservVisitTercImpl(
                 movEquipVisitTercRepository,
-                movEquipVisitTercPassagRepository,
-                startMovEquipVisitTerc,
                 startProcessSendData
             )
             val result = usecase(
                 observ = "observ",
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -61,8 +56,6 @@ class SetObservVisitTercImplTest {
     fun `Check return failure if have error in MovEquipVisitTercPassagRepository List`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
-            val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
             val startProcessSendData = mock<StartProcessSendData>()
             whenever(
                 movEquipVisitTercRepository.get(
@@ -80,29 +73,13 @@ class SetObservVisitTercImplTest {
                     )
                 )
             )
-            whenever(
-                movEquipVisitTercPassagRepository.list(
-                    flowApp = FlowApp.CHANGE,
-                    id = 1
-                )
-            ).thenReturn(
-                Result.failure(
-                    RepositoryException(
-                        function = "MovEquipVisitTercPassagRepository.list",
-                        cause = Exception()
-                    )
-                )
-            )
             val usecase = SetObservVisitTercImpl(
                 movEquipVisitTercRepository,
-                movEquipVisitTercPassagRepository,
-                startMovEquipVisitTerc,
                 startProcessSendData
             )
             val result = usecase(
                 observ = "observ",
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -113,147 +90,9 @@ class SetObservVisitTercImplTest {
         }
 
     @Test
-    fun `Check return failure if have error in StartMovEquipVisitTerc`() =
-        runTest {
-            val passagList = listOf(
-                MovEquipVisitTercPassag(
-                    idMovEquipVisitTercPassag = 1,
-                    idVisitTerc = 10,
-                    idMovEquipVisitTerc = 1,
-                )
-            )
-            val mov = MovEquipVisitTerc(
-                idMovEquipVisitTerc = 1,
-                dthrMovEquipVisitTerc = Date(1723213270250),
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
-                veiculoMovEquipVisitTerc = "GOL",
-                placaMovEquipVisitTerc = "AAA-0000",
-                idVisitTercMovEquipVisitTerc = 1
-            )
-            val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
-            val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-            val startProcessSendData = mock<StartProcessSendData>()
-            whenever(
-                movEquipVisitTercRepository.get(
-                    id = 1
-                )
-            ).thenReturn(
-                Result.success(mov)
-            )
-            whenever(
-                movEquipVisitTercPassagRepository.list(
-                    flowApp = FlowApp.CHANGE,
-                    id = 1
-                )
-            ).thenReturn(
-                Result.success(passagList)
-            )
-            mov.observMovEquipVisitTerc = "observ"
-            mov.tipoMovEquipVisitTerc = TypeMov.OUTPUT
-            mov.dthrMovEquipVisitTerc = Date()
-            mov.destinoMovEquipVisitTerc = null
-            mov.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
-            mov.movEquipVisitTercPassagList = passagList
-            whenever(
-                startMovEquipVisitTerc(mov)
-            ).thenReturn(
-                Result.failure(
-                    UsecaseException(
-                        function = "StartMovEquipVisitTerc",
-                        cause = Exception()
-                    )
-                )
-            )
-            val usecase = SetObservVisitTercImpl(
-                movEquipVisitTercRepository,
-                movEquipVisitTercPassagRepository,
-                startMovEquipVisitTerc,
-                startProcessSendData
-            )
-            val result = usecase(
-                observ = "observ",
-                flowApp = FlowApp.ADD,
-                typeMov = TypeMov.OUTPUT,
-                id = 1
-            )
-            assertTrue(result.isFailure)
-            assertEquals(
-                result.exceptionOrNull()!!.message,
-                "Failure Usecase -> StartMovEquipVisitTerc"
-            )
-        }
-
-    @Test
-    fun `Check return true if SetObservVisitTercImpl - TypeMov OUTPUT and FlowApp ADD - execute successfully`() =
-        runTest {
-            val passagList = listOf(
-                MovEquipVisitTercPassag(
-                    idMovEquipVisitTercPassag = 1,
-                    idVisitTerc = 10,
-                    idMovEquipVisitTerc = 1,
-                )
-            )
-            val mov = MovEquipVisitTerc(
-                idMovEquipVisitTerc = 1,
-                dthrMovEquipVisitTerc = Date(1723213270250),
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
-                veiculoMovEquipVisitTerc = "GOL",
-                placaMovEquipVisitTerc = "AAA-0000",
-                idVisitTercMovEquipVisitTerc = 1
-            )
-            val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
-            val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
-            val startProcessSendData = mock<StartProcessSendData>()
-            whenever(
-                movEquipVisitTercRepository.get(
-                    id = 1
-                )
-            ).thenReturn(
-                Result.success(mov)
-            )
-            whenever(
-                movEquipVisitTercPassagRepository.list(
-                    flowApp = FlowApp.CHANGE,
-                    id = 1
-                )
-            ).thenReturn(
-                Result.success(passagList)
-            )
-            mov.observMovEquipVisitTerc = "observ"
-            mov.tipoMovEquipVisitTerc = TypeMov.OUTPUT
-            mov.dthrMovEquipVisitTerc = Date()
-            mov.destinoMovEquipVisitTerc = null
-            mov.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
-            mov.movEquipVisitTercPassagList = passagList
-            whenever(
-                startMovEquipVisitTerc(mov)
-            ).thenReturn(
-                Result.success(true)
-            )
-            val usecase = SetObservVisitTercImpl(
-                movEquipVisitTercRepository,
-                movEquipVisitTercPassagRepository,
-                startMovEquipVisitTerc,
-                startProcessSendData
-            )
-            val result = usecase(
-                observ = "observ",
-                flowApp = FlowApp.ADD,
-                typeMov = TypeMov.OUTPUT,
-                id = 1
-            )
-            assertTrue(result.isSuccess)
-            assertTrue(result.getOrNull()!!)
-        }
-
-    @Test
     fun `Check return failure if have error in MovEquipVisitTercRepository setObserv`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
-            val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
             val startProcessSendData = mock<StartProcessSendData>()
             whenever(
                 movEquipVisitTercRepository.setObserv(
@@ -271,14 +110,11 @@ class SetObservVisitTercImplTest {
             )
             val usecase = SetObservVisitTercImpl(
                 movEquipVisitTercRepository,
-                movEquipVisitTercPassagRepository,
-                startMovEquipVisitTerc,
                 startProcessSendData
             )
             val result = usecase(
                 observ = "observ",
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.INPUT,
                 id = 0
             )
             assertTrue(result.isFailure)
@@ -292,8 +128,6 @@ class SetObservVisitTercImplTest {
     fun `Check return true if SetObservVisitTercImpl - NOT TypeMov OUTPUT and FlowApp ADD - execute successfully`() =
         runTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
-            val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
-            val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
             val startProcessSendData = mock<StartProcessSendData>()
             whenever(
                 movEquipVisitTercRepository.setObserv(
@@ -306,14 +140,11 @@ class SetObservVisitTercImplTest {
             )
             val usecase = SetObservVisitTercImpl(
                 movEquipVisitTercRepository,
-                movEquipVisitTercPassagRepository,
-                startMovEquipVisitTerc,
                 startProcessSendData
             )
             val result = usecase(
                 observ = "observ",
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.INPUT,
                 id = 0
             )
             assertTrue(result.isSuccess)

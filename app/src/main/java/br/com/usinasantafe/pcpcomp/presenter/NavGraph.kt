@@ -23,6 +23,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Routes.DETALHE_MOV_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DETALHE_RESIDENCIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DETALHE_VISIT_TERC_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.EQUIP_SEG_LIST_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.INITIAL_TEST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NRO_EQUIP_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.PASSAG_COLAB_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.LOCAL_ROUTE
@@ -100,6 +101,7 @@ import br.com.usinasantafe.pcpcomp.presenter.residencia.placa.PlacaResidenciaVie
 import br.com.usinasantafe.pcpcomp.presenter.residencia.veiculo.VeiculoResidenciaScreen
 import br.com.usinasantafe.pcpcomp.presenter.residencia.veiculo.VeiculoResidenciaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.splash.SplashScreen
+import br.com.usinasantafe.pcpcomp.presenter.splash.SplashViewModel
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.cpf.CpfVisitTercScreen
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.cpf.CpfVisitTercViewModel
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.destino.DestinoVisitTercScreen
@@ -131,15 +133,22 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun NavigationGraph(
     navHostController: NavHostController = rememberNavController(),
-    startDestination: String = SPLASH_ROUTE,
+    startDestination: String = INITIAL_TEST_ROUTE,
     navActions: NavigationActions = remember(navHostController) {
         NavigationActions(navHostController)
     }
 ) {
     NavHost(navController = navHostController, startDestination = startDestination) {
+        composable(INITIAL_TEST_ROUTE) {
+            InititalTestScreen(
+                onNavSplash = { navActions.navigationToSplash() }
+            )
+        }
         composable(SPLASH_ROUTE) {
             SplashScreen(
+                viewModel = koinViewModel<SplashViewModel>(),
                 onNavMenuInicial = { navActions.navigationToMenuInicial() },
+                onNavMenuApont = { navActions.navigationToMenuApont() }
             )
         }
         composable(MENU_INICIAL_ROUTE) {

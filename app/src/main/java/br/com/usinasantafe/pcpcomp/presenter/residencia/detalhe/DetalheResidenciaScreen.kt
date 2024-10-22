@@ -62,7 +62,7 @@ fun DetalheResidenciaContent(
     veiculo: String,
     placa: String,
     motorista: String,
-    observ: String,
+    observ: String?,
     flagDialog: Boolean,
     failure: String,
     setCloseDialog: () -> Unit,
@@ -85,7 +85,7 @@ fun DetalheResidenciaContent(
         ) {
             item {
                 ItemListDesign(
-                    text = dthr,
+                    text = "DATA/HORA: $dthr",
                     setActionItem = {}
                 )
             }
@@ -97,27 +97,27 @@ fun DetalheResidenciaContent(
             }
             item {
                 ItemListDesign(
-                    text = veiculo,
+                    text = "VEÍCULO: $veiculo",
                     setActionItem = onNavVeiculo,
                     id = 1
                 )
             }
             item {
                 ItemListDesign(
-                    text = placa,
+                    text = "PLACA: $placa",
                     setActionItem = onNavPlaca,
                     id = 1
                 )
             }
             item {
                 ItemListDesign(
-                    text = motorista,
+                    text = "MOTORISTA: $motorista",
                     setActionItem = onNavMotorista
                 )
             }
             item {
                 ItemListDesign(
-                    text = observ,
+                    text = "OBSERVAÇÃO: ${if(observ.isNullOrEmpty()) "" else observ}",
                     setActionItem = onNavObserv
                 )
             }
@@ -147,12 +147,12 @@ fun DetalheResidenciaPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             DetalheResidenciaContent(
-                dthr = "",
-                tipoMov = "",
-                veiculo = "",
-                placa = "",
-                motorista = "",
-                observ = "",
+                dthr = "17/10/2024 10:30",
+                tipoMov = "ENTRADA",
+                veiculo = "GOL",
+                placa = "EWO2359",
+                motorista = "TESTE",
+                observ = null,
                 flagDialog = false,
                 failure = "",
                 setCloseDialog = {},

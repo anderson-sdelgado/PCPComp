@@ -9,6 +9,7 @@ interface MovEquipVisitTercPassagRoomDatasource {
     ): Result<Boolean>
 
     suspend fun addAll(list: List<MovEquipVisitTercPassagRoomModel>): Result<Boolean>
+    suspend fun delete(id: Int): Result<Boolean>
     suspend fun delete(
         idVisitTerc: Int,
         id: Int

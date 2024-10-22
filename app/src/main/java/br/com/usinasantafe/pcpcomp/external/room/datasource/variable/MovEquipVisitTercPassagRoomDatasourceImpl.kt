@@ -45,6 +45,23 @@ class MovEquipVisitTercPassagRoomDatasourceImpl(
         }
     }
 
+    override suspend fun delete(id: Int): Result<Boolean> {
+        try {
+            val list = movEquipVisitTercPassagDao.get(id)
+            for(mov in list) {
+                movEquipVisitTercPassagDao.delete(mov)
+            }
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipVisitTercPassagRoomDatasourceImpl.delete",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun delete(
         idVisitTerc: Int,
         id: Int

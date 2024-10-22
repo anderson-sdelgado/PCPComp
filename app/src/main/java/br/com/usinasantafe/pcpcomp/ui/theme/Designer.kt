@@ -32,14 +32,16 @@ import androidx.compose.ui.window.Dialog
 fun ItemListDesign(
     id: Int = 0,
     text: String,
+    font: Int = 22,
+    padding: Int = 8,
     setActionItem: () -> Unit
 ) {
     return Text(
         textAlign = TextAlign.Left,
         text = text,
-        fontSize = 22.sp,
+        fontSize = font.sp,
         modifier = Modifier
-            .padding(vertical = 8.dp)
+            .padding(vertical = padding.dp)
             .fillMaxWidth()
             .clickable {
                 setActionItem()
@@ -49,12 +51,15 @@ fun ItemListDesign(
 }
 
 @Composable
-fun TitleListDesign(text: String) {
+fun TitleListDesign(
+    text: String,
+    font: Int = 28
+) {
     return Text(
         textAlign = TextAlign.Center,
         text = text,
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
+        fontSize = font.sp,
         modifier = Modifier
             .fillMaxWidth()
     )

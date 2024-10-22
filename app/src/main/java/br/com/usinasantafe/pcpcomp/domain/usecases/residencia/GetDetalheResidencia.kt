@@ -24,28 +24,20 @@ class GetDetalheResidenciaImpl(
             if (resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val mov = resultGet.getOrNull()!!
-            val dthr = "DATA/HORA: ${
-                SimpleDateFormat(
-                    "dd/MM/yyyy HH:mm",
-                    Locale("pt", "BR")
-                ).format(mov.dthrMovEquipResidencia)
-            }"
+            val dthr = SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale("pt", "BR")
+            ).format(mov.dthrMovEquipResidencia)
             val tipoMov = if (mov.tipoMovEquipResidencia!!.ordinal == 0) "ENTRADA" else "SAÍDA"
-            val veiculo = "VEÍCULO: ${mov.veiculoMovEquipResidencia}"
-            val placa = "PLACA: ${mov.placaMovEquipResidencia}"
-            val motorista = "MOTORISTA: ${mov.motoristaMovEquipResidencia}"
-            val descrObserv =
-                if (mov.observMovEquipResidencia.isNullOrEmpty()) "" else mov.observMovEquipResidencia
-            val observ = "OBSERVAÇÕES: $descrObserv"
             return Result.success(
                 DetalheResidenciaModel(
                     id = id,
                     dthr = dthr,
                     tipoMov = tipoMov,
-                    veiculo = veiculo,
-                    placa = placa,
-                    motorista = motorista,
-                    observ = observ
+                    veiculo = mov.veiculoMovEquipResidencia!!,
+                    placa = mov.placaMovEquipResidencia!!,
+                    motorista = mov.motoristaMovEquipResidencia!!,
+                    observ = mov.observMovEquipResidencia
                 )
             )
         } catch (e: Exception){

@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetMovEquipVisitTercInsideList
-import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartMovEquipVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartInputMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +27,7 @@ class MovEquipVisitTercListViewModelTest {
     @Test
     fun `Check return failure if have error in getHeader`() = runTest {
         val getHeader = mock<GetHeader>()
-        val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
+        val startInputMovEquipVisitTerc = mock<StartInputMovEquipVisitTerc>()
         val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(getHeader()).thenReturn(
             Result.failure(
@@ -40,7 +40,7 @@ class MovEquipVisitTercListViewModelTest {
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
             getMovEquipVisitTercInsideList,
-            startMovEquipVisitTerc
+            startInputMovEquipVisitTerc
         )
         viewModel.returnHeader()
         assertTrue(viewModel.uiState.value.flagDialog)
@@ -53,7 +53,7 @@ class MovEquipVisitTercListViewModelTest {
     @Test
     fun `Check return Nome Vigia if getHeader execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
-        val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
+        val startInputMovEquipVisitTerc = mock<StartInputMovEquipVisitTerc>()
         val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(getHeader()).thenReturn(
             Result.success(
@@ -66,7 +66,7 @@ class MovEquipVisitTercListViewModelTest {
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
             getMovEquipVisitTercInsideList,
-            startMovEquipVisitTerc
+            startInputMovEquipVisitTerc
         )
         viewModel.returnHeader()
         assertEquals(viewModel.uiState.value.descrVigia, "19759 - Anderson da Silva Delgado")
@@ -79,7 +79,7 @@ class MovEquipVisitTercListViewModelTest {
     @Test
     fun `Check return failure if have error in recoverMovEquipInputList`() = runTest {
         val getHeader = mock<GetHeader>()
-        val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
+        val startInputMovEquipVisitTerc = mock<StartInputMovEquipVisitTerc>()
         val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(getMovEquipVisitTercInsideList()).thenReturn(
             Result.failure(
@@ -92,7 +92,7 @@ class MovEquipVisitTercListViewModelTest {
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
             getMovEquipVisitTercInsideList,
-            startMovEquipVisitTerc
+            startInputMovEquipVisitTerc
         )
         viewModel.recoverMovEquipList()
         assertTrue(viewModel.uiState.value.flagDialog)
@@ -105,7 +105,7 @@ class MovEquipVisitTercListViewModelTest {
     @Test
     fun `Check return list if recoverMovEquipInputList execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
-        val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
+        val startInputMovEquipVisitTerc = mock<StartInputMovEquipVisitTerc>()
         val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
         whenever(getMovEquipVisitTercInsideList()).thenReturn(
             Result.success(
@@ -124,7 +124,7 @@ class MovEquipVisitTercListViewModelTest {
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
             getMovEquipVisitTercInsideList,
-            startMovEquipVisitTerc
+            startInputMovEquipVisitTerc
         )
         viewModel.recoverMovEquipList()
         assertEquals(viewModel.uiState.value.movEquipVisitTercModelList.size, 1)
@@ -137,9 +137,9 @@ class MovEquipVisitTercListViewModelTest {
     @Test
     fun `Check return failure if have error in startMovEquipVisitTerc`() = runTest {
         val getHeader = mock<GetHeader>()
-        val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
+        val startInputMovEquipVisitTerc = mock<StartInputMovEquipVisitTerc>()
         val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
-        whenever(startMovEquipVisitTerc()).thenReturn(
+        whenever(startInputMovEquipVisitTerc()).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "StartMovEquipVisitTerc",
@@ -150,7 +150,7 @@ class MovEquipVisitTercListViewModelTest {
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
             getMovEquipVisitTercInsideList,
-            startMovEquipVisitTerc
+            startInputMovEquipVisitTerc
         )
         viewModel.startMov()
         assertEquals(viewModel.uiState.value.flagDialog, true)
@@ -163,15 +163,15 @@ class MovEquipVisitTercListViewModelTest {
     @Test
     fun `Check return true if startMovEquipVisitTerc execute correctly`() = runTest {
         val getHeader = mock<GetHeader>()
-        val startMovEquipVisitTerc = mock<StartMovEquipVisitTerc>()
+        val startInputMovEquipVisitTerc = mock<StartInputMovEquipVisitTerc>()
         val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
-        whenever(startMovEquipVisitTerc()).thenReturn(
+        whenever(startInputMovEquipVisitTerc()).thenReturn(
             Result.success(true)
         )
         val viewModel = MovEquipVisitTercListViewModel(
             getHeader,
             getMovEquipVisitTercInsideList,
-            startMovEquipVisitTerc
+            startInputMovEquipVisitTerc
         )
         viewModel.startMov()
         assertTrue(viewModel.uiState.value.flagAccess)

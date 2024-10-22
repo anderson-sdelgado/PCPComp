@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
+import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
@@ -22,16 +23,25 @@ class SetPlacaVisitTercImpl(
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean> {
-        val resultSet = movEquipVisitTercRepository.setPlaca(
-            placa = placa,
-            flowApp = flowApp,
-            id = id
-        )
-        if (resultSet.isFailure)
-            return Result.failure(resultSet.exceptionOrNull()!!)
-        if(flowApp == FlowApp.CHANGE)
-            startProcessSendData()
-        return Result.success(true)
+        try {
+            val resultSet = movEquipVisitTercRepository.setPlaca(
+                placa = placa,
+                flowApp = flowApp,
+                id = id
+            )
+            if (resultSet.isFailure)
+                return Result.failure(resultSet.exceptionOrNull()!!)
+            if(flowApp == FlowApp.CHANGE)
+                startProcessSendData()
+            return Result.success(true)
+        } catch (e: Exception){
+            return Result.failure(
+                UsecaseException(
+                    function = "SetPlacaVisitTercImpl",
+                    cause = e.cause
+                )
+            )
+        }
     }
 
 }

@@ -24,4 +24,7 @@ interface MovEquipProprioPassagDao {
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO_PASSAG WHERE idMovEquipProprio = :idMov AND matricColab = :matricColab")
     suspend fun get(idMov: Int, matricColab: Int): MovEquipProprioPassagRoomModel
+
+    @Query("SELECT * FROM $TB_MOV_EQUIP_PROPRIO_PASSAG WHERE idMovEquipProprio = :idMov")
+    suspend fun get(idMov: Int): List<MovEquipProprioPassagRoomModel>
 }

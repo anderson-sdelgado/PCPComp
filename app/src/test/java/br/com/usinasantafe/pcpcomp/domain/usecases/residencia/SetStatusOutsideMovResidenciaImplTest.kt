@@ -9,7 +9,7 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class OutsideMovResidenciaImplTest {
+class SetStatusOutsideMovResidenciaImplTest {
 
     @Test
     fun `Check return failure if have failure in MovEquipResidenciaRepository get`() =
@@ -25,7 +25,7 @@ class OutsideMovResidenciaImplTest {
                     )
                 )
             )
-            val usecase = OutsideMovResidenciaImpl(
+            val usecase = SetStatusOutsideMovResidenciaImpl(
                 movEquipResidenciaRepository,
             )
             val result = usecase(1)
@@ -60,7 +60,7 @@ class OutsideMovResidenciaImplTest {
                     )
                 )
             )
-            val usecase = OutsideMovResidenciaImpl(
+            val usecase = SetStatusOutsideMovResidenciaImpl(
                 movEquipResidenciaRepository,
             )
             val result = usecase(1)
@@ -90,7 +90,7 @@ class OutsideMovResidenciaImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = OutsideMovResidenciaImpl(
+            val usecase = SetStatusOutsideMovResidenciaImpl(
                 movEquipResidenciaRepository,
             )
             val result = usecase(1)

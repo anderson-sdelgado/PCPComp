@@ -20,8 +20,29 @@ class MovEquipProprioRepositoryImpl(
     private val movEquipProprioRetrofitDatasource: MovEquipProprioRetrofitDatasource,
 ) : MovEquipProprioRepository {
 
+    override suspend fun checkOpen(): Result<Boolean> {
+        return movEquipProprioRoomDatasource.checkOpen()
+    }
+
     override suspend fun checkSend(): Result<Boolean> {
         return movEquipProprioRoomDatasource.checkSend()
+    }
+
+    override suspend fun delete(id: Int): Result<Boolean> {
+        try {
+            val resultGet = movEquipProprioRoomDatasource.get(id)
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            val model = resultGet.getOrNull()!!
+            return movEquipProprioRoomDatasource.delete(model)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.delete",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun get(id: Int): Result<MovEquipProprio> {
@@ -172,6 +193,26 @@ class MovEquipProprioRepositoryImpl(
             return Result.failure(
                 RepositoryException(
                     function = "MovEquipProprioRepositoryImpl.listSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSent(): Result<List<MovEquipProprio>> {
+        try {
+            val resultListSent =
+                movEquipProprioRoomDatasource.listSent()
+            if (resultListSent.isFailure)
+                return Result.failure(resultListSent.exceptionOrNull()!!)
+            val listSent = resultListSent.getOrNull()!!.map {
+                it.roomModelToEntity()
+            }
+            return Result.success(listSent)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "MovEquipProprioRepositoryImpl.listSent",
                     cause = e
                 )
             )

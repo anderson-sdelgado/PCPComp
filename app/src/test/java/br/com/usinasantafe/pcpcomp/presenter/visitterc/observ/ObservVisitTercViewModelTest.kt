@@ -6,6 +6,9 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetObservVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SaveMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetObservVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartOutputMovEquipVisitTerc
+import br.com.usinasantafe.pcpcomp.infra.repositories.variable.MovEquipProprioEquipSegRepositoryImpl
+import br.com.usinasantafe.pcpcomp.infra.repositories.variable.MovEquipProprioPassagRepositoryImpl
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
@@ -27,11 +30,22 @@ class ObservVisitTercViewModelTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
+    private val setObservVisitTerc = mock<SetObservVisitTerc>()
+    private val getObservVisitTerc = mock<GetObservVisitTerc>()
+    private val startOutputMovEquipVisitTerc = mock<StartOutputMovEquipVisitTerc>()
+    private val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
+
+    private fun getViewModel(savedStateHandle: SavedStateHandle) =
+        ObservVisitTercViewModel(
+            savedStateHandle,
+            setObservVisitTerc,
+            getObservVisitTerc,
+            startOutputMovEquipVisitTerc,
+            saveMovEquipVisitTerc
+        )
+
     @Test
     fun `Check return failure if have error in GetObserv`() = runTest {
-        val setObservVisitTerc = mock<SetObservVisitTerc>()
-        val getObservVisitTerc = mock<GetObservVisitTerc>()
-        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
         whenever(
             getObservVisitTerc(
                 id = 1
@@ -44,17 +58,14 @@ class ObservVisitTercViewModelTest {
                 )
             )
         )
-        val viewModel = ObservVisitTercViewModel(
+        val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
                     TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     ID_ARGS to 1
                 )
-            ),
-            setObservVisitTerc,
-            getObservVisitTerc,
-            saveMovEquipVisitTerc
+            )
         )
         viewModel.recoverObserv()
         val state = viewModel.uiState.value
@@ -64,9 +75,6 @@ class ObservVisitTercViewModelTest {
 
     @Test
     fun `Check return observ if GetObserv execute successfully`() = runTest {
-        val setObservVisitTerc = mock<SetObservVisitTerc>()
-        val getObservVisitTerc = mock<GetObservVisitTerc>()
-        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
         whenever(
             getObservVisitTerc(
                 id = 1
@@ -74,17 +82,14 @@ class ObservVisitTercViewModelTest {
         ).thenReturn(
             Result.success("Observação")
         )
-        val viewModel = ObservVisitTercViewModel(
+        val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
                     TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     ID_ARGS to 1
                 )
-            ),
-            setObservVisitTerc,
-            getObservVisitTerc,
-            saveMovEquipVisitTerc
+            )
         )
         viewModel.recoverObserv()
         val state = viewModel.uiState.value
@@ -92,16 +97,49 @@ class ObservVisitTercViewModelTest {
     }
 
     @Test
+    fun `Check return failure if have error in StartOutputMovEquipVisitTerc`() = runTest {
+        whenever(
+            startOutputMovEquipVisitTerc(
+                id = 1
+            )
+        ).thenReturn(
+            Result.failure(
+                UsecaseException(
+                    function = "StartOutputMovEquipVisitTerc",
+                    cause = Exception()
+                )
+            )
+        )
+        val viewModel = getViewModel(
+            SavedStateHandle(
+                mapOf(
+                    TYPE_MOV_ARGS to TypeMov.OUTPUT.ordinal,
+                    FLOW_APP_ARGS to FlowApp.ADD.ordinal,
+                    ID_ARGS to 1
+                )
+            )
+        )
+        viewModel.onObservChanged("Observação")
+        viewModel.setObserv()
+        val state = viewModel.uiState.value
+        assertTrue(state.flagDialog)
+        assertEquals(state.failure, "Failure Usecase -> StartOutputMovEquipVisitTerc -> java.lang.Exception")
+    }
+
+    @Test
     fun `Check return failure if have error in SetObserv`() = runTest {
-        val setObservVisitTerc = mock<SetObservVisitTerc>()
-        val getObservVisitTerc = mock<GetObservVisitTerc>()
-        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
+        whenever(
+            startOutputMovEquipVisitTerc(
+                id = 1
+            )
+        ).thenReturn(
+            Result.success(true)
+        )
         whenever(
             setObservVisitTerc(
                 observ = "Observação",
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.INPUT,
-                id = 0
+                id = 1
             )
         ).thenReturn(
             Result.failure(
@@ -111,17 +149,14 @@ class ObservVisitTercViewModelTest {
                 )
             )
         )
-        val viewModel = ObservVisitTercViewModel(
+        val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMov.OUTPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
-                    ID_ARGS to 0
+                    ID_ARGS to 1
                 )
-            ),
-            setObservVisitTerc,
-            getObservVisitTerc,
-            saveMovEquipVisitTerc
+            )
         )
         viewModel.onObservChanged("Observação")
         viewModel.setObserv()
@@ -132,14 +167,10 @@ class ObservVisitTercViewModelTest {
 
     @Test
     fun `Check return failure if have error in SaveMovEquipVisitTerc`() = runTest {
-        val setObservVisitTerc = mock<SetObservVisitTerc>()
-        val getObservVisitTerc = mock<GetObservVisitTerc>()
-        val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
         whenever(
             setObservVisitTerc(
                 observ = "Observação",
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.INPUT,
                 id = 1
             )
         ).thenReturn(
@@ -147,7 +178,6 @@ class ObservVisitTercViewModelTest {
         )
         whenever(
             saveMovEquipVisitTerc(
-                flowApp = FlowApp.ADD,
                 typeMov = TypeMov.INPUT,
                 id = 1
             )
@@ -159,17 +189,14 @@ class ObservVisitTercViewModelTest {
                 )
             )
         )
-        val viewModel = ObservVisitTercViewModel(
+        val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
                     TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 1
                 )
-            ),
-            setObservVisitTerc,
-            getObservVisitTerc,
-            saveMovEquipVisitTerc
+            )
         )
         viewModel.onObservChanged("Observação")
         viewModel.setObserv()
@@ -184,14 +211,10 @@ class ObservVisitTercViewModelTest {
     @Test
     fun `Check return true if SetObserv execute successfully`() =
         runTest {
-            val setObservVisitTerc = mock<SetObservVisitTerc>()
-            val getObservVisitTerc = mock<GetObservVisitTerc>()
-            val saveMovEquipVisitTerc = mock<SaveMovEquipVisitTerc>()
             whenever(
                 setObservVisitTerc(
                     observ = "Observação",
                     flowApp = FlowApp.ADD,
-                    typeMov = TypeMov.INPUT,
                     id = 1
                 )
             ).thenReturn(
@@ -199,24 +222,20 @@ class ObservVisitTercViewModelTest {
             )
             whenever(
                 saveMovEquipVisitTerc(
-                    flowApp = FlowApp.ADD,
                     typeMov = TypeMov.INPUT,
                     id = 1
                 )
             ).thenReturn(
                 Result.success(true)
             )
-            val viewModel = ObservVisitTercViewModel(
+            val viewModel = getViewModel(
                 SavedStateHandle(
                     mapOf(
                         TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
                         FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                         ID_ARGS to 1
                     )
-                ),
-                setObservVisitTerc,
-                getObservVisitTerc,
-                saveMovEquipVisitTerc
+                )
             )
             viewModel.onObservChanged("Observação")
             viewModel.setObserv()

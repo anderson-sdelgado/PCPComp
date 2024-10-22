@@ -28,6 +28,12 @@ class GetPassagVisitTercListImpl(
         id: Int
     ): Result<List<PassagVisitTercModel>> {
         try {
+            val resultList = movEquipVisitTercPassagRepository.list(flowApp, id)
+            if (resultList.isFailure)
+                return Result.failure(resultList.exceptionOrNull()!!)
+            val passagList = resultList.getOrNull()!!
+            if (passagList.isEmpty())
+                return Result.success(emptyList())
             val resultTypeVisitTerc = movEquipVisitTercRepository.getTypeVisitTerc(
                 flowApp = flowApp,
                 id = id
@@ -35,10 +41,6 @@ class GetPassagVisitTercListImpl(
             if (resultTypeVisitTerc.isFailure)
                 return Result.failure(resultTypeVisitTerc.exceptionOrNull()!!)
             val typeVisitTerc = resultTypeVisitTerc.getOrNull()!!
-            val resultList = movEquipVisitTercPassagRepository.list(flowApp, id)
-            if (resultList.isFailure)
-                return Result.failure(resultList.exceptionOrNull()!!)
-            val passagList = resultList.getOrNull()!!
             val passagColabList = passagList.map {
                 when (typeVisitTerc) {
                     TypeVisitTerc.VISITANTE -> {

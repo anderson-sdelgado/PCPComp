@@ -5,7 +5,9 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 interface MovEquipProprioRepository {
+    suspend fun checkOpen(): Result<Boolean>
     suspend fun checkSend(): Result<Boolean>
+    suspend fun delete(id: Int): Result<Boolean>
     suspend fun get(id: Int): Result<MovEquipProprio>
     suspend fun getDestino(id: Int): Result<String>
     suspend fun getIdEquip(id: Int): Result<Int>
@@ -15,6 +17,7 @@ interface MovEquipProprioRepository {
     suspend fun getTipoMov(): Result<TypeMov>
     suspend fun listOpen(): Result<List<MovEquipProprio>>
     suspend fun listSend(): Result<List<MovEquipProprio>>
+    suspend fun listSent(): Result<List<MovEquipProprio>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int
@@ -61,9 +64,6 @@ interface MovEquipProprioRepository {
         list: List<MovEquipProprio>
     ): Result<Boolean>
 
-    suspend fun setSend(
-        id: Int
-    ): Result<Boolean>
-
+    suspend fun setSend(id: Int): Result<Boolean>
     suspend fun start(typeMov: TypeMov): Result<Boolean>
 }

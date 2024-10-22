@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.visitterc.moveditlist
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -70,7 +71,11 @@ fun MovEquipVisitTercEditListContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_edit_mov))
+        Spacer(modifier = Modifier.padding(vertical = 4.dp))
+        TitleListDesign(
+            text = stringResource(id = R.string.text_title_edit_mov)
+        )
+        Spacer(modifier = Modifier.padding(vertical = 6.dp))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -86,7 +91,8 @@ fun MovEquipVisitTercEditListContent(
                     setActionItem = {
                         onNavDetalhe(mov.id)
                     },
-                    id = mov.id
+                    id = mov.id,
+                    padding = 0
                 )
             }
         }
@@ -108,7 +114,7 @@ fun MovEquipVisitTercEditListContent(
         }
         BackHandler {}
 
-        if(flagDialog) {
+        if (flagDialog) {
             AlertDialogSimpleDesign(
                 text = stringResource(id = R.string.text_failure, failure),
                 setCloseDialog = setCloseDialog,
@@ -116,15 +122,15 @@ fun MovEquipVisitTercEditListContent(
             )
         }
 
-        if(flagDialogCheck){
+        if (flagDialogCheck) {
             AlertDialogCheckDesign(
                 text = stringResource(id = R.string.text_question_close_mov),
-                setCloseDialog = { setDialogCheck(false)  },
+                setCloseDialog = { setDialogCheck(false) },
                 setActionButtonOK = { closeAllMov() }
             )
         }
 
-        if(flagCloseAllMov){
+        if (flagCloseAllMov) {
             onNavMovEquipList()
         }
 
@@ -137,7 +143,26 @@ fun MovEquipVisitTercEditListPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MovEquipVisitTercEditListContent(
-                movEquipVisitTercModelList = emptyList(),
+                movEquipVisitTercModelList = listOf(
+                    MovEquipVisitTercModel(
+                        id = 1,
+                        dthr = "08/08/2024 12:00",
+                        motorista = "326.949.728-88 - ANDERSON DA SILVA DELGADO",
+                        veiculo = "GOL",
+                        placa = "ABC1234",
+                        tipoVisitTerc = "TERCEIRO",
+                        tipoMov = "SAÍDA"
+                    ),
+                    MovEquipVisitTercModel(
+                        id = 1,
+                        dthr = "08/08/2024 12:00",
+                        motorista = "123.456.789-00 - TESTE",
+                        veiculo = "GOL",
+                        placa = "ABC1234",
+                        tipoVisitTerc = "TERCEIRO",
+                        tipoMov = "ENTRADA"
+                    )
+                ),
                 closeAllMov = {},
                 flagDialog = false,
                 failure = "",

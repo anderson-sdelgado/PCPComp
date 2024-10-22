@@ -40,28 +40,10 @@ class PCPComp : Application(), KoinComponent, Configuration.Provider {
             workManagerFactory()
             modules(
                 listOf(
-                    viewModelModule,
-                    usecaseBackgroundModule,
-                    usecaseCleanTableModule,
-                    usecaseCommonModule,
-                    usecaseConfigModule,
-                    usecaseInitialModule,
-                    usecaseProprioModule,
-                    usecaseVisitTercModule,
-                    usecaseResidenciaModule,
-                    usecaseRecoverServerModule,
-                    usecaseUpdateTableModule,
-                    repositoryModule,
-                    datasourceSharedPreferencesModule,
-                    datasourceRoomModule,
-                    datasourceRetrofitModule,
-                    apiRetrofitModule,
-                    apiRoomModule,
                     sharedPreferencesModule,
                     retrofitModule,
                     roomModule,
-                    workManagerModule
-                )
+                ) + commonModuleList
             )
         }
     }
@@ -71,3 +53,24 @@ class PCPComp : Application(), KoinComponent, Configuration.Provider {
             .setMinimumLoggingLevel(android.util.Log.INFO)
             .build()
 }
+
+val commonModuleList = listOf(
+    viewModelModule,
+    usecaseBackgroundModule,
+    usecaseCleanTableModule,
+    usecaseCommonModule,
+    usecaseConfigModule,
+    usecaseInitialModule,
+    usecaseProprioModule,
+    usecaseVisitTercModule,
+    usecaseResidenciaModule,
+    usecaseRecoverServerModule,
+    usecaseUpdateTableModule,
+    repositoryModule,
+    datasourceSharedPreferencesModule,
+    datasourceRoomModule,
+    datasourceRetrofitModule,
+    apiRetrofitModule,
+    apiRoomModule,
+    workManagerModule,
+)

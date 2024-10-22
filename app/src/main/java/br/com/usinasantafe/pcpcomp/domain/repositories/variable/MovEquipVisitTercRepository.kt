@@ -5,7 +5,9 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 
 interface MovEquipVisitTercRepository {
+    suspend fun checkOpen(): Result<Boolean>
     suspend fun checkSend(): Result<Boolean>
+    suspend fun delete(id: Int): Result<Boolean>
     suspend fun get(id: Int): Result<MovEquipVisitTerc>
     suspend fun getDestino(id: Int): Result<String>
     suspend fun getIdVisitTerc(id: Int): Result<Int>
@@ -20,6 +22,7 @@ interface MovEquipVisitTercRepository {
     suspend fun listOpen(): Result<List<MovEquipVisitTerc>>
     suspend fun listInside(): Result<List<MovEquipVisitTerc>>
     suspend fun listSend(): Result<List<MovEquipVisitTerc>>
+    suspend fun listSent(): Result<List<MovEquipVisitTerc>>
     suspend fun save(
         matricVigia: Int,
         idLocal: Int

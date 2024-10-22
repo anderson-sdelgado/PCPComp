@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetObservVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SaveMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetObservVisitTerc
+import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartOutputMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
@@ -31,6 +32,7 @@ class ObservVisitTercViewModel(
     savedStateHandle: SavedStateHandle,
     private val setObservVisitTerc: SetObservVisitTerc,
     private val getObservVisitTerc: GetObservVisitTerc,
+    private val startOutputMovEquipVisitTerc: StartOutputMovEquipVisitTerc,
     private val saveMovEquipVisitTerc: SaveMovEquipVisitTerc
 ) : ViewModel() {
 
@@ -93,11 +95,29 @@ class ObservVisitTercViewModel(
     }
 
     fun setObserv() = viewModelScope.launch {
+        if (
+            (uiState.value.typeMov == TypeMov.OUTPUT) &&
+            (uiState.value.flowApp == FlowApp.ADD)
+        ) {
+            val resultStart = startOutputMovEquipVisitTerc(
+                id = uiState.value.id
+            )
+            if(resultStart.isFailure) {
+                val error = resultStart.exceptionOrNull()!!
+                val failure = "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+        }
         val resultSetObserv = setObservVisitTerc(
             observ = uiState.value.observ,
             flowApp = uiState.value.flowApp,
-            id = uiState.value.id,
-            typeMov = uiState.value.typeMov
+            id = uiState.value.id
         )
         if(resultSetObserv.isFailure) {
             val error = resultSetObserv.exceptionOrNull()!!
@@ -112,7 +132,6 @@ class ObservVisitTercViewModel(
         }
         if(uiState.value.flowApp == FlowApp.ADD){
             val resultSaveMovEquip = saveMovEquipVisitTerc(
-                flowApp = uiState.value.flowApp,
                 typeMov = uiState.value.typeMov,
                 id = uiState.value.id
             )

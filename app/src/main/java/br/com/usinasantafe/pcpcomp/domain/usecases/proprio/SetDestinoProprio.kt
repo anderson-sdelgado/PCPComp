@@ -29,9 +29,8 @@ class SetDestinoProprioImpl(
         )
         if (resultSet.isFailure)
             return Result.failure(resultSet.exceptionOrNull()!!)
-        if(flowApp == FlowApp.CHANGE){
+        if(flowApp == FlowApp.CHANGE)
             startProcessSendData()
-        }
         return Result.success(true)
     }
 

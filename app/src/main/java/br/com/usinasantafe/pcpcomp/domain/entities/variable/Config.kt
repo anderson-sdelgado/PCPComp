@@ -12,6 +12,4 @@ data class Config(
     var flagUpdate: FlagUpdate = FlagUpdate.OUTDATED,
     var matricVigia: Int? = null,
     var idLocal: Int? = null,
-    var statusSend: StatusSend = StatusSend.SENT,
-    var statusData: StatusData = StatusData.CLOSE,
 )

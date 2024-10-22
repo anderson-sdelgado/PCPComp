@@ -23,15 +23,8 @@ class GetMovEquipVisitTercInsideListImpl(
                 return Result.failure(resultList.exceptionOrNull()!!)
             val list = resultList.getOrNull()!!
             val modelList = list.map {
-                val resultTipo = movEquipVisitTercRepository.getTypeVisitTerc(
-                    flowApp = FlowApp.CHANGE,
-                    id = it.idMovEquipVisitTerc!!
-                )
-                if (resultTipo.isFailure)
-                    return Result.failure(resultTipo.exceptionOrNull()!!)
-                val typeVisitTerc = resultTipo.getOrNull()!!
                 val resultMotorista = getMotoristaVisitTerc(
-                    typeVisitTerc = typeVisitTerc,
+                    typeVisitTerc = it.tipoVisitTercMovEquipVisitTerc!!,
                     idVisitTerc = it.idVisitTercMovEquipVisitTerc!!
                 )
                 if (resultMotorista.isFailure)
@@ -39,15 +32,14 @@ class GetMovEquipVisitTercInsideListImpl(
                 val motorista = resultMotorista.getOrNull()!!
                 MovEquipVisitTercModel(
                     id = it.idMovEquipVisitTerc!!,
-                    dthr = "DATA/HORA: ${
-                        SimpleDateFormat(
-                            "dd/MM/yyyy HH:mm",
-                            Locale("pt", "BR")
-                        ).format(it.dthrMovEquipVisitTerc)}",
-                    veiculo = "VEÍCULO: ${it.veiculoMovEquipVisitTerc!!}",
-                    placa = "PLACA: ${it.placaMovEquipVisitTerc!!}",
-                    tipoVisitTerc = typeVisitTerc.name,
-                    motorista = "MOTORISTA: $motorista"
+                    dthr = SimpleDateFormat(
+                        "dd/MM/yyyy HH:mm",
+                        Locale("pt", "BR")
+                    ).format(it.dthrMovEquipVisitTerc),
+                    veiculo = it.veiculoMovEquipVisitTerc!!,
+                    placa = it.placaMovEquipVisitTerc!!,
+                    tipoVisitTerc = it.tipoVisitTercMovEquipVisitTerc!!.name,
+                    motorista = motorista
                 )
             }
             return Result.success(modelList)

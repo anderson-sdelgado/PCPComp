@@ -412,4 +412,40 @@ class MovEquipProprioPassagRepositoryImplTest {
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
         }
+
+    @Test
+    fun `Check return failure if have error in movEquipProprioPassagRoomDatasource delete`() =
+        runTest {
+            whenever(
+                movEquipProprioPassagRoomDatasource.delete(1)
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "MovEquipProprioPassagRoomDatasource.delete",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.delete(1)
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> MovEquipProprioPassagRoomDatasource.delete"
+            )
+        }
+
+    @Test
+    fun `Check return true if MovEquipProprioPassagRepository delete execute successfully`() =
+        runTest {
+            whenever(
+                movEquipProprioPassagRoomDatasource.delete(1)
+            ).thenReturn(
+                Result.success(true)
+            )
+            val repository = getRepository()
+            val result = repository.delete(1)
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
 }

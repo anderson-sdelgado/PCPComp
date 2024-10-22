@@ -29,15 +29,13 @@ class GetDetalheVisitTercImpl(
             if (resultGet.isFailure)
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val mov = resultGet.getOrNull()!!
-            val dthr = "DATA/HORA: ${
-                SimpleDateFormat(
-                    "dd/MM/yyyy HH:mm",
-                    Locale("pt", "BR")
-                ).format(mov.dthrMovEquipVisitTerc)
-            }"
+            val dthr = SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale("pt", "BR")
+            ).format(mov.dthrMovEquipVisitTerc)
             val tipoMov = if (mov.tipoMovEquipVisitTerc!!.ordinal == 0) "ENTRADA" else "SAÍDA"
-            val veiculo = "VEÍCULO: ${mov.veiculoMovEquipVisitTerc}"
-            val placa = "PLACA: ${mov.placaMovEquipVisitTerc}"
+            val veiculo = "${mov.veiculoMovEquipVisitTerc}"
+            val placa = "${mov.placaMovEquipVisitTerc}"
             val tipoVisitTerc = when (mov.tipoVisitTercMovEquipVisitTerc!!) {
                 TypeVisitTerc.VISITANTE -> "VISITANTE"
                 TypeVisitTerc.TERCEIRO -> "TERCEIRO"
@@ -48,9 +46,7 @@ class GetDetalheVisitTercImpl(
             )
             if (resultGetMotorista.isFailure)
                 return Result.failure(resultGetMotorista.exceptionOrNull()!!)
-            val motorista = "MOTORISTA: ${resultGetMotorista.getOrNull()!!}"
-            var passageiro = "PASSAGEIROS: "
-
+            val motorista = resultGetMotorista.getOrNull()!!
             val resultPassagList =
                 movEquipVisitTercPassagRepository.list(
                     FlowApp.CHANGE,
@@ -59,6 +55,8 @@ class GetDetalheVisitTercImpl(
             if (resultPassagList.isFailure)
                 return Result.failure(resultPassagList.exceptionOrNull()!!)
             val passagList = resultPassagList.getOrNull()!!
+
+            var passageiro = ""
             for (passag in passagList) {
                 val resultGetPassag = getMotoristaVisitTerc(
                     mov.tipoVisitTercMovEquipVisitTerc!!,
@@ -66,15 +64,16 @@ class GetDetalheVisitTercImpl(
                 )
                 if (resultGetPassag.isFailure)
                     return Result.failure(resultGetPassag.exceptionOrNull()!!)
-                passageiro += "${resultGetPassag.getOrNull()!!}; "
+                if(passageiro != ""){
+                    passageiro += " "
+                }
+                passageiro += "${resultGetPassag.getOrNull()!!};"
             }
 
-            val descrDestino =
+            val destino =
                 if (mov.destinoMovEquipVisitTerc.isNullOrEmpty()) "" else mov.destinoMovEquipVisitTerc
-            val destino = "DESTINO: $descrDestino"
-            val descrObserv =
+            val observ =
                 if (mov.observMovEquipVisitTerc.isNullOrEmpty()) "" else mov.observMovEquipVisitTerc
-            val observ = "OBSERVAÇÕES: $descrObserv"
 
             return Result.success(
                 DetalheVisitTercModel(

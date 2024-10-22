@@ -11,7 +11,7 @@ interface MovEquipVisitTercPassagRepository {
     ): Result<Boolean>
 
     suspend fun clear(): Result<Boolean>
-
+    suspend fun delete(id: Int): Result<Boolean>
     suspend fun delete(
         idVisitTerc: Int,
         flowApp: FlowApp,

@@ -494,4 +494,134 @@ class MovEquipProprioRoomDatasourceImplTest {
         )
     }
 
+    @Test
+    fun `Check data returned in listSent`() =
+        runTest {
+            val roomModel1 = MovEquipProprioRoomModel(
+                idMovEquipProprio = 1,
+                matricVigiaMovEquipProprio = 19759,
+                idLocalMovEquipProprio = 1,
+                tipoMovEquipProprio = TypeMov.INPUT,
+                dthrMovEquipProprio = 1723213270250,
+                idEquipMovEquipProprio = 1,
+                matricColabMovEquipProprio = 19759,
+                destinoMovEquipProprio = "TESTE DESTINO",
+                notaFiscalMovEquipProprio = 123456789,
+                observMovEquipProprio = "TESTE OBSERV",
+                statusMovEquipProprio = StatusData.OPEN,
+                statusSendMovEquipProprio = StatusSend.SENT
+            )
+            val roomModel2 = MovEquipProprioRoomModel(
+                idMovEquipProprio = 2,
+                matricVigiaMovEquipProprio = 19759,
+                idLocalMovEquipProprio = 1,
+                tipoMovEquipProprio = TypeMov.INPUT,
+                dthrMovEquipProprio = 1723213270250,
+                idEquipMovEquipProprio = 1,
+                matricColabMovEquipProprio = 19759,
+                destinoMovEquipProprio = "TESTE DESTINO",
+                notaFiscalMovEquipProprio = 123456789,
+                observMovEquipProprio = "TESTE OBSERV",
+                statusMovEquipProprio = StatusData.OPEN,
+                statusSendMovEquipProprio = StatusSend.SENT
+            )
+            val roomModel3 = MovEquipProprioRoomModel(
+                idMovEquipProprio = 3,
+                matricVigiaMovEquipProprio = 19759,
+                idLocalMovEquipProprio = 1,
+                tipoMovEquipProprio = TypeMov.INPUT,
+                dthrMovEquipProprio = 1723213270250,
+                idEquipMovEquipProprio = 1,
+                matricColabMovEquipProprio = 19759,
+                destinoMovEquipProprio = "TESTE DESTINO",
+                notaFiscalMovEquipProprio = 123456789,
+                observMovEquipProprio = "TESTE OBSERV",
+                statusMovEquipProprio = StatusData.OPEN,
+                statusSendMovEquipProprio = StatusSend.SEND
+            )
+            movEquipProprioDao.insert(roomModel1)
+            movEquipProprioDao.insert(roomModel2)
+            movEquipProprioDao.insert(roomModel3)
+            val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+            val result = datasource.listSent()
+            assertEquals(result.isSuccess, true)
+            val list = result.getOrNull()!!
+            assertEquals(list.size, 2)
+            assertEquals(list[0].idMovEquipProprio, 1)
+            assertEquals(list[1].idMovEquipProprio, 2)
+        }
+
+    @Test
+    fun `Check data returned in delete`() =
+        runTest {
+            val roomModel1 = MovEquipProprioRoomModel(
+                idMovEquipProprio = 1,
+                matricVigiaMovEquipProprio = 19759,
+                idLocalMovEquipProprio = 1,
+                tipoMovEquipProprio = TypeMov.INPUT,
+                dthrMovEquipProprio = 1723213270250,
+                idEquipMovEquipProprio = 1,
+                matricColabMovEquipProprio = 19759,
+                destinoMovEquipProprio = "TESTE DESTINO",
+                notaFiscalMovEquipProprio = 123456789,
+                observMovEquipProprio = "TESTE OBSERV",
+                statusMovEquipProprio = StatusData.OPEN,
+                statusSendMovEquipProprio = StatusSend.SENT
+            )
+            val roomModel2 = MovEquipProprioRoomModel(
+                idMovEquipProprio = 2,
+                matricVigiaMovEquipProprio = 19759,
+                idLocalMovEquipProprio = 1,
+                tipoMovEquipProprio = TypeMov.INPUT,
+                dthrMovEquipProprio = 1723213270250,
+                idEquipMovEquipProprio = 1,
+                matricColabMovEquipProprio = 19759,
+                destinoMovEquipProprio = "TESTE DESTINO",
+                notaFiscalMovEquipProprio = 123456789,
+                observMovEquipProprio = "TESTE OBSERV",
+                statusMovEquipProprio = StatusData.OPEN,
+                statusSendMovEquipProprio = StatusSend.SENT
+            )
+            movEquipProprioDao.insert(roomModel1)
+            movEquipProprioDao.insert(roomModel2)
+            val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+            val result = datasource.delete(roomModel1)
+            assertEquals(result.isSuccess, true)
+            val resultList = datasource.listSent()
+            assertEquals(resultList.isSuccess, true)
+            val list = resultList.getOrNull()!!
+            assertEquals(list.size, 1)
+            assertEquals(list[0].idMovEquipProprio, 2)
+        }
+
+    @Test
+    fun `Check return true if have mov open`() = runTest {
+        val movEquipProprioRoomModel = MovEquipProprioRoomModel(
+            matricVigiaMovEquipProprio = 19759,
+            idLocalMovEquipProprio = 1,
+            tipoMovEquipProprio = TypeMov.INPUT,
+            dthrMovEquipProprio = 1723213270250,
+            idEquipMovEquipProprio = 1,
+            matricColabMovEquipProprio = 19759,
+            destinoMovEquipProprio = "TESTE DESTINO",
+            notaFiscalMovEquipProprio = 123456789,
+            observMovEquipProprio = "TESTE OBSERV",
+            statusMovEquipProprio = StatusData.OPEN,
+            statusSendMovEquipProprio = StatusSend.SEND
+        )
+        val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+        datasource.save(movEquipProprioRoomModel)
+        val resultCheckSend = datasource.checkOpen()
+        assertTrue(resultCheckSend.isSuccess)
+        assertTrue(resultCheckSend.getOrNull()!!)
+    }
+
+    @Test
+    fun `Check return false if not have mov open`() = runTest {
+        val datasource = MovEquipProprioRoomDatasourceImpl(movEquipProprioDao)
+        val result = datasource.checkOpen()
+        assertTrue(result.isSuccess)
+        assertFalse(result.getOrNull()!!)
+    }
+
 }

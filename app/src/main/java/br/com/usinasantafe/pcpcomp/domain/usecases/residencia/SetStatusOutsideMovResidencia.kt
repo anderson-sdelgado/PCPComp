@@ -3,14 +3,14 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 
-interface OutsideMovResidencia {    suspend operator fun invoke(
+interface SetStatusOutsideMovResidencia {    suspend operator fun invoke(
     id: Int
 ): Result<Boolean>
 }
 
-class OutsideMovResidenciaImpl(
+class SetStatusOutsideMovResidenciaImpl(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
-): OutsideMovResidencia {
+): SetStatusOutsideMovResidencia {
 
     override suspend fun invoke(
         id: Int

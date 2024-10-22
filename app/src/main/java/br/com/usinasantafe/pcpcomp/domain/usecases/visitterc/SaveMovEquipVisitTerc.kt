@@ -5,13 +5,11 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 interface SaveMovEquipVisitTerc {
     suspend operator fun invoke(
-        flowApp: FlowApp,
         typeMov: TypeMov,
         id: Int
     ): Result<Boolean>
@@ -22,20 +20,16 @@ class SaveMovEquipVisitTercImpl(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
     private val startProcessSendData: StartProcessSendData,
-    private val outsideMovVisitTerc: OutsideMovVisitTerc
+    private val setStatusOutsideMovVisitTerc: SetStatusOutsideMovVisitTerc
 ) : SaveMovEquipVisitTerc {
 
     override suspend fun invoke(
-        flowApp: FlowApp,
         typeMov: TypeMov,
         id: Int
     ): Result<Boolean> {
         try {
-            if (
-                (flowApp == FlowApp.ADD) &&
-                (typeMov == TypeMov.OUTPUT)
-            ) {
-                val resultClose = outsideMovVisitTerc(id)
+            if (typeMov == TypeMov.OUTPUT) {
+                val resultClose = setStatusOutsideMovVisitTerc(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }
@@ -50,12 +44,14 @@ class SaveMovEquipVisitTercImpl(
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
             val idSave = resultSave.getOrNull()!!
+            if (typeMov == TypeMov.OUTPUT) {
+                val resultClose = setStatusOutsideMovVisitTerc(idSave)
+                if (resultClose.isFailure)
+                    return Result.failure(resultClose.exceptionOrNull()!!)
+            }
             val resultSavePassag = movEquipVisitTercPassagRepository.save(idSave)
             if (resultSavePassag.isFailure)
                 return Result.failure(resultSavePassag.exceptionOrNull()!!)
-            val resultSetStatusSend = configRepository.setStatusSend(StatusSend.SEND)
-            if (resultSetStatusSend.isFailure)
-                return Result.failure(resultSetStatusSend.exceptionOrNull()!!)
             startProcessSendData()
             return Result.success(true)
         } catch (e: Exception) {

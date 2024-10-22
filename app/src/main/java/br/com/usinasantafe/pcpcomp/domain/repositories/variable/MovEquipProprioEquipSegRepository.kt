@@ -11,16 +11,18 @@ interface MovEquipProprioEquipSegRepository {
     ): Result<Boolean>
 
     suspend fun clear(): Result<Boolean>
-    suspend fun list(
-        flowApp: FlowApp,
-        id: Int
-    ): Result<List<MovEquipProprioEquipSeg>>
-
+    suspend fun delete(id: Int): Result<Boolean>
     suspend fun delete(
         idEquip: Int,
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
+
+
+    suspend fun list(
+        flowApp: FlowApp,
+        id: Int
+    ): Result<List<MovEquipProprioEquipSeg>>
 
     suspend fun save(
         id: Int

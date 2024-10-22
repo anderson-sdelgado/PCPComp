@@ -3,10 +3,13 @@ package br.com.usinasantafe.pcpcomp.infra.datasource.room.variable
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 
 interface MovEquipProprioRoomDatasource {
+    suspend fun checkOpen(): Result<Boolean>
     suspend fun checkSend(): Result<Boolean>
+    suspend fun delete(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Boolean>
     suspend fun get(id: Int): Result<MovEquipProprioRoomModel>
     suspend fun listOpen(): Result<List<MovEquipProprioRoomModel>>
     suspend fun listSend(): Result<List<MovEquipProprioRoomModel>>
+    suspend fun listSent(): Result<List<MovEquipProprioRoomModel>>
     suspend fun save(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Long>
     suspend fun setClose(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Boolean>
     suspend fun setDestino(

@@ -34,26 +34,24 @@ class GetDetalheProprioImpl(
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val mov = resultGet.getOrNull()!!
 
-            val dthr = "DATA/HORA: ${
-                SimpleDateFormat(
-                    "dd/MM/yyyy HH:mm",
-                    Locale("pt", "BR")
-                ).format(mov.dthrMovEquipProprio)
-            }"
+            val dthr = SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale("pt", "BR")
+            ).format(mov.dthrMovEquipProprio)
             val tipoMov = if (mov.tipoMovEquipProprio!!.ordinal == 0) "ENTRADA" else "SAÍDA"
 
             val resultNro = equipRepository.getNro(mov.idEquipMovEquipProprio!!)
             if (resultNro.isFailure)
                 return Result.failure(resultNro.exceptionOrNull()!!)
             val nroEquip = resultNro.getOrNull()!!
-            val veiculo = "VEÍCULO: $nroEquip"
+            val veiculo = "$nroEquip"
 
             val resultEquipSegList =
                 movEquipProprioEquipSegRepository.list(FlowApp.CHANGE, mov.idMovEquipProprio!!)
             if (resultEquipSegList.isFailure)
                 return Result.failure(resultEquipSegList.exceptionOrNull()!!)
             val equipSegList = resultEquipSegList.getOrNull()!!
-            var veicSeg = "VEÍCULO SECUNDÁRIO: "
+            var veicSeg = ""
             for (equipSeg in equipSegList) {
                 val resultNroEquipSeg = equipRepository.getNro(equipSeg.idEquip!!)
                 if (resultNroEquipSeg.isFailure)
@@ -66,7 +64,7 @@ class GetDetalheProprioImpl(
             if (resultGetNome.isFailure)
                 return Result.failure(resultGetNome.exceptionOrNull()!!)
             val nome = resultGetNome.getOrNull()!!
-            val motorista = "MOTORISTA: ${mov.matricColabMovEquipProprio!!} - $nome"
+            val motorista = "${mov.matricColabMovEquipProprio!!} - $nome"
 
             val resultPassagList =
                 movEquipProprioPassagRepository.list(
@@ -76,7 +74,7 @@ class GetDetalheProprioImpl(
             if (resultPassagList.isFailure)
                 return Result.failure(resultPassagList.exceptionOrNull()!!)
             val passagList = resultPassagList.getOrNull()!!
-            var passageiro = "PASSAGEIROS: "
+            var passageiro = ""
             for (passag in passagList) {
                 val resultGetNomePassag = colabRepository.getNome(passag.matricColab!!)
                 if (resultGetNomePassag.isFailure)
@@ -84,15 +82,14 @@ class GetDetalheProprioImpl(
                 passageiro += "${passag.matricColab!!} - ${resultGetNomePassag.getOrNull()!!}; "
             }
 
-            val destino = "DESTINO: ${mov.destinoMovEquipProprio}"
+            val destino = "${mov.destinoMovEquipProprio}"
 
             val descrNotaFiscal =
                 if (mov.notaFiscalMovEquipProprio == null) "" else mov.notaFiscalMovEquipProprio
-            val notaFiscal = "NOTA FISCAL: $descrNotaFiscal"
+            val notaFiscal = "$descrNotaFiscal"
 
-            val descrObserv =
+            val observ =
                 if (mov.observMovEquipProprio.isNullOrEmpty()) "" else mov.observMovEquipProprio
-            val observ = "OBSERVAÇÕES: $descrObserv"
 
             return Result.success(
                 DetalheProprioModel(

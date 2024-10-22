@@ -550,4 +550,98 @@ class MovEquipVisitTercRoomDatasourceImplTest {
         )
     }
 
+    @Test
+    fun `Check data returned in listSent`() =
+        runTest {
+            val roomModel1 = MovEquipVisitTercRoomModel(
+                nroMatricVigiaMovEquipVisitTerc = 19759,
+                idLocalMovEquipVisitTerc = 1,
+                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                idVisitTercMovEquipVisitTerc = 1000,
+                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+                dthrMovEquipVisitTerc = 1723213270250,
+                veiculoMovEquipVisitTerc = "VEICULO TESTE",
+                placaMovEquipVisitTerc = "PLACA TESTE",
+                destinoMovEquipVisitTerc = "DESTINO TESTE",
+                observMovEquipVisitTerc = "OBSERV TESTE",
+                statusMovEquipVisitTerc = StatusData.OPEN,
+                statusSendMovEquipVisitTerc = StatusSend.SENT,
+                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            )
+            val roomModel2 = MovEquipVisitTercRoomModel(
+                nroMatricVigiaMovEquipVisitTerc = 19759,
+                idLocalMovEquipVisitTerc = 1,
+                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                idVisitTercMovEquipVisitTerc = 1000,
+                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+                dthrMovEquipVisitTerc = 1723213270250,
+                veiculoMovEquipVisitTerc = "VEICULO TESTE",
+                placaMovEquipVisitTerc = "PLACA TESTE",
+                destinoMovEquipVisitTerc = "DESTINO TESTE",
+                observMovEquipVisitTerc = "OBSERV TESTE",
+                statusMovEquipVisitTerc = StatusData.OPEN,
+                statusSendMovEquipVisitTerc = StatusSend.SENT,
+                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            )
+            val roomModel3 = MovEquipVisitTercRoomModel(
+                nroMatricVigiaMovEquipVisitTerc = 19759,
+                idLocalMovEquipVisitTerc = 1,
+                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                idVisitTercMovEquipVisitTerc = 1000,
+                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+                dthrMovEquipVisitTerc = 1723213270250,
+                veiculoMovEquipVisitTerc = "VEICULO TESTE",
+                placaMovEquipVisitTerc = "PLACA TESTE",
+                destinoMovEquipVisitTerc = "DESTINO TESTE",
+                observMovEquipVisitTerc = "OBSERV TESTE",
+                statusMovEquipVisitTerc = StatusData.OPEN,
+                statusSendMovEquipVisitTerc = StatusSend.SEND,
+                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            )
+            movEquipVisitTercDao.insert(roomModel1)
+            movEquipVisitTercDao.insert(roomModel2)
+            movEquipVisitTercDao.insert(roomModel3)
+            val datasource = MovEquipVisitTercRoomDatasourceImpl(movEquipVisitTercDao)
+            val result = datasource.listSent()
+            assertEquals(result.isSuccess, true)
+            val list = result.getOrNull()!!
+            assertEquals(list.size, 2)
+            assertEquals(list[0].idMovEquipVisitTerc, 1)
+            assertEquals(list[1].idMovEquipVisitTerc, 2)
+        }
+
+    @Test
+    fun `CheckOpen - Check return true if have mov open`() =
+        runTest {
+            val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
+                nroMatricVigiaMovEquipVisitTerc = 19759,
+                idLocalMovEquipVisitTerc = 1,
+                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                idVisitTercMovEquipVisitTerc = 1000,
+                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
+                dthrMovEquipVisitTerc = 1723213270250,
+                veiculoMovEquipVisitTerc = "VEICULO TESTE",
+                placaMovEquipVisitTerc = "PLACA TESTE",
+                destinoMovEquipVisitTerc = "DESTINO TESTE",
+                observMovEquipVisitTerc = "OBSERV TESTE",
+                statusMovEquipVisitTerc = StatusData.OPEN,
+                statusSendMovEquipVisitTerc = StatusSend.SEND,
+                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            )
+            val datasource = MovEquipVisitTercRoomDatasourceImpl(movEquipVisitTercDao)
+            datasource.save(movEquipVisitTercRoomModel)
+            val result = datasource.checkOpen()
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
+
+    @Test
+    fun `CheckOpen - Check return false if not have mov open`() =
+        runTest {
+            val datasource = MovEquipVisitTercRoomDatasourceImpl(movEquipVisitTercDao)
+            val result = datasource.checkOpen()
+            assertTrue(result.isSuccess)
+            assertFalse(result.getOrNull()!!)
+        }
+
 }

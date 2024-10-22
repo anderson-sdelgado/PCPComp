@@ -228,81 +228,39 @@ class ConfigRepositoryImplTest {
         assertEquals(result, Result.success(1))
     }
 
+    @Test
+    fun `Check return failure if have error in configSharedPreferencesDatasource clear`() =
+        runTest {
+            whenever(
+                configSharedPreferencesDatasource.clear()
+            ).thenReturn(
+                Result.failure(
+                    DatasourceException(
+                        function = "ConfigSharedPreferencesDatasource.clear",
+                        cause = Exception()
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.cleanConfig()
+            assertTrue(result.isFailure)
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Datasource -> ConfigSharedPreferencesDatasource.clear"
+            )
+        }
 
     @Test
-    fun `Check return failure if have error in execution getConfig in setStatusSend`() = runTest {
-        whenever(
-            configSharedPreferencesDatasource.get()
-        ).thenReturn(
-            Result.failure(
-                DatasourceException(
-                    function = "ConfigSharedPreferencesDatasource.getConfig",
-                    cause = Exception()
-                )
+    fun `Check return true if CleanConfig execute successfully`() =
+        runTest {
+            whenever(
+                configSharedPreferencesDatasource.clear()
+            ).thenReturn(
+                Result.success(true)
             )
-        )
-        val repository = getRepository()
-        val result = repository.setStatusSend(StatusSend.SEND)
-        assertTrue(result.isFailure)
-        assertEquals(
-            result.exceptionOrNull()!!.message,
-            "Failure Datasource -> ConfigSharedPreferencesDatasource.getConfig"
-        )
-    }
-
-    @Test
-    fun `Check return failure if have error in execution saveConfig in setStatusSend`() = runTest {
-        val config = Config(
-            statusSend = StatusSend.SEND
-        )
-        whenever(
-            configSharedPreferencesDatasource.get()
-        ).thenReturn(
-            Result.success(
-                Config(
-                    statusSend = StatusSend.SEND
-                )
-            )
-        )
-        whenever(
-            configSharedPreferencesDatasource.save(config)
-        ).thenReturn(
-            Result.failure(
-                DatasourceException(
-                    function = "ConfigSharedPreferencesDatasource.saveConfig",
-                    cause = Exception()
-                )
-            )
-        )
-        val repository = getRepository()
-        val result = repository.setStatusSend(StatusSend.SEND)
-        assertTrue(result.isFailure)
-        assertEquals(
-            result.exceptionOrNull()!!.message,
-            "Failure Datasource -> ConfigSharedPreferencesDatasource.saveConfig"
-        )
-    }
-
-    @Test
-    fun `Check return true if ConfigRepositoryImpl setStatusSend execute success`() = runTest {
-        val config = Config(
-            statusSend = StatusSend.SEND
-        )
-        whenever(configSharedPreferencesDatasource.get()).thenReturn(
-            Result.success(
-                Config(
-                    statusSend = StatusSend.SEND
-                )
-            )
-        )
-        whenever(
-            configSharedPreferencesDatasource.save(config)
-        ).thenReturn(
-            Result.success(true)
-        )
-        val repository = getRepository()
-        val result = repository.setStatusSend(StatusSend.SEND)
-        assertTrue(result.isSuccess)
-        assertTrue(result.getOrNull()!!)
-    }
+            val repository = getRepository()
+            val result = repository.cleanConfig()
+            assertTrue(result.isSuccess)
+            assertTrue(result.getOrNull()!!)
+        }
 }

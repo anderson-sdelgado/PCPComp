@@ -80,8 +80,8 @@ fun DetalheMovProprioContent(
     passageiro: String,
     destino: String,
     veiculoSec: String,
-    notaFiscal: String,
-    observ: String,
+    notaFiscal: String?,
+    observ: String?,
     setCloseDialog: () -> Unit,
     closeMov: () -> Unit,
     flagCloseMov: Boolean,
@@ -111,7 +111,7 @@ fun DetalheMovProprioContent(
         ) {
             item {
                 ItemListDesign(
-                    text = dthr,
+                    text = "DATA/HORA: $dthr",
                     setActionItem = {}
                 )
             }
@@ -123,45 +123,45 @@ fun DetalheMovProprioContent(
             }
             item {
                 ItemListDesign(
-                    text = veiculo,
+                    text = "VEICULO: $veiculo",
                     setActionItem = onNavNroEquip,
                     id = 1
                 )
             }
             item {
                 ItemListDesign(
-                    text = veiculoSec,
+                    text = "VEICULO SECUNDÁRIO: $veiculoSec",
                     setActionItem = onNavEquipSegList,
                     id = 2
                 )
             }
             item {
                 ItemListDesign(
-                    text = motorista,
+                    text = "MOTORISTA: $motorista",
                     setActionItem = onNavMatricColab
                 )
             }
             item {
                 ItemListDesign(
-                    text = passageiro,
+                    text = "PASSAGEIRO(S): $passageiro",
                     setActionItem = onNavPassagList
                 )
             }
             item {
                 ItemListDesign(
-                    text = destino,
+                    text = "DESTINO: $destino",
                     setActionItem = onNavDestino
                 )
             }
             item {
                 ItemListDesign(
-                    text = notaFiscal,
+                    text = "NOTA FISCAL: ${if(notaFiscal.isNullOrEmpty()) "" else notaFiscal}",
                     setActionItem = onNavNotaFiscal
                 )
             }
             item {
                 ItemListDesign(
-                    text = observ,
+                    text = "OBSERVAÇÃO: ${if(observ.isNullOrEmpty()) "" else observ}",
                     setActionItem = onNavObserv
                 )
             }
@@ -210,15 +210,15 @@ fun DetalheMovProprioPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             DetalheMovProprioContent(
-                dthr = "DATA/HORA: 29/08/2024 16:14",
+                dthr = "29/08/2024 16:14",
                 tipoMov = "ENTRADA",
-                veiculo = "VEÍCULO: 100",
-                veiculoSec = "VEÍCULO SECUNDÁRIO: 101 - 200",
-                motorista = "MOTORISTA: 19759 - ANDERSON DA SILVA DELGADO",
-                passageiro = "PASSAGEIRO(S): 19035 - JOSE DONIZETE; 18017 - RONALDO;",
-                destino = "DESTINO: TESTE DESTINO",
+                veiculo = "100",
+                veiculoSec = "101 - 200",
+                motorista = "19759 - ANDERSON DA SILVA DELGADO",
+                passageiro = "19035 - JOSE DONIZETE; 18017 - RONALDO;",
+                destino = "TESTE DESTINO",
                 notaFiscal = "NOTA FISCAL:",
-                observ = "OBSERVAÇÃO: TESTE OBSERVAÇÃO",
+                observ = "TESTE OBSERVAÇÃO",
                 flagDialog = false,
                 failure = "",
                 setCloseDialog = {},

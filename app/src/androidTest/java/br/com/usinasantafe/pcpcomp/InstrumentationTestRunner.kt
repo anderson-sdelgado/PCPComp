@@ -56,28 +56,11 @@ class TestApplication : Application(), KoinComponent, Configuration.Provider {
 }
 
 fun generateTestAppComponent(baseTestApi: String) = listOf(
-    viewModelModule,
-    usecaseBackgroundModule,
-    usecaseCleanTableModule,
-    usecaseCommonModule,
-    usecaseConfigModule,
-    usecaseInitialModule,
-    usecaseProprioModule,
-    usecaseVisitTercModule,
-    usecaseResidenciaModule,
-    usecaseRecoverServerModule,
-    usecaseUpdateTableModule,
-    repositoryModule,
-    datasourceSharedPreferencesModule,
-    datasourceRoomModule,
-    datasourceRetrofitModule,
-    apiRetrofitModule,
-    apiRoomModule,
     sharedModuleTest,
     retrofitModuleTest(baseTestApi),
     roomModuleTest,
-    workManagerModule
-)
+) + commonModuleList
+
 
 val sharedModuleTest = module {
     single { sharedPreferencesTest(androidContext()) }

@@ -8,6 +8,6 @@ data class DetalheVisitTercModel(
     val tipoVisitTerc: String,
     val motorista: String,
     val passageiro: String,
-    val destino: String,
-    val observ: String,
+    val destino: String?,
+    val observ: String?,
 )

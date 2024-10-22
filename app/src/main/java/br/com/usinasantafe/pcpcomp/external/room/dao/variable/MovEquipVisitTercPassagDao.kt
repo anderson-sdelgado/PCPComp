@@ -24,4 +24,7 @@ interface MovEquipVisitTercPassagDao {
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_VISIT_TERC_PASSAG WHERE idMovEquipVisitTerc = :idMov AND idVisitTerc = :idVisitTerc")
     suspend fun get(idMov: Int, idVisitTerc: Int): MovEquipVisitTercPassagRoomModel
+
+    @Query("SELECT * FROM $TB_MOV_EQUIP_VISIT_TERC_PASSAG WHERE idMovEquipVisitTerc = :idMov")
+    suspend fun get(idMov: Int): List<MovEquipVisitTercPassagRoomModel>
 }

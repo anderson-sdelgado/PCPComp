@@ -13,50 +13,21 @@ interface SetObservVisitTerc {
     suspend operator fun invoke(
         observ: String?,
         flowApp: FlowApp,
-        typeMov: TypeMov,
         id: Int
     ): Result<Boolean>
 }
 
 class SetObservVisitTercImpl(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
-    private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
-    private val startMovEquipVisitTerc: StartMovEquipVisitTerc,
     private val startProcessSendData: StartProcessSendData
 ) : SetObservVisitTerc {
 
     override suspend fun invoke(
         observ: String?,
         flowApp: FlowApp,
-        typeMov: TypeMov,
         id: Int
     ): Result<Boolean> {
         try {
-            if (
-                (typeMov == TypeMov.OUTPUT) &&
-                (flowApp == FlowApp.ADD)
-            ) {
-                val resultMov = movEquipVisitTercRepository.get(id)
-                if (resultMov.isFailure)
-                    return Result.failure(resultMov.exceptionOrNull()!!)
-                val passag = movEquipVisitTercPassagRepository.list(
-                    flowApp = FlowApp.CHANGE,
-                    id = id
-                )
-                if (passag.isFailure)
-                    return Result.failure(passag.exceptionOrNull()!!)
-                val mov = resultMov.getOrNull()!!
-                mov.observMovEquipVisitTerc = observ
-                mov.tipoMovEquipVisitTerc = TypeMov.OUTPUT
-                mov.dthrMovEquipVisitTerc = Date()
-                mov.destinoMovEquipVisitTerc = null
-                mov.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
-                mov.movEquipVisitTercPassagList = passag.getOrNull()!!
-                val resultStart = startMovEquipVisitTerc(movEquipVisitTerc = mov)
-                if (resultStart.isFailure)
-                    return Result.failure(resultStart.exceptionOrNull()!!)
-                return Result.success(true)
-            }
             val resultSet = movEquipVisitTercRepository.setObserv(
                 observ = observ,
                 flowApp = flowApp,

@@ -56,4 +56,19 @@ class ConfigSharedPreferencesDatasourceImplTest {
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.password, "12345")
     }
+
+    @Test
+    fun `Check return true and data returned if clear execute successfully`() = runTest {
+        val data = Config(password = "12345")
+        configSharedPreferencesDatasourceImpl.save(data)
+        val resultGetBefore = configSharedPreferencesDatasourceImpl.get()
+        assertTrue(resultGetBefore.isSuccess)
+        assertEquals(resultGetBefore.getOrNull()!!.password, "12345")
+        val resultClear = configSharedPreferencesDatasourceImpl.clear()
+        assertTrue(resultClear.isSuccess)
+        val resultHas = configSharedPreferencesDatasourceImpl.has()
+        assertTrue(resultHas.isSuccess)
+        assertFalse(resultHas.getOrNull()!!)
+    }
+
 }

@@ -17,6 +17,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_RESIDENCIA_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_VISIT_TERC_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.NRO_EQUIP_PROPRIO_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.EQUIP_SEG_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.INITIAL_TEST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.PASSAG_COLAB_LIST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.LOCAL_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_COLAB_SCREEN
@@ -46,11 +47,12 @@ import br.com.usinasantafe.pcpcomp.presenter.Screens.VEICULO_RESIDENCIA_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.VEICULO_VISIT_TERC_SCREEN
 
 object Screens {
+    const val INITIAL_TEST_SCREEN = "initialtest"
+    const val SPLASH_SCREEN = "splash"
     const val MENU_INICIAL_SCREEN = "menuinicial"
     const val SENHA_SCREEN = "senha"
     const val CONFIG_SCREEN = "config"
     const val MATRIC_VIGIA_SCREEN = "matricvigia"
-    const val SPLASH_SCREEN = "splash"
     const val NOME_VIGIA_SCREEN = "nomevigia"
     const val LOCAL_SCREEN = "local"
     const val MENU_APONT_SCREEN = "menuapont"
@@ -95,6 +97,7 @@ object Args {
 }
 
 object Routes {
+    const val INITIAL_TEST_ROUTE = INITIAL_TEST_SCREEN
     const val SPLASH_ROUTE = SPLASH_SCREEN
     const val MENU_INICIAL_ROUTE = MENU_INICIAL_SCREEN
     const val SENHA_ROUTE = SENHA_SCREEN

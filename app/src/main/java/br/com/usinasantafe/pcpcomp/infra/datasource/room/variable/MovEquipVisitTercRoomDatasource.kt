@@ -3,11 +3,14 @@ package br.com.usinasantafe.pcpcomp.infra.datasource.room.variable
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercRoomModel
 
 interface MovEquipVisitTercRoomDatasource {
+    suspend fun checkOpen(): Result<Boolean>
     suspend fun checkSend(): Result<Boolean>
+    suspend fun delete(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean>
     suspend fun get(id: Int): Result<MovEquipVisitTercRoomModel>
     suspend fun listOpen(): Result<List<MovEquipVisitTercRoomModel>>
     suspend fun listInside(): Result<List<MovEquipVisitTercRoomModel>>
     suspend fun listSend(): Result<List<MovEquipVisitTercRoomModel>>
+    suspend fun listSent(): Result<List<MovEquipVisitTercRoomModel>>
     suspend fun save(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Long>
     suspend fun setClose(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean>
     suspend fun setDestino(

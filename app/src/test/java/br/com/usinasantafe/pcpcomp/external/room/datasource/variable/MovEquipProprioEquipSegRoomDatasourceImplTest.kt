@@ -123,4 +123,34 @@ class MovEquipProprioEquipSegRoomDatasourceImplTest {
         assertEquals(resultList.getOrNull()!![1].idEquip, 3)
     }
 
+
+    @Test
+    fun `Check success delete MovAll if process execute successfully`() = runTest {
+        val datasource = MovEquipProprioEquipSegRoomDatasourceImpl(movEquipProprioEquipSegDao)
+        datasource.addAll(
+            listOf(
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 1
+                ),
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 2
+                ),
+                MovEquipProprioEquipSegRoomModel(
+                    idMovEquipProprio = 1,
+                    idEquip = 3
+                )
+            )
+        )
+        val result = datasource.list(1)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.size, 3)
+        val resultDelete = datasource.delete(1)
+        assertTrue(resultDelete.isSuccess)
+        assertTrue(resultDelete.getOrNull()!!)
+        val resultList = datasource.list(1)
+        assertEquals(resultList.getOrNull()!!.size, 0)
+    }
+
 }

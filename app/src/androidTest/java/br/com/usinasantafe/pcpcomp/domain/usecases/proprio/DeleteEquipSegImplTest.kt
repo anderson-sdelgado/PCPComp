@@ -32,6 +32,7 @@ class DeleteEquipSegImplTest: KoinTest {
         val resultListBefore = movEquipProprioEquipSegSharedPreferencesDatasource.list()
         val equipSegListBefore = resultListBefore.getOrNull()!!
         assertEquals(equipSegListBefore.size, 2)
+        assertEquals(equipSegListBefore[0], 10)
         val result = usecase(
             idEquip = 10,
             flowApp = FlowApp.ADD,
@@ -41,6 +42,6 @@ class DeleteEquipSegImplTest: KoinTest {
         val resultListAfter = movEquipProprioEquipSegSharedPreferencesDatasource.list()
         val passagListAfter = resultListAfter.getOrNull()!!
         assertEquals(passagListAfter.size, 1)
-        assertEquals(passagListAfter[0], 20L)
+        assertEquals(passagListAfter[0], 20)
     }
 }

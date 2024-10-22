@@ -127,4 +127,33 @@ class MovEquipProprioPassagRoomDatasourceImplTest {
         assertEquals(modelAfter.matricColab, 1807)
     }
 
+    @Test
+    fun `Check success delete Mov all if process execute successfully`() = runTest {
+        val datasource = MovEquipProprioPassagRoomDatasourceImpl(movEquipProprioPassagDao)
+        datasource.addAll(
+            listOf(
+                MovEquipProprioPassagRoomModel(
+                    idMovEquipProprio = 1,
+                    matricColab = 19759
+                ),
+                MovEquipProprioPassagRoomModel(
+                    idMovEquipProprio = 1,
+                    matricColab = 19035
+                ),
+                MovEquipProprioPassagRoomModel(
+                    idMovEquipProprio = 1,
+                    matricColab = 1807
+                )
+            )
+        )
+        val result = datasource.list(1)
+        assertTrue(result.isSuccess)
+        assertEquals(result.getOrNull()!!.size, 3)
+        val resultDelete = datasource.delete(1)
+        assertTrue(resultDelete.isSuccess)
+        assertTrue(resultDelete.getOrNull()!!)
+        val resultList = datasource.list(1)
+        assertEquals(resultList.getOrNull()!!.size, 0)
+    }
+
 }

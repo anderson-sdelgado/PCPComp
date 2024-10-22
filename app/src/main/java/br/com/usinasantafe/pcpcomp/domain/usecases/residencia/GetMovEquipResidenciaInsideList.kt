@@ -23,14 +23,13 @@ class GetMovEquipResidenciaInsideListImpl(
             val modelList = list.map {
                 MovEquipResidenciaModel(
                     id = it.idMovEquipResidencia!!,
-                    dthr = "DATA/HORA: ${
-                        SimpleDateFormat(
-                            "dd/MM/yyyy HH:mm",
-                            Locale("pt", "BR")
-                        ).format(it.dthrMovEquipResidencia)}",
-                    veiculo = "VEICULO: ${it.veiculoMovEquipResidencia!!}",
-                    placa = "PLACA: ${it.placaMovEquipResidencia!!}",
-                    motorista = "MOTORISTA: ${it.motoristaMovEquipResidencia!!}"
+                    dthr = SimpleDateFormat(
+                        "dd/MM/yyyy HH:mm",
+                        Locale("pt", "BR")
+                    ).format(it.dthrMovEquipResidencia),
+                    veiculo = it.veiculoMovEquipResidencia!!,
+                    placa = it.placaMovEquipResidencia!!,
+                    motorista = it.motoristaMovEquipResidencia!!
                 )
             }
             return Result.success(modelList)

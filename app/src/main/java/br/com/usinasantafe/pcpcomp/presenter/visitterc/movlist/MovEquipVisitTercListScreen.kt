@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.visitterc.movlist
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -79,7 +80,9 @@ fun MovEquipVisitTercListContent(
     ) {
         TextSmallDesign(text = "VIGIA: $descrVigia")
         TextSmallDesign(text = "LOCAL: $descrLocal")
+        Spacer(modifier = Modifier.padding(vertical = 6.dp))
         TitleListDesign(text = stringResource(id = R.string.text_title_mov_visit_terc))
+        Spacer(modifier = Modifier.padding(vertical = 6.dp))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,15 +90,16 @@ fun MovEquipVisitTercListContent(
         ) {
             items(movEquipVisitTercModelList) { mov ->
                 ItemListDesign(
-                    text = "${mov.dthr}\n" +
-                            "${mov.veiculo}\n" +
-                            "${mov.placa}\n" +
+                    text = "DATA/HORA: ${mov.dthr}\n" +
+                            "VEÍCULO: ${mov.veiculo}\n" +
+                            "PLACA: ${mov.placa}\n" +
                             "${mov.tipoVisitTerc}\n" +
-                            "${mov.motorista}\n",
+                            "MOTORISTA: ${mov.motorista}\n",
                     setActionItem = {
                         onNavObserv(mov.id)
                     },
-                    id = mov.id
+                    id = mov.id,
+                    padding = 0
                 )
             }
         }

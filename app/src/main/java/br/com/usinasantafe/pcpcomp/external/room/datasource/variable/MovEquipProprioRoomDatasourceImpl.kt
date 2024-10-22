@@ -11,6 +11,21 @@ class MovEquipProprioRoomDatasourceImpl(
     private val movEquipProprioDao: MovEquipProprioDao
 ): MovEquipProprioRoomDatasource {
 
+    override suspend fun checkOpen(): Result<Boolean> {
+        return try {
+            Result.success(
+                movEquipProprioDao.listStatusData(StatusData.OPEN).isNotEmpty()
+            )
+        } catch (e: Exception){
+            Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.checkOpen",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun checkSend(): Result<Boolean> {
         return try {
             Result.success(
@@ -20,6 +35,20 @@ class MovEquipProprioRoomDatasourceImpl(
             Result.failure(
                 DatasourceException(
                     function = "MovEquipProprioRoomDatasourceImpl.checkSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun delete(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Boolean> {
+        try {
+            movEquipProprioDao.delete(movEquipProprioRoomModel)
+            return Result.success(true)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.delete",
                     cause = e
                 )
             )
@@ -41,8 +70,8 @@ class MovEquipProprioRoomDatasourceImpl(
 
     override suspend fun listOpen(): Result<List<MovEquipProprioRoomModel>> {
         try {
-            val listOpen = movEquipProprioDao.listStatusData(StatusData.OPEN)
-            return Result.success(listOpen)
+            val list = movEquipProprioDao.listStatusData(StatusData.OPEN)
+            return Result.success(list)
         } catch (e: Exception){
             return Result.failure(
                 DatasourceException(
@@ -55,8 +84,22 @@ class MovEquipProprioRoomDatasourceImpl(
 
     override suspend fun listSend(): Result<List<MovEquipProprioRoomModel>> {
         try {
-            val listOpen = movEquipProprioDao.listStatusSend(StatusSend.SEND)
-            return Result.success(listOpen)
+            val list = movEquipProprioDao.listStatusSend(StatusSend.SEND)
+            return Result.success(list)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.listSend",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listSent(): Result<List<MovEquipProprioRoomModel>> {
+        try {
+            val list = movEquipProprioDao.listStatusSend(StatusSend.SENT)
+            return Result.success(list)
         } catch (e: Exception){
             return Result.failure(
                 DatasourceException(

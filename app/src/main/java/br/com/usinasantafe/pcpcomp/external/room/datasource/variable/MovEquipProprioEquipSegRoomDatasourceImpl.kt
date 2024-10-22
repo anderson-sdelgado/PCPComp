@@ -9,11 +9,11 @@ class MovEquipProprioEquipSegRoomDatasourceImpl(
     private val movEquipProprioEquipSegDao: MovEquipProprioEquipSegDao
 ) : MovEquipProprioEquipSegRoomDatasource {
 
-    override suspend fun add(idEquip: Int, idMov: Int): Result<Boolean> {
+    override suspend fun add(idEquip: Int, id: Int): Result<Boolean> {
         try {
             movEquipProprioEquipSegDao.insert(
                 MovEquipProprioEquipSegRoomModel(
-                    idMovEquipProprio = idMov,
+                    idMovEquipProprio = id,
                     idEquip = idEquip
                 )
             )
@@ -42,9 +42,26 @@ class MovEquipProprioEquipSegRoomDatasourceImpl(
         }
     }
 
-    override suspend fun delete(idEquip: Int, idMov: Int): Result<Boolean> {
+    override suspend fun delete(id: Int): Result<Boolean> {
         try {
-            val mov = movEquipProprioEquipSegDao.get(idMov, idEquip)
+            val list = movEquipProprioEquipSegDao.get(id)
+            for(mov in list) {
+                movEquipProprioEquipSegDao.delete(mov)
+            }
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioPassagRoomDatasourceImpl.delete",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun delete(idEquip: Int, id: Int): Result<Boolean> {
+        try {
+            val mov = movEquipProprioEquipSegDao.get(id, idEquip)
             movEquipProprioEquipSegDao.delete(mov)
             return Result.success(true)
         } catch (e: Exception) {
