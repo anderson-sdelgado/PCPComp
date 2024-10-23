@@ -27,7 +27,7 @@ class CheckAccessMainImplTest: KoinTest {
     }
 
     @Test
-    fun verify_return_false_if_dont_data_config() = runTest {
+    fun verify_return_false_if_not_data_config() = runTest {
         val result = usecase()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)

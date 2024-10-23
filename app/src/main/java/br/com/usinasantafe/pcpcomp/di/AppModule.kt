@@ -17,6 +17,7 @@ import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.DestinoProprioViewM
 import br.com.usinasantafe.pcpcomp.presenter.proprio.notafiscal.NotaFiscalViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.ObservProprioViewModel
 import br.com.usinasantafe.pcpcomp.presenter.proprio.detalhe.DetalheProprioViewModel
+import br.com.usinasantafe.pcpcomp.presenter.splash.SplashViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.*
@@ -77,6 +78,7 @@ val viewModelModule = module {
     viewModelOf(::NotaFiscalViewModel)
     viewModelOf(::ObservProprioViewModel)
     viewModelOf(::DetalheProprioViewModel)
+    viewModelOf(::SplashViewModel)
 
 }
 
@@ -118,7 +120,10 @@ val usecaseConfigModule = module {
 
 val usecaseInitialModule = module {
 
+    singleOf(::AdjustConfigImpl) { bind<AdjustConfig>() }
     singleOf(::CheckAccessMainImpl) { bind<CheckAccessMain>() }
+    singleOf(::CheckMovOpenImpl) { bind<CheckMovOpen>() }
+    singleOf(::DeleteMovSentImpl) { bind<DeleteMovSent>() }
     singleOf(::GetLocalListImpl) { bind<GetLocalList>() }
     singleOf(::GetNomeVigiaImpl) { bind<GetNomeVigia>() }
 

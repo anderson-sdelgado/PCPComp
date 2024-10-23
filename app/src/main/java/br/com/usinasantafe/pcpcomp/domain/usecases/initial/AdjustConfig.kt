@@ -26,7 +26,7 @@ class AdjustConfigImpl(
                     return Result.failure(resultConfig.exceptionOrNull()!!)
                 val config = resultConfig.getOrNull()!!
                 config.version?.let {
-                    if(it != BuildConfig.VERSION_NAME){
+                    if(it != version){
                         val resultClean = configRepository.cleanConfig()
                         if (resultClean.isFailure)
                             return Result.failure(resultClean.exceptionOrNull()!!)

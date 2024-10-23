@@ -43,7 +43,17 @@ class MovEquipVisitTercRoomDatasourceImpl(
     }
 
     override suspend fun delete(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean> {
-        TODO("Not yet implemented")
+        try {
+            movEquipVisitTercDao.delete(movEquipVisitTercRoomModel)
+            return Result.success(true)
+        } catch (e: Exception){
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipProprioRoomDatasourceImpl.delete",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun get(id: Int): Result<MovEquipVisitTercRoomModel> {
