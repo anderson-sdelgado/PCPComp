@@ -51,9 +51,10 @@ fun ItemListDesign(
 }
 
 @Composable
-fun TitleListDesign(
+fun TitleDesign(
     text: String,
-    font: Int = 28
+    font: Int = 30,
+    padding: Int = 8
 ) {
     return Text(
         textAlign = TextAlign.Center,
@@ -61,30 +62,7 @@ fun TitleListDesign(
         fontWeight = FontWeight.Bold,
         fontSize = font.sp,
         modifier = Modifier
-            .fillMaxWidth()
-    )
-}
-
-@Composable
-fun TitleListWithDetailDesign(text: String) {
-    return Text(
-        textAlign = TextAlign.Center,
-        text = text,
-        fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    )
-}
-
-@Composable
-fun TitleDesign(text: String) {
-    return Text(
-        text = text,
-        fontWeight = FontWeight.Bold,
-        fontSize = 26.sp,
-        modifier = Modifier
+            .padding(vertical = padding.dp)
             .fillMaxWidth()
     )
 }

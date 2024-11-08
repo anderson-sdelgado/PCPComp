@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.presenter.initial.local
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,11 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
+import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogProgressDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
+import br.com.usinasantafe.pcpcomp.utils.Errors
 
 @Composable
 fun LocalScreen(
@@ -36,15 +39,21 @@ fun LocalScreen(
             LocalContent(
                 locals = uiState.locals,
                 setIdLocal = viewModel::setIdLocal,
+                updateDatabase = viewModel::updateDatabase,
                 flagAccess = uiState.flagAccess,
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
+                flagFailure = uiState.flagFailure,
+                errors = uiState.errors,
                 failure = uiState.failure,
+                flagProgress = uiState.flagProgress,
+                msgProgress = uiState.msgProgress,
+                currentProgress = uiState.currentProgress,
                 onNavNomeVigia = onNavNomeVigia,
                 onNavMenuApont = onNavMenuApont,
                 modifier = Modifier.padding(innerPadding)
             )
-            viewModel.startRecoverLocals()
+            viewModel.localList()
         }
     }
 }
@@ -53,10 +62,16 @@ fun LocalScreen(
 fun LocalContent(
     locals: List<Local>,
     setIdLocal: (Int) -> Unit,
+    updateDatabase: () -> Unit,
     flagAccess: Boolean,
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
+    flagFailure: Boolean,
+    errors: Errors,
     failure: String,
+    flagProgress: Boolean,
+    msgProgress: String,
+    currentProgress: Float,
     onNavNomeVigia: () -> Unit,
     onNavMenuApont: () -> Unit,
     modifier: Modifier = Modifier
@@ -65,7 +80,7 @@ fun LocalContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "LOCAL")
+        TitleDesign(text = "LOCAL")
         LazyColumn(
             modifier = Modifier
                 .weight(1f),
@@ -73,10 +88,18 @@ fun LocalContent(
             items(locals) { local ->
                 ItemListDesign(
                     text = local.descrLocal,
-                    setActionItem = { setIdLocal(local.idLocal)  }
+                    setActionItem = { setIdLocal(local.idLocal) },
+                    font = 26
                 )
             }
         }
+        Button(
+            onClick = updateDatabase,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            TextButtonDesign(text = stringResource(id = R.string.text_pattern_update))
+        }
+        Spacer(modifier = Modifier.padding(vertical = 4.dp))
         Button(
             onClick = onNavNomeVigia,
             modifier = Modifier.fillMaxWidth(),
@@ -85,14 +108,35 @@ fun LocalContent(
         }
         BackHandler {}
 
-        if(flagDialog) {
+        if (flagDialog) {
+            val text = if (flagFailure) {
+                when(errors) {
+                    Errors.UPDATE -> stringResource(
+                        id = R.string.text_update_failure,
+                        failure
+                    )
+                    else -> stringResource(
+                        id = R.string.text_failure,
+                        failure
+                    )
+                }
+            } else {
+                msgProgress
+            }
             AlertDialogSimpleDesign(
-                text = stringResource(id = R.string.text_failure, failure),
+                text = text,
                 setCloseDialog = setCloseDialog,
             )
         }
 
-        if(flagAccess){
+        if (flagProgress) {
+            AlertDialogProgressDesign(
+                currentProgress = currentProgress,
+                msgProgress = msgProgress
+            )
+        }
+
+        if (flagAccess) {
             onNavMenuApont()
         }
 
@@ -120,10 +164,16 @@ fun DefaultPreview() {
                     ),
                 ),
                 setIdLocal = {},
+                updateDatabase = {},
                 flagAccess = false,
                 flagDialog = false,
                 setCloseDialog = {},
+                flagFailure = false,
+                errors = Errors.FIELDEMPTY,
                 failure = "",
+                flagProgress = false,
+                msgProgress = "",
+                currentProgress = 0.0f,
                 onNavNomeVigia = {},
                 onNavMenuApont = {},
                 modifier = Modifier.padding(innerPadding)
@@ -153,10 +203,16 @@ fun DefaultPreviewShowAlertDialog() {
                     ),
                 ),
                 setIdLocal = {},
+                updateDatabase = {},
                 flagAccess = false,
                 flagDialog = true,
                 setCloseDialog = {},
-                failure = "Failure",
+                flagFailure = false,
+                errors = Errors.FIELDEMPTY,
+                failure = "",
+                flagProgress = false,
+                msgProgress = "",
+                currentProgress = 0.0f,
                 onNavNomeVigia = {},
                 onNavMenuApont = {},
                 modifier = Modifier.padding(innerPadding)

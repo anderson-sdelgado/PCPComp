@@ -23,12 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
-import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.TAG_OBSERV_TEXT_FIELD_PROPRIO
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
+
+const val TAG_VEICULO_TEXT_FIELD_RESIDENCIA = "tag_veiculo_text_field_residencia"
 
 @Composable
 fun VeiculoResidenciaScreen(
@@ -78,7 +79,7 @@ fun VeiculoResidenciaContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_veiculo))
+        TitleDesign(text = stringResource(id = R.string.text_title_veiculo))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = veiculo,
@@ -86,10 +87,10 @@ fun VeiculoResidenciaContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .testTag(TAG_OBSERV_TEXT_FIELD_PROPRIO),
+                .testTag(TAG_VEICULO_TEXT_FIELD_RESIDENCIA),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
-                fontSize = 22.sp,
+                fontSize = 28.sp
             ),
         )
         Row(
@@ -134,7 +135,10 @@ fun VeiculoResidenciaContent(
         }
 
         if (flagAccess) {
-            onNavPlaca()
+            when (flowApp) {
+                FlowApp.ADD -> onNavPlaca()
+                FlowApp.CHANGE -> onNavDetalhe()
+            }
         }
 
     }

@@ -5,9 +5,8 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.ConfigRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.toConfigWebServiceModel
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.toConfigWebServiceModel
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 class ConfigRepositoryImpl(
     private val configSharedPreferencesDatasource: ConfigSharedPreferencesDatasource,

@@ -24,7 +24,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun MovEquipVisitTercEditListScreen(
@@ -72,7 +72,7 @@ fun MovEquipVisitTercEditListContent(
             .padding(16.dp)
     ) {
         Spacer(modifier = Modifier.padding(vertical = 4.dp))
-        TitleListDesign(
+        TitleDesign(
             text = stringResource(id = R.string.text_title_edit_mov)
         )
         Spacer(modifier = Modifier.padding(vertical = 6.dp))

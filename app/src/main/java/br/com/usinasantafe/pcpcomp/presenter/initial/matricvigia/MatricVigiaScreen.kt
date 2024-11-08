@@ -28,7 +28,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogProgressDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumeric
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 
@@ -84,7 +84,7 @@ fun MatricVigiaContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "MATRICULA VIGIA:")
+        TitleDesign(text = "MATRICULA VIGIA:")
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,

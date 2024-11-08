@@ -4,6 +4,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.LocalRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.LocalRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.LocalRetrofitModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -74,8 +75,14 @@ class LocalRepositoryImplTest {
 
     @Test
     fun `Check data is correct in recover data`() = runTest {
-        val local = listOf(
+        val entityList = listOf(
             Local(
+                idLocal = 1,
+                descrLocal = "USINA"
+            )
+        )
+        val retrofitModelList = listOf(
+            LocalRetrofitModel(
                 idLocal = 1,
                 descrLocal = "USINA"
             )
@@ -83,12 +90,12 @@ class LocalRepositoryImplTest {
         whenever(
             localRetrofitDatasource.recoverAll(token)
         ).thenReturn(
-            Result.success(local)
+            Result.success(retrofitModelList)
         )
         val repository = getRepository()
         val result = repository.recoverAll(token)
         assertEquals(result.isSuccess, true)
-        assertEquals(result, Result.success(local))
+        assertEquals(result, Result.success(entityList))
     }
 
     @Test

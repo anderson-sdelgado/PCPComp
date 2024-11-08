@@ -26,7 +26,7 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 const val TAG_VEICULO_TEXT_FIELD_VISIT_TERC = "tag_veiculo_text_field_visit_terc"
@@ -34,9 +34,9 @@ const val TAG_VEICULO_TEXT_FIELD_VISIT_TERC = "tag_veiculo_text_field_visit_terc
 @Composable
 fun VeiculoVisitTercScreen(
     viewModel: VeiculoVisitTercViewModel,
-    onNavPlacaVisitTerc: () -> Unit,
-    onNavMovEquipVisitTercList: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
+    onNavPlaca: () -> Unit,
+    onNavMovList: () -> Unit,
+    onNavDetalhe: () -> Unit,
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -50,9 +50,9 @@ fun VeiculoVisitTercScreen(
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
-                onNavMovEquipVisitTercList = onNavMovEquipVisitTercList,
-                onNavDetalheVisitTerc = onNavDetalheVisitTerc,
-                onNavPlacaVisitTerc = onNavPlacaVisitTerc,
+                onNavMovList = onNavMovList,
+                onNavDetalhe = onNavDetalhe,
+                onNavPlaca = onNavPlaca,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.recoverVeiculo()
@@ -70,16 +70,16 @@ fun VeiculoVisitTercContent(
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavMovEquipVisitTercList: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
-    onNavPlacaVisitTerc: () -> Unit,
+    onNavMovList: () -> Unit,
+    onNavDetalhe: () -> Unit,
+    onNavPlaca: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_veiculo))
+        TitleDesign(text = stringResource(id = R.string.text_title_veiculo))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = veiculo,
@@ -90,7 +90,7 @@ fun VeiculoVisitTercContent(
                 .testTag(TAG_VEICULO_TEXT_FIELD_VISIT_TERC),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
-                fontSize = 22.sp,
+                fontSize = 28.sp
             ),
         )
         Row(
@@ -102,8 +102,8 @@ fun VeiculoVisitTercContent(
             Button(
                 onClick = {
                     when (flowApp) {
-                        FlowApp.ADD -> onNavMovEquipVisitTercList()
-                        FlowApp.CHANGE -> onNavDetalheVisitTerc()
+                        FlowApp.ADD -> onNavMovList()
+                        FlowApp.CHANGE -> onNavDetalhe()
                     }
                 },
                 modifier = Modifier.weight(1f)
@@ -135,7 +135,10 @@ fun VeiculoVisitTercContent(
         }
 
         if (flagAccess) {
-            onNavPlacaVisitTerc()
+            when (flowApp) {
+                FlowApp.ADD -> onNavPlaca()
+                FlowApp.CHANGE -> onNavDetalhe()
+            }
         }
 
     }
@@ -155,9 +158,9 @@ fun VeiculoVisitTercPagePreview() {
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavMovEquipVisitTercList = {},
-                onNavDetalheVisitTerc = {},
-                onNavPlacaVisitTerc = {},
+                onNavMovList = {},
+                onNavDetalhe = {},
+                onNavPlaca = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

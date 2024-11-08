@@ -16,8 +16,8 @@ android {
         applicationId = "br.com.usinasantafe.pcpcomp"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 12
+        versionName = "5.00"
 
         testInstrumentationRunner = "br.com.usinasantafe.pcpcomp.InstrumentationTestRunner"
         vectorDrawables {

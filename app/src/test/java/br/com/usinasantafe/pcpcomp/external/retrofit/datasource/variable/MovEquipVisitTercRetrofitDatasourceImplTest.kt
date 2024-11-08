@@ -1,9 +1,8 @@
 package br.com.usinasantafe.pcpcomp.external.retrofit.datasource.variable
 
-import br.com.usinasantafe.pcpcomp.external.retrofit.api.variable.MovEquipProprioApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.variable.MovEquipVisitTercApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitTest
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipVisitTercRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipVisitTercRetrofitModelOutput
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest

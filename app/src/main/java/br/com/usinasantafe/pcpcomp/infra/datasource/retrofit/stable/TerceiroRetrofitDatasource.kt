@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable
 
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.TerceiroRetrofitModel
 
 interface TerceiroRetrofitDatasource {
-    suspend fun recoverAll(token: String): Result<List<Terceiro>>
+    suspend fun recoverAll(token: String): Result<List<TerceiroRetrofitModel>>
 }

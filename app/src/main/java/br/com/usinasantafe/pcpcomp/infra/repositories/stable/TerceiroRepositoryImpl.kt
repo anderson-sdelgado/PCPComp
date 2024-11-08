@@ -5,6 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.TerceiroRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.TerceiroRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.TerceiroRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.retrofitModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.roomModelToEntity
 
@@ -132,7 +133,8 @@ class TerceiroRepositoryImpl(
             val recoverAll = terceiroRetrofitDatasource.recoverAll(token)
             if (recoverAll.isFailure)
                 return Result.failure(recoverAll.exceptionOrNull()!!)
-            return Result.success(recoverAll.getOrNull()!!)
+            val entityList = recoverAll.getOrNull()!!.map { it.retrofitModelToEntity() }
+            return Result.success(entityList)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

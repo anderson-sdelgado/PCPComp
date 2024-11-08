@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.external.retrofit.api.variable
 
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipResidenciaRetrofitModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipResidenciaRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipResidenciaRetrofitModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipResidenciaRetrofitModelOutput
 import br.com.usinasantafe.pcpcomp.utils.WEB_SAVE_MOV_EQUIP_RESIDENCIA
 import retrofit2.Response
 import retrofit2.http.Body

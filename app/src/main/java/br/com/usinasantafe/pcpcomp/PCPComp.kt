@@ -2,7 +2,6 @@ package br.com.usinasantafe.pcpcomp
 
 import android.app.Application
 import androidx.work.Configuration
-import androidx.work.WorkManager
 import br.com.usinasantafe.pcpcomp.di.apiRetrofitModule
 import br.com.usinasantafe.pcpcomp.di.apiRoomModule
 import br.com.usinasantafe.pcpcomp.di.datasourceRetrofitModule
@@ -20,9 +19,15 @@ import br.com.usinasantafe.pcpcomp.di.usecaseInitialModule
 import br.com.usinasantafe.pcpcomp.di.usecaseProprioModule
 import br.com.usinasantafe.pcpcomp.di.usecaseRecoverServerModule
 import br.com.usinasantafe.pcpcomp.di.usecaseResidenciaModule
-import br.com.usinasantafe.pcpcomp.di.usecaseUpdateTableModule
+import br.com.usinasantafe.pcpcomp.di.usecaseUpdateModule
+import br.com.usinasantafe.pcpcomp.di.usecaseSaveAllTableModule
 import br.com.usinasantafe.pcpcomp.di.usecaseVisitTercModule
-import br.com.usinasantafe.pcpcomp.di.viewModelModule
+import br.com.usinasantafe.pcpcomp.di.viewModelConfigModule
+import br.com.usinasantafe.pcpcomp.di.viewModelInicialModule
+import br.com.usinasantafe.pcpcomp.di.viewModelProprioModule
+import br.com.usinasantafe.pcpcomp.di.viewModelResidenciaModule
+import br.com.usinasantafe.pcpcomp.di.viewModelSplashModule
+import br.com.usinasantafe.pcpcomp.di.viewModelVisitTercModule
 import br.com.usinasantafe.pcpcomp.di.workManagerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -55,7 +60,12 @@ class PCPComp : Application(), KoinComponent, Configuration.Provider {
 }
 
 val commonModuleList = listOf(
-    viewModelModule,
+    viewModelConfigModule,
+    viewModelInicialModule,
+    viewModelSplashModule,
+    viewModelProprioModule,
+    viewModelResidenciaModule,
+    viewModelVisitTercModule,
     usecaseBackgroundModule,
     usecaseCleanTableModule,
     usecaseCommonModule,
@@ -64,8 +74,9 @@ val commonModuleList = listOf(
     usecaseProprioModule,
     usecaseVisitTercModule,
     usecaseResidenciaModule,
+    usecaseUpdateModule,
     usecaseRecoverServerModule,
-    usecaseUpdateTableModule,
+    usecaseSaveAllTableModule,
     repositoryModule,
     datasourceSharedPreferencesModule,
     datasourceRoomModule,

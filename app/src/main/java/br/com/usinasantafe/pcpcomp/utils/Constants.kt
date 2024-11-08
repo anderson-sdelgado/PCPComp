@@ -14,7 +14,9 @@ const val BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_VISIT_TERC_PASSAG = "mov_equip_
 
 const val TB_COLAB = "tb_colab"
 const val TB_EQUIP = "tb_equip"
+const val TB_FLUXO = "tb_fluxo"
 const val TB_LOCAL = "tb_local"
+const val TB_R_LOCAL_FLUXO = "tb_r_local_fluxo"
 const val TB_TERCEIRO = "tb_terceiro"
 const val TB_VISITANTE = "tb_visitante"
 
@@ -27,7 +29,9 @@ const val TB_MOV_EQUIP_VISIT_TERC_PASSAG = "tb_mov_equip_visit_terc_passag"
 
 const val WEB_ALL_COLAB = "colab.php"
 const val WEB_ALL_EQUIP = "equip.php"
+const val WEB_ALL_FLUXO = "fluxo.php"
 const val WEB_ALL_LOCAL = "local.php"
+const val WEB_ALL_R_LOCAL_FLUXO = "r_local_fluxo.php"
 const val WEB_ALL_TERCEIRO = "terceiro.php"
 const val WEB_ALL_VISITANTE = "visitante.php"
 

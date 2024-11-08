@@ -25,7 +25,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 
@@ -80,7 +80,7 @@ fun EquipSegListContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_equip_seg))
+        TitleDesign(text = stringResource(id = R.string.text_title_equip_seg))
         LazyColumn(
             modifier = Modifier
                 .weight(1f),

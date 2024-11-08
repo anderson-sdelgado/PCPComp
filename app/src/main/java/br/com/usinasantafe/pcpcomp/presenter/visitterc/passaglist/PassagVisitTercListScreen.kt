@@ -24,14 +24,14 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 @Composable
 fun PassagVisitTercListScreen(
     viewModel: PassagVisitTercListViewModel,
-    onNavCpfMotorista: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
+    onNavCpf: () -> Unit,
+    onNavDetalhe: () -> Unit,
     onNavCpfPassag: () -> Unit,
     onNavDestino: () -> Unit,
 ) {
@@ -48,8 +48,8 @@ fun PassagVisitTercListScreen(
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
-                onNavCpfMotorista = onNavCpfMotorista,
-                onNavDetalheVisitTerc = onNavDetalheVisitTerc,
+                onNavCpf = onNavCpf,
+                onNavDetalhe = onNavDetalhe,
                 onNavCpfPassag = onNavCpfPassag,
                 onNavDestino = onNavDestino,
                 modifier = Modifier.padding(innerPadding)
@@ -71,8 +71,8 @@ fun PassagVisitTercListContent(
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavCpfMotorista: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
+    onNavCpf: () -> Unit,
+    onNavDetalhe: () -> Unit,
     onNavCpfPassag: () -> Unit,
     onNavDestino: () -> Unit,
     modifier: Modifier = Modifier
@@ -81,7 +81,7 @@ fun PassagVisitTercListContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_passag))
+        TitleDesign(text = stringResource(id = R.string.text_title_passag))
         LazyColumn(
             modifier = Modifier
                 .weight(1f),
@@ -108,8 +108,8 @@ fun PassagVisitTercListContent(
             Button(
                 onClick = {
                     when (flowApp) {
-                        FlowApp.ADD -> onNavCpfMotorista()
-                        FlowApp.CHANGE -> onNavDetalheVisitTerc()
+                        FlowApp.ADD -> onNavCpf()
+                        FlowApp.CHANGE -> onNavDetalhe()
                     }
                 },
                 modifier = Modifier.weight(1f)
@@ -117,7 +117,12 @@ fun PassagVisitTercListContent(
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
             }
             Button(
-                onClick = { onNavDestino() },
+                onClick = {
+                    when (flowApp) {
+                        FlowApp.ADD -> onNavDestino()
+                        FlowApp.CHANGE -> onNavDetalhe()
+                    }
+                },
                 modifier = Modifier.weight(1f),
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
@@ -125,7 +130,7 @@ fun PassagVisitTercListContent(
         }
         BackHandler {}
 
-        if(flagDialog) {
+        if (flagDialog) {
             AlertDialogSimpleDesign(
                 text = stringResource(id = R.string.text_failure, failure),
                 setCloseDialog = setCloseDialog,
@@ -158,8 +163,8 @@ fun PassagVisitTercListPagePreview() {
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavCpfMotorista = {},
-                onNavDetalheVisitTerc = {},
+                onNavCpf = {},
+                onNavDetalhe = {},
                 onNavCpfPassag = {},
                 onNavDestino = {},
                 modifier = Modifier.padding(innerPadding)

@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.external.retrofit.api.variable
 
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.ConfigWebServiceModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.ConfigWebServiceModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.ConfigWebServiceModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.ConfigWebServiceModelOutput
 import br.com.usinasantafe.pcpcomp.utils.WEB_SAVE_TOKEN
 import retrofit2.Response
 import retrofit2.http.Body

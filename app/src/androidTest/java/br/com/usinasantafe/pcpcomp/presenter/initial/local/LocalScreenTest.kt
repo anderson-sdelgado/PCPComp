@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllLocal
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllLocal
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.utils.waitUntilTimeout
 import kotlinx.coroutines.test.runTest

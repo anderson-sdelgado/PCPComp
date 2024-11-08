@@ -132,7 +132,7 @@ class PassagColabListScreenTest: KoinTest {
                     deletePassagColab
                 ),
                 onNavMatricMotorista = {},
-                onNavDetalheProprio = {},
+                onNavDetalhe = {},
                 onNavMatricPassag = {},
                 onNavDestino = {}
             )

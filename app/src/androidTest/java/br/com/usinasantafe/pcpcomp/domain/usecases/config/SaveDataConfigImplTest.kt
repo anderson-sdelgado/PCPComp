@@ -1,7 +1,5 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer

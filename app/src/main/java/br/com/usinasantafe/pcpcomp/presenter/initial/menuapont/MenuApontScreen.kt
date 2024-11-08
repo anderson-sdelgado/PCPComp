@@ -21,7 +21,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TextSmallDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListWithDetailDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun MenuApontScreen(
@@ -78,7 +78,7 @@ fun MenuApontContent(
     ) {
         TextSmallDesign(text = "VIGIA: $descrVigia")
         TextSmallDesign(text = "LOCAL: $descrLocal")
-        TitleListWithDetailDesign(text = "MENU")
+        TitleDesign(text = "MENU")
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,19 +87,22 @@ fun MenuApontContent(
             item {
                 ItemListDesign(
                     text = "MOV. VEÍCULO PRÓPRIO",
-                    setActionItem = onNavMovVeicProprio
+                    setActionItem = onNavMovVeicProprio,
+                    font = 24
                 )
             }
             item {
                 ItemListDesign(
                     text = "MOV. VEÍCULO VISITANTE/TERCEIRO",
-                    setActionItem = onNavMovVeicVisitTerc
+                    setActionItem = onNavMovVeicVisitTerc,
+                    font = 24
                 )
             }
             item {
                 ItemListDesign(
                     text = "MOV. VEÍCULO RESIDÊNCIA",
-                    setActionItem = onNavMovVeicResidencia
+                    setActionItem = onNavMovVeicResidencia,
+                    font = 24
                 )
             }
         }

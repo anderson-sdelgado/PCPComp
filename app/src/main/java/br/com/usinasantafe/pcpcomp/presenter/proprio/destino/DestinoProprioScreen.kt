@@ -26,7 +26,7 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
@@ -85,7 +85,7 @@ fun DestinoProprioContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_destino))
+        TitleDesign(text = stringResource(id = R.string.text_title_destino))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = destino,
@@ -96,7 +96,7 @@ fun DestinoProprioContent(
                 .testTag(TAG_DESTINO_TEXT_FIELD_PROPRIO),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
-                fontSize = 22.sp,
+                fontSize = 28.sp,
             ),
         )
         Row(
@@ -141,9 +141,14 @@ fun DestinoProprioContent(
         }
 
         if (flagAccess) {
-            when (typeMov) {
-                TypeMov.INPUT -> onNavObserv()
-                TypeMov.OUTPUT -> onNavNotaFiscal()
+            when (flowApp) {
+                FlowApp.ADD -> {
+                    when (typeMov) {
+                        TypeMov.INPUT -> onNavObserv()
+                        TypeMov.OUTPUT -> onNavNotaFiscal()
+                    }
+                }
+                FlowApp.CHANGE -> onNavDetalheMovProprio()
             }
         }
 

@@ -18,12 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
+import br.com.usinasantafe.pcpcomp.presenter.residencia.movlist.MovEquipResidenciaListContent
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun MovEquipResidenciaEditListScreen(
@@ -70,7 +71,7 @@ fun MovEquipResidenciaEditListContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_edit_mov))
+        TitleDesign(text = stringResource(id = R.string.text_title_edit_mov))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -79,7 +80,7 @@ fun MovEquipResidenciaEditListContent(
             items(movEquipResidenciaModelList) { mov ->
                 ItemListDesign(
                     text = "DATA/HORA: ${mov.dthr}\n" +
-                            "TIPO:  ${mov.tipo}\n" +
+                            "TIPO:  ${mov.tipoMov}\n" +
                             "VEÍCULO: ${mov.veiculo}\n" +
                             "PLACA: ${mov.placa}\n" +
                             "MOTORISTA: ${mov.motorista}\n",
@@ -138,6 +139,38 @@ fun MovEquipResidenciaEditListPagePreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MovEquipResidenciaEditListContent(
                 movEquipResidenciaModelList = emptyList(),
+                closeAllMov = {},
+                flagDialog = false,
+                failure = "",
+                flagDialogCheck = false,
+                setDialogCheck = {},
+                setCloseDialog = {},
+                flagCloseAllMov = false,
+                onNavMovEquipList = {},
+                onNavDetalhe = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun MovEquipResidenciaEditDataListPagePreview() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            MovEquipResidenciaEditListContent(
+                movEquipResidenciaModelList = listOf(
+                    MovEquipResidenciaModel(
+                        id = 1,
+                        tipoMov = "ENTRADA",
+                        dthr = "20/10/2024",
+                        veiculo = "Gol",
+                        placa = "abc1234",
+                        motorista = "Anderson"
+                    )
+                ),
                 closeAllMov = {},
                 flagDialog = false,
                 failure = "",

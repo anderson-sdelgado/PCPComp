@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.presenter.visitterc.placa
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -51,9 +52,10 @@ class PlacaVisitTercViewModel(
     }
 
     fun onPlacaChanged(placa: String) {
-        if (uiState.value.placa.length == 7) return
-        _uiState.update {
-            it.copy(placa = placa)
+        if (placa.length <= 7) {
+            _uiState.update {
+                it.copy(placa = placa)
+            }
         }
     }
 

@@ -27,9 +27,11 @@ import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.TAG_OBSERV_TEXT_FIEL
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
+
+const val TAG_OBSERV_TEXT_FIELD_RESIDENCIA = "tag_observ_text_field_residencia"
 
 @Composable
 fun ObservResidenciaScreen(
@@ -80,7 +82,7 @@ fun ObservResidenciaContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_observ))
+        TitleDesign(text = stringResource(id = R.string.text_title_observ))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = if(observ.isNullOrEmpty()) "" else observ,
@@ -88,10 +90,10 @@ fun ObservResidenciaContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .testTag(TAG_OBSERV_TEXT_FIELD_PROPRIO),
+                .testTag(TAG_OBSERV_TEXT_FIELD_RESIDENCIA),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
-                fontSize = 22.sp,
+                fontSize = 28.sp
             ),
         )
         Row(

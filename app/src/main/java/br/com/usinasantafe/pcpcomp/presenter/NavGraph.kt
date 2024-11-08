@@ -270,7 +270,12 @@ fun NavigationGraph(
                         typeOcupante = entry.arguments?.getInt(TYPE_OCUPANTE_ARGS)!!,
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
-                }
+                },
+                onNavDetalhe = {
+                    navActions.navigationToDetalheProprio(
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
             )
         }
         composable(
@@ -347,7 +352,7 @@ fun NavigationGraph(
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalheProprio = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheProprio(
                         id = entry.arguments?.getInt(
                             ID_ARGS
@@ -489,7 +494,7 @@ fun NavigationGraph(
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalheMovProprio = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheProprio(
                         id = entry.arguments?.getInt(
                             ID_ARGS
@@ -507,26 +512,26 @@ fun NavigationGraph(
         ) { entry ->
             ObservProprioScreen(
                 viewModel = koinViewModel<ObservProprioViewModel>(),
-                onNavDestinoProprio = {
+                onNavDestino = {
                     navActions.navigationToDestinoProprio(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavNotaFiscalProprio = {
+                onNavNotaFiscal = {
                     navActions.navigationToNotaFiscalProprio(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalheProprio = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheProprio(
                         id = entry.arguments?.getInt(
                             ID_ARGS
                         )!!
                     )
                 },
-                onNavMovEquipProprioList = { navActions.navigationToMovEquipProprioList() },
+                onNavMovList = { navActions.navigationToMovEquipProprioList() },
             )
         }
         composable(
@@ -562,11 +567,16 @@ fun NavigationGraph(
         ) { entry ->
             VeiculoVisitTercScreen(
                 viewModel = koinViewModel<VeiculoVisitTercViewModel>(),
-                onNavPlacaVisitTerc = {},
-                onNavMovEquipVisitTercList = {
+                onNavPlaca = {
+                    navActions.navigationToPlacaVisitTerc(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavMovList = {
                     navActions.navigationToMovEquipVisitTercList()
                 },
-                onNavDetalheVisitTerc = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheVisitTerc(
                         id = entry.arguments?.getInt(
                             ID_ARGS
@@ -584,16 +594,16 @@ fun NavigationGraph(
         ) { entry ->
             PlacaVisitTercScreen(
                 viewModel = koinViewModel<PlacaVisitTercViewModel>(),
-                onNavTipoVisitTerc = {
+                onNavTipo = {
                     navActions.navigationToTipoVisitTerc()
                 },
-                onNavVeiculoVisitTerc = {
+                onNavVeiculo = {
                     navActions.navigationToVeiculoVisitTerc(
                         flowApp = FlowApp.ADD.ordinal,
                         id = 0
                     )
                 },
-                onNavDetalheVisitTerc = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheVisitTerc(
                         id = entry.arguments?.getInt(
                             ID_ARGS
@@ -632,17 +642,17 @@ fun NavigationGraph(
         ) { entry ->
             CpfVisitTercScreen(
                 viewModel = koinViewModel<CpfVisitTercViewModel>(),
-                onNavTipoVisitTerc = {
+                onNavTipo = {
                     navActions.navigationToTipoVisitTerc()
                 },
-                onNavDetalheVisitTerc = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheProprio(
                         id = entry.arguments?.getInt(
                             ID_ARGS
                         )!!
                     )
                 },
-                onNavNomeVisitTerc = {
+                onNavNome = {
                     navActions.navigationToNomeVisitTerc(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
                         typeOcupante = entry.arguments?.getInt(TYPE_OCUPANTE_ARGS)!!,
@@ -650,6 +660,15 @@ fun NavigationGraph(
                             ID_ARGS
                         )!!,
                         cpfVisitTerc = it
+                    )
+                },
+                onNavPassagList = {
+                    navActions.navigationToPassagVisitTerc(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        typeOcupante = entry.arguments?.getInt(TYPE_OCUPANTE_ARGS)!!,
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!,
                     )
                 }
             )
@@ -665,7 +684,7 @@ fun NavigationGraph(
         ) { entry ->
             NomeVisitTercScreen(
                 viewModel = koinViewModel<NomeVisitTercViewModel>(),
-                onNavCpfVisitTerc = {
+                onNavCpf = {
                     navActions.navigationToCpfVisitTerc(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
                         typeOcupante = entry.arguments?.getInt(TYPE_OCUPANTE_ARGS)!!,
@@ -674,13 +693,20 @@ fun NavigationGraph(
                         )!!,
                     )
                 },
-                onNavPassagVisitTerc = {
+                onNavPassag = {
                     navActions.navigationToPassagVisitTerc(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
                         typeOcupante = entry.arguments?.getInt(TYPE_OCUPANTE_ARGS)!!,
                         id = entry.arguments?.getInt(
                             ID_ARGS
                         )!!,
+                    )
+                },
+                onNavDetalhe = {
+                    navActions.navigationToDetalheVisitTerc(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
                     )
                 }
             )
@@ -695,14 +721,14 @@ fun NavigationGraph(
         ) { entry ->
             PassagVisitTercListScreen(
                 viewModel = koinViewModel<PassagVisitTercListViewModel>(),
-                onNavCpfMotorista = {
+                onNavCpf = {
                     navActions.navigationToCpfVisitTerc(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
                         typeOcupante = entry.arguments?.getInt(TYPE_OCUPANTE_ARGS)!!,
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalheVisitTerc = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheVisitTerc(
                         id = entry.arguments?.getInt(
                             ID_ARGS
@@ -740,7 +766,7 @@ fun NavigationGraph(
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalheMovProprio = {
+                onNavDetalhe = {
                     navActions.navigationToDetalheProprio(
                         id = entry.arguments?.getInt(
                             ID_ARGS
@@ -880,8 +906,8 @@ fun NavigationGraph(
                 onNavObserv = {
                     navActions.navigationToObservResidencia(
                         flowApp = FlowApp.ADD.ordinal,
-                        typeMov = TypeMov.INPUT.ordinal,
-                        id = 0
+                        typeMov = TypeMov.OUTPUT.ordinal,
+                        id = it
                     )
                 },
                 onNavMenuApont = {

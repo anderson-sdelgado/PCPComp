@@ -25,11 +25,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumericWithoutUpdate
+import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumeric
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeButtonWithoutUpdate
+import br.com.usinasantafe.pcpcomp.utils.TypeButton
 
 const val TAG_NOTA_FISCAL_TEXT_FIELD_PROPRIO = "tag_nota_fiscal_text_field_proprio"
 
@@ -38,7 +38,7 @@ fun NotaFiscalProprioScreen(
     viewModel: NotaFiscalViewModel,
     onNavDestino: () -> Unit,
     onNavObserv: () -> Unit,
-    onNavDetalheMovProprio: () -> Unit,
+    onNavDetalhe: () -> Unit,
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -53,7 +53,7 @@ fun NotaFiscalProprioScreen(
                 failure = uiState.failure,
                 onNavDestino = onNavDestino,
                 onNavObserv = onNavObserv,
-                onNavDetalheMovProprio = onNavDetalheMovProprio,
+                onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.getNotaFiscal()
@@ -65,21 +65,21 @@ fun NotaFiscalProprioScreen(
 fun NotaFiscalProprioContent(
     notaFiscal: String?,
     flowApp: FlowApp,
-    setTextField: (String, TypeButtonWithoutUpdate) -> Unit,
+    setTextField: (String, TypeButton) -> Unit,
     flagAccess: Boolean,
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
     onNavDestino: () -> Unit,
     onNavObserv: () -> Unit,
-    onNavDetalheMovProprio: () -> Unit,
+    onNavDetalhe: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_nota_fiscal))
+        TitleDesign(text = stringResource(id = R.string.text_title_nota_fiscal))
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -89,7 +89,7 @@ fun NotaFiscalProprioContent(
             ),
             textStyle = TextStyle(
                 textAlign = TextAlign.Right,
-                fontSize = 24.sp
+                fontSize = 28.sp
             ),
             readOnly = true,
             value = if(notaFiscal.isNullOrEmpty()) "" else notaFiscal,
@@ -99,11 +99,14 @@ fun NotaFiscalProprioContent(
                 .testTag(TAG_NOTA_FISCAL_TEXT_FIELD_PROPRIO)
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
-        ButtonsGenericNumericWithoutUpdate(setActionButton = setTextField)
+        ButtonsGenericNumeric(
+            setActionButton = setTextField,
+            flagUpdate = false
+        )
         BackHandler {
             when (flowApp) {
                 FlowApp.ADD -> onNavDestino()
-                FlowApp.CHANGE -> onNavDetalheMovProprio()
+                FlowApp.CHANGE -> onNavDetalhe()
             }
         }
 
@@ -116,7 +119,10 @@ fun NotaFiscalProprioContent(
         }
 
         if (flagAccess) {
-            onNavObserv()
+            when (flowApp) {
+                FlowApp.ADD -> onNavObserv()
+                FlowApp.CHANGE -> onNavDetalhe()
+            }
         }
 
     }
@@ -137,7 +143,7 @@ fun NotaFiscalProprioPagePreview() {
                 failure = "",
                 onNavDestino = {},
                 onNavObserv = {},
-                onNavDetalheMovProprio = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -159,7 +165,7 @@ fun NotaFiscalProprioPagePreviewWithValue() {
                 failure = "",
                 onNavDestino = {},
                 onNavObserv = {},
-                onNavDetalheMovProprio = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -182,7 +188,7 @@ fun NotaFiscalProprioPagePreviewWithFailure() {
                 failure = "Failure Repository",
                 onNavDestino = {},
                 onNavObserv = {},
-                onNavDetalheMovProprio = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

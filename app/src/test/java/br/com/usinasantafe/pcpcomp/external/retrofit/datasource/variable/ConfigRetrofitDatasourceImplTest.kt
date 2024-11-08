@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.external.retrofit.datasource.variable
 
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.variable.ConfigApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitTest
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.ConfigWebServiceModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.ConfigWebServiceModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.ConfigWebServiceModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.ConfigWebServiceModelOutput
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

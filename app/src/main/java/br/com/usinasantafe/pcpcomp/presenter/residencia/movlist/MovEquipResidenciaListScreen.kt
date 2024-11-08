@@ -23,7 +23,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TextSmallDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun MovEquipResidenciaListScreen(
@@ -79,7 +79,7 @@ fun MovEquipResidenciaListContent(
     ) {
         TextSmallDesign(text = "VIGIA: $descrVigia")
         TextSmallDesign(text = "LOCAL: $descrLocal")
-        TitleListDesign(text = stringResource(id = R.string.text_title_mov_residencia))
+        TitleDesign(text = stringResource(id = R.string.text_title_mov_residencia))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -146,6 +146,38 @@ fun MovEquipResidenciaListPagePreview() {
                 descrVigia = "1975 - ANDERSON",
                 descrLocal = "1 - USINA",
                 movEquipResidenciaModelList = emptyList(),
+                startMov = {},
+                flagAccess = false,
+                flagDialog = false,
+                failure = "",
+                setCloseDialog = {},
+                onNavVeiculo = {},
+                onNavMovEquipEditList = {},
+                onNavObserv = {},
+                onNavMenuApont = {},
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MovEquipResidenciaListDataPagePreview() {
+    PCPCompTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            MovEquipResidenciaListContent(
+                descrVigia = "1975 - ANDERSON",
+                descrLocal = "1 - USINA",
+                movEquipResidenciaModelList = listOf(
+                    MovEquipResidenciaModel(
+                        id = 1,
+                        dthr = "20/10/2024",
+                        veiculo = "Gol",
+                        placa = "abc1234",
+                        motorista = "Anderson"
+                    )
+                ),
                 startMov = {},
                 flagAccess = false,
                 flagDialog = false,

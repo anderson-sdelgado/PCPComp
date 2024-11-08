@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "86c152cf6f0eddc7cca53a5656e8dc87",
+    "identityHash": "ffba002aa1c3219edce886a8b8c5f728",
     "entities": [
       {
         "tableName": "tb_colab",
@@ -57,6 +57,32 @@
         "foreignKeys": []
       },
       {
+        "tableName": "tb_fluxo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFluxo` INTEGER NOT NULL, `descrFluxo` TEXT NOT NULL, PRIMARY KEY(`idFluxo`))",
+        "fields": [
+          {
+            "fieldPath": "idFluxo",
+            "columnName": "idFluxo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descrFluxo",
+            "columnName": "descrFluxo",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idFluxo"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "tb_local",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idLocal` INTEGER NOT NULL, `descrLocal` TEXT NOT NULL, PRIMARY KEY(`idLocal`))",
         "fields": [
@@ -77,6 +103,38 @@
           "autoGenerate": false,
           "columnNames": [
             "idLocal"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_r_local_fluxo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idRLocalFluxo` INTEGER NOT NULL, `idLocal` INTEGER NOT NULL, `idFluxo` INTEGER NOT NULL, PRIMARY KEY(`idRLocalFluxo`))",
+        "fields": [
+          {
+            "fieldPath": "idRLocalFluxo",
+            "columnName": "idRLocalFluxo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLocal",
+            "columnName": "idLocal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idFluxo",
+            "columnName": "idFluxo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idRLocalFluxo"
           ]
         },
         "indices": [],
@@ -534,7 +592,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '86c152cf6f0eddc7cca53a5656e8dc87')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ffba002aa1c3219edce886a8b8c5f728')"
     ]
   }
 }

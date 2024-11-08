@@ -4,6 +4,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ColabRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.ColabRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.ColabRetrofitModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -80,8 +81,14 @@ class ColabRepositoryImplTest {
 
     @Test
     fun `Check data is correct in recover data`() = runTest {
-        val colabList = listOf(
+        val entityList = listOf(
             Colab(
+                matricColab = 19759,
+                nomeColab = "Anderson"
+            )
+        )
+        val retrofitModelList = listOf(
+            ColabRetrofitModel(
                 matricColab = 19759,
                 nomeColab = "Anderson"
             )
@@ -89,12 +96,12 @@ class ColabRepositoryImplTest {
         whenever(
             colabRetrofitDatasource.recoverAll(token)
         ).thenReturn(
-            Result.success(colabList)
+            Result.success(retrofitModelList)
         )
         val repository = getRepository()
         val result = repository.recoverAll(token)
         assertEquals(result.isSuccess, true)
-        assertEquals(result, Result.success(colabList))
+        assertEquals(result, Result.success(entityList))
     }
 
     @Test

@@ -4,13 +4,11 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.ConfigRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.ConfigWebServiceModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.toConfigWebServiceModel
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.ConfigWebServiceModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.toConfigWebServiceModel
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
-import org.junit.Before
 
 import org.junit.Test
 import org.mockito.kotlin.mock

@@ -5,6 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetIdLocalConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.initial.GetLocalList
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateLocal
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -21,12 +22,20 @@ class LocalViewModelTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
+    private val setIdLocalConfig = mock<SetIdLocalConfig>()
+    private val getLocalList = mock<GetLocalList>()
+    private val updateLocal = mock<UpdateLocal>()
+    private val viewModel = LocalViewModel(
+        getLocalList,
+        setIdLocalConfig,
+        updateLocal
+    )
 
     @Test
     fun `check return failure if RecoverLocals have failure`() = runTest {
-        val setIdLocalConfig = mock<SetIdLocalConfig>()
-        val getLocalList = mock<GetLocalList>()
-        whenever(getLocalList()).thenReturn(
+        whenever(
+            getLocalList()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "RecoverNomeVigia",
@@ -34,8 +43,7 @@ class LocalViewModelTest {
                 )
             )
         )
-        val viewModel = LocalViewModel(getLocalList, setIdLocalConfig)
-        viewModel.startRecoverLocals()
+        viewModel.localList()
         assertEquals(viewModel.uiState.value.flagDialog, true)
         assertEquals(viewModel.uiState.value.failure, "Failure Datasource -> RecoverNomeVigia -> java.lang.Exception")
     }
@@ -48,15 +56,14 @@ class LocalViewModelTest {
                 descrLocal = "USINA"
             )
         )
-        val setIdLocalConfig = mock<SetIdLocalConfig>()
-        val getLocalList = mock<GetLocalList>()
-        whenever(getLocalList()).thenReturn(
+        whenever(
+            getLocalList()
+        ).thenReturn(
             Result.success(
                 locals
             )
         )
-        val viewModel = LocalViewModel(getLocalList, setIdLocalConfig)
-        viewModel.startRecoverLocals()
+        viewModel.localList()
         assertEquals(viewModel.uiState.value.flagDialog, false)
         assertEquals(viewModel.uiState.value.locals, locals)
     }

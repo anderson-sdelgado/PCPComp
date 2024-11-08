@@ -10,6 +10,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeButtonWithoutUpdate
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -55,27 +56,29 @@ class NotaFiscalViewModel(
 
     fun setTextField(
         text: String,
-        typeButtonWithoutUpdate: TypeButtonWithoutUpdate
+        typeButton: TypeButton
     ) {
         val nf = if (uiState.value.notaFiscal.isNullOrEmpty()) "" else uiState.value.notaFiscal!!
-        when (typeButtonWithoutUpdate) {
-            TypeButtonWithoutUpdate.NUMERIC -> {
+        when (typeButton) {
+            TypeButton.NUMERIC -> {
                 val notaFiscal = addTextField(nf, text)
                 _uiState.update {
                     it.copy(notaFiscal = notaFiscal)
                 }
             }
 
-            TypeButtonWithoutUpdate.CLEAN -> {
+            TypeButton.CLEAN -> {
                 val notaFiscal = clearTextField(nf)
                 _uiState.update {
                     it.copy(notaFiscal = notaFiscal)
                 }
             }
 
-            TypeButtonWithoutUpdate.OK -> {
+            TypeButton.OK -> {
                 setNotaFiscal()
             }
+
+            TypeButton.UPDATE -> {}
         }
     }
 

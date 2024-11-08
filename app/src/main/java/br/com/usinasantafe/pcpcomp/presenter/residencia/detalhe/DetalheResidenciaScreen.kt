@@ -20,7 +20,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun DetalheResidenciaScreen(
@@ -51,6 +51,7 @@ fun DetalheResidenciaScreen(
                 onNavObserv = onNavObserv,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.recoverDetalhe()
         }
     }
 }
@@ -77,7 +78,7 @@ fun DetalheResidenciaContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_detalhe))
+        TitleDesign(text = stringResource(id = R.string.text_title_detalhe))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()

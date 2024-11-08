@@ -4,6 +4,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.EquipRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.EquipRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.EquipRetrofitModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -47,7 +48,10 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.deleteAll()
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.deleteAll")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> EquipRoomDatasource.deleteAll"
+        )
     }
 
     val token = "Bearer E49AD0C7AAA85FA6AB01FFD4AF7205C7"
@@ -67,13 +71,22 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.recoverAll(token)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRetrofitDatasource.recoverAll")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> EquipRetrofitDatasource.recoverAll"
+        )
     }
 
     @Test
     fun `Check data is correct in recover data`() = runTest {
-        val equip = listOf(
+        val entityList = listOf(
             Equip(
+                idEquip = 10,
+                nroEquip = 19759
+            )
+        )
+        val retrofitModelList = listOf(
+            EquipRetrofitModel(
                 idEquip = 10,
                 nroEquip = 19759
             )
@@ -81,12 +94,12 @@ class EquipRepositoryImplTest {
         whenever(
             equipRetrofitDatasource.recoverAll(token)
         ).thenReturn(
-            Result.success(equip)
+            Result.success(retrofitModelList)
         )
         val repository = getRepository()
         val result = repository.recoverAll(token)
         assertEquals(result.isSuccess, true)
-        assertEquals(result, Result.success(equip))
+        assertEquals(result, Result.success(entityList))
     }
 
     @Test
@@ -143,7 +156,10 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.addAll(equipList)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.addAll")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> EquipRoomDatasource.addAll"
+        )
     }
 
     @Test
@@ -187,7 +203,10 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.checkNro(100)
         assertEquals(result.isFailure, true)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.checkNro")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> EquipRoomDatasource.checkNro"
+        )
     }
 
     @Test
@@ -205,7 +224,10 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.getNro(1)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.getNro")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> EquipRoomDatasource.getNro"
+        )
     }
 
     @Test
@@ -218,7 +240,10 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.getNro(1)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> EquipRepositoryImpl.getNro")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Repository -> EquipRepositoryImpl.getNro"
+        )
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception: Nro is 0")
     }
 
@@ -251,7 +276,10 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.getId(1)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> EquipRoomDatasource.getId")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Datasource -> EquipRoomDatasource.getId"
+        )
     }
 
     @Test
@@ -264,7 +292,10 @@ class EquipRepositoryImplTest {
         val repository = getRepository()
         val result = repository.getId(100)
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> EquipRepositoryImpl.getId")
+        assertEquals(
+            result.exceptionOrNull()!!.message,
+            "Failure Repository -> EquipRepositoryImpl.getId"
+        )
         assertEquals(result.exceptionOrNull()!!.cause.toString(), "java.lang.Exception: Id is 0")
     }
 

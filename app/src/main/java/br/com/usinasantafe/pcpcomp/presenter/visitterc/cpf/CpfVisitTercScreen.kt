@@ -29,23 +29,26 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogProgressDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumeric
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
+import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 
 @Composable
 fun CpfVisitTercScreen(
     viewModel: CpfVisitTercViewModel,
-    onNavTipoVisitTerc: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
-    onNavNomeVisitTerc: (String) -> Unit,
+    onNavTipo: () -> Unit,
+    onNavDetalhe: () -> Unit,
+    onNavNome: (String) -> Unit,
+    onNavPassagList: () -> Unit,
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             CpfVisitTercContent(
                 flowApp = uiState.flowApp,
+                typeOcupante = uiState.typeOcupante,
                 title = uiState.title,
                 cpf = uiState.cpf,
                 flagAccess = uiState.flagAccess,
@@ -58,9 +61,10 @@ fun CpfVisitTercScreen(
                 msgProgress = uiState.msgProgress,
                 currentProgress = uiState.currentProgress,
                 setTextField = viewModel::setTextField,
-                onNavTipoVisitTerc = onNavTipoVisitTerc,
-                onNavDetalheVisitTerc = onNavDetalheVisitTerc,
-                onNavNomeVisitTerc = onNavNomeVisitTerc,
+                onNavTipo = onNavTipo,
+                onNavDetalhe = onNavDetalhe,
+                onNavNome = onNavNome,
+                onNavPassagList = onNavPassagList,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.getCpf()
@@ -72,6 +76,7 @@ fun CpfVisitTercScreen(
 @Composable
 fun CpfVisitTercContent(
     flowApp: FlowApp,
+    typeOcupante: TypeOcupante,
     title: String,
     cpf: String,
     setTextField: (String, TypeButton) -> Unit,
@@ -84,16 +89,17 @@ fun CpfVisitTercContent(
     flagProgress: Boolean,
     msgProgress: String,
     currentProgress: Float,
-    onNavTipoVisitTerc: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
-    onNavNomeVisitTerc: (String) -> Unit,
+    onNavTipo: () -> Unit,
+    onNavDetalhe: () -> Unit,
+    onNavNome: (String) -> Unit,
+    onNavPassagList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = title)
+        TitleDesign(text = title)
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -103,7 +109,7 @@ fun CpfVisitTercContent(
             ),
             textStyle = TextStyle(
                 textAlign = TextAlign.Right,
-                fontSize = 24.sp
+                fontSize = 28.sp
             ),
             readOnly = true,
             value = cpf,
@@ -115,10 +121,16 @@ fun CpfVisitTercContent(
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         ButtonsGenericNumeric(setActionButton = setTextField)
         BackHandler {
-            when (flowApp) {
-                FlowApp.ADD -> onNavTipoVisitTerc()
-                FlowApp.CHANGE -> onNavDetalheVisitTerc()
+            when(typeOcupante) {
+                TypeOcupante.MOTORISTA -> {
+                    when (flowApp) {
+                        FlowApp.ADD -> onNavTipo()
+                        FlowApp.CHANGE -> onNavDetalhe()
+                    }
+                }
+                TypeOcupante.PASSAGEIRO -> onNavPassagList()
             }
+
         }
 
         if (flagDialog) {
@@ -155,7 +167,7 @@ fun CpfVisitTercContent(
         }
 
         if (flagAccess) {
-            onNavNomeVisitTerc(cpf)
+            onNavNome(cpf)
         }
     }
 }
@@ -166,6 +178,7 @@ fun CpfVisitTercPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             CpfVisitTercContent(
+                typeOcupante = TypeOcupante.MOTORISTA,
                 flowApp = FlowApp.ADD,
                 title = "CPF TERCEIRO",
                 cpf = "123.456.789-00",
@@ -179,9 +192,10 @@ fun CpfVisitTercPagePreview() {
                 flagProgress = false,
                 msgProgress = "",
                 currentProgress = 0.0f,
-                onNavTipoVisitTerc = {},
-                onNavDetalheVisitTerc = {},
-                onNavNomeVisitTerc = {},
+                onNavTipo = {},
+                onNavDetalhe = {},
+                onNavNome = {},
+                onNavPassagList = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

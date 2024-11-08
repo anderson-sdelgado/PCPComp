@@ -25,7 +25,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TextSmallDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListWithDetailDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 @Composable
@@ -86,7 +86,7 @@ fun MovEquipProprioListContent(
     ) {
         TextSmallDesign(text = "VIGIA: $descrVigia")
         TextSmallDesign(text = "LOCAL: $descrLocal")
-        TitleListWithDetailDesign(text = stringResource(id = R.string.text_title_mov_proprio))
+        TitleDesign(text = stringResource(id = R.string.text_title_mov_proprio))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()

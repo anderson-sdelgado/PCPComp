@@ -5,8 +5,8 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.variable.MovEquipProprioRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipProprioRetrofitDatasource
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipProprioRetrofitModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipProprioRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipProprioRetrofitModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipProprioRetrofitModelOutput
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipProprioSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.utils.FlowApp

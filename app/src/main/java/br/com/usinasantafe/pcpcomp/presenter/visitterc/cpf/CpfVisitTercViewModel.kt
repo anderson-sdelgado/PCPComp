@@ -3,12 +3,9 @@ package br.com.usinasantafe.pcpcomp.presenter.visitterc.cpf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanTerceiro
-import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanVisitante
-import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllTerceiroServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllVisitanteServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllTerceiro
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllVisitante
+import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateTerceiro
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateVisitante
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.CheckCpfVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetCpfVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetTitleCpfVisitTerc
@@ -23,7 +20,7 @@ import br.com.usinasantafe.pcpcomp.utils.TB_TERCEIRO
 import br.com.usinasantafe.pcpcomp.utils.TB_VISITANTE
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
-import br.com.usinasantafe.pcpcomp.utils.porc
+import br.com.usinasantafe.pcpcomp.utils.updatePercentage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -48,17 +45,27 @@ data class CpfVisitTercState(
     val currentProgress: Float = 0.0f,
 )
 
+fun ResultUpdate.resultUpdateToCpfVisitTerc(): CpfVisitTercState {
+    return with(this){
+        CpfVisitTercState(
+            flagDialog = this.flagDialog,
+            flagFailure = this.flagFailure,
+            errors = this.errors,
+            failure = this.failure,
+            flagProgress = this.flagProgress,
+            msgProgress = this.msgProgress,
+            currentProgress = this.currentProgress,
+        )
+    }
+}
+
 class CpfVisitTercViewModel(
     savedStateHandle: SavedStateHandle,
     private val getTitleCpfVisitTerc: GetTitleCpfVisitTerc,
     private val checkCpfVisitTerc: CheckCpfVisitTerc,
     private val getCpfVisitTerc: GetCpfVisitTerc,
-    private val cleanTerceiro: CleanTerceiro,
-    private val cleanVisitante: CleanVisitante,
-    private val getAllTerceiroServer: GetAllTerceiroServer,
-    private val getAllVisitanteServer: GetAllVisitanteServer,
-    private val saveAllTerceiro: SaveAllTerceiro,
-    private val saveAllVisitante: SaveAllVisitante,
+    private val updateTerceiro: UpdateTerceiro,
+    private val updateVisitante: UpdateVisitante,
 ) : ViewModel() {
 
     private val flowApp: Int = savedStateHandle[FLOW_APP_ARGS]!!
@@ -90,7 +97,7 @@ class CpfVisitTercViewModel(
     ) {
         when (typeButton) {
             TypeButton.NUMERIC -> {
-                if (uiState.value.cpf.length < 15) {
+                if (uiState.value.cpf.length < 14) {
                     var cpf = addTextField(uiState.value.cpf, text)
                     cpf = if (cpf.length == 3) "$cpf." else cpf
                     cpf = if (cpf.length == 7) "$cpf." else cpf
@@ -224,15 +231,15 @@ class CpfVisitTercViewModel(
     suspend fun updateAllDatabase(): Flow<CpfVisitTercState> = flow {
         val sizeUpdate = 7f
         var cpfVisitTercState = CpfVisitTercState()
-        updateAllTerceiro(sizeUpdate, 1f).collect { stateUpdate ->
-            cpfVisitTercState = stateUpdate
-            emit(stateUpdate)
+        updateTerceiro(sizeUpdate, 1f).collect {
+            cpfVisitTercState = it.resultUpdateToCpfVisitTerc()
+            emit(it.resultUpdateToCpfVisitTerc())
         }
         if (cpfVisitTercState.flagFailure)
             return@flow
-        updateAllVisitante(sizeUpdate, 2f).collect { stateUpdate ->
-            cpfVisitTercState = stateUpdate
-            emit(stateUpdate)
+        updateVisitante(sizeUpdate, 2f).collect {
+            cpfVisitTercState = it.resultUpdateToCpfVisitTerc()
+            emit(it.resultUpdateToCpfVisitTerc())
         }
         if (cpfVisitTercState.flagFailure)
             return@flow
@@ -247,157 +254,4 @@ class CpfVisitTercViewModel(
         )
     }
 
-    suspend fun updateAllTerceiro(sizeAll: Float, count: Float): Flow<CpfVisitTercState> = flow {
-        emit(
-            CpfVisitTercState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela $TB_TERCEIRO",
-                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultClean = cleanTerceiro()
-        if (resultClean.isFailure) {
-            val error = resultClean.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                CpfVisitTercState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            CpfVisitTercState(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela $TB_TERCEIRO do Web Service",
-                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultRecover = getAllTerceiroServer()
-        if (resultRecover.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
-            emit(
-                CpfVisitTercState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            CpfVisitTercState(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela $TB_TERCEIRO",
-                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllTerceiro(list)
-        if (resultSave.isFailure) {
-            val error = resultSave.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                CpfVisitTercState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-    }
-
-    suspend fun updateAllVisitante(sizeAll: Float, count: Float): Flow<CpfVisitTercState> = flow {
-        emit(
-            CpfVisitTercState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela $TB_VISITANTE",
-                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultClean = cleanVisitante()
-        if (resultClean.isFailure) {
-            val error = resultClean.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                CpfVisitTercState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            CpfVisitTercState(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela $TB_VISITANTE do Web Service",
-                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultRecover = getAllVisitanteServer()
-        if (resultRecover.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
-            emit(
-                CpfVisitTercState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            CpfVisitTercState(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela $TB_VISITANTE",
-                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllVisitante(list)
-        if (resultSave.isFailure) {
-            val error = resultSave.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                CpfVisitTercState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-    }
 }

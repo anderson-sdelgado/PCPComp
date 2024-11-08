@@ -3,12 +3,11 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanEquip
+import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllEquipServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_EQUIP_ARGS
@@ -19,7 +18,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TB_EQUIP
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
-import br.com.usinasantafe.pcpcomp.utils.porc
+import br.com.usinasantafe.pcpcomp.utils.updatePercentage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -43,13 +42,25 @@ data class NroEquipProprioState(
     val currentProgress: Float = 0.0f,
 )
 
+fun ResultUpdate.resultUpdateToNroEquipProprio(): NroEquipProprioState {
+    return with(this){
+        NroEquipProprioState(
+            flagDialog = this.flagDialog,
+            flagFailure = this.flagFailure,
+            errors = this.errors,
+            failure = this.failure,
+            flagProgress = this.flagProgress,
+            msgProgress = this.msgProgress,
+            currentProgress = this.currentProgress,
+        )
+    }
+}
+
 class NroEquipProprioViewModel(
     saveStateHandle: SavedStateHandle,
     private val checkNroEquipProprio: CheckNroEquipProprio,
     private val setNroEquipProprio: SetNroEquip,
-    private val cleanEquip: CleanEquip,
-    private val getAllEquipServer: GetAllEquipServer,
-    private val saveAllEquip: SaveAllEquip,
+    private val updateEquip: UpdateEquip,
     private val getNroEquip: GetNroEquip,
 ) : ViewModel() {
 
@@ -202,9 +213,9 @@ class NroEquipProprioViewModel(
     suspend fun updateAllDatabase(): Flow<NroEquipProprioState> = flow {
         val sizeUpdate = 4f
         var configState = NroEquipProprioState()
-        updateAllEquip(sizeUpdate, 1f).collect { stateUpdate ->
-            configState = stateUpdate
-            emit(stateUpdate)
+        updateEquip(sizeUpdate, 1f).collect {
+            configState = it.resultUpdateToNroEquipProprio()
+            emit(it.resultUpdateToNroEquipProprio())
         }
         if (configState.flagFailure)
             return@flow
@@ -217,83 +228,6 @@ class NroEquipProprioViewModel(
                 currentProgress = 1f,
             )
         )
-    }
-
-    suspend fun updateAllEquip(sizeAll: Float, count: Float): Flow<NroEquipProprioState> = flow {
-        emit(
-            NroEquipProprioState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela $TB_EQUIP",
-                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultClean = cleanEquip()
-        if (resultClean.isFailure) {
-            val error = resultClean.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                NroEquipProprioState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            NroEquipProprioState(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela $TB_EQUIP do Web Service",
-                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultRecover = getAllEquipServer()
-        if (resultRecover.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
-            emit(
-                NroEquipProprioState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            NroEquipProprioState(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela $TB_EQUIP",
-                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllEquip(list)
-        if (resultSave.isFailure) {
-            val error = resultSave.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                NroEquipProprioState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
     }
 
 }

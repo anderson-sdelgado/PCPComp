@@ -22,6 +22,10 @@ class SenhaViewModelTest {
 
     val password = "12345"
 
+    private fun getViewModel() = SenhaViewModel(
+        checkPasswordConfig = mock()
+    )
+
     @Test
     fun `check return failure if checkPassword have failure`() = runTest {
         val checkPasswordConfig = mock<CheckPasswordConfig>()

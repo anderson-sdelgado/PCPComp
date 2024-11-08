@@ -8,7 +8,7 @@ class CalcTest {
 
     @Test
     fun `Test calc`() {
-        val result = porc(1f, 3f)
+        val result = percentage(1f, 3f)
         assertEquals(result, 0.33333334f)
     }
 }

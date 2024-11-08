@@ -7,6 +7,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNotaFiscalProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNotaFiscalProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeButtonWithoutUpdate
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -38,7 +39,7 @@ class NotaFiscalViewModelTest {
             setNotaFiscalProprio,
             getNotaFiscalProprio
         )
-        viewModel.setTextField("OK", TypeButtonWithoutUpdate.OK)
+        viewModel.setTextField("OK", TypeButton.OK)
         assertTrue(viewModel.uiState.value.flagAccess)
     }
 
@@ -70,8 +71,8 @@ class NotaFiscalViewModelTest {
             setNotaFiscalProprio,
             getNotaFiscalProprio
         )
-        viewModel.setTextField("123456", TypeButtonWithoutUpdate.NUMERIC)
-        viewModel.setTextField("OK", TypeButtonWithoutUpdate.OK)
+        viewModel.setTextField("123456", TypeButton.NUMERIC)
+        viewModel.setTextField("OK", TypeButton.OK)
         assertTrue(viewModel.uiState.value.flagDialog)
         assertEquals(viewModel.uiState.value.failure, "Failure Usecase -> SetNotaFiscalProprio -> java.lang.Exception")
     }
@@ -99,8 +100,8 @@ class NotaFiscalViewModelTest {
             setNotaFiscalProprio,
             getNotaFiscalProprio
         )
-        viewModel.setTextField("123456", TypeButtonWithoutUpdate.NUMERIC)
-        viewModel.setTextField("OK", TypeButtonWithoutUpdate.OK)
+        viewModel.setTextField("123456", TypeButton.NUMERIC)
+        viewModel.setTextField("OK", TypeButton.OK)
         assertFalse(viewModel.uiState.value.flagDialog)
         assertTrue(viewModel.uiState.value.flagAccess)
     }

@@ -20,7 +20,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 
 @Composable
@@ -61,7 +61,7 @@ fun TipoVisitTercContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_tipo))
+        TitleDesign(text = stringResource(id = R.string.text_title_tipo))
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -70,13 +70,15 @@ fun TipoVisitTercContent(
             item {
                 ItemListDesign(
                     text = "TERCEIRO",
-                    setActionItem = { setTipoVisitTerc(TypeVisitTerc.TERCEIRO) }
+                    setActionItem = { setTipoVisitTerc(TypeVisitTerc.TERCEIRO) },
+                    font = 26
                 )
             }
             item {
                 ItemListDesign(
                     text = "VISITANTE",
-                    setActionItem = { setTipoVisitTerc(TypeVisitTerc.VISITANTE) }
+                    setActionItem = { setTipoVisitTerc(TypeVisitTerc.VISITANTE) },
+                    font = 26
                 )
             }
         }

@@ -2,17 +2,14 @@ package br.com.usinasantafe.pcpcomp.presenter.initial.matricvigia
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
+import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetMatricVigiaConfig
-import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateColab
 import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.Errors
-import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
-import br.com.usinasantafe.pcpcomp.utils.porc
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,12 +29,24 @@ data class MatricVigiaState(
     val currentProgress: Float = 0.0f,
 )
 
+fun ResultUpdate.resultUpdateToMatricVigia(): MatricVigiaState {
+    return with(this){
+        MatricVigiaState(
+            flagDialog = this.flagDialog,
+            flagFailure = this.flagFailure,
+            errors = this.errors,
+            failure = this.failure,
+            flagProgress = this.flagProgress,
+            msgProgress = this.msgProgress,
+            currentProgress = this.currentProgress,
+        )
+    }
+}
+
 class MatricVigiaViewModel(
     private val checkMatricColab: CheckMatricColab,
     private val setMatricVigiaConfig: SetMatricVigiaConfig,
-    private val cleanColab: CleanColab,
-    private val getAllColabServer: GetAllColabServer,
-    private val saveAllColab: SaveAllColab,
+    private val updateColab: UpdateColab,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MatricVigiaState())
@@ -136,9 +145,9 @@ class MatricVigiaViewModel(
     suspend fun updateAllDatabase(): Flow<MatricVigiaState> = flow {
         val sizeUpdate = 4f
         var configState = MatricVigiaState()
-        updateAllColab(sizeUpdate, 1f).collect{ stateUpdateColab ->
-            configState = stateUpdateColab
-            emit(stateUpdateColab)
+        updateColab(sizeUpdate, 1f).collect{
+            configState = it.resultUpdateToMatricVigia()
+            emit(it.resultUpdateToMatricVigia())
         }
         if(configState.flagFailure)
             return@flow
@@ -151,83 +160,6 @@ class MatricVigiaViewModel(
                 currentProgress = 1f,
             )
         )
-    }
-
-    suspend fun updateAllColab(sizeAll: Float, count: Float): Flow<MatricVigiaState> = flow {
-        emit(
-            MatricVigiaState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela $TB_COLAB",
-                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultClean = cleanColab()
-        if (resultClean.isFailure) {
-            val error = resultClean.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                MatricVigiaState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            MatricVigiaState(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela $TB_COLAB do Web Service",
-                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultRecover = getAllColabServer()
-        if (resultRecover.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
-            emit(
-                MatricVigiaState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            MatricVigiaState(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela $TB_COLAB",
-                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllColab(list)
-        if (resultSave.isFailure) {
-            val error = resultSave.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                MatricVigiaState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
     }
 
 }

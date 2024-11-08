@@ -5,19 +5,13 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_return_true_if_have_data_in_mov_visit_terc()">
+      <SelectionState runConfigName="check_return_failure_if_have_row_repeated()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_return_true_if_have_data_in_mov_residencia()">
+      <SelectionState runConfigName="check_return_success_if_data_is_correct() (1)">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check_close_mov_open()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="check_return_failure_if_not_have_data()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="check_return_true_and_data_returned()">
+      <SelectionState runConfigName="check_return_failure_if_have_row_repeated() (1)">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

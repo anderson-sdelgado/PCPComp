@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable
 
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipProprioRetrofitModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipProprioRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipProprioRetrofitModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipProprioRetrofitModelOutput
 
 interface MovEquipProprioRetrofitDatasource {
 

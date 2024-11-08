@@ -24,18 +24,23 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 
 @Composable
 fun NomeColabScreen(
     viewModel: NomeColabViewModel,
     onNavMatricColab: () -> Unit,
-    onNavPassagColabList: () -> Unit
+    onNavPassagColabList: () -> Unit,
+    onNavDetalhe: () -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             NomeColabContent(
+                flowApp = uiState.flowApp,
+                typeOcupante = uiState.typeOcupante,
                 nomeColab = uiState.nomeColab,
                 setMatric = viewModel::setMatric,
                 flagAccess = uiState.flagAccess,
@@ -44,6 +49,7 @@ fun NomeColabScreen(
                 failure = uiState.failure,
                 onNavMatricColab = onNavMatricColab,
                 onNavPassagColabList = onNavPassagColabList,
+                onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -53,6 +59,8 @@ fun NomeColabScreen(
 
 @Composable
 fun NomeColabContent(
+    flowApp: FlowApp,
+    typeOcupante: TypeOcupante,
     nomeColab: String,
     setMatric: () -> Unit,
     flagAccess: Boolean,
@@ -61,13 +69,14 @@ fun NomeColabContent(
     failure: String,
     onNavMatricColab: () -> Unit,
     onNavPassagColabList: () -> Unit,
+    onNavDetalhe: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_nome_colab))
+        TitleDesign(text = stringResource(id = R.string.text_title_nome_colab))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -78,7 +87,7 @@ fun NomeColabContent(
             Text(
                 textAlign = TextAlign.Center,
                 text = nomeColab,
-                fontSize = 26.sp,
+                fontSize = 28.sp,
             )
         }
         Row(
@@ -111,7 +120,15 @@ fun NomeColabContent(
         }
 
         if(flagAccess) {
-            onNavPassagColabList()
+            when(typeOcupante){
+                TypeOcupante.MOTORISTA -> {
+                    when(flowApp){
+                        FlowApp.ADD -> onNavPassagColabList()
+                        FlowApp.CHANGE -> onNavDetalhe()
+                    }
+                }
+                TypeOcupante.PASSAGEIRO -> onNavPassagColabList()
+            }
         }
 
     }
@@ -123,6 +140,8 @@ fun NomeColabPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             NomeColabContent(
+                flowApp = FlowApp.ADD,
+                typeOcupante = TypeOcupante.MOTORISTA,
                 nomeColab = "ANDERSON DA SILVA DELGADO",
                 setMatric = {},
                 flagAccess = false,
@@ -131,6 +150,7 @@ fun NomeColabPagePreview() {
                 failure = "",
                 onNavMatricColab = {},
                 onNavPassagColabList = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -143,6 +163,8 @@ fun NomeColabPagePreviewFailure() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             NomeColabContent(
+                flowApp = FlowApp.ADD,
+                typeOcupante = TypeOcupante.MOTORISTA,
                 nomeColab = "ANDERSON DA SILVA DELGADO",
                 setMatric = {},
                 flagAccess = false,
@@ -151,6 +173,7 @@ fun NomeColabPagePreviewFailure() {
                 failure = "Failure Usecase -> RecoverNomeColab -> java.lang.NullPointerException",
                 onNavMatricColab = {},
                 onNavPassagColabList = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

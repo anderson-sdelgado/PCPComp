@@ -7,7 +7,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 
 class EquipRoomDatasourceImpl(
     private val equipDao: EquipDao
-): EquipRoomDatasource {
+) : EquipRoomDatasource {
 
     override suspend fun addAll(list: List<EquipRoomModel>): Result<Boolean> {
         try {
@@ -38,9 +38,9 @@ class EquipRoomDatasourceImpl(
     }
 
     override suspend fun getId(nroEquip: Long): Result<Int> {
-        return try{
+        return try {
             Result.success(equipDao.getId(nroEquip))
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(
                 DatasourceException(
                     function = "EquipRoomDatasourceImpl.getNro",
@@ -51,10 +51,10 @@ class EquipRoomDatasourceImpl(
     }
 
     override suspend fun getNro(idEquip: Int): Result<Long> {
-        return try{
+        return try {
             val result = equipDao.getNro(idEquip)
             Result.success(result)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(
                 DatasourceException(
                     function = "EquipRoomDatasourceImpl.getNro",

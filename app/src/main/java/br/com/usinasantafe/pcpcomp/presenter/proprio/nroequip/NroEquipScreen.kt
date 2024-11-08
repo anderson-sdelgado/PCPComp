@@ -29,7 +29,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogProgressDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ButtonsGenericNumeric
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
@@ -95,7 +95,7 @@ fun NroEquipContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_nro_equip))
+        TitleDesign(text = stringResource(id = R.string.text_title_nro_equip))
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
@@ -105,7 +105,7 @@ fun NroEquipContent(
             ),
             textStyle = TextStyle(
                 textAlign = TextAlign.Right,
-                fontSize = 24.sp
+                fontSize = 28.sp
             ),
             readOnly = true,
             value = nroEquip,
@@ -184,7 +184,7 @@ fun NroEquipPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             NroEquipContent(
-                nroEquip = "",
+                nroEquip = "310",
                 flowApp = FlowApp.ADD,
                 typeEquip = TypeEquip.VEICULO,
                 setTextField = { _, _ -> },

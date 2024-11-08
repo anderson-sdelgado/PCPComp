@@ -9,8 +9,8 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipPr
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.roomModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.sharedPreferencesModelToEntity
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.entityToRetrofitModelOutput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.retrofitModelInputToEntity
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.entityToRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.retrofitModelInputToEntity
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 

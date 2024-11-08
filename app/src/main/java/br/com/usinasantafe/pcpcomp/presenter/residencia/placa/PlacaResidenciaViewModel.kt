@@ -51,8 +51,10 @@ class PlacaResidenciaViewModel(
     }
 
     fun onPlacaChanged(placa: String) {
-        _uiState.update {
-            it.copy(placa = placa)
+        if (placa.length <= 7) {
+            _uiState.update {
+                it.copy(placa = placa)
+            }
         }
     }
 

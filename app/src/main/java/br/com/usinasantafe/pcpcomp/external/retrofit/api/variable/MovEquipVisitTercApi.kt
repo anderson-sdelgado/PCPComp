@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.external.retrofit.api.variable
 
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipVisitTercRetrofitModelInput
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipVisitTercRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipVisitTercRetrofitModelInput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipVisitTercRetrofitModelOutput
 import br.com.usinasantafe.pcpcomp.utils.WEB_SAVE_MOV_EQUIP_VISIT_TERC
 import retrofit2.Response
 import retrofit2.http.Body

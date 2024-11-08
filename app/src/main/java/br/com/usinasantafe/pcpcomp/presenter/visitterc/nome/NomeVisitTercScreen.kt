@@ -24,18 +24,23 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 
 @Composable
 fun NomeVisitTercScreen(
     viewModel: NomeVisitTercViewModel,
-    onNavCpfVisitTerc: () -> Unit,
-    onNavPassagVisitTerc: () -> Unit,
+    onNavCpf: () -> Unit,
+    onNavPassag: () -> Unit,
+    onNavDetalhe: () -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             NomeVisitTercContent(
+                flowApp = uiState.flowApp,
+                typeOcupante = uiState.typeOcupante,
                 tipo = uiState.tipo,
                 nome = uiState.nome,
                 empresa = uiState.empresa,
@@ -44,8 +49,9 @@ fun NomeVisitTercScreen(
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
-                onNavCpfVisitTerc = onNavCpfVisitTerc,
-                onNavPassagVisitTerc = onNavPassagVisitTerc,
+                onNavCpf = onNavCpf,
+                onNavPassag = onNavPassag,
+                onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.returnNome()
@@ -55,6 +61,8 @@ fun NomeVisitTercScreen(
 
 @Composable
 fun NomeVisitTercContent(
+    flowApp: FlowApp,
+    typeOcupante: TypeOcupante,
     tipo: String,
     nome: String,
     empresa: String,
@@ -63,15 +71,16 @@ fun NomeVisitTercContent(
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavCpfVisitTerc: () -> Unit,
-    onNavPassagVisitTerc: () -> Unit,
+    onNavCpf: () -> Unit,
+    onNavPassag: () -> Unit,
+    onNavDetalhe: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "NOME DO $tipo")
+        TitleDesign(text = "NOME DO $tipo")
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -82,10 +91,10 @@ fun NomeVisitTercContent(
             Text(
                 textAlign = TextAlign.Center,
                 text = nome,
-                fontSize = 26.sp,
+                fontSize = 28.sp
             )
         }
-        TitleListDesign(text = "EMPRESA(S) DO $tipo")
+        TitleDesign(text = "EMPRESA(S) DO $tipo")
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -96,7 +105,7 @@ fun NomeVisitTercContent(
             Text(
                 textAlign = TextAlign.Center,
                 text = empresa,
-                fontSize = 26.sp,
+                fontSize = 28.sp
             )
         }
         Row(
@@ -106,7 +115,7 @@ fun NomeVisitTercContent(
             horizontalArrangement = Arrangement.Center,
         ) {
             Button(
-                onClick = onNavCpfVisitTerc,
+                onClick = onNavCpf,
                 modifier = Modifier.weight(1f)
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
@@ -120,16 +129,16 @@ fun NomeVisitTercContent(
         }
         BackHandler {}
 
-        if(flagDialog) {
+        if (flagDialog) {
             AlertDialogSimpleDesign(
                 text = stringResource(id = R.string.text_failure, failure),
                 setCloseDialog = setCloseDialog,
-                setActionButtonOK = { onNavCpfVisitTerc() }
+                setActionButtonOK = { onNavCpf() }
             )
         }
 
-        if(flagAccess) {
-            onNavPassagVisitTerc()
+        if (flagAccess) {
+            if ((flowApp == FlowApp.CHANGE) && (typeOcupante == TypeOcupante.MOTORISTA)) onNavDetalhe() else onNavPassag()
         }
 
     }
@@ -141,6 +150,8 @@ fun NomeVisitTercPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             NomeVisitTercContent(
+                flowApp = FlowApp.CHANGE,
+                typeOcupante = TypeOcupante.MOTORISTA,
                 tipo = "TERCEIRO",
                 nome = "NOME TESTE",
                 empresa = "EMPRESA TESTE",
@@ -149,8 +160,9 @@ fun NomeVisitTercPagePreview() {
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavCpfVisitTerc = {},
-                onNavPassagVisitTerc = {},
+                onNavCpf = {},
+                onNavPassag = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

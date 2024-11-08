@@ -33,7 +33,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.Errors
-import br.com.usinasantafe.pcpcomp.utils.porc
+import br.com.usinasantafe.pcpcomp.utils.percentage
 
 const val TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN = "tag_number_text_field_config_screen"
 const val TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN = "tag_password_text_field_config_screen"
@@ -195,7 +195,7 @@ fun ConfigPagePreviewProgress() {
                 failure = "",
                 flagProgress = true,
                 msgProgress = "Enviando Dados de Token",
-                currentProgress = porc(1f, 3f),
+                currentProgress = percentage(1f, 3f),
                 onClickSaveAndUpdate = {},
                 onNavMenuInicial = {},
                 modifier = Modifier.padding(innerPadding)

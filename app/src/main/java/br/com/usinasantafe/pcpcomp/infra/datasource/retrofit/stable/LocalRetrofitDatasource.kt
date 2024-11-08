@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable
 
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.LocalRetrofitModel
 
 interface LocalRetrofitDatasource {
-    suspend fun recoverAll(token: String): Result<List<Local>>
+    suspend fun recoverAll(token: String): Result<List<LocalRetrofitModel>>
 }

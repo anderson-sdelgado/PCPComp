@@ -4,12 +4,13 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.stable.EquipApi
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.EquipRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.EquipRetrofitModel
 
 class EquipRetrofitDatasourceImpl(
     private val equipApi: EquipApi
 ): EquipRetrofitDatasource {
 
-    override suspend fun recoverAll(token: String): Result<List<Equip>> {
+    override suspend fun recoverAll(token: String): Result<List<EquipRetrofitModel>> {
         try {
             val response = equipApi.all(token)
             return Result.success(response.body()!!)

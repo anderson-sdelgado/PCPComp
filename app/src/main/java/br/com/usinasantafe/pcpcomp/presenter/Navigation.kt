@@ -265,7 +265,7 @@ class NavigationActions(private val navController: NavHostController) {
         flowApp: Int,
         id: Int,
     ) {
-        navController.navigate("${VEICULO_VISIT_TERC_SCREEN}/${flowApp}/${id}")
+        navController.navigate("${PLACA_VISIT_TERC_SCREEN}/${flowApp}/${id}")
     }
 
     fun navigationToTipoVisitTerc() {
@@ -286,7 +286,7 @@ class NavigationActions(private val navController: NavHostController) {
         id: Int,
         cpfVisitTerc: String
     ) {
-        navController.navigate("${CPF_VISIT_TERC_SCREEN}/${flowApp}/${typeOcupante}/${id}/${cpfVisitTerc}")
+        navController.navigate("${NOME_VISIT_TERC_SCREEN}/${flowApp}/${typeOcupante}/${id}/${cpfVisitTerc}")
     }
 
     fun navigationToPassagVisitTerc(

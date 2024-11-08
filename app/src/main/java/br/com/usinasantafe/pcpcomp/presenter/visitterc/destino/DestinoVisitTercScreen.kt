@@ -23,13 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
-import br.com.usinasantafe.pcpcomp.presenter.proprio.destino.TAG_DESTINO_TEXT_FIELD_PROPRIO
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 const val TAG_DESTINO_TEXT_FIELD_VISIT_TERC = "tag_destino_text_field_visit_terc"
 
@@ -37,7 +35,7 @@ const val TAG_DESTINO_TEXT_FIELD_VISIT_TERC = "tag_destino_text_field_visit_terc
 fun DestinoVisitTercScreen(
     viewModel: DestinoVisitTercViewModel,
     onNavPassagList: () -> Unit,
-    onNavDetalheMovProprio: () -> Unit,
+    onNavDetalhe: () -> Unit,
     onNavObserv: () -> Unit
 ) {
     PCPCompTheme {
@@ -53,7 +51,7 @@ fun DestinoVisitTercScreen(
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
                 onNavPassagList = onNavPassagList,
-                onNavDetalheMovProprio = onNavDetalheMovProprio,
+                onNavDetalhe = onNavDetalhe,
                 onNavObserv = onNavObserv,
                 modifier = Modifier.padding(innerPadding)
             )
@@ -72,7 +70,7 @@ fun DestinoVisitTercContent(
     setCloseDialog: () -> Unit,
     failure: String,
     onNavPassagList: () -> Unit,
-    onNavDetalheMovProprio: () -> Unit,
+    onNavDetalhe: () -> Unit,
     onNavObserv: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -80,7 +78,7 @@ fun DestinoVisitTercContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_destino))
+        TitleDesign(text = stringResource(id = R.string.text_title_destino))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = destino,
@@ -91,7 +89,7 @@ fun DestinoVisitTercContent(
                 .testTag(TAG_DESTINO_TEXT_FIELD_VISIT_TERC),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
-                fontSize = 22.sp,
+                fontSize = 28.sp
             ),
         )
         Row(
@@ -104,7 +102,7 @@ fun DestinoVisitTercContent(
                 onClick = {
                     when (flowApp) {
                         FlowApp.ADD -> onNavPassagList()
-                        FlowApp.CHANGE -> onNavDetalheMovProprio()
+                        FlowApp.CHANGE -> onNavDetalhe()
                     }
                 },
                 modifier = Modifier.weight(1f)
@@ -136,9 +134,11 @@ fun DestinoVisitTercContent(
         }
 
         if (flagAccess) {
-            onNavObserv()
+            when(flowApp) {
+                FlowApp.ADD -> onNavObserv()
+                FlowApp.CHANGE -> onNavDetalhe()
+            }
         }
-
     }
 }
 
@@ -157,7 +157,7 @@ fun DestinoVisitTercPagePreview() {
                 setCloseDialog = {},
                 failure = "",
                 onNavPassagList = {},
-                onNavDetalheMovProprio = {},
+                onNavDetalhe = {},
                 onNavObserv = {},
                 modifier = Modifier.padding(innerPadding)
             )

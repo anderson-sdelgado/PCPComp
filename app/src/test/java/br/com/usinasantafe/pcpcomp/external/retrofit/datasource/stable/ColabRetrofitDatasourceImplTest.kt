@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.external.retrofit.datasource.stable
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.stable.ColabApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitTest
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.ColabRetrofitModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -53,7 +54,7 @@ class ColabRetrofitDatasourceImplTest {
         assertEquals(result,
             Result.success(
                 listOf(
-                    Colab(
+                    ColabRetrofitModel(
                         matricColab = 19759,
                         nomeColab = "ANDERSON DA SILVA DELGADO"
                     )

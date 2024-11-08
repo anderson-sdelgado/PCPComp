@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.external.retrofit.datasource.stable
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.stable.LocalApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitTest
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.LocalRetrofitModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -53,7 +54,7 @@ class LocalRetrofitDatasourceImplTest {
         assertEquals(result,
             Result.success(
                 listOf(
-                    Local(
+                    LocalRetrofitModel(
                         idLocal = 1,
                         descrLocal = "Usina"
                     )

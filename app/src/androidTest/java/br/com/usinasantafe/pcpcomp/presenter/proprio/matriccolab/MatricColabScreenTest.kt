@@ -9,11 +9,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateColab
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
@@ -43,9 +41,7 @@ class MatricColabScreenTest : KoinTest {
     val composeTestRule = createComposeRule()
 
     val checkMatricColab: CheckMatricColab by inject()
-    val cleanColab: CleanColab by inject()
-    val getAllColabServer: GetAllColabServer by inject()
-    val saveAllColab: SaveAllColab by inject()
+    val updateColab: UpdateColab by inject()
     val getMatricColab: GetMatricColab by inject()
 
     @Before
@@ -239,9 +235,7 @@ class MatricColabScreenTest : KoinTest {
                         )
                     ),
                     checkMatricColab,
-                    cleanColab,
-                    getAllColabServer,
-                    saveAllColab,
+                    updateColab,
                     getMatricColab
                 ),
                 onNavMovVeicProprio = {},

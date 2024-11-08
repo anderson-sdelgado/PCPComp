@@ -24,7 +24,7 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun NomeVigiaScreen(
@@ -63,7 +63,7 @@ fun NomeVigiaContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "NOME VIGIA")
+        TitleDesign(text = "NOME VIGIA")
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,

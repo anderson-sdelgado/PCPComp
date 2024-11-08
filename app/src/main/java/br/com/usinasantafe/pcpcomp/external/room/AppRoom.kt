@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.*
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.ColabDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
+import br.com.usinasantafe.pcpcomp.external.room.dao.stable.FluxoDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.LocalDao
+import br.com.usinasantafe.pcpcomp.external.room.dao.stable.RLocalFluxoDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.TerceiroDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.VisitanteDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
@@ -15,7 +17,9 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipVisitTercD
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipVisitTercPassagDao
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.FluxoRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.RLocalFluxoRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.VisitanteRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioEquipSegRoomModel
@@ -31,7 +35,9 @@ import br.com.usinasantafe.pcpcomp.utils.VERSION_DB
     entities = [
         ColabRoomModel::class,
         EquipRoomModel::class,
+        FluxoRoomModel::class,
         LocalRoomModel::class,
+        RLocalFluxoRoomModel::class,
         TerceiroRoomModel::class,
         VisitanteRoomModel::class,
         MovEquipProprioRoomModel::class,
@@ -46,7 +52,9 @@ import br.com.usinasantafe.pcpcomp.utils.VERSION_DB
 abstract class AppDatabaseRoom : RoomDatabase() {
     abstract fun colabDao(): ColabDao
     abstract fun equipDao(): EquipDao
+    abstract fun fluxoDao(): FluxoDao
     abstract fun localDao(): LocalDao
+    abstract fun rLocalFluxoDao(): RLocalFluxoDao
     abstract fun terceiroDao(): TerceiroDao
     abstract fun visitanteDao(): VisitanteDao
     abstract fun movEquipProprioDao(): MovEquipProprioDao

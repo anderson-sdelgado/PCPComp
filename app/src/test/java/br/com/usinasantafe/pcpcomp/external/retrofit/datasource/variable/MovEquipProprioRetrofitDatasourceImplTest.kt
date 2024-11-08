@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.external.retrofit.datasource.variable
 
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.variable.MovEquipProprioApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitTest
-import br.com.usinasantafe.pcpcomp.infra.models.retrofit.MovEquipProprioRetrofitModelOutput
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipProprioRetrofitModelOutput
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

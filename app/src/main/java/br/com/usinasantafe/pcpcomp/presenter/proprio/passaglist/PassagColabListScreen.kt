@@ -25,14 +25,14 @@ import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 @Composable
 fun PassagColabListScreen(
     viewModel: PassagColabListViewModel,
     onNavMatricMotorista: () -> Unit,
-    onNavDetalheProprio: () -> Unit,
+    onNavDetalhe: () -> Unit,
     onNavMatricPassag: () -> Unit,
     onNavDestino: () -> Unit,
 ) {
@@ -50,7 +50,7 @@ fun PassagColabListScreen(
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
                 onNavMatricColab = onNavMatricMotorista,
-                onNavDetalheProprio = onNavDetalheProprio,
+                onNavDetalhe = onNavDetalhe,
                 onNavMatricPassag = onNavMatricPassag,
                 onNavDestino = onNavDestino,
                 modifier = Modifier.padding(innerPadding)
@@ -73,7 +73,7 @@ fun PassagColabListContent(
     setCloseDialog: () -> Unit,
     failure: String,
     onNavMatricColab: () -> Unit,
-    onNavDetalheProprio: () -> Unit,
+    onNavDetalhe: () -> Unit,
     onNavMatricPassag: () -> Unit,
     onNavDestino: () -> Unit,
     modifier: Modifier = Modifier
@@ -82,7 +82,7 @@ fun PassagColabListContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_passag))
+        TitleDesign(text = stringResource(id = R.string.text_title_passag))
         LazyColumn(
             modifier = Modifier
                 .weight(1f),
@@ -110,7 +110,7 @@ fun PassagColabListContent(
                 onClick = {
                     when (flowApp) {
                         FlowApp.ADD -> onNavMatricColab()
-                        FlowApp.CHANGE -> onNavDetalheProprio()
+                        FlowApp.CHANGE -> onNavDetalhe()
                     }
                 },
                 modifier = Modifier.weight(1f)
@@ -118,7 +118,12 @@ fun PassagColabListContent(
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
             }
             Button(
-                onClick = { onNavDestino() },
+                onClick = {
+                    when (flowApp) {
+                        FlowApp.ADD -> onNavDestino()
+                        FlowApp.CHANGE -> onNavDetalhe()
+                    }
+                },
                 modifier = Modifier.weight(1f),
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_pattern_ok))
@@ -126,7 +131,7 @@ fun PassagColabListContent(
         }
         BackHandler {}
 
-        if(flagDialog) {
+        if (flagDialog) {
             AlertDialogSimpleDesign(
                 text = stringResource(id = R.string.text_failure, failure),
                 setCloseDialog = setCloseDialog,
@@ -160,7 +165,7 @@ fun PassagColabListPagePreview() {
                 setCloseDialog = {},
                 failure = "",
                 onNavMatricColab = {},
-                onNavDetalheProprio = {},
+                onNavDetalhe = {},
                 onNavMatricPassag = {},
                 onNavDestino = {},
                 modifier = Modifier.padding(innerPadding)
@@ -194,7 +199,7 @@ fun PassagColabListPagePreviewList() {
                 setCloseDialog = {},
                 failure = "",
                 onNavMatricColab = {},
-                onNavDetalheProprio = {},
+                onNavDetalhe = {},
                 onNavMatricPassag = {},
                 onNavDestino = {},
                 modifier = Modifier.padding(innerPadding)
@@ -228,7 +233,7 @@ fun PassagColabListPagePreviewFailure() {
                 setCloseDialog = {},
                 failure = "Failure Usecase",
                 onNavMatricColab = {},
-                onNavDetalheProprio = {},
+                onNavDetalhe = {},
                 onNavMatricPassag = {},
                 onNavDestino = {},
                 modifier = Modifier.padding(innerPadding)
@@ -262,7 +267,7 @@ fun PassagColabListPagePreviewMsgDelete() {
                 setCloseDialog = {},
                 failure = "Failure Usecase",
                 onNavMatricColab = {},
-                onNavDetalheProprio = {},
+                onNavDetalhe = {},
                 onNavMatricPassag = {},
                 onNavDestino = {},
                 modifier = Modifier.padding(innerPadding)

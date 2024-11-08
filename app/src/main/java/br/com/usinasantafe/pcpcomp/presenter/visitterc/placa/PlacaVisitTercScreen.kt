@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -29,7 +28,7 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 const val TAG_PLACA_TEXT_FIELD_VISIT_TERC = "tag_placa_text_field_visit_terc"
@@ -37,9 +36,9 @@ const val TAG_PLACA_TEXT_FIELD_VISIT_TERC = "tag_placa_text_field_visit_terc"
 @Composable
 fun PlacaVisitTercScreen(
     viewModel: PlacaVisitTercViewModel,
-    onNavTipoVisitTerc: () -> Unit,
-    onNavVeiculoVisitTerc: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
+    onNavTipo: () -> Unit,
+    onNavVeiculo: () -> Unit,
+    onNavDetalhe: () -> Unit,
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -53,9 +52,9 @@ fun PlacaVisitTercScreen(
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
-                onNavTipoVisitTerc = onNavTipoVisitTerc,
-                onNavVeiculoVisitTerc = onNavVeiculoVisitTerc,
-                onNavDetalheVisitTerc = onNavDetalheVisitTerc,
+                onNavTipo = onNavTipo,
+                onNavVeiculo = onNavVeiculo,
+                onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.recoverPlaca()
@@ -73,16 +72,16 @@ fun PlacaVisitTercContent(
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavTipoVisitTerc: () -> Unit,
-    onNavVeiculoVisitTerc: () -> Unit,
-    onNavDetalheVisitTerc: () -> Unit,
+    onNavTipo: () -> Unit,
+    onNavVeiculo: () -> Unit,
+    onNavDetalhe: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_placa))
+        TitleDesign(text = stringResource(id = R.string.text_title_placa))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = placa,
@@ -93,7 +92,7 @@ fun PlacaVisitTercContent(
                 .testTag(TAG_PLACA_TEXT_FIELD_VISIT_TERC),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
-                fontSize = 22.sp,
+                fontSize = 28.sp
             ),
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters)
         )
@@ -106,8 +105,8 @@ fun PlacaVisitTercContent(
             Button(
                 onClick = {
                     when (flowApp) {
-                        FlowApp.ADD -> onNavVeiculoVisitTerc()
-                        FlowApp.CHANGE -> onNavDetalheVisitTerc()
+                        FlowApp.ADD -> onNavVeiculo()
+                        FlowApp.CHANGE -> onNavDetalhe()
                     }
                 },
                 modifier = Modifier.weight(1f)
@@ -139,7 +138,10 @@ fun PlacaVisitTercContent(
         }
 
         if (flagAccess) {
-            onNavTipoVisitTerc()
+            when (flowApp) {
+                FlowApp.ADD -> onNavTipo()
+                FlowApp.CHANGE -> onNavDetalhe()
+            }
         }
 
     }
@@ -151,7 +153,7 @@ fun PlacaVisitTercPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             PlacaVisitTercContent(
-                placa = "ABC-1234",
+                placa = "abc1234",
                 flowApp = FlowApp.ADD,
                 onPlacaChanged = {},
                 setPlaca = {},
@@ -159,9 +161,9 @@ fun PlacaVisitTercPagePreview() {
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavTipoVisitTerc = {},
-                onNavVeiculoVisitTerc = {},
-                onNavDetalheVisitTerc = {},
+                onNavTipo = {},
+                onNavVeiculo = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

@@ -87,7 +87,8 @@ class NomeColabScreenTest: KoinTest {
                     setMatricColab
                 ),
                 onNavMatricColab = {},
-                onNavPassagColabList = {}
+                onNavPassagColabList = {},
+                onNavDetalhe = {}
             )
         }
     }

@@ -5,6 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.EquipRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.EquipRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.retrofitModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.entityToRoomModel
 
 class EquipRepositoryImpl(
@@ -87,7 +88,8 @@ class EquipRepositoryImpl(
             val recoverAll =  equipRetrofitDatasource.recoverAll(token)
             if (recoverAll.isFailure)
                 return Result.failure(recoverAll.exceptionOrNull()!!)
-            return Result.success(recoverAll.getOrNull()!!)
+            val entityList = recoverAll.getOrNull()!!.map { it.retrofitModelToEntity() }
+            return Result.success(entityList)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

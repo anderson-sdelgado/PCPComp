@@ -5,6 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.VisitanteRepositor
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.VisitanteRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.VisitanteRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.retrofitModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.roomModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.entityToRoomModel
 
@@ -120,7 +121,8 @@ class VisitanteRepositoryImpl(
             val resultRecoverAll = visitanteRetrofitDatasource.recoverAll(token)
             if (resultRecoverAll.isFailure)
                 return Result.failure(resultRecoverAll.exceptionOrNull()!!)
-            return Result.success(resultRecoverAll.getOrNull()!!)
+            val entityList = resultRecoverAll.getOrNull()!!.map { it.retrofitModelToEntity() }
+            return Result.success(entityList)
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

@@ -26,7 +26,7 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
@@ -35,10 +35,10 @@ const val TAG_OBSERV_TEXT_FIELD_PROPRIO = "tag_observ_text_field_proprio"
 @Composable
 fun ObservProprioScreen(
     viewModel: ObservProprioViewModel,
-    onNavDestinoProprio: () -> Unit,
-    onNavNotaFiscalProprio: () -> Unit,
-    onNavDetalheProprio: () -> Unit,
-    onNavMovEquipProprioList: () -> Unit
+    onNavDestino: () -> Unit,
+    onNavNotaFiscal: () -> Unit,
+    onNavDetalhe: () -> Unit,
+    onNavMovList: () -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -55,10 +55,10 @@ fun ObservProprioScreen(
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
-                onNavDestinoProprio = onNavDestinoProprio,
-                onNavNotaFiscalProprio = onNavNotaFiscalProprio,
-                onNavDetalheProprio = onNavDetalheProprio,
-                onNavMovEquipProprioList = onNavMovEquipProprioList,
+                onNavDestino = onNavDestino,
+                onNavNotaFiscal = onNavNotaFiscal,
+                onNavDetalhe = onNavDetalhe,
+                onNavMovList = onNavMovList,
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -78,17 +78,17 @@ fun ObservProprioContent(
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
     failure: String,
-    onNavDestinoProprio: () -> Unit,
-    onNavNotaFiscalProprio: () -> Unit,
-    onNavDetalheProprio: () -> Unit,
-    onNavMovEquipProprioList: () -> Unit,
+    onNavDestino: () -> Unit,
+    onNavNotaFiscal: () -> Unit,
+    onNavDetalhe: () -> Unit,
+    onNavMovList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = stringResource(id = R.string.text_title_observ))
+        TitleDesign(text = stringResource(id = R.string.text_title_observ))
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         OutlinedTextField(
             value = if(observ.isNullOrEmpty()) "" else observ,
@@ -99,7 +99,7 @@ fun ObservProprioContent(
                 .testTag(TAG_OBSERV_TEXT_FIELD_PROPRIO),
             textStyle = TextStyle(
                 textAlign = TextAlign.Center,
-                fontSize = 22.sp,
+                fontSize = 28.sp
             ),
         )
         Row(
@@ -112,7 +112,7 @@ fun ObservProprioContent(
                 onClick = {
                     when (flowApp) {
                         FlowApp.ADD -> setReturn()
-                        FlowApp.CHANGE -> onNavDetalheProprio()
+                        FlowApp.CHANGE -> onNavDetalhe()
                     }
                 },
                 modifier = Modifier.weight(1f)
@@ -138,15 +138,15 @@ fun ObservProprioContent(
 
         if(flagAccess){
             when(flowApp){
-                FlowApp.ADD -> onNavMovEquipProprioList()
-                FlowApp.CHANGE -> onNavDetalheProprio()
+                FlowApp.ADD -> onNavMovList()
+                FlowApp.CHANGE -> onNavDetalhe()
             }
         }
 
         if(flagReturn){
             when(typeMov){
-                TypeMov.INPUT -> onNavDestinoProprio()
-                TypeMov.OUTPUT -> onNavNotaFiscalProprio()
+                TypeMov.INPUT -> onNavDestino()
+                TypeMov.OUTPUT -> onNavNotaFiscal()
             }
         }
 
@@ -170,10 +170,10 @@ fun ObservProprioPagePreview() {
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
-                onNavDestinoProprio = {},
-                onNavNotaFiscalProprio = {},
-                onNavDetalheProprio = {},
-                onNavMovEquipProprioList = {},
+                onNavDestino = {},
+                onNavNotaFiscal = {},
+                onNavDetalhe = {},
+                onNavMovList = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -197,10 +197,10 @@ fun ObservProprioPagePreviewWithFailure() {
                 flagDialog = true,
                 setCloseDialog = {},
                 failure = "Failure Usecase",
-                onNavDestinoProprio = {},
-                onNavNotaFiscalProprio = {},
-                onNavDetalheProprio = {},
-                onNavMovEquipProprioList = {},
+                onNavDestino = {},
+                onNavNotaFiscal = {},
+                onNavDetalhe = {},
+                onNavMovList = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

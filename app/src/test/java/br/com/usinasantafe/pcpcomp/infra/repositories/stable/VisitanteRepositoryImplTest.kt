@@ -4,6 +4,7 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.VisitanteRoomDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.VisitanteRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.VisitanteRetrofitModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.VisitanteRoomModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -81,8 +82,8 @@ class VisitanteRepositoryImplTest {
 
     @Test
     fun `Check data is correct in recover data`() = runTest {
-        val entityList = listOf(
-            Visitante(
+        val retrofitModelList = listOf(
+            VisitanteRetrofitModel(
                 idVisitante = 1,
                 nomeVisitante = "Visitante",
                 cpfVisitante = "123.456.789-00",
@@ -92,7 +93,7 @@ class VisitanteRepositoryImplTest {
         whenever(
             visitanteRetrofitDatasource.recoverAll(token)
         ).thenReturn(
-            Result.success(entityList)
+            Result.success(retrofitModelList)
         )
         val repository = getRepository()
         val result = repository.recoverAll(token)

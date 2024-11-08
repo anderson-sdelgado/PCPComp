@@ -24,7 +24,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TextSmallDesign
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun MovEquipVisitTercListScreen(
@@ -81,7 +81,7 @@ fun MovEquipVisitTercListContent(
         TextSmallDesign(text = "VIGIA: $descrVigia")
         TextSmallDesign(text = "LOCAL: $descrLocal")
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
-        TitleListDesign(text = stringResource(id = R.string.text_title_mov_visit_terc))
+        TitleDesign(text = stringResource(id = R.string.text_title_mov_visit_terc))
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
         LazyColumn(
             modifier = Modifier

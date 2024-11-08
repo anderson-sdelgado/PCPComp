@@ -3,14 +3,14 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.matriccolab
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.cleantable.CleanColab
+import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMatricColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.getserver.GetAllColabServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateColab
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_OCUPANTE_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.visitterc.cpf.CpfVisitTercState
 import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.Errors
@@ -18,7 +18,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
-import br.com.usinasantafe.pcpcomp.utils.porc
+import br.com.usinasantafe.pcpcomp.utils.updatePercentage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,12 +42,24 @@ data class MatricColabState(
     val currentProgress: Float = 0.0f,
 )
 
+fun ResultUpdate.resultUpdateToMatricColab(): MatricColabState {
+    return with(this){
+        MatricColabState(
+            flagDialog = this.flagDialog,
+            flagFailure = this.flagFailure,
+            errors = this.errors,
+            failure = this.failure,
+            flagProgress = this.flagProgress,
+            msgProgress = this.msgProgress,
+            currentProgress = this.currentProgress,
+        )
+    }
+}
+
 class MatricColabViewModel(
     saveStateHandle: SavedStateHandle,
     private val checkMatricColab: CheckMatricColab,
-    private val cleanColab: CleanColab,
-    private val getAllColabServer: GetAllColabServer,
-    private val saveAllColab: SaveAllColab,
+    private val updateColab: UpdateColab,
     private val getMatricColab: GetMatricColab,
 ) : ViewModel() {
 
@@ -177,12 +189,12 @@ class MatricColabViewModel(
 
     suspend fun updateAllDatabase(): Flow<MatricColabState> = flow {
         val sizeUpdate = 4f
-        var configState = MatricColabState()
-        updateAllColab(sizeUpdate, 1f).collect { stateUpdate ->
-            configState = stateUpdate
-            emit(stateUpdate)
+        var state = MatricColabState()
+        updateColab(sizeUpdate, 1f).collect {
+            state = it.resultUpdateToMatricColab()
+            emit(it.resultUpdateToMatricColab())
         }
-        if (configState.flagFailure)
+        if (state.flagFailure)
             return@flow
         emit(
             MatricColabState(
@@ -193,83 +205,6 @@ class MatricColabViewModel(
                 currentProgress = 1f,
             )
         )
-    }
-
-    suspend fun updateAllColab(sizeAll: Float, count: Float): Flow<MatricColabState> = flow {
-        emit(
-            MatricColabState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela $TB_COLAB",
-                currentProgress = porc(1f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultClean = cleanColab()
-        if (resultClean.isFailure) {
-            val error = resultClean.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                MatricColabState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            MatricColabState(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela $TB_COLAB do Web Service",
-                currentProgress = porc(2f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val resultRecover = getAllColabServer()
-        if (resultRecover.isFailure) {
-            val error = resultRecover.exceptionOrNull()!!
-            val failure =
-                "${error.message} -> ${error.cause.toString()}"
-            emit(
-                MatricColabState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
-        emit(
-            MatricColabState(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela $TB_COLAB",
-                currentProgress = porc(3f + ((count - 1) * 3), sizeAll),
-            )
-        )
-        val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllColab(list)
-        if (resultSave.isFailure) {
-            val error = resultSave.exceptionOrNull()!!
-            val failure = "${error.message} -> ${error.cause.toString()}"
-            emit(
-                MatricColabState(
-                    errors = Errors.UPDATE,
-                    flagDialog = true,
-                    flagFailure = true,
-                    failure = failure,
-                    flagProgress = false,
-                    msgProgress = failure,
-                    currentProgress = 1f,
-                )
-            )
-            return@flow
-        }
     }
 
 }

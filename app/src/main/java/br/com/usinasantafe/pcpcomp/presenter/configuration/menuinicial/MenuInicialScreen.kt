@@ -21,7 +21,7 @@ import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
-import br.com.usinasantafe.pcpcomp.ui.theme.TitleListDesign
+import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 
 @Composable
 fun MenuInicialScreen(
@@ -64,7 +64,9 @@ fun MenuInicialContent(
         modifier = modifier
             .padding(16.dp)
     ) {
-        TitleListDesign(text = "MENU INICIAL - V ${BuildConfig.VERSION_NAME}")
+        TitleDesign(
+            text = "MENU INICIAL - V ${BuildConfig.VERSION_NAME}",
+        )
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,13 +75,15 @@ fun MenuInicialContent(
             item {
                 ItemListDesign(
                     text = "APONTAMENTO",
-                    setActionItem = onCheckAccess
+                    setActionItem = onCheckAccess,
+                    font = 26
                 )
             }
             item {
                 ItemListDesign(
                     text = "CONFIGURAÇÃO",
-                    setActionItem = onNavSenha
+                    setActionItem = onNavSenha,
+                    font = 26
                 )
             }
             item {
@@ -87,7 +91,8 @@ fun MenuInicialContent(
                     text = "SAIR",
                     setActionItem = {
                         activity?.finish()
-                    }
+                    },
+                    font = 26
                 )
             }
         }
