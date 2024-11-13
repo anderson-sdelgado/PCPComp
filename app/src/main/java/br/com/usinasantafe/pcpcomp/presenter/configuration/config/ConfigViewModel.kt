@@ -113,7 +113,8 @@ class ConfigViewModel(
         result?.let { configModel ->
             _uiState.update {
                 it.copy(
-                    number = configModel.number, password = configModel.password
+                    number = configModel.number,
+                    password = configModel.password
                 )
             }
         }

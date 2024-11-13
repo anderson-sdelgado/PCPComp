@@ -1,13 +1,12 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllColabServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanTerceiro
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllTerceiroServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllTerceiro
 import br.com.usinasantafe.pcpcomp.utils.Errors
-import br.com.usinasantafe.pcpcomp.utils.percentage
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.toList
@@ -17,27 +16,27 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class UpdateColabImplTest {
+class UpdateTerceiroImplTest {
 
-    private val cleanColab = mock<CleanColab>()
-    private val getAllColabServer = mock<GetAllColabServer>()
-    private val saveAllColab = mock<SaveAllColab>()
-    private fun getUsecase() = UpdateColabImpl(
-        cleanColab = cleanColab,
-        getAllColabServer = getAllColabServer,
-        saveAllColab = saveAllColab,
+    private val cleanTerceiro = mock<CleanTerceiro>()
+    private val getAllTerceiroServer = mock<GetAllTerceiroServer>()
+    private val saveAllTerceiro = mock<SaveAllTerceiro>()
+    private fun getUsecase() = UpdateTerceiroImpl(
+        cleanTerceiro = cleanTerceiro,
+        getAllTerceiroServer = getAllTerceiroServer,
+        saveAllTerceiro = saveAllTerceiro,
     )
 
     @Test
-    fun `check return failure usecase if have error in usecase RecoverColabServer`() =
+    fun `check return failure usecase if have error in usecase RecoverTerceiroServer`() =
         runTest {
             var pos = 0f
             whenever(
-                getAllColabServer()
+                getAllTerceiroServer()
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
-                        function = "GetAllColabServer",
+                        function = "GetAllTerceiroServer",
                         cause = NullPointerException()
                     )
                 )
@@ -53,7 +52,7 @@ class UpdateColabImplTest {
                 list[0],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                    msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -63,30 +62,30 @@ class UpdateColabImplTest {
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     flagFailure = true,
-                    failure = "Failure Usecase -> GetAllColabServer -> java.lang.NullPointerException",
-                    msgProgress = "Failure Usecase -> GetAllColabServer -> java.lang.NullPointerException",
+                    failure = "Failure Usecase -> GetAllTerceiroServer -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> GetAllTerceiroServer -> java.lang.NullPointerException",
                     currentProgress = 1f,
                 )
             )
         }
 
     @Test
-    fun `Check return failure usecase if have error in usecase CleanColab`() =
+    fun `Check return failure usecase if have error in usecase CleanTerceiro`() =
         runTest {
             var pos = 0f
             whenever(
-                getAllColabServer()
+                getAllTerceiroServer()
             ).thenReturn(
                 Result.success(
-                    colabList
+                    terceiroList
                 )
             )
             whenever(
-                cleanColab()
+                cleanTerceiro()
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
-                        function = "CleanColab",
+                        function = "CleanTerceiro",
                         cause = NullPointerException()
                     )
                 )
@@ -102,7 +101,7 @@ class UpdateColabImplTest {
                 list[0],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                    msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -110,7 +109,7 @@ class UpdateColabImplTest {
                 list[1],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Limpando a tabela tb_colab",
+                    msgProgress = "Limpando a tabela tb_terceiro",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -120,35 +119,35 @@ class UpdateColabImplTest {
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     flagFailure = true,
-                    failure = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
-                    msgProgress = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
+                    failure = "Failure Usecase -> CleanTerceiro -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanTerceiro -> java.lang.NullPointerException",
                     currentProgress = 1f,
                 )
             )
         }
 
     @Test
-    fun `Check return failure usecase if have error in datasource SaveAllColab`() =
+    fun `Check return failure usecase if have error in datasource SaveAllTerceiro`() =
         runTest {
             var pos = 0f
             whenever(
-                getAllColabServer()
+                getAllTerceiroServer()
             ).thenReturn(
                 Result.success(
-                    colabList
+                    terceiroList
                 )
             )
             whenever(
-                cleanColab()
+                cleanTerceiro()
             ).thenReturn(
                 Result.success(true)
             )
             whenever(
-                saveAllColab(colabList)
+                saveAllTerceiro(terceiroList)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
-                        function = "SaveAllColab",
+                        function = "SaveAllTerceiro",
                         cause = NullPointerException()
                     )
                 )
@@ -164,7 +163,7 @@ class UpdateColabImplTest {
                 list[0],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                    msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -172,7 +171,7 @@ class UpdateColabImplTest {
                 list[1],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Limpando a tabela tb_colab",
+                    msgProgress = "Limpando a tabela tb_terceiro",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -180,7 +179,7 @@ class UpdateColabImplTest {
                 list[2],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Salvando dados na tabela tb_colab",
+                    msgProgress = "Salvando dados na tabela tb_terceiro",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -190,31 +189,31 @@ class UpdateColabImplTest {
                     errors = Errors.UPDATE,
                     flagDialog = true,
                     flagFailure = true,
-                    failure = "Failure Usecase -> SaveAllColab -> java.lang.NullPointerException",
-                    msgProgress = "Failure Usecase -> SaveAllColab -> java.lang.NullPointerException",
+                    failure = "Failure Usecase -> SaveAllTerceiro -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> SaveAllTerceiro -> java.lang.NullPointerException",
                     currentProgress = 1f,
                 )
             )
         }
 
     @Test
-    fun `Check return true if have UpdateColab execute successfully`() =
+    fun `Check return true if have UpdateTerceiro execute successfully`() =
         runTest {
             var pos = 0f
             whenever(
-                getAllColabServer()
+                getAllTerceiroServer()
             ).thenReturn(
                 Result.success(
-                    colabList
+                    terceiroList
                 )
             )
             whenever(
-                cleanColab()
+                cleanTerceiro()
             ).thenReturn(
                 Result.success(true)
             )
             whenever(
-                saveAllColab(colabList)
+                saveAllTerceiro(terceiroList)
             ).thenReturn(
                 Result.success(true)
             )
@@ -229,7 +228,7 @@ class UpdateColabImplTest {
                 list[0],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                    msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -237,7 +236,7 @@ class UpdateColabImplTest {
                 list[1],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Limpando a tabela tb_colab",
+                    msgProgress = "Limpando a tabela tb_terceiro",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -245,7 +244,7 @@ class UpdateColabImplTest {
                 list[2],
                 ResultUpdate(
                     flagProgress = true,
-                    msgProgress = "Salvando dados na tabela tb_colab",
+                    msgProgress = "Salvando dados na tabela tb_terceiro",
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
@@ -253,10 +252,12 @@ class UpdateColabImplTest {
 
 }
 
-
-val colabList = listOf(
-    Colab(
-        matricColab = 19759,
-        nomeColab = "ANDERSON DA SILVA DELGADO"
+val terceiroList = listOf(
+    Terceiro(
+        idTerceiro = 1,
+        idBDTerceiro = 1,
+        cpfTerceiro = "123.456.789-00",
+        nomeTerceiro = "Terceiro",
+        empresaTerceiro = "Empresa Terceiro"
     )
 )

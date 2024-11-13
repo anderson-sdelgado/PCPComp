@@ -32,6 +32,12 @@ class SplashViewModel(
         }
     }
 
+    fun setOpenDialog() {
+        _uiState.update {
+            it.copy(flagDialog = true)
+        }
+    }
+
     fun processInitial(version: String) = viewModelScope.launch {
         val resultAdjustConfig = adjustConfig(version)
         if (resultAdjustConfig.isFailure) {

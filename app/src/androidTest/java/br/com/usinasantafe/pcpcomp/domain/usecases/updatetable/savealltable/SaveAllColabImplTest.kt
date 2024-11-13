@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
+import br.com.usinasantafe.pcpcomp.external.room.dao.stable.ColabDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -15,6 +16,7 @@ import org.koin.test.inject
 class SaveAllColabImplTest: KoinTest {
 
     private val usecase: SaveAllColab by inject()
+    private val colabDao: ColabDao by inject()
 
     @Before
     fun before() {
@@ -34,6 +36,11 @@ class SaveAllColabImplTest: KoinTest {
         val result = usecase(colabList)
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
+        val listBefore = colabDao.getAll()
+        assertEquals(
+            listBefore.size,
+            1
+        )
     }
 
     @Test

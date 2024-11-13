@@ -1,6 +1,8 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable
 
+import br.com.usinasantafe.pcpcomp.external.room.dao.stable.LocalDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.assertEquals
@@ -11,9 +13,10 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class CleanLocalImplTest: KoinTest {
+class CleanLocalImplTest : KoinTest {
 
-    private val usecase: br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanColab by inject()
+    private val usecase: CleanLocal by inject()
+    private val localDao: LocalDao by inject()
 
     @Before
     fun before() {
@@ -23,9 +26,34 @@ class CleanLocalImplTest: KoinTest {
     }
 
     @Test
-    fun verify_clean_local_correct() = runTest {
-        val result = usecase()
-        assertTrue(result.isSuccess)
-        assertEquals(result, Result.success(true))
-    }
+    fun check_clean_execute_correct_and_check_data() =
+        runTest {
+            localDao.insertAll(
+                listOf(
+                    LocalRoomModel(
+                        idLocal = 1,
+                        descrLocal = "USINA"
+                    )
+                )
+            )
+            val listBefore = localDao.getAll()
+            assertEquals(
+                listBefore.size,
+                1
+            )
+            val result = usecase()
+            assertEquals(
+                result.isSuccess,
+                true
+            )
+            assertEquals(
+                result,
+                Result.success(true)
+            )
+            val listAfter = localDao.getAll()
+            assertEquals(
+                listAfter.size,
+                0
+            )
+        }
 }

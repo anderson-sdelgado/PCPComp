@@ -99,7 +99,7 @@ fun NroEquipContent(
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
-                autoCorrect = true,
+                autoCorrectEnabled = true,
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Previous
             ),

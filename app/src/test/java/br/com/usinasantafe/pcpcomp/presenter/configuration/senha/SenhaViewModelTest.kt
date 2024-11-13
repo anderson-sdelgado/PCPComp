@@ -29,7 +29,9 @@ class SenhaViewModelTest {
     @Test
     fun `check return failure if checkPassword have failure`() = runTest {
         val checkPasswordConfig = mock<CheckPasswordConfig>()
-        whenever(checkPasswordConfig(password)).thenReturn(
+        whenever(
+            checkPasswordConfig(password)
+        ).thenReturn(
             Result.failure(
                 DatasourceException(function = "ConfigSharedPreferences.hasConfig", cause = Exception())
             )

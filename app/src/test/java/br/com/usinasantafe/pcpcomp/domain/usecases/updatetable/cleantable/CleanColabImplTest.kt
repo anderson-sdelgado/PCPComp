@@ -16,7 +16,7 @@ class CleanColabImplTest {
         val colabRepository = mock<ColabRepository>()
         whenever(colabRepository.deleteAll()).thenReturn(Result.success(true))
         val usecase =
-            br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanColabImpl(
+            CleanColabImpl(
                 colabRepository
             )
         val result = usecase()
@@ -36,7 +36,7 @@ class CleanColabImplTest {
             )
         )
         val usecase =
-            br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanColabImpl(
+            CleanColabImpl(
                 colabRepository
             )
         val result = usecase()

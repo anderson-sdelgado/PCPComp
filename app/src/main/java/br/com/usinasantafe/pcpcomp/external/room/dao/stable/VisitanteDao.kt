@@ -18,6 +18,9 @@ interface VisitanteDao {
     @Query("SELECT count(*) FROM $TB_VISITANTE WHERE cpfVisitante = :cpf")
     suspend fun check(cpf: String): Int
 
+    @Query("SELECT * FROM $TB_VISITANTE")
+    suspend fun getAll(): List<VisitanteRoomModel>
+
     @Query("SELECT * FROM $TB_VISITANTE WHERE cpfVisitante = :cpf")
     suspend fun get(cpf: String): VisitanteRoomModel
 

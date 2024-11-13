@@ -22,7 +22,7 @@ class RecoverColabServerImplTest : KoinTest {
     fun verify_return_failure_usecase_if_not_have_data_config_internal() = runTest {
         val server = MockWebServer()
         server.start()
-        server.enqueue(MockResponse().setBody(br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.resultColab))
+        server.enqueue(MockResponse().setBody(resultColab))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
         val result = usecase()
         assertTrue(result.isFailure)
@@ -54,7 +54,7 @@ class RecoverColabServerImplTest : KoinTest {
     fun verify_return_failure_datasource_if_token_invalid() = runTest {
         val server = MockWebServer()
         server.start()
-        server.enqueue(MockResponse().setBody(br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.tokenInvalidColab))
+        server.enqueue(MockResponse().setBody(tokenInvalidColab))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
         configSharedPreferences.save(
             Config(
@@ -75,7 +75,7 @@ class RecoverColabServerImplTest : KoinTest {
     fun verify_return_failure_repository_if_data_incorrect() = runTest {
         val server = MockWebServer()
         server.start()
-        server.enqueue(MockResponse().setBody(br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.resultColabIncorrect))
+        server.enqueue(MockResponse().setBody(resultColabIncorrect))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
         configSharedPreferences.save(
             Config(
@@ -95,7 +95,7 @@ class RecoverColabServerImplTest : KoinTest {
     fun verify_return_data_if_success_usecase() = runTest {
         val server = MockWebServer()
         server.start()
-        server.enqueue(MockResponse().setBody(br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.resultColab))
+        server.enqueue(MockResponse().setBody(resultColab))
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
         configSharedPreferences.save(
             Config(

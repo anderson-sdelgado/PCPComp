@@ -23,7 +23,9 @@ class MenuInicialViewModelTest {
     @Test
     fun `check return failure if checkAccess have failure`() = runTest {
         val checkAccessMain = mock<CheckAccessMain>()
-        whenever(checkAccessMain()).thenReturn(
+        whenever(
+            checkAccessMain()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferences.hasConfig",
@@ -33,36 +35,70 @@ class MenuInicialViewModelTest {
         )
         val viewModel = MenuInicialViewModel(checkAccessMain)
         viewModel.checkAccess()
-        assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.flagFailure, true)
-        assertEquals(viewModel.uiState.value.flagAccess, false)
-        assertEquals(viewModel.uiState.value.failure, "Failure Datasource -> ConfigSharedPreferences.hasConfig -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.flagDialog,
+            true
+        )
+        assertEquals(
+            viewModel.uiState.value.flagFailure,
+            true
+        )
+        assertEquals(
+            viewModel.uiState.value.flagAccess,
+            false
+        )
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Datasource -> ConfigSharedPreferences.hasConfig -> java.lang.Exception"
+        )
     }
 
     @Test
     fun `check blocked access`() = runTest {
         val checkAccessMain = mock<CheckAccessMain>()
-        whenever(checkAccessMain()).thenReturn(
+        whenever(
+            checkAccessMain()
+        ).thenReturn(
             Result.success(false)
         )
         val viewModel = MenuInicialViewModel(checkAccessMain)
         viewModel.checkAccess()
-        assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.flagFailure, false)
-        assertEquals(viewModel.uiState.value.flagAccess, false)
+        assertEquals(
+            viewModel.uiState.value.flagDialog,
+            true
+        )
+        assertEquals(
+            viewModel.uiState.value.flagFailure,
+            false
+        )
+        assertEquals(
+            viewModel.uiState.value.flagAccess,
+            false
+        )
     }
 
     @Test
     fun `check access granted`() = runTest {
         val checkAccessMain = mock<CheckAccessMain>()
-        whenever(checkAccessMain()).thenReturn(
+        whenever(
+            checkAccessMain()
+        ).thenReturn(
             Result.success(true)
         )
         val viewModel = MenuInicialViewModel(checkAccessMain)
         viewModel.checkAccess()
-        assertEquals(viewModel.uiState.value.flagDialog, false)
-        assertEquals(viewModel.uiState.value.flagFailure, false)
-        assertEquals(viewModel.uiState.value.flagAccess, true)
+        assertEquals(
+            viewModel.uiState.value.flagDialog,
+            false
+        )
+        assertEquals(
+            viewModel.uiState.value.flagFailure,
+            false
+        )
+        assertEquals(
+            viewModel.uiState.value.flagAccess,
+            true
+        )
     }
 
 }

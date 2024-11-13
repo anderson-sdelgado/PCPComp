@@ -50,7 +50,7 @@ class ProcessWorkManagerTest {
         val workInfo = workManager.getWorkInfoById(request.id).get()
 
         // Assert
-        assertEquals(workInfo.state, WorkInfo.State.ENQUEUED)
+        assertEquals(workInfo?.state, WorkInfo.State.ENQUEUED)
 
     }
 
@@ -76,7 +76,7 @@ class ProcessWorkManagerTest {
         val workInfo = workManager.getWorkInfoById(request.id).get()
 
         // Assert
-        assertEquals(workInfo.state, WorkInfo.State.SUCCEEDED)
+        assertEquals(workInfo?.state, WorkInfo.State.SUCCEEDED)
 
     }
 }

@@ -31,6 +31,20 @@ class SplashViewModelTest {
     )
 
     @Test
+    fun `Test new`() = runTest {
+        val viewModel = getViewModel()
+        assertEquals(
+            viewModel.uiState.value.flagDialog,
+            false
+        )
+        viewModel.setOpenDialog()
+        assertEquals(
+            viewModel.uiState.value.flagDialog,
+            true
+        )
+    }
+
+    @Test
     fun `Check return failure if have error in adjustConfig`() = runTest {
         whenever(
             adjustConfig("1.00")
@@ -44,7 +58,10 @@ class SplashViewModelTest {
         )
         val viewModel = getViewModel()
         viewModel.processInitial("1.00")
-        assertTrue(viewModel.uiState.value.flagDialog)
+        assertEquals(
+            viewModel.uiState.value.flagDialog,
+            true
+        )
         assertEquals(
             viewModel.uiState.value.failure,
             "Failure Usecase -> AdjustConfig -> java.lang.Exception"

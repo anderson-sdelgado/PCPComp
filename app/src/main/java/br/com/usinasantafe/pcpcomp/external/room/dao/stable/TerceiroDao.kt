@@ -18,6 +18,11 @@ interface TerceiroDao {
     @Query("SELECT count(*) FROM $TB_TERCEIRO WHERE cpfTerceiro = :cpf")
     suspend fun check(cpf: String): Int
 
+
+    @Query("SELECT * FROM $TB_TERCEIRO")
+    suspend fun getAll(): List<TerceiroRoomModel>
+
+
     @Query("SELECT * FROM $TB_TERCEIRO WHERE cpfTerceiro = :cpf")
     suspend fun get(cpf: String): List<TerceiroRoomModel>
 

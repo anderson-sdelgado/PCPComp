@@ -1,11 +1,6 @@
 package br.com.usinasantafe.pcpcomp.presenter.configuration.config
-
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Terceiro
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
+import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.GetConfigInternal
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SaveDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SendDataConfig
@@ -19,9 +14,39 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateLocal
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateRLocalFluxo
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateVisitante
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanLocal
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanRLocalFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanTerceiro
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanVisitante
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.colabList
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.equipList
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllColabServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllEquipServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllFluxoServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllLocalServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllRLocalFluxoServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllTerceiroServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllVisitanteServer
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.localList
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllLocal
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllRLocalFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllTerceiro
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllVisitante
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.terceiroList
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.visitanteList
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.percentage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -49,6 +74,28 @@ class ConfigViewModelTest {
     private val updateTerceiro = mock<UpdateTerceiro>()
     private val updateVisitante = mock<UpdateVisitante>()
     private val setCheckUpdateAllTable = mock<SetCheckUpdateAllTable>()
+    private val cleanColab = mock<CleanColab>()
+    private val cleanEquip = mock<CleanEquip>()
+    private val cleanFluxo = mock<CleanFluxo>()
+    private val cleanLocal = mock<CleanLocal>()
+    private val cleanRLocalFluxo = mock<CleanRLocalFluxo>()
+    private val cleanTerceiro = mock<CleanTerceiro>()
+    private val cleanVisitante = mock<CleanVisitante>()
+    private val getAllColabServer = mock<GetAllColabServer>()
+    private val getAllEquipServer = mock<GetAllEquipServer>()
+    private val getAllFluxoServer = mock<GetAllFluxoServer>()
+    private val getAllLocalServer = mock<GetAllLocalServer>()
+    private val getAllRLocalFluxoServer = mock<GetAllRLocalFluxoServer>()
+    private val getAllTerceiroServer = mock<GetAllTerceiroServer>()
+    private val getAllVisitanteServer = mock<GetAllVisitanteServer>()
+    private val saveAllColab = mock<SaveAllColab>()
+    private val saveAllEquip = mock<SaveAllEquip>()
+    private val saveAllFluxo = mock<SaveAllFluxo>()
+    private val saveAllLocal = mock<SaveAllLocal>()
+    private val saveAllRLocalFluxo = mock<SaveAllRLocalFluxo>()
+    private val saveAllTerceiro = mock<SaveAllTerceiro>()
+    private val saveAllVisitante = mock<SaveAllVisitante>()
+
 
     private fun getViewModel() = ConfigViewModel(
         getConfigInternal = getConfigInternal,
@@ -334,25 +381,36 @@ class ConfigViewModelTest {
             )
         )
     }
-//
-//    @Test
-//    fun `check return failure usecase if have error in usecase CleanColab`() = runTest {
-//        wheneverSuccessToken()
-//        whenever(
-//            cleanColab()
-//        ).thenReturn(
-//            Result.failure(
-//                UsecaseException(
-//                    function = "CleanColab",
-//                    cause = NullPointerException()
+
+    @Test
+    fun `check return failure usecase if have error in usecase CleanColab`() = runTest {
+        whenever(
+            updateColab(
+                sizeAll = 22f,
+                count = 1f
+            )
+        ).thenReturn(
+            listOf(
+                ResultUpdate(
+                    flagFailure = true,
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_colab",
+                    currentProgress = percentage(1f, 22f)
+                )
+            ).asFlow()
+        )
+        val viewModel = getViewModel()
+//        val result = viewModel.updateAllDatabase().test {
+//            assertEquals(
+//                awaitItem(),
+//                ConfigState(
+//                    flagProgress = true,
+//                    msgProgress = "Limpando a tabela tb_colab",
+//                    currentProgress = percentage(1f, 16f)
 //                )
 //            )
-//        )
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        viewModel.updateVersion("6.00")
-//        val result = viewModel.updateAllDatabase().toList()
+//        }
+
 //        assertEquals(result.count(), 2)
 //        assertEquals(
 //            result[0],
@@ -378,7 +436,7 @@ class ConfigViewModelTest {
 //            viewModel.uiState.value.msgProgress,
 //            "Failure Usecase -> CleanColab -> java.lang.NullPointerException"
 //        )
-//    }
+    }
 //
 //    @Test
 //    fun `check return failure datasource if have error in usecase CleanColab is datasource`() =
@@ -603,8 +661,8 @@ class ConfigViewModelTest {
 //            "Failure Usecase -> CleanEquip -> java.lang.NullPointerException"
 //        )
 //    }
-//
-//    /////////////////////// EQUIP /////////////////////////
+
+    /////////////////////// EQUIP /////////////////////////
 //
 //    @Test
 //    fun `check return failure datasource if have error in datasource CleanEquip`() = runTest {
@@ -1306,156 +1364,115 @@ class ConfigViewModelTest {
 //        viewModel.saveTokenAndUpdateAllDatabase()
 //        assertEquals(viewModel.uiState.value.msgProgress, "Atualização de dados realizado com sucesso!")
 //    }
-//
-//    private fun wheneverSuccessToken() = runTest {
-//        whenever(
-//            sendDataConfig(
-//                number = "16997417840",
-//                password = "12345",
-//                version = "6.00"
-//            )
-//        ).thenReturn(Result.success(1))
-//        whenever(
-//            saveDataConfig(
-//                number = "16997417840",
-//                password = "12345",
-//                version = "6.00",
-//                idBD = 1
-//            )
-//        ).thenReturn(Result.success(true))
-//    }
-//
-//    private fun wheneverSuccessColab() = runTest {
-//        whenever(
-//            cleanColab()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllColabServer()
-//        ).thenReturn(
-//            Result.success(colabList)
-//        )
-//        whenever(
-//            saveAllColab(colabList)
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//    }
-//
-//    private fun wheneverSuccessEquip() = runTest {
-//        whenever(
-//            cleanEquip()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllEquipServer()
-//        ).thenReturn(
-//            Result.success(equipList)
-//        )
-//        whenever(
-//            saveAllEquip(equipList)
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//    }
-//
-//    private fun wheneverSuccessLocal() = runTest {
-//        whenever(
-//            cleanLocal()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllLocalServer()
-//        ).thenReturn(
-//            Result.success(localList)
-//        )
-//        whenever(
-//            saveAllLocal(localList)
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//    }
-//
-//    private fun wheneverSuccessTerceiro() = runTest {
-//        whenever(
-//            cleanTerceiro()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllTerceiroServer()
-//        ).thenReturn(
-//            Result.success(terceiroList)
-//        )
-//        whenever(
-//            saveAllTerceiro(terceiroList)
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//    }
-//
-//    private fun wheneverSuccessVisitante() = runTest {
-//        whenever(
-//            cleanVisitante()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllVisitanteServer()
-//        ).thenReturn(
-//            Result.success(visitanteList)
-//        )
-//        whenever(
-//            saveAllVisitante(visitanteList)
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//    }
+
+    private fun wheneverSuccessToken() = runTest {
+        whenever(
+            sendDataConfig(
+                number = "16997417840",
+                password = "12345",
+                version = "6.00"
+            )
+        ).thenReturn(Result.success(1))
+        whenever(
+            saveDataConfig(
+                number = "16997417840",
+                password = "12345",
+                version = "6.00",
+                idBD = 1
+            )
+        ).thenReturn(Result.success(true))
+    }
+
+    private fun wheneverSuccessColab() = runTest {
+        whenever(
+            cleanColab()
+        ).thenReturn(
+            Result.success(true)
+        )
+        whenever(
+            getAllColabServer()
+        ).thenReturn(
+            Result.success(colabList)
+        )
+        whenever(
+            saveAllColab(colabList)
+        ).thenReturn(
+            Result.success(true)
+        )
+    }
+
+    private fun wheneverSuccessEquip() = runTest {
+        whenever(
+            cleanEquip()
+        ).thenReturn(
+            Result.success(true)
+        )
+        whenever(
+            getAllEquipServer()
+        ).thenReturn(
+            Result.success(equipList)
+        )
+        whenever(
+            saveAllEquip(equipList)
+        ).thenReturn(
+            Result.success(true)
+        )
+    }
+
+    private fun wheneverSuccessLocal() = runTest {
+        whenever(
+            cleanLocal()
+        ).thenReturn(
+            Result.success(true)
+        )
+        whenever(
+            getAllLocalServer()
+        ).thenReturn(
+            Result.success(localList)
+        )
+        whenever(
+            saveAllLocal(localList)
+        ).thenReturn(
+            Result.success(true)
+        )
+    }
+
+    private fun wheneverSuccessTerceiro() = runTest {
+        whenever(
+            cleanTerceiro()
+        ).thenReturn(
+            Result.success(true)
+        )
+        whenever(
+            getAllTerceiroServer()
+        ).thenReturn(
+            Result.success(terceiroList)
+        )
+        whenever(
+            saveAllTerceiro(terceiroList)
+        ).thenReturn(
+            Result.success(true)
+        )
+    }
+
+    private fun wheneverSuccessVisitante() = runTest {
+        whenever(
+            cleanVisitante()
+        ).thenReturn(
+            Result.success(true)
+        )
+        whenever(
+            getAllVisitanteServer()
+        ).thenReturn(
+            Result.success(visitanteList)
+        )
+        whenever(
+            saveAllVisitante(visitanteList)
+        ).thenReturn(
+            Result.success(true)
+        )
+    }
 
 }
-
-val colabList = listOf(
-    Colab(
-        matricColab = 19759,
-        nomeColab = "ANDERSON DA SILVA DELGADO"
-    )
-)
-
-val equipList = listOf(
-    Equip(
-        idEquip = 1,
-        nroEquip = 10
-    )
-)
-
-val localList = listOf(
-    Local(
-        idLocal = 1,
-        descrLocal = "USINA"
-    )
-)
-
-val terceiroList = listOf(
-    Terceiro(
-        idTerceiro = 1,
-        idBDTerceiro = 1,
-        cpfTerceiro = "123.456.789-00",
-        nomeTerceiro = "Terceiro",
-        empresaTerceiro = "Empresa Terceiro"
-    )
-)
-
-
-val visitanteList = listOf(
-    Visitante(
-        idVisitante = 1,
-        cpfVisitante = "123.456.789-00",
-        nomeVisitante = "Visitante",
-        empresaVisitante = "Empresa Visitante"
-    )
-)
 
 val sizeUpdateConfig = 16f

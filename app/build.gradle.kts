@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "br.com.usinasantafe.pcpcomp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.com.usinasantafe.pcpcomp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 12
         versionName = "5.00"
 
@@ -50,7 +50,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.5"
     }
     packaging {
         resources {
@@ -83,6 +83,7 @@ android {
             resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpcompprod/versao_4_00/view/")
         }
     }
+    buildToolsVersion = "35.0.0"
 }
 
 dependencies {

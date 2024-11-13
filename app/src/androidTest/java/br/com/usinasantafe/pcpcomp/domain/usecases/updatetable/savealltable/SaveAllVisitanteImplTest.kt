@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Visitante
+import br.com.usinasantafe.pcpcomp.external.room.dao.stable.VisitanteDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -15,6 +16,7 @@ import org.koin.test.inject
 class SaveAllVisitanteImplTest: KoinTest {
 
     private val usecase: SaveAllVisitante by inject()
+    private val visitanteDao: VisitanteDao by inject()
 
     @Before
     fun before() {
@@ -36,6 +38,11 @@ class SaveAllVisitanteImplTest: KoinTest {
         val result = usecase(visitanteList)
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
+        val listBefore = visitanteDao.getAll()
+        assertEquals(
+            listBefore.size,
+            1
+        )
     }
 
     @Test

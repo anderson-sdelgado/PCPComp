@@ -1,6 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
+import br.com.usinasantafe.pcpcomp.external.room.dao.stable.LocalDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -15,6 +16,7 @@ import org.koin.test.inject
 class SaveAllLocalImplTest: KoinTest {
 
     private val usecase: SaveAllLocal by inject()
+    private val localDao: LocalDao by inject()
 
     @Before
     fun before() {
@@ -34,6 +36,11 @@ class SaveAllLocalImplTest: KoinTest {
         val result = usecase(localList)
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
+        val listBefore = localDao.getAll()
+        assertEquals(
+            listBefore.size,
+            1
+        )
     }
 
     @Test
