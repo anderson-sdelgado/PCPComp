@@ -10,14 +10,14 @@ plugins {
 
 android {
     namespace = "br.com.usinasantafe.pcpcomp"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "br.com.usinasantafe.pcpcomp"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 12
-        versionName = "5.00"
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "br.com.usinasantafe.pcpcomp.InstrumentationTestRunner"
         vectorDrawables {
@@ -50,7 +50,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.5"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
@@ -83,7 +83,6 @@ android {
             resValue("string", "base_url", "https://www.usinasantafe.com.br/pcpcompprod/versao_4_00/view/")
         }
     }
-    buildToolsVersion = "35.0.0"
 }
 
 dependencies {

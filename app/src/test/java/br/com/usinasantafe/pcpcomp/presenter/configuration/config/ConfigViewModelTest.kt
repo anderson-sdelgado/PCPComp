@@ -41,11 +41,13 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.Save
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.terceiroList
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.visitanteList
 import br.com.usinasantafe.pcpcomp.utils.Errors
+import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.percentage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
@@ -74,27 +76,6 @@ class ConfigViewModelTest {
     private val updateTerceiro = mock<UpdateTerceiro>()
     private val updateVisitante = mock<UpdateVisitante>()
     private val setCheckUpdateAllTable = mock<SetCheckUpdateAllTable>()
-    private val cleanColab = mock<CleanColab>()
-    private val cleanEquip = mock<CleanEquip>()
-    private val cleanFluxo = mock<CleanFluxo>()
-    private val cleanLocal = mock<CleanLocal>()
-    private val cleanRLocalFluxo = mock<CleanRLocalFluxo>()
-    private val cleanTerceiro = mock<CleanTerceiro>()
-    private val cleanVisitante = mock<CleanVisitante>()
-    private val getAllColabServer = mock<GetAllColabServer>()
-    private val getAllEquipServer = mock<GetAllEquipServer>()
-    private val getAllFluxoServer = mock<GetAllFluxoServer>()
-    private val getAllLocalServer = mock<GetAllLocalServer>()
-    private val getAllRLocalFluxoServer = mock<GetAllRLocalFluxoServer>()
-    private val getAllTerceiroServer = mock<GetAllTerceiroServer>()
-    private val getAllVisitanteServer = mock<GetAllVisitanteServer>()
-    private val saveAllColab = mock<SaveAllColab>()
-    private val saveAllEquip = mock<SaveAllEquip>()
-    private val saveAllFluxo = mock<SaveAllFluxo>()
-    private val saveAllLocal = mock<SaveAllLocal>()
-    private val saveAllRLocalFluxo = mock<SaveAllRLocalFluxo>()
-    private val saveAllTerceiro = mock<SaveAllTerceiro>()
-    private val saveAllVisitante = mock<SaveAllVisitante>()
 
 
     private fun getViewModel() = ConfigViewModel(
@@ -112,7 +93,7 @@ class ConfigViewModelTest {
     )
 
     @Test
-    fun `check return null if don't have Config table internal`() = runTest {
+    fun `Check return null if don't have Config table internal`() = runTest {
         whenever(
             getConfigInternal()
         ).thenReturn(
@@ -131,7 +112,7 @@ class ConfigViewModelTest {
     }
 
     @Test
-    fun `check return data if have Config table internal`() = runTest {
+    fun `Check return data if have Config table internal`() = runTest {
         val configModel = ConfigModel(
             number = "16997417840",
             password = "12345"
@@ -154,7 +135,7 @@ class ConfigViewModelTest {
     }
 
     @Test
-    fun `check return msg when field empty`() = runTest {
+    fun `Check return msg when field empty`() = runTest {
         val viewModel = getViewModel()
         viewModel.saveTokenAndUpdateAllDatabase()
         assertEquals(
@@ -216,7 +197,7 @@ class ConfigViewModelTest {
     }
 
     @Test
-    fun `check return failure datasource if have errors in Datasource`() = runTest {
+    fun `Check return failure datasource if have errors in Datasource`() = runTest {
         whenever(
             sendDataConfig(
                 number = "16997417840",
@@ -264,7 +245,7 @@ class ConfigViewModelTest {
     }
 
     @Test
-    fun `check return failure usecase in save if have errors in Save data Usecase`() = runTest {
+    fun `Check return failure usecase in save if have errors in Save data Usecase`() = runTest {
         whenever(
             sendDataConfig(
                 number = "16997417840",
@@ -330,7 +311,7 @@ class ConfigViewModelTest {
     }
 
     @Test
-    fun `check return finally sent and save Config`() = runTest {
+    fun `Check return finally sent and save Config`() = runTest {
         whenever(
             sendDataConfig(
                 number = "16997417840",
@@ -383,987 +364,484 @@ class ConfigViewModelTest {
     }
 
     @Test
-    fun `check return failure usecase if have error in usecase CleanColab`() = runTest {
+    fun `Check return failure usecase if have error in usecase UpdateColab`() = runTest {
         whenever(
             updateColab(
                 sizeAll = 22f,
                 count = 1f
             )
         ).thenReturn(
-            listOf(
+            flowOf(
                 ResultUpdate(
-                    flagFailure = true,
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_colab",
                     currentProgress = percentage(1f, 22f)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
                 )
-            ).asFlow()
+            )
         )
         val viewModel = getViewModel()
-//        val result = viewModel.updateAllDatabase().test {
-//            assertEquals(
-//                awaitItem(),
-//                ConfigState(
-//                    flagProgress = true,
-//                    msgProgress = "Limpando a tabela tb_colab",
-//                    currentProgress = percentage(1f, 16f)
-//                )
-//            )
-//        }
-
-//        assertEquals(result.count(), 2)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_colab",
-//                currentProgress = percentage(1f, 16f)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
-//                msgProgress = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
-//                currentProgress = 1f,
-//            )
-//        )
-//        viewModel.saveTokenAndUpdateAllDatabase()
-//        assertEquals(
-//            viewModel.uiState.value.msgProgress,
-//            "Failure Usecase -> CleanColab -> java.lang.NullPointerException"
-//        )
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 2)
+        assertEquals(
+            result[0],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_colab",
+                currentProgress = percentage(1f, 22f)
+            )
+        )
+        assertEquals(
+            result[1],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanColab -> java.lang.NullPointerException",
+            )
+        )
     }
-//
-//    @Test
-//    fun `check return failure datasource if have error in usecase CleanColab is datasource`() =
-//        runTest {
-//            whenever(
-//                cleanColab()
-//            ).thenReturn(
-//                Result.failure(
-//                    DatasourceException(
-//                        function = "CleanColab",
-//                        cause = NullPointerException()
-//                    )
-//                )
-//            )
-//            val viewModel = getViewModel()
-//            viewModel.onNumberChanged("16997417840")
-//            viewModel.onPasswordChanged("12345")
-//            val result = viewModel.updateAllDatabase().toList()
-//            assertEquals(result.count(), 2)
-//            assertEquals(
-//                result[0],
-//                ConfigState(
-//                    flagProgress = true,
-//                    msgProgress = "Limpando a tabela tb_colab",
-//                    currentProgress = percentage(1f, sizeUpdateConfig)
-//                )
-//            )
-//            assertEquals(
-//                result[1],
-//                ConfigState(
-//                    errors = Errors.UPDATE,
-//                    flagDialog = true,
-//                    flagFailure = true,
-//                    failure = "Failure Datasource -> CleanColab -> java.lang.NullPointerException",
-//                    msgProgress = "Failure Datasource -> CleanColab -> java.lang.NullPointerException",
-//                    currentProgress = 1f,
-//                )
-//            )
-//        }
-//
-//    @Test
-//    fun `check return failure usecase if have error in usecase RecoverColabServer`() = runTest {
-//        whenever(
-//            cleanColab()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllColabServer()
-//        ).thenReturn(
-//            Result.failure(
-//                UsecaseException(
-//                    function = "RecoverColabServer",
-//                    cause = NullPointerException()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        val result = viewModel.updateAllDatabase().toList()
-//        assertEquals(result.count(), 3)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_colab",
-//                currentProgress = percentage(1f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-//                currentProgress = percentage(2f , sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
-//                msgProgress = "Failure Usecase -> RecoverColabServer -> java.lang.NullPointerException",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource SaveAllColab`() = runTest {
-//        whenever(
-//            cleanColab()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllColabServer()
-//        ).thenReturn(
-//            Result.success(colabList)
-//        )
-//        whenever(
-//            saveAllColab(colabList)
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "SaveAllColab",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        val result = viewModel.updateAllDatabase().toList()
-//        assertEquals(result.count(), 4)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_colab",
-//                currentProgress = percentage(1f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-//                currentProgress = percentage(2f , sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Salvando dados na tabela tb_colab",
-//                currentProgress = percentage(3f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[3],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> SaveAllColab -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> SaveAllColab -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure usecase if have error in usecase CleanEquip`() = runTest {
-//        wheneverSuccessToken()
-//        wheneverSuccessColab()
-//        whenever(
-//            cleanEquip()
-//        ).thenReturn(
-//            Result.failure(
-//                UsecaseException(
-//                    function = "CleanEquip",
-//                    cause = NullPointerException()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        viewModel.updateVersion("6.00")
-//        val result = viewModel.updateAllDatabase().toList()
-//        assertEquals(result.count(), 5)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_colab",
-//                currentProgress = percentage(1f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-//                currentProgress = percentage(2f , sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Salvando dados na tabela tb_colab",
-//                currentProgress = percentage(3f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[3],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_equip",
-//                currentProgress = percentage(4f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[4],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
-//                msgProgress = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
-//                currentProgress = 1f,
-//            )
-//        )
-//        viewModel.saveTokenAndUpdateAllDatabase()
-//        assertEquals(
-//            viewModel.uiState.value.msgProgress,
-//            "Failure Usecase -> CleanEquip -> java.lang.NullPointerException"
-//        )
-//    }
 
-    /////////////////////// EQUIP /////////////////////////
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource CleanEquip`() = runTest {
-//        whenever(
-//            cleanEquip()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "CleanEquip",
-//                    cause = NullPointerException()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 2)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_equip",
-//                currentProgress = percentage(4f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> CleanEquip -> java.lang.NullPointerException",
-//                msgProgress = "Failure Datasource -> CleanEquip -> java.lang.NullPointerException",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource RecoverAllEquip`() = runTest {
-//        whenever(
-//            cleanEquip()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllEquipServer()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "RecoverEquipServer",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 3)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_equip",
-//                currentProgress = percentage(4f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
-//                currentProgress = percentage(5f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> RecoverEquipServer -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> RecoverEquipServer -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource SaveAllEquip`() = runTest {
-//        whenever(
-//            cleanEquip()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllEquipServer()
-//        ).thenReturn(
-//            Result.success(equipList)
-//        )
-//        whenever(
-//            saveAllEquip(equipList)
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "SaveAllEquip",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllEquip(count = 2f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 4)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_equip",
-//                currentProgress = percentage(4f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
-//                currentProgress = percentage(5f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Salvando dados na tabela tb_equip",
-//                currentProgress = percentage(6f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[3],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> SaveAllEquip -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> SaveAllEquip -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    /////////////////////// LOCAL /////////////////////////
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource CleanLocal`() = runTest {
-//        whenever(
-//            cleanLocal()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "CleanLocal",
-//                    cause = NullPointerException()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 2)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_local",
-//                currentProgress = percentage(7f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> CleanLocal -> java.lang.NullPointerException",
-//                msgProgress = "Failure Datasource -> CleanLocal -> java.lang.NullPointerException",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource RecoverAllLocal`() = runTest {
-//        whenever(
-//            cleanLocal()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllLocalServer()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "RecoverLocalServer",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 3)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_local",
-//                currentProgress = percentage(7f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_local do Web Service",
-//                currentProgress = percentage(8f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> RecoverLocalServer -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> RecoverLocalServer -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource SaveAllLocal`() = runTest {
-//        whenever(
-//            cleanLocal()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllLocalServer()
-//        ).thenReturn(
-//            Result.success(localList)
-//        )
-//        whenever(
-//            saveAllLocal(localList)
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "SaveAllLocal",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllLocal(count = 3f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 4)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_local",
-//                currentProgress = percentage(7f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_local do Web Service",
-//                currentProgress = percentage(8f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Salvando dados na tabela tb_local",
-//                currentProgress = percentage(9f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[3],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> SaveAllLocal -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> SaveAllLocal -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    /////////////////////// TERCEIRO /////////////////////////
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource CleanTerceiro`() = runTest {
-//        whenever(
-//            cleanTerceiro()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "CleanTerceiro",
-//                    cause = NullPointerException()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 2)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_terceiro",
-//                currentProgress = percentage(10f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> CleanTerceiro -> java.lang.NullPointerException",
-//                msgProgress = "Failure Datasource -> CleanTerceiro -> java.lang.NullPointerException",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource RecoverAllTerceiro`() = runTest {
-//        whenever(
-//            cleanTerceiro()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllTerceiroServer()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "RecoverTerceiroServer",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 3)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_terceiro",
-//                currentProgress = percentage(10f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
-//                currentProgress = percentage(11f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> RecoverTerceiroServer -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> RecoverTerceiroServer -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource SaveAllTerceiro`() = runTest {
-//        whenever(
-//            cleanTerceiro()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllTerceiroServer()
-//        ).thenReturn(
-//            Result.success(terceiroList)
-//        )
-//        whenever(
-//            saveAllTerceiro(terceiroList)
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "SaveAllTerceiro",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllTerceiro(count = 4f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 4)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_terceiro",
-//                currentProgress = percentage(10f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
-//                currentProgress = percentage(11f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Salvando dados na tabela tb_terceiro",
-//                currentProgress = percentage(12f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[3],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> SaveAllTerceiro -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> SaveAllTerceiro -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    /////////////////////// VISITANTE /////////////////////////
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource CleanVisitante`() = runTest {
-//        whenever(
-//            cleanVisitante()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "CleanVisitante",
-//                    cause = NullPointerException()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 2)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_visitante",
-//                currentProgress = percentage(13f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> CleanVisitante -> java.lang.NullPointerException",
-//                msgProgress = "Failure Datasource -> CleanVisitante -> java.lang.NullPointerException",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource RecoverAllVisitante`() = runTest {
-//        whenever(
-//            cleanVisitante()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllVisitanteServer()
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "RecoverVisitanteServer",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 3)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_visitante",
-//                currentProgress = percentage(13f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
-//                currentProgress = percentage(14f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> RecoverVisitanteServer -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> RecoverVisitanteServer -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource SaveAllVisitante`() = runTest {
-//        whenever(
-//            cleanVisitante()
-//        ).thenReturn(
-//            Result.success(true)
-//        )
-//        whenever(
-//            getAllVisitanteServer()
-//        ).thenReturn(
-//            Result.success(visitanteList)
-//        )
-//        whenever(
-//            saveAllVisitante(visitanteList)
-//        ).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "SaveAllVisitante",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllVisitante(count = 5f, sizeAll = sizeUpdateConfig).toList()
-//        assertEquals(result.count(), 4)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_visitante",
-//                currentProgress = percentage(13f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[1],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
-//                currentProgress = percentage(14f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[2],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Salvando dados na tabela tb_visitante",
-//                currentProgress = percentage(15f, sizeUpdateConfig),
-//            )
-//        )
-//        assertEquals(
-//            result[3],
-//            ConfigState(
-//                errors = Errors.UPDATE,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> SaveAllVisitante -> java.lang.Exception",
-//                msgProgress = "Failure Datasource -> SaveAllVisitante -> java.lang.Exception",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return failure datasource if have error in datasource SetCheckUpdateAllTable`() = runTest {
-//        wheneverSuccessColab()
-//        wheneverSuccessEquip()
-//        wheneverSuccessLocal()
-//        wheneverSuccessTerceiro()
-//        wheneverSuccessVisitante()
-//        whenever(setCheckUpdateAllTable(FlagUpdate.UPDATED)).thenReturn(
-//            Result.failure(
-//                DatasourceException(
-//                    function = "SetCheckUpdateAllTable",
-//                    cause = Exception()
-//                )
-//            )
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllDatabase().toList()
-//        assertEquals(result.count(), 16)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_colab",
-//                currentProgress = percentage(1f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[12],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_visitante",
-//                currentProgress = percentage(13f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[15],
-//            ConfigState(
-//                errors = Errors.EXCEPTION,
-//                flagDialog = true,
-//                flagFailure = true,
-//                failure = "Failure Datasource -> SetCheckUpdateAllTable -> java.lang.Exception",
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return success if all update run correctly`() = runTest {
-//        wheneverSuccessColab()
-//        wheneverSuccessEquip()
-//        wheneverSuccessLocal()
-//        wheneverSuccessTerceiro()
-//        wheneverSuccessVisitante()
-//        whenever(setCheckUpdateAllTable(FlagUpdate.UPDATED)).thenReturn(
-//            Result.success(true)
-//        )
-//        val viewModel = getViewModel()
-//        val result = viewModel.updateAllDatabase().toList()
-//        assertEquals(result.count(), 16)
-//        assertEquals(
-//            result[0],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_colab",
-//                currentProgress = percentage(1f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[12],
-//            ConfigState(
-//                flagProgress = true,
-//                msgProgress = "Limpando a tabela tb_visitante",
-//                currentProgress = percentage(13f, sizeUpdateConfig)
-//            )
-//        )
-//        assertEquals(
-//            result[15],
-//            ConfigState(
-//                flagDialog = true,
-//                flagProgress = true,
-//                msgProgress = "Atualização de dados realizado com sucesso!",
-//                currentProgress = 1f,
-//            )
-//        )
-//    }
-//
-//    @Test
-//    fun `check return success if saveTokenAndUpdateAllDatabase is success`() = runTest {
-//        wheneverSuccessToken()
-//        wheneverSuccessColab()
-//        wheneverSuccessEquip()
-//        wheneverSuccessLocal()
-//        wheneverSuccessTerceiro()
-//        wheneverSuccessVisitante()
-//        val viewModel = getViewModel()
-//        viewModel.onNumberChanged("16997417840")
-//        viewModel.onPasswordChanged("12345")
-//        viewModel.updateVersion("6.00")
-//        viewModel.saveTokenAndUpdateAllDatabase()
-//        assertEquals(viewModel.uiState.value.msgProgress, "Atualização de dados realizado com sucesso!")
-//    }
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateEquip`() = runTest {
+        wheneverSuccessColab()
+        whenever(
+            updateEquip(
+                sizeAll = 22f,
+                count = 2f
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_equip",
+                    currentProgress = percentage(4f, 22f)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 5)
+        checkResultUpdateColab(result)
+        assertEquals(
+            result[3],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_equip",
+                currentProgress = percentage(4f, 22f)
+            )
+        )
+        assertEquals(
+            result[4],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanEquip -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateFluxo`() = runTest {
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        whenever(
+            updateFluxo(
+                sizeAll = 22f,
+                count = 3f
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_fluxo",
+                    currentProgress = percentage(7f, 22f)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanFluxo -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanFluxo -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 8)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
+        assertEquals(
+            result[6],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_fluxo",
+                currentProgress = percentage(7f, 22f)
+            )
+        )
+        assertEquals(
+            result[7],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanFluxo -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanFluxo -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateLocal`() = runTest {
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        whenever(
+            updateLocal(
+                sizeAll = 22f,
+                count = 4f
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_local",
+                    currentProgress = percentage(10f, 22f)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanLocal -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanLocal -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 11)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
+        checkResultUpdateFluxo(result)
+        assertEquals(
+            result[9],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_local",
+                currentProgress = percentage(10f, 22f)
+            )
+        )
+        assertEquals(
+            result[10],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanLocal -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanLocal -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateRLocalFluxo`() = runTest {
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        wheneverSuccessLocal()
+        whenever(
+            updateRLocalFluxo(
+                sizeAll = 22f,
+                count = 5f
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_r_local_fluxo",
+                    currentProgress = percentage(13f, 22f)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanRLocalFluxo -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanRLocalFluxo -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 14)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
+        checkResultUpdateFluxo(result)
+        checkResultUpdateLocal(result)
+        assertEquals(
+            result[12],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_r_local_fluxo",
+                currentProgress = percentage(13f, 22f)
+            )
+        )
+        assertEquals(
+            result[13],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanRLocalFluxo -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanRLocalFluxo -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateTerceiro`() = runTest {
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        wheneverSuccessLocal()
+        wheneverSuccessRLocalFluxo()
+        whenever(
+            updateTerceiro(
+                sizeAll = 22f,
+                count = 6f
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_terceiro",
+                    currentProgress = percentage(16f, 22f)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanTerceiro -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanTerceiro -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 17)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
+        checkResultUpdateFluxo(result)
+        checkResultUpdateLocal(result)
+        checkResultUpdateRLocalFluxo(result)
+        assertEquals(
+            result[15],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_terceiro",
+                currentProgress = percentage(16f, 22f)
+            )
+        )
+        assertEquals(
+            result[16],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanTerceiro -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanTerceiro -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateVisitante`() = runTest {
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        wheneverSuccessLocal()
+        wheneverSuccessRLocalFluxo()
+        wheneverSuccessTerceiro()
+        whenever(
+            updateVisitante(
+                sizeAll = 22f,
+                count = 7f
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_visitante",
+                    currentProgress = percentage(19f, 22f)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanVisitante -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanVisitante -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 20)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
+        checkResultUpdateFluxo(result)
+        checkResultUpdateLocal(result)
+        checkResultUpdateRLocalFluxo(result)
+        checkResultUpdateTerceiro(result)
+        assertEquals(
+            result[18],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_visitante",
+                currentProgress = percentage(19f, 22f)
+            )
+        )
+        assertEquals(
+            result[19],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanVisitante -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanVisitante -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure datasource if have error in datasource SetCheckUpdateAllTable`() = runTest {
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        wheneverSuccessLocal()
+        wheneverSuccessRLocalFluxo()
+        wheneverSuccessTerceiro()
+        wheneverSuccessVisitante()
+        whenever(
+            setCheckUpdateAllTable(FlagUpdate.UPDATED)
+        ).thenReturn(
+            Result.failure(
+                DatasourceException(
+                    function = "SetCheckUpdateAllTable",
+                    cause = Exception()
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 22)
+        assertEquals(
+            result[0],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_colab",
+                currentProgress = percentage(1f, 22f)
+            )
+        )
+        checkResultUpdateFluxo(result)
+        assertEquals(
+            result[18],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_visitante",
+                currentProgress = percentage(19f, 22f)
+            )
+        )
+        assertEquals(
+            result[21],
+            ConfigState(
+                errors = Errors.EXCEPTION,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Datasource -> SetCheckUpdateAllTable -> java.lang.Exception",
+            )
+        )
+    }
+
+    @Test
+    fun `check return success if all update run correctly`() = runTest {
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        wheneverSuccessLocal()
+        wheneverSuccessRLocalFluxo()
+        wheneverSuccessTerceiro()
+        wheneverSuccessVisitante()
+        whenever(
+            setCheckUpdateAllTable(FlagUpdate.UPDATED)
+        ).thenReturn(
+            Result.success(true)
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 22)
+        assertEquals(
+            result[0],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_colab",
+                currentProgress = percentage(1f, 22f)
+            )
+        )
+        checkResultUpdateFluxo(result)
+        assertEquals(
+            result[18],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_visitante",
+                currentProgress = percentage(19f, 22f)
+            )
+        )
+        assertEquals(
+            result[21],
+            ConfigState(
+                flagDialog = true,
+                flagProgress = true,
+                msgProgress = "Atualização de dados realizado com sucesso!",
+                currentProgress = 1f,
+            )
+        )
+    }
+
+    @Test
+    fun `check return success if saveTokenAndUpdateAllDatabase is success`() = runTest {
+        wheneverSuccessToken()
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        wheneverSuccessLocal()
+        wheneverSuccessRLocalFluxo()
+        wheneverSuccessTerceiro()
+        wheneverSuccessVisitante()
+        val viewModel = getViewModel()
+        viewModel.onNumberChanged("16997417840")
+        viewModel.onPasswordChanged("12345")
+        viewModel.updateVersion("6.00")
+        viewModel.saveTokenAndUpdateAllDatabase()
+        assertEquals(
+            viewModel.uiState.value.msgProgress,
+            "Atualização de dados realizado com sucesso!"
+        )
+    }
 
     private fun wheneverSuccessToken() = runTest {
         whenever(
@@ -1372,7 +850,9 @@ class ConfigViewModelTest {
                 password = "12345",
                 version = "6.00"
             )
-        ).thenReturn(Result.success(1))
+        ).thenReturn(
+            Result.success(1)
+        )
         whenever(
             saveDataConfig(
                 number = "16997417840",
@@ -1380,99 +860,387 @@ class ConfigViewModelTest {
                 version = "6.00",
                 idBD = 1
             )
-        ).thenReturn(Result.success(true))
+        ).thenReturn(
+            Result.success(true)
+        )
     }
 
     private fun wheneverSuccessColab() = runTest {
         whenever(
-            cleanColab()
+            updateColab(
+                sizeAll = 22f,
+                count = 1f
+            )
         ).thenReturn(
-            Result.success(true)
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_colab",
+                    currentProgress = percentage(1f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                    currentProgress = percentage(2f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_colab",
+                    currentProgress = percentage(3f, 22f)
+                ),
+            )
         )
-        whenever(
-            getAllColabServer()
-        ).thenReturn(
-            Result.success(colabList)
+    }
+
+    private fun checkResultUpdateColab(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[0],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_colab",
+                currentProgress = percentage(1f, 22f)
+            )
         )
-        whenever(
-            saveAllColab(colabList)
-        ).thenReturn(
-            Result.success(true)
+        assertEquals(
+            result[1],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                currentProgress = percentage(2f, 22f)
+            )
+        )
+        assertEquals(
+            result[2],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_colab",
+                currentProgress = percentage(3f, 22f)
+            )
         )
     }
 
     private fun wheneverSuccessEquip() = runTest {
         whenever(
-            cleanEquip()
+            updateEquip(
+                sizeAll = 22f,
+                count = 2f
+            )
         ).thenReturn(
-            Result.success(true)
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_equip",
+                    currentProgress = percentage(4f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
+                    currentProgress = percentage(5f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_equip",
+                    currentProgress = percentage(6f, 22f)
+                ),
+            )
         )
-        whenever(
-            getAllEquipServer()
-        ).thenReturn(
-            Result.success(equipList)
+    }
+
+    private fun checkResultUpdateEquip(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[3],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_equip",
+                currentProgress = percentage(4f, 22f)
+            )
         )
+        assertEquals(
+            result[4],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
+                currentProgress = percentage(5f, 22f)
+            )
+        )
+        assertEquals(
+            result[5],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_equip",
+                currentProgress = percentage(6f, 22f)
+            )
+        )
+    }
+
+    private fun wheneverSuccessFluxo() = runTest {
         whenever(
-            saveAllEquip(equipList)
+            updateFluxo(
+                sizeAll = 22f,
+                count = 3f
+            )
         ).thenReturn(
-            Result.success(true)
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_fluxo",
+                    currentProgress = percentage(7f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_fluxo do Web Service",
+                    currentProgress = percentage(8f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_fluxo",
+                    currentProgress = percentage(9f, 22f)
+                ),
+            )
+        )
+    }
+
+    private fun checkResultUpdateFluxo(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[6],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_fluxo",
+                currentProgress = percentage(7f, 22f)
+            )
+        )
+        assertEquals(
+            result[7],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_fluxo do Web Service",
+                currentProgress = percentage(8f, 22f)
+            )
+        )
+        assertEquals(
+            result[8],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_fluxo",
+                currentProgress = percentage(9f, 22f)
+            )
         )
     }
 
     private fun wheneverSuccessLocal() = runTest {
         whenever(
-            cleanLocal()
+            updateLocal(
+                sizeAll = 22f,
+                count = 4f
+            )
         ).thenReturn(
-            Result.success(true)
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_local",
+                    currentProgress = percentage(10f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_local do Web Service",
+                    currentProgress = percentage(11f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_local",
+                    currentProgress = percentage(12f, 22f)
+                ),
+            )
         )
-        whenever(
-            getAllLocalServer()
-        ).thenReturn(
-            Result.success(localList)
+    }
+
+    private fun checkResultUpdateLocal(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[9],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_local",
+                currentProgress = percentage(10f, 22f)
+            )
         )
+        assertEquals(
+            result[10],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_local do Web Service",
+                currentProgress = percentage(11f, 22f)
+            )
+        )
+        assertEquals(
+            result[11],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_local",
+                currentProgress = percentage(12f, 22f)
+            )
+        )
+    }
+
+    private fun wheneverSuccessRLocalFluxo() = runTest {
         whenever(
-            saveAllLocal(localList)
+            updateRLocalFluxo(
+                sizeAll = 22f,
+                count = 5f
+            )
         ).thenReturn(
-            Result.success(true)
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_r_local_fluxo",
+                    currentProgress = percentage(13f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_r_local_fluxo do Web Service",
+                    currentProgress = percentage(14f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_r_local_fluxo",
+                    currentProgress = percentage(15f, 22f)
+                ),
+            )
+        )
+    }
+
+    private fun checkResultUpdateRLocalFluxo(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[12],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_r_local_fluxo",
+                currentProgress = percentage(13f, 22f)
+            )
+        )
+        assertEquals(
+            result[13],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_r_local_fluxo do Web Service",
+                currentProgress = percentage(14f, 22f)
+            )
+        )
+        assertEquals(
+            result[14],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_r_local_fluxo",
+                currentProgress = percentage(15f, 22f)
+            )
         )
     }
 
     private fun wheneverSuccessTerceiro() = runTest {
         whenever(
-            cleanTerceiro()
+            updateTerceiro(
+                sizeAll = 22f,
+                count = 6f
+            )
         ).thenReturn(
-            Result.success(true)
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_terceiro",
+                    currentProgress = percentage(16f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
+                    currentProgress = percentage(17f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_terceiro",
+                    currentProgress = percentage(18f, 22f)
+                ),
+            )
         )
-        whenever(
-            getAllTerceiroServer()
-        ).thenReturn(
-            Result.success(terceiroList)
+    }
+
+    private fun checkResultUpdateTerceiro(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[15],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_terceiro",
+                currentProgress = percentage(16f, 22f)
+            )
         )
-        whenever(
-            saveAllTerceiro(terceiroList)
-        ).thenReturn(
-            Result.success(true)
+        assertEquals(
+            result[16],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
+                currentProgress = percentage(17f, 22f)
+            )
+        )
+        assertEquals(
+            result[17],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_terceiro",
+                currentProgress = percentage(18f, 22f)
+            )
         )
     }
 
     private fun wheneverSuccessVisitante() = runTest {
         whenever(
-            cleanVisitante()
+            updateVisitante(
+                sizeAll = 22f,
+                count = 7f
+            )
         ).thenReturn(
-            Result.success(true)
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_visitante",
+                    currentProgress = percentage(19f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
+                    currentProgress = percentage(20f, 22f)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_visitante",
+                    currentProgress = percentage(21f, 22f)
+                ),
+            )
         )
-        whenever(
-            getAllVisitanteServer()
-        ).thenReturn(
-            Result.success(visitanteList)
+    }
+
+    private fun checkResultUpdateVisitante(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[18],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_visitante",
+                currentProgress = percentage(19f, 22f)
+            )
         )
-        whenever(
-            saveAllVisitante(visitanteList)
-        ).thenReturn(
-            Result.success(true)
+        assertEquals(
+            result[19],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
+                currentProgress = percentage(20f, 22f)
+            )
+        )
+        assertEquals(
+            result[20],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_visitante",
+                currentProgress = percentage(21f, 22f)
+            )
         )
     }
 
 }
-
-val sizeUpdateConfig = 16f

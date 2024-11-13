@@ -10,6 +10,10 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import br.com.usinasantafe.pcpcomp.dispatcherFailureColab
+import br.com.usinasantafe.pcpcomp.dispatcherFailureTerceiro
+import br.com.usinasantafe.pcpcomp.dispatcherFailureToken
+import br.com.usinasantafe.pcpcomp.dispatcherSuccess
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
@@ -216,100 +220,3 @@ class ConfigScreenTest: KoinTest {
         }
     }
 }
-
-val dispatcherSuccess: Dispatcher = object : Dispatcher() {
-
-    @Throws(InterruptedException::class)
-    override fun dispatch(request: RecordedRequest): MockResponse {
-        when (request.path) {
-            "/find-token.php" -> return MockResponse().setBody(resultTokenRetrofit)
-            "/colab.php" -> return MockResponse().setBody(resultColabRetrofit)
-            "/equip.php" -> return MockResponse().setBody(resultEquipRetrofit)
-            "/local.php" -> return MockResponse().setBody(resultLocalRetrofit)
-            "/terceiro.php" -> return MockResponse().setBody(resultTerceiroRetrofit)
-            "/visitante.php" -> return MockResponse().setBody(resultVisitanteRetrofit)
-        }
-        return MockResponse().setResponseCode(404)
-    }
-}
-
-val dispatcherFailureToken: Dispatcher = object : Dispatcher() {
-
-    @Throws(InterruptedException::class)
-    override fun dispatch(request: RecordedRequest): MockResponse {
-        when (request.path) {
-            "/find-token.php" -> return MockResponse().setBody("""""")
-            "/colab.php" -> return MockResponse().setBody(resultColabRetrofit)
-            "/equip.php" -> return MockResponse().setBody(resultEquipRetrofit)
-            "/local.php" -> return MockResponse().setBody(resultLocalRetrofit)
-            "/terceiro.php" -> return MockResponse().setBody(resultTerceiroRetrofit)
-            "/visitante.php" -> return MockResponse().setBody(resultVisitanteRetrofit)
-        }
-        return MockResponse().setResponseCode(404)
-    }
-}
-
-val dispatcherFailureColab: Dispatcher = object : Dispatcher() {
-
-    @Throws(InterruptedException::class)
-    override fun dispatch(request: RecordedRequest): MockResponse {
-        when (request.path) {
-            "/find-token.php" -> return MockResponse().setBody(resultTokenRetrofit)
-            "/colab.php" -> return MockResponse().setBody(resultFailureColabRetrofit)
-            "/equip.php" -> return MockResponse().setBody(resultEquipRetrofit)
-            "/local.php" -> return MockResponse().setBody(resultLocalRetrofit)
-            "/terceiro.php" -> return MockResponse().setBody(resultTerceiroRetrofit)
-            "/visitante.php" -> return MockResponse().setBody(resultVisitanteRetrofit)
-        }
-        return MockResponse().setResponseCode(404)
-    }
-}
-
-val dispatcherFailureTerceiro: Dispatcher = object : Dispatcher() {
-
-    @Throws(InterruptedException::class)
-    override fun dispatch(request: RecordedRequest): MockResponse {
-        when (request.path) {
-            "/find-token.php" -> return MockResponse().setBody(resultTokenRetrofit)
-            "/colab.php" -> return MockResponse().setBody(resultColabRetrofit)
-            "/equip.php" -> return MockResponse().setBody(resultEquipRetrofit)
-            "/local.php" -> return MockResponse().setBody(resultLocalRetrofit)
-            "/terceiro.php" -> return MockResponse().setBody(resultFailureTerceiroRetrofit)
-            "/visitante.php" -> return MockResponse().setBody(resultVisitanteRetrofit)
-        }
-        return MockResponse().setResponseCode(404)
-    }
-}
-
-val resultTokenRetrofit = """{"idBD":1}""".trimIndent()
-
-val resultColabRetrofit = """
-    [{"matricColab":19759,"nomeColab":"ANDERSON DA SILVA DELGADO"}]
-""".trimIndent()
-
-val resultFailureColabRetrofit = """
-    [{"matricColab":19759a,"nomeColab":"ANDERSON DA SILVA DELGADO"}]
-""".trimIndent()
-
-val resultEquipRetrofit = """
-    [{"idEquip":19,"nroEquip":190}]
-""".trimIndent()
-
-val resultLocalRetrofit = """
-    [{"idLocal":1,"descrLocal":"Usina"}]
-""".trimIndent()
-
-val resultTerceiroRetrofit = """
-    [{"idTerceiro":1,"idBDTerceiro":1,"cpfTerceiro":"123.456.789-00","nomeTerceiro":"Terceiro","empresaTerceiro":"Empresa Terceiro"}]
-""".trimIndent()
-
-val resultFailureTerceiroRetrofit = """
-    [
-        {"idTerceiro":1,"idBDTerceiro":1,"cpfTerceiro":"123.456.789-00","nomeTerceiro":"Terceiro","empresaTerceiro":"Empresa Terceiro"},
-        {"idTerceiro":1,"idBDTerceiro":1,"cpfTerceiro":"123.456.789-00","nomeTerceiro":"Terceiro","empresaTerceiro":"Empresa Terceiro"}
-    ]
-""".trimIndent()
-
-val resultVisitanteRetrofit = """
-    [{"idVisitante":1,"cpfVisitante":"123.456.789-00","nomeVisitante":"Visitante","empresaVisitante":"Empresa Visitante"}]
-""".trimIndent()

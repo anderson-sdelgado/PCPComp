@@ -5,13 +5,32 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.runner.AndroidJUnitRunner
 import androidx.work.Configuration
+import androidx.work.WorkManager
+import br.com.usinasantafe.pcpcomp.di.apiRetrofitModule
+import br.com.usinasantafe.pcpcomp.di.apiRoomModule
+import br.com.usinasantafe.pcpcomp.di.datasourceRetrofitModule
+import br.com.usinasantafe.pcpcomp.di.datasourceRoomModule
+import br.com.usinasantafe.pcpcomp.di.datasourceSharedPreferencesModule
+import br.com.usinasantafe.pcpcomp.di.repositoryModule
+import br.com.usinasantafe.pcpcomp.di.usecaseBackgroundModule
+import br.com.usinasantafe.pcpcomp.di.usecaseCleanTableModule
+import br.com.usinasantafe.pcpcomp.di.usecaseCommonModule
+import br.com.usinasantafe.pcpcomp.di.usecaseConfigModule
+import br.com.usinasantafe.pcpcomp.di.usecaseInitialModule
+import br.com.usinasantafe.pcpcomp.di.usecaseProprioModule
+import br.com.usinasantafe.pcpcomp.di.usecaseRecoverServerModule
+import br.com.usinasantafe.pcpcomp.di.workManagerModule
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.ProcessWorkManager
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.providerWorkManager
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitAndroidTest
 import br.com.usinasantafe.pcpcomp.external.room.provideRoomTest
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.dsl.workerOf
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 class TestApplication : Application(), KoinComponent, Configuration.Provider {
@@ -37,7 +56,6 @@ fun generateTestAppComponent(baseTestApi: String) = listOf(
     retrofitModuleTest(baseTestApi),
     roomModuleTest,
 ) + commonModuleList
-
 
 val sharedModuleTest = module {
     single { sharedPreferencesTest(androidContext()) }

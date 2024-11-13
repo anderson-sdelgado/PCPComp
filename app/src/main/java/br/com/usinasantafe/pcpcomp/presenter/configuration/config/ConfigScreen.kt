@@ -95,7 +95,7 @@ fun ConfigContent(
         OutlinedTextField(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.None,
-                autoCorrectEnabled = true,
+                autoCorrect = true,
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             ),

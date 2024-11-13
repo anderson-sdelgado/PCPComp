@@ -156,7 +156,9 @@ class ConfigViewModel(
             )
         )
         val resultSend = sendDataConfig(
-            number = number, password = password, version = version
+            number = number,
+            password = password,
+            version = version
         )
         if (resultSend.isFailure) {
             val error = resultSend.exceptionOrNull()!!
@@ -181,7 +183,10 @@ class ConfigViewModel(
             )
         )
         val resultSave = saveDataConfig(
-            number = number, password = password, version = version, idBD = resultSend.getOrNull()!!
+            number = number,
+            password = password,
+            version = version,
+            idBD = resultSend.getOrNull()!!
         )
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!

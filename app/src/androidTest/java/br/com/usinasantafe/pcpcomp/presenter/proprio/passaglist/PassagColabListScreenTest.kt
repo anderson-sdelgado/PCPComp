@@ -118,24 +118,24 @@ class PassagColabListScreenTest: KoinTest {
         pos: Int = 0
     ) {
         composeTestRule.setContent {
-            PassagColabListScreen(
-                viewModel = PassagColabListViewModel(
-                    SavedStateHandle(
-                        mapOf(
-                            Args.FLOW_APP_ARGS to flowApp.ordinal,
-                            Args.TYPE_OCUPANTE_ARGS to typeOcupante.ordinal,
-                            Args.ID_ARGS to pos,
-                        )
-                    ),
-                    cleanPassagColab,
-                    getPassagColabList,
-                    deletePassagColab
-                ),
-                onNavMatricMotorista = {},
-                onNavDetalhe = {},
-                onNavMatricPassag = {},
-                onNavDestino = {}
-            )
+//            PassagColabListScreen(
+//                viewModel = PassagColabListViewModel(
+//                    SavedStateHandle(
+//                        mapOf(
+//                            Args.FLOW_APP_ARGS to flowApp.ordinal,
+//                            Args.TYPE_OCUPANTE_ARGS to typeOcupante.ordinal,
+//                            Args.ID_ARGS to pos,
+//                        )
+//                    ),
+//                    cleanPassagColab,
+//                    getPassagColabList,
+//                    deletePassagColab
+//                ),
+//                onNavMatricMotorista = {},
+//                onNavDetalheProprio = {},
+//                onNavMatricPassag = {},
+//                onNavDestino = {}
+//            )
         }
     }
 

@@ -1,6 +1,6 @@
 package br.com.usinasantafe.pcpcomp.utils
 
-import br.com.usinasantafe.pcpcomp.presenter.configuration.config.resultTokenRetrofit
+import br.com.usinasantafe.pcpcomp.resultTokenRetrofit
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.RecordedRequest
