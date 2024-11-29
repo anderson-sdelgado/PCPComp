@@ -7,7 +7,7 @@ interface SetStatusSentMovResidencia {
     suspend operator fun invoke(list: List<MovEquipResidencia>): Result<Boolean>
 }
 
-class SetStatusSentMovResidenciaImpl(
+class ISetStatusSentMovResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
 ): SetStatusSentMovResidencia {
 

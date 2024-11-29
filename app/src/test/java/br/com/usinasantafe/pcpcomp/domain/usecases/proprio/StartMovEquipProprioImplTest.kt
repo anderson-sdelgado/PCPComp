@@ -27,7 +27,7 @@ class StartMovEquipProprioImplTest {
                 )
             )
         )
-        val usecase = StartMovEquipProprioImpl(
+        val usecase = IStartMovEquipProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository
@@ -53,7 +53,7 @@ class StartMovEquipProprioImplTest {
                 )
             )
         )
-        val usecase = StartMovEquipProprioImpl(
+        val usecase = IStartMovEquipProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository
@@ -82,7 +82,7 @@ class StartMovEquipProprioImplTest {
                 )
             )
         )
-        val usecase = StartMovEquipProprioImpl(
+        val usecase = IStartMovEquipProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository
@@ -106,7 +106,7 @@ class StartMovEquipProprioImplTest {
         whenever(movEquipProprioPassagRepository.clear()).thenReturn(
             Result.success(true)
         )
-        val usecase = StartMovEquipProprioImpl(
+        val usecase = IStartMovEquipProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository

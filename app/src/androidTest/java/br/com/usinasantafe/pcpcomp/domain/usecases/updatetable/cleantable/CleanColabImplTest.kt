@@ -36,7 +36,7 @@ class CleanColabImplTest : KoinTest {
                     )
                 )
             )
-            val listBefore = colabDao.getAll()
+            val listBefore = colabDao.listAll()
             assertEquals(
                 listBefore.size,
                 1
@@ -50,7 +50,7 @@ class CleanColabImplTest : KoinTest {
                 result,
                 Result.success(true)
             )
-            val listAfter = colabDao.getAll()
+            val listAfter = colabDao.listAll()
             assertEquals(
                 listAfter.size,
                 0

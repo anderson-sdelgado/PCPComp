@@ -8,7 +8,7 @@ interface GetVeiculoVisitTerc {
     ): Result<String>
 }
 
-class GetVeiculoVisitTercImpl(
+class IGetVeiculoVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository
 ) : GetVeiculoVisitTerc {
 

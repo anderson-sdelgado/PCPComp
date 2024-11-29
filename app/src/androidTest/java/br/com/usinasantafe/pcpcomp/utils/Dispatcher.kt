@@ -14,7 +14,9 @@ val dispatcherSuccessFunctional: Dispatcher = object : Dispatcher() {
             "/find-token.php" -> return MockResponse().setBody(resultTokenRetrofit)
             "/colab.php" -> return MockResponse().setBody(returnDataServerColab)
             "/equip.php" -> return MockResponse().setBody(returnDataServerEquip)
+            "/fluxo.php" -> return MockResponse().setBody(returnDataServerFluxo)
             "/local.php" -> return MockResponse().setBody(returnDataServerLocal)
+            "/r_local_fluxo.php" -> return MockResponse().setBody(returnDataServerRLocalFluxo)
             "/terceiro.php" -> return MockResponse().setBody(returnDataServerTerceiro)
             "/visitante.php" -> return MockResponse().setBody(returnDataServerVisitante)
             "/save-mov-equip-proprio.php" -> return MockResponse().setBody(

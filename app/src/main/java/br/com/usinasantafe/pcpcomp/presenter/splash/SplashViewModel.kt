@@ -15,6 +15,7 @@ data class SplashState(
     val failure: String = "",
     val flagAccess: Boolean = false,
     val flagMovOpen: Boolean = false,
+    val flagExecute: Boolean = true,
 )
 
 class SplashViewModel(
@@ -39,6 +40,10 @@ class SplashViewModel(
     }
 
     fun processInitial(version: String) = viewModelScope.launch {
+        if (!_uiState.value.flagExecute) return@launch
+        _uiState.update {
+            it.copy(flagExecute = false)
+        }
         val resultAdjustConfig = adjustConfig(version)
         if (resultAdjustConfig.isFailure) {
             val error = resultAdjustConfig.exceptionOrNull()!!

@@ -1,6 +1,5 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import kotlinx.coroutines.test.runTest
@@ -9,7 +8,6 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import kotlin.test.assertFailsWith
 
 class SaveDataConfigImplTest {
 
@@ -24,7 +22,7 @@ class SaveDataConfigImplTest {
                 idBD = 1
             )
         ).thenReturn(Result.success(true))
-        val usecase = SaveDataConfigImpl(configRepository)
+        val usecase = ISaveDataConfig(configRepository)
         val result = usecase(
             number = "16997417840",
             password = "12345",
@@ -38,7 +36,7 @@ class SaveDataConfigImplTest {
     @Test
     fun `Chech return Failure Usecase if have error in Usecase`() = runTest {
         val configRepository = mock<ConfigRepository>()
-        val usecase = SaveDataConfigImpl(configRepository)
+        val usecase = ISaveDataConfig(configRepository)
         val result = usecase(
             number = "16997417840A",
             password = "12345",
@@ -71,7 +69,7 @@ class SaveDataConfigImplTest {
                 )
             )
         )
-        val usecase = SaveDataConfigImpl(configRepository)
+        val usecase = ISaveDataConfig(configRepository)
         val result = usecase(
             number = "16997417840",
             password = "12345",

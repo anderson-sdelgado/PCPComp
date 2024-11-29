@@ -9,7 +9,7 @@ interface CloseMovResidencia {
     ): Result<Boolean>
 }
 
-class CloseMovResidenciaImpl(
+class ICloseMovResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ) : CloseMovResidencia {
 

@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.VisitanteRoomModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
@@ -38,7 +37,7 @@ class CleanVisitanteImplTest : KoinTest {
                     )
                 )
             )
-            val listBefore = visitanteDao.getAll()
+            val listBefore = visitanteDao.listAll()
             assertEquals(
                 listBefore.size,
                 1
@@ -52,7 +51,7 @@ class CleanVisitanteImplTest : KoinTest {
                 result,
                 Result.success(true)
             )
-            val listAfter = visitanteDao.getAll()
+            val listAfter = visitanteDao.listAll()
             assertEquals(
                 listAfter.size,
                 0

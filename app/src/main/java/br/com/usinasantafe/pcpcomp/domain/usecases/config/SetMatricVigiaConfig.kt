@@ -7,7 +7,7 @@ interface SetMatricVigiaConfig {
     suspend operator fun invoke(matric: String): Result<Boolean>
 }
 
-class SetMatricVigiaConfigImpl(
+class ISetMatricVigiaConfig(
     private val configRepository: ConfigRepository,
 ): SetMatricVigiaConfig {
 

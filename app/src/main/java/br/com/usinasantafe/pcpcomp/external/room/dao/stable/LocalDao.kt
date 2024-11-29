@@ -15,10 +15,10 @@ interface LocalDao {
     @Query("DELETE FROM $TB_LOCAL")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM $TB_LOCAL ORDER BY idLocal ASC")
-    suspend fun getAll(): List<LocalRoomModel>
-
     @Query("SELECT descrLocal FROM $TB_LOCAL WHERE idLocal = :id")
     suspend fun getDescr(id: Int): String
+
+    @Query("SELECT * FROM $TB_LOCAL ORDER BY idLocal ASC")
+    suspend fun listAll(): List<LocalRoomModel>
 
 }

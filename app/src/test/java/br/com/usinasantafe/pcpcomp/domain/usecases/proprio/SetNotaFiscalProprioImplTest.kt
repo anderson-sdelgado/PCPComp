@@ -32,7 +32,7 @@ class SetNotaFiscalProprioImplTest {
                     )
                 )
             )
-            val usecase = SetNotaFiscalProprioImpl(
+            val usecase = ISetNotaFiscalProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )
@@ -62,7 +62,7 @@ class SetNotaFiscalProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetNotaFiscalProprioImpl(
+            val usecase = ISetNotaFiscalProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )
@@ -92,7 +92,7 @@ class SetNotaFiscalProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetNotaFiscalProprioImpl(
+            val usecase = ISetNotaFiscalProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )

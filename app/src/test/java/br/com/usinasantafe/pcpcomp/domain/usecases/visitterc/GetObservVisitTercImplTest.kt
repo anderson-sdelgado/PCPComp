@@ -25,7 +25,7 @@ class GetObservVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetObservVisitTercImpl(
+        val usecase = IGetObservVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(id = 1)
@@ -46,7 +46,7 @@ class GetObservVisitTercImplTest {
         ).thenReturn(
             Result.success("Observação")
         )
-        val usecase = GetObservVisitTercImpl(
+        val usecase = IGetObservVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(id = 1)
@@ -67,7 +67,7 @@ class GetObservVisitTercImplTest {
         ).thenReturn(
             Result.success(null)
         )
-        val usecase = GetObservVisitTercImpl(
+        val usecase = IGetObservVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(id = 1)

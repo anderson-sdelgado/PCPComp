@@ -36,7 +36,7 @@ class CleanRLocalFluxoImplTest: KoinTest {
                     )
                 )
             )
-            val listBefore = rLocalFluxoDao.getAll()
+            val listBefore = rLocalFluxoDao.listAll()
             assertEquals(
                 listBefore.size,
                 1
@@ -50,7 +50,7 @@ class CleanRLocalFluxoImplTest: KoinTest {
                 result,
                 Result.success(true)
             )
-            val listAfter = rLocalFluxoDao.getAll()
+            val listAfter = rLocalFluxoDao.listAll()
             assertEquals(
                 listAfter.size,
                 0

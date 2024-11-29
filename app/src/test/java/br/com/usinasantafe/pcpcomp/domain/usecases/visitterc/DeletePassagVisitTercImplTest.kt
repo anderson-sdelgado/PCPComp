@@ -29,7 +29,7 @@ class DeletePassagVisitTercImplTest {
                     )
                 )
             )
-            val usecase = DeletePassagVisitTercImpl(
+            val usecase = IDeletePassagVisitTerc(
                 movEquipVisitTercPassagRepository
             )
             val result = usecase(
@@ -57,7 +57,7 @@ class DeletePassagVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = DeletePassagVisitTercImpl(
+            val usecase = IDeletePassagVisitTerc(
                 movEquipVisitTercPassagRepository
             )
             val result = usecase(

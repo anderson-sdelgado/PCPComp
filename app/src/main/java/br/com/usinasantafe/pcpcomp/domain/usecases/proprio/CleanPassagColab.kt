@@ -6,7 +6,7 @@ interface CleanPassagColab {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanPassagColabImpl(
+class ICleanPassagColab(
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository
 ) : CleanPassagColab {
 

@@ -13,7 +13,7 @@ interface SendMovProprioList {
     suspend operator fun invoke(): Result<List<MovEquipProprio>>
 }
 
-class SendMovProprioListImpl(
+class ISendMovProprioList(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository,

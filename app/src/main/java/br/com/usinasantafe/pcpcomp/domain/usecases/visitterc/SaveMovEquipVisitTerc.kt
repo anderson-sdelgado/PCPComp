@@ -5,7 +5,6 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 interface SaveMovEquipVisitTerc {
@@ -15,7 +14,7 @@ interface SaveMovEquipVisitTerc {
     ): Result<Boolean>
 }
 
-class SaveMovEquipVisitTercImpl(
+class ISaveMovEquipVisitTerc(
     private val configRepository: ConfigRepository,
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,

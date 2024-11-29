@@ -1,13 +1,9 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
-import java.util.Date
 
 interface SetObservVisitTerc {
     suspend operator fun invoke(
@@ -17,7 +13,7 @@ interface SetObservVisitTerc {
     ): Result<Boolean>
 }
 
-class SetObservVisitTercImpl(
+class ISetObservVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetObservVisitTerc {

@@ -31,7 +31,7 @@ class DeleteMovSentImplTest {
     private val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
     private val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
 
-    private val usecase = DeleteMovSentImpl(
+    private val usecase = IDeleteMovSent(
         movEquipProprioRepository,
         movEquipProprioPassagRepository,
         movEquipProprioEquipSegRepository,

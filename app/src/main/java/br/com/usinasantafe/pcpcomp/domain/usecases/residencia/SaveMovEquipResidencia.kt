@@ -4,8 +4,6 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 
 interface SaveMovEquipResidencia {
@@ -15,7 +13,7 @@ interface SaveMovEquipResidencia {
     ): Result<Boolean>
 }
 
-class SaveMovEquipResidenciaImpl(
+class ISaveMovEquipResidencia(
     private val configRepository: ConfigRepository,
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val startProcessSendData: StartProcessSendData,

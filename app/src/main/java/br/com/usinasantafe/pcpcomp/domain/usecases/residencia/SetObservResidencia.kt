@@ -4,9 +4,6 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
-import java.util.Date
 
 interface SetObservResidencia {
     suspend operator fun invoke(
@@ -16,7 +13,7 @@ interface SetObservResidencia {
     ): Result<Boolean>
 }
 
-class SetObservResidenciaImpl(
+class ISetObservResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetObservResidencia {

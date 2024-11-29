@@ -10,7 +10,7 @@ interface SendMovResidenciaList {
     suspend operator fun invoke(): Result<List<MovEquipResidencia>>
 }
 
-class SendMovResidenciaListImpl(
+class ISendMovResidenciaList(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val configRepository: ConfigRepository,
 ): SendMovResidenciaList {

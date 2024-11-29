@@ -22,7 +22,7 @@ class CloseMovVisitTercImplTest {
                 )
             )
         )
-        val usecase = CloseMovVisitTercImpl(
+        val usecase = ICloseMovVisitTerc(
             movEquipVisitTercRepository,
         )
         val result = usecase(1)
@@ -56,7 +56,7 @@ class CloseMovVisitTercImplTest {
                 )
             )
         )
-        val usecase = CloseMovVisitTercImpl(
+        val usecase = ICloseMovVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(1)
@@ -83,7 +83,7 @@ class CloseMovVisitTercImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = CloseMovVisitTercImpl(
+        val usecase = ICloseMovVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(1)

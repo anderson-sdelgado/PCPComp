@@ -12,7 +12,7 @@ interface SetDestinoVisitTerc {
     ): Result<Boolean>
 }
 
-class SetDestinoVisitTercImpl(
+class ISetDestinoVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetDestinoVisitTerc {

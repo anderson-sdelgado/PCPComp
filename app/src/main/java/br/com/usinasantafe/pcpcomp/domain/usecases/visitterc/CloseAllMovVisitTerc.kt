@@ -7,7 +7,7 @@ interface CloseAllMovVisitTerc {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CloseAllMovVisitTercImpl(
+class ICloseAllMovVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
 ): CloseAllMovVisitTerc {
 

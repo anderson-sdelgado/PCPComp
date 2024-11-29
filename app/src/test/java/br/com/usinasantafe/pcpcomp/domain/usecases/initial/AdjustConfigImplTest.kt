@@ -14,7 +14,7 @@ class AdjustConfigImplTest {
 
     private val configRepository = mock<ConfigRepository>()
     private val startProcessSendData = mock<StartProcessSendData>()
-    private val usecase = AdjustConfigImpl(
+    private val usecase = IAdjustConfig(
         configRepository,
         startProcessSendData
     )

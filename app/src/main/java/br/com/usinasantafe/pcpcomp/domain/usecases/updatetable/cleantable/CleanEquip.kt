@@ -6,7 +6,7 @@ interface CleanEquip {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanEquipImpl(
+class ICleanEquip(
     private val equipRepository: EquipRepository
 ): CleanEquip {
 

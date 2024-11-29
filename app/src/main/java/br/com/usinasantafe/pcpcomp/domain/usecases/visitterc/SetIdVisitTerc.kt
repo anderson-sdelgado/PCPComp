@@ -19,7 +19,7 @@ interface SetIdVisitTerc {
     ): Result<Boolean>
 }
 
-class SetIdVisitTercImpl(
+class ISetIdVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
     private val terceiroRepository: TerceiroRepository,

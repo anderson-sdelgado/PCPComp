@@ -31,7 +31,7 @@ class SetPlacaVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetPlacaVisitTercImpl(
+            val usecase = ISetPlacaVisitTerc(
                 movEquipVisitTercRepository,
                 startProcessSendData
             )
@@ -61,7 +61,7 @@ class SetPlacaVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetPlacaVisitTercImpl(
+            val usecase = ISetPlacaVisitTerc(
                 movEquipVisitTercRepository,
                 startProcessSendData
             )

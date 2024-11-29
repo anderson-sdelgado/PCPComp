@@ -6,7 +6,7 @@ interface CleanEquipSeg {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanEquipSegImpl(
+class ICleanEquipSeg(
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository
 ): CleanEquipSeg {
 

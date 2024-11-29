@@ -39,7 +39,7 @@ import br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo.VeiculoVisitTercV
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.*
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.initial.*
@@ -133,231 +133,232 @@ val viewModelVisitTercModule = module {
 }
 
 val usecaseBackgroundModule = module {
-    singleOf(::StartProcessSendDataImpl) { bind<StartProcessSendData>() }
+    singleOf(::IStartProcessSendData) { bind<StartProcessSendData>() }
 }
 
 val usecaseCommonModule = module {
-    singleOf(::CheckMatricColabImpl) { bind<CheckMatricColab>() }
-    singleOf(::CloseAllMovImpl) { bind<CloseAllMov>() }
-    singleOf(::GetHeaderImpl) { bind<GetHeader>() }
-    singleOf(::GetTokenImpl) { bind<GetToken>() }
+    singleOf(::ICheckMatricColab) { bind<CheckMatricColab>() }
+    singleOf(::ICloseAllMov) { bind<CloseAllMov>() }
+    singleOf(::IGetHeader) { bind<GetHeader>() }
+    singleOf(::IGetToken) { bind<GetToken>() }
 }
 
 val usecaseConfigModule = module {
-    singleOf(::CheckPasswordConfigImpl) { bind<CheckPasswordConfig>() }
-    singleOf(::GetConfigInternalImpl) { bind<GetConfigInternal>() }
-    singleOf(::SendDataConfigImpl) { bind<SendDataConfig>() }
-    singleOf(::SaveDataConfigImpl) { bind<SaveDataConfig>() }
-    singleOf(::SetCheckUpdateAllTableImpl) { bind<SetCheckUpdateAllTable>() }
-    singleOf(::SetIdLocalConfigImpl) { bind<SetIdLocalConfig>() }
-    singleOf(::SetMatricVigiaConfigImpl) { bind<SetMatricVigiaConfig>() }
+    singleOf(::ICheckPasswordConfig) { bind<CheckPasswordConfig>() }
+    singleOf(::IGetConfigInternal) { bind<GetConfigInternal>() }
+    singleOf(::ISendDataConfig) { bind<SendDataConfig>() }
+    singleOf(::ISaveDataConfig) { bind<SaveDataConfig>() }
+    singleOf(::ISetCheckUpdateAllTable) { bind<SetCheckUpdateAllTable>() }
+    singleOf(::ISetIdLocalConfig) { bind<SetIdLocalConfig>() }
+    singleOf(::ISetMatricVigiaConfig) { bind<SetMatricVigiaConfig>() }
 }
 
 val usecaseInitialModule = module {
-    singleOf(::AdjustConfigImpl) { bind<AdjustConfig>() }
-    singleOf(::CheckAccessMainImpl) { bind<CheckAccessMain>() }
-    singleOf(::CheckMovOpenImpl) { bind<CheckMovOpen>() }
-    singleOf(::DeleteMovSentImpl) { bind<DeleteMovSent>() }
-    singleOf(::GetLocalListImpl) { bind<GetLocalList>() }
-    singleOf(::GetNomeVigiaImpl) { bind<GetNomeVigia>() }
+    singleOf(::IAdjustConfig) { bind<AdjustConfig>() }
+    singleOf(::ICheckAccessMain) { bind<CheckAccessMain>() }
+    singleOf(::ICheckMovOpen) { bind<CheckMovOpen>() }
+    singleOf(::IDeleteMovSent) { bind<DeleteMovSent>() }
+    singleOf(::IGetFlowList) { bind<GetFlowList>() }
+    singleOf(::IGetLocalList) { bind<GetLocalList>() }
+    singleOf(::IGetNomeVigia) { bind<GetNomeVigia>() }
 }
 
 val usecaseProprioModule = module {
-    singleOf(::CheckNroEquipProprioImpl) { bind<CheckNroEquipProprio>() }
-    singleOf(::CheckSendMovProprioImpl) { bind<CheckSendMovProprio>() }
-    singleOf(::CleanEquipSegImpl) { bind<CleanEquipSeg>() }
-    singleOf(::CleanPassagColabImpl) { bind<CleanPassagColab>() }
-    singleOf(::CloseAllMovProprioImpl) { bind<CloseAllMovProprio>() }
-    singleOf(::CloseMovProprioImpl) { bind<CloseMovProprio>() }
-    singleOf(::DeleteEquipSegImpl) { bind<DeleteEquipSeg>() }
-    singleOf(::DeletePassagColabImpl) { bind<DeletePassagColab>() }
-    singleOf(::GetDestinoProprioImpl) { bind<GetDestinoProprio>() }
-    singleOf(::GetDetalheProprioImpl) { bind<GetDetalheProprio>() }
-    singleOf(::GetEquipSegListImpl) { bind<GetEquipSegList>() }
-    singleOf(::GetMatricColabImpl) { bind<GetMatricColab>() }
-    singleOf(::GetMovEquipProprioOpenListImpl) { bind<GetMovEquipProprioOpenList>() }
-    singleOf(::GetNomeColabImpl) { bind<GetNomeColab>() }
-    singleOf(::GetNotaFiscalProprioImpl) { bind<GetNotaFiscalProprio>() }
-    singleOf(::GetNroEquipImpl) { bind<GetNroEquip>() }
-    singleOf(::GetObservProprioImpl) { bind<GetObservProprio>() }
-    singleOf(::GetPassagColabListImpl) { bind<GetPassagColabList>() }
-    singleOf(::GetTypeMovImpl) { bind<GetTypeMov>() }
-    singleOf(::SaveMovEquipProprioImpl) { bind<SaveMovEquipProprio>() }
-    singleOf(::SendMovProprioListImpl) { bind<SendMovProprioList>() }
-    singleOf(::SetDestinoProprioImpl) { bind<SetDestinoProprio>() }
-    singleOf(::SetMatricColabImpl) { bind<SetMatricColab>() }
-    singleOf(::SetNotaFiscalProprioImpl) { bind<SetNotaFiscalProprio>() }
-    singleOf(::SetNroEquipImpl) { bind<SetNroEquip>() }
-    singleOf(::SetObservProprioImpl) { bind<SetObservProprio>() }
-    singleOf(::SetStatusSentMovProprioImpl) { bind<SetStatusSentMovProprio>() }
-    singleOf(::StartMovEquipProprioImpl) { bind<StartMovEquipProprio>() }
+    singleOf(::ICheckNroEquipProprio) { bind<CheckNroEquipProprio>() }
+    singleOf(::ICheckSendMovProprio) { bind<CheckSendMovProprio>() }
+    singleOf(::ICleanEquipSeg) { bind<CleanEquipSeg>() }
+    singleOf(::ICleanPassagColab) { bind<CleanPassagColab>() }
+    singleOf(::ICloseAllMovProprio) { bind<CloseAllMovProprio>() }
+    singleOf(::ICloseMovProprio) { bind<CloseMovProprio>() }
+    singleOf(::IDeleteEquipSeg) { bind<DeleteEquipSeg>() }
+    singleOf(::IDeletePassagColab) { bind<DeletePassagColab>() }
+    singleOf(::IGetDestinoProprio) { bind<GetDestinoProprio>() }
+    singleOf(::IGetDetalheProprio) { bind<GetDetalheProprio>() }
+    singleOf(::IGetEquipSegList) { bind<GetEquipSegList>() }
+    singleOf(::IGetMatricColab) { bind<GetMatricColab>() }
+    singleOf(::IGetMovEquipProprioOpenList) { bind<GetMovEquipProprioOpenList>() }
+    singleOf(::IGetNomeColab) { bind<GetNomeColab>() }
+    singleOf(::IGetNotaFiscalProprio) { bind<GetNotaFiscalProprio>() }
+    singleOf(::IGetNroEquip) { bind<GetNroEquip>() }
+    singleOf(::IGetObservProprio) { bind<GetObservProprio>() }
+    singleOf(::IGetPassagColabList) { bind<GetPassagColabList>() }
+    singleOf(::IGetTypeMov) { bind<GetTypeMov>() }
+    singleOf(::ISaveMovEquipProprio) { bind<SaveMovEquipProprio>() }
+    singleOf(::ISendMovProprioList) { bind<SendMovProprioList>() }
+    singleOf(::ISetDestinoProprio) { bind<SetDestinoProprio>() }
+    singleOf(::ISetMatricColab) { bind<SetMatricColab>() }
+    singleOf(::ISetNotaFiscalProprio) { bind<SetNotaFiscalProprio>() }
+    singleOf(::ISetNroEquip) { bind<SetNroEquip>() }
+    singleOf(::ISetObservProprio) { bind<SetObservProprio>() }
+    singleOf(::ISetStatusSentMovProprio) { bind<SetStatusSentMovProprio>() }
+    singleOf(::IStartMovEquipProprio) { bind<StartMovEquipProprio>() }
 }
 
 val usecaseVisitTercModule = module {
-    singleOf(::CheckCpfVisitTercImpl) { bind<CheckCpfVisitTerc>() }
-    singleOf(::CheckSendMovVisitTercImpl) { bind<CheckSendMovVisitTerc>() }
-    singleOf(::CleanPassagVisitTercImpl) { bind<CleanPassagVisitTerc>() }
-    singleOf(::CloseAllMovVisitTercImpl) { bind<CloseAllMovVisitTerc>() }
-    singleOf(::CloseMovVisitTercImpl) { bind<CloseMovVisitTerc>() }
-    singleOf(::DeletePassagVisitTercImpl) { bind<DeletePassagVisitTerc>() }
-    singleOf(::GetCpfVisitTercImpl) { bind<GetCpfVisitTerc>() }
-    singleOf(::GetDestinoVisitTercImpl) { bind<GetDestinoVisitTerc>() }
-    singleOf(::GetDetalheVisitTercImpl) { bind<GetDetalheVisitTerc>() }
-    singleOf(::GetMotoristaVisitTercImpl) { bind<GetMotoristaVisitTerc>() }
-    singleOf(::GetMovEquipVisitTercInsideListImpl) { bind<GetMovEquipVisitTercInsideList>() }
-    singleOf(::GetMovEquipVisitTercOpenListImpl) { bind<GetMovEquipVisitTercOpenList>() }
-    singleOf(::GetNomeVisitTercImpl) { bind<GetNomeVisitTerc>() }
-    singleOf(::GetObservVisitTercImpl) { bind<GetObservVisitTerc>() }
-    singleOf(::GetPassagVisitTercListImpl) { bind<GetPassagVisitTercList>() }
-    singleOf(::GetPlacaVisitTercImpl) { bind<GetPlacaVisitTerc>() }
-    singleOf(::GetTitleCpfVisitTercImpl) { bind<GetTitleCpfVisitTerc>() }
-    singleOf(::GetVeiculoVisitTercImpl) { bind<GetVeiculoVisitTerc>() }
-    singleOf(::SetStatusOutsideMovVisitTercImpl) { bind<SetStatusOutsideMovVisitTerc>() }
-    singleOf(::SaveMovEquipVisitTercImpl) { bind<SaveMovEquipVisitTerc>() }
-    singleOf(::SendMovVisitTercListImpl) { bind<SendMovVisitTercList>() }
-    singleOf(::SetDestinoVisitTercImpl) { bind<SetDestinoVisitTerc>() }
-    singleOf(::SetIdVisitTercImpl) { bind<SetIdVisitTerc>() }
-    singleOf(::SetObservVisitTercImpl) { bind<SetObservVisitTerc>() }
-    singleOf(::SetPlacaVisitTercImpl) { bind<SetPlacaVisitTerc>() }
-    singleOf(::SetStatusSentMovVisitTercImpl) { bind<SetStatusSentMovVisitTerc>() }
-    singleOf(::SetTipoVisitTercImpl) { bind<SetTipoVisitTerc>() }
-    singleOf(::SetVeiculoVisitTercImpl) { bind<SetVeiculoVisitTerc>() }
-    singleOf(::StartInputMovEquipVisitTercImpl) { bind<StartInputMovEquipVisitTerc>() }
-    singleOf(::StartOutputMovEquipVisitTercImpl) { bind<StartOutputMovEquipVisitTerc>() }
+    singleOf(::ICheckCpfVisitTerc) { bind<CheckCpfVisitTerc>() }
+    singleOf(::ICheckSendMovVisitTerc) { bind<CheckSendMovVisitTerc>() }
+    singleOf(::ICleanPassagVisitTerc) { bind<CleanPassagVisitTerc>() }
+    singleOf(::ICloseAllMovVisitTerc) { bind<CloseAllMovVisitTerc>() }
+    singleOf(::ICloseMovVisitTerc) { bind<CloseMovVisitTerc>() }
+    singleOf(::IDeletePassagVisitTerc) { bind<DeletePassagVisitTerc>() }
+    singleOf(::IGetCpfVisitTerc) { bind<GetCpfVisitTerc>() }
+    singleOf(::IGetDestinoVisitTerc) { bind<GetDestinoVisitTerc>() }
+    singleOf(::IGetDetalheVisitTerc) { bind<GetDetalheVisitTerc>() }
+    singleOf(::IGetMotoristaVisitTerc) { bind<GetMotoristaVisitTerc>() }
+    singleOf(::IGetMovEquipVisitTercInsideList) { bind<GetMovEquipVisitTercInsideList>() }
+    singleOf(::IGetMovEquipVisitTercOpenList) { bind<GetMovEquipVisitTercOpenList>() }
+    singleOf(::IGetNomeVisitTerc) { bind<GetNomeVisitTerc>() }
+    singleOf(::IGetObservVisitTerc) { bind<GetObservVisitTerc>() }
+    singleOf(::IGetPassagVisitTercList) { bind<GetPassagVisitTercList>() }
+    singleOf(::IGetPlacaVisitTerc) { bind<GetPlacaVisitTerc>() }
+    singleOf(::IGetTitleCpfVisitTerc) { bind<GetTitleCpfVisitTerc>() }
+    singleOf(::IGetVeiculoVisitTerc) { bind<GetVeiculoVisitTerc>() }
+    singleOf(::ISetStatusOutsideMovVisitTerc) { bind<SetStatusOutsideMovVisitTerc>() }
+    singleOf(::ISaveMovEquipVisitTerc) { bind<SaveMovEquipVisitTerc>() }
+    singleOf(::ISendMovVisitTercList) { bind<SendMovVisitTercList>() }
+    singleOf(::ISetDestinoVisitTerc) { bind<SetDestinoVisitTerc>() }
+    singleOf(::ISetIdVisitTerc) { bind<SetIdVisitTerc>() }
+    singleOf(::ISetObservVisitTerc) { bind<SetObservVisitTerc>() }
+    singleOf(::ISetPlacaVisitTerc) { bind<SetPlacaVisitTerc>() }
+    singleOf(::ISetStatusSentMovVisitTerc) { bind<SetStatusSentMovVisitTerc>() }
+    singleOf(::ISetTipoVisitTerc) { bind<SetTipoVisitTerc>() }
+    singleOf(::ISetVeiculoVisitTerc) { bind<SetVeiculoVisitTerc>() }
+    singleOf(::IStartInputMovEquipVisitTerc) { bind<StartInputMovEquipVisitTerc>() }
+    singleOf(::IStartOutputMovEquipVisitTerc) { bind<StartOutputMovEquipVisitTerc>() }
 }
 
 val usecaseResidenciaModule = module {
-    singleOf(::CheckSendMovResidenciaImpl) { bind<CheckSendMovResidencia>() }
-    singleOf(::CloseAllMovResidenciaImpl) { bind<CloseAllMovResidencia>() }
-    singleOf(::CloseMovResidenciaImpl) { bind<CloseMovResidencia>() }
-    singleOf(::GetDetalheResidenciaImpl) { bind<GetDetalheResidencia>() }
-    singleOf(::GetMotoristaResidenciaImpl) { bind<GetMotoristaResidencia>() }
-    singleOf(::GetMovEquipResidenciaInsideListImpl) { bind<GetMovEquipResidenciaInsideList>() }
-    singleOf(::GetMovEquipResidenciaOpenListImpl) { bind<GetMovEquipResidenciaOpenList>() }
-    singleOf(::GetObservResidenciaImpl) { bind<GetObservResidencia>() }
-    singleOf(::GetPlacaResidenciaImpl) { bind<GetPlacaResidencia>() }
-    singleOf(::GetVeiculoResidenciaImpl) { bind<GetVeiculoResidencia>() }
-    singleOf(::SetStatusOutsideMovResidenciaImpl) { bind<SetStatusOutsideMovResidencia>() }
-    singleOf(::SaveMovEquipResidenciaImpl) { bind<SaveMovEquipResidencia>() }
-    singleOf(::SendMovResidenciaListImpl) { bind<SendMovResidenciaList>() }
-    singleOf(::SetMotoristaResidenciaImpl) { bind<SetMotoristaResidencia>() }
-    singleOf(::SetObservResidenciaImpl) { bind<SetObservResidencia>() }
-    singleOf(::SetPlacaResidenciaImpl) { bind<SetPlacaResidencia>() }
-    singleOf(::SetStatusSentMovResidenciaImpl) { bind<SetStatusSentMovResidencia>() }
-    singleOf(::SetVeiculoResidenciaImpl) { bind<SetVeiculoResidencia>() }
-    singleOf(::StartInputMovEquipResidenciaImpl) { bind<StartInputMovEquipResidencia>() }
-    singleOf(::StartOutputMovEquipResidenciaImpl) { bind<StartOutputMovEquipResidencia>() }
+    singleOf(::ICheckSendMovResidencia) { bind<CheckSendMovResidencia>() }
+    singleOf(::ICloseAllMovResidencia) { bind<CloseAllMovResidencia>() }
+    singleOf(::ICloseMovResidencia) { bind<CloseMovResidencia>() }
+    singleOf(::IGetDetalheResidencia) { bind<GetDetalheResidencia>() }
+    singleOf(::IGetMotoristaResidencia) { bind<GetMotoristaResidencia>() }
+    singleOf(::IGetMovEquipResidenciaInsideList) { bind<GetMovEquipResidenciaInsideList>() }
+    singleOf(::IGetMovEquipResidenciaOpenList) { bind<GetMovEquipResidenciaOpenList>() }
+    singleOf(::IGetObservResidencia) { bind<GetObservResidencia>() }
+    singleOf(::IGetPlacaResidencia) { bind<GetPlacaResidencia>() }
+    singleOf(::IGetVeiculoResidencia) { bind<GetVeiculoResidencia>() }
+    singleOf(::ISetStatusOutsideMovResidencia) { bind<SetStatusOutsideMovResidencia>() }
+    singleOf(::ISaveMovEquipResidencia) { bind<SaveMovEquipResidencia>() }
+    singleOf(::ISendMovResidenciaList) { bind<SendMovResidenciaList>() }
+    singleOf(::ISetMotoristaResidencia) { bind<SetMotoristaResidencia>() }
+    singleOf(::ISetObservResidencia) { bind<SetObservResidencia>() }
+    singleOf(::ISetPlacaResidencia) { bind<SetPlacaResidencia>() }
+    singleOf(::ISetStatusSentMovResidencia) { bind<SetStatusSentMovResidencia>() }
+    singleOf(::ISetVeiculoResidencia) { bind<SetVeiculoResidencia>() }
+    singleOf(::IStartInputMovEquipResidencia) { bind<StartInputMovEquipResidencia>() }
+    singleOf(::IStartOutputMovEquipResidencia) { bind<StartOutputMovEquipResidencia>() }
 }
 
 val usecaseUpdateModule = module {
-    singleOf(::UpdateColabImpl) { bind<UpdateColab>() }
-    singleOf(::UpdateEquipImpl) { bind<UpdateEquip>() }
-    singleOf(::UpdateFluxoImpl) { bind<UpdateFluxo>() }
-    singleOf(::UpdateLocalImpl) { bind<UpdateLocal>() }
-    singleOf(::UpdateRLocalFluxoImpl) { bind<UpdateRLocalFluxo>() }
-    singleOf(::UpdateTerceiroImpl) { bind<UpdateTerceiro>() }
-    singleOf(::UpdateVisitanteImpl) { bind<UpdateVisitante>() }
+    singleOf(::IUpdateColab) { bind<UpdateColab>() }
+    singleOf(::IUpdateEquip) { bind<UpdateEquip>() }
+    singleOf(::IUpdateFluxo) { bind<UpdateFluxo>() }
+    singleOf(::IUpdateLocal) { bind<UpdateLocal>() }
+    singleOf(::IUpdateRLocalFluxo) { bind<UpdateRLocalFluxo>() }
+    singleOf(::IUpdateTerceiro) { bind<UpdateTerceiro>() }
+    singleOf(::IUpdateVisitante) { bind<UpdateVisitante>() }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 val usecaseCleanTableModule = module {
-    singleOf(::CleanColabImpl) { bind<CleanColab>() }
-    singleOf(::CleanEquipImpl) { bind<CleanEquip>() }
-    singleOf(::CleanFluxoImpl) { bind<CleanFluxo>() }
-    singleOf(::CleanLocalImpl) { bind<CleanLocal>() }
-    singleOf(::CleanRLocalFluxoImpl) { bind<CleanRLocalFluxo>() }
-    singleOf(::CleanTerceiroImpl) { bind<CleanTerceiro>() }
-    singleOf(::CleanVisitanteImpl) { bind<CleanVisitante>() }
+    singleOf(::ICleanColab) { bind<CleanColab>() }
+    singleOf(::ICleanEquip) { bind<CleanEquip>() }
+    singleOf(::ICleanFluxo) { bind<CleanFluxo>() }
+    singleOf(::ICleanLocal) { bind<CleanLocal>() }
+    singleOf(::ICleanRLocalFluxo) { bind<CleanRLocalFluxo>() }
+    singleOf(::ICleanTerceiro) { bind<CleanTerceiro>() }
+    singleOf(::ICleanVisitante) { bind<CleanVisitante>() }
 }
 
 val usecaseRecoverServerModule = module {
-    singleOf(::GetAllColabServerImpl) { bind<GetAllColabServer>() }
-    singleOf(::GetAllEquipServerImpl) { bind<GetAllEquipServer>() }
-    singleOf(::GetAllFluxoServerImpl) { bind<GetAllFluxoServer>() }
-    singleOf(::GetAllLocalServerImpl) { bind<GetAllLocalServer>() }
-    singleOf(::GetAllRLocalFluxoServerImpl) { bind<GetAllRLocalFluxoServer>() }
-    singleOf(::GetAllTerceiroServerImpl) { bind<GetAllTerceiroServer>() }
-    singleOf(::GetAllVisitanteServerImpl) { bind<GetAllVisitanteServer>() }
+    singleOf(::IGetServerColab) { bind<GetServerColab>() }
+    singleOf(::IGetServerEquip) { bind<GetServerEquip>() }
+    singleOf(::IGetServerFluxo) { bind<GetServerFluxo>() }
+    singleOf(::IGetServerLocal) { bind<GetServerLocal>() }
+    singleOf(::IGetServerRLocalFluxo) { bind<GetServerRLocalFluxo>() }
+    singleOf(::IGetServerTerceiro) { bind<GetServerTerceiro>() }
+    singleOf(::IGetServerVisitante) { bind<GetServerVisitante>() }
 }
 
 val usecaseSaveAllTableModule = module {
-    singleOf(::SaveAllColabImpl) { bind<SaveAllColab>() }
-    singleOf(::SaveAllEquipImpl) { bind<SaveAllEquip>() }
-    singleOf(::SaveAllFluxoImpl) { bind<SaveAllFluxo>() }
-    singleOf(::SaveAllLocalImpl) { bind<SaveAllLocal>() }
-    singleOf(::SaveAllRLocalFluxoImpl) { bind<SaveAllRLocalFluxo>() }
-    singleOf(::SaveAllTerceiroImpl) { bind<SaveAllTerceiro>() }
-    singleOf(::SaveAllVisitanteImpl) { bind<SaveAllVisitante>() }
+    singleOf(::ISaveColab) { bind<SaveColab>() }
+    singleOf(::ISaveEquip) { bind<SaveEquip>() }
+    singleOf(::ISaveFluxo) { bind<SaveFluxo>() }
+    singleOf(::ISaveLocal) { bind<SaveLocal>() }
+    singleOf(::ISaveRLocalFluxo) { bind<SaveRLocalFluxo>() }
+    singleOf(::ISaveTerceiro) { bind<SaveTerceiro>() }
+    singleOf(::ISaveVisitante) { bind<SaveVisitante>() }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 val repositoryModule = module {
 
-    singleOf(::ConfigRepositoryImpl) { bind<ConfigRepository>() }
-    singleOf(::MovEquipProprioRepositoryImpl) { bind<MovEquipProprioRepository>() }
-    singleOf(::MovEquipProprioPassagRepositoryImpl) { bind<MovEquipProprioPassagRepository>() }
-    singleOf(::MovEquipProprioEquipSegRepositoryImpl) { bind<MovEquipProprioEquipSegRepository>() }
-    singleOf(::MovEquipVisitTercRepositoryImpl) { bind<MovEquipVisitTercRepository>() }
-    singleOf(::MovEquipVisitTercPassagRepositoryImpl) { bind<MovEquipVisitTercPassagRepository>() }
-    singleOf(::MovEquipResidenciaRepositoryImpl) { bind<MovEquipResidenciaRepository>() }
+    singleOf(::IConfigRepository) { bind<ConfigRepository>() }
+    singleOf(::IMovEquipProprioRepository) { bind<MovEquipProprioRepository>() }
+    singleOf(::IMovEquipProprioPassagRepository) { bind<MovEquipProprioPassagRepository>() }
+    singleOf(::IMovEquipProprioEquipSegRepository) { bind<MovEquipProprioEquipSegRepository>() }
+    singleOf(::IMovEquipVisitTercRepository) { bind<MovEquipVisitTercRepository>() }
+    singleOf(::IMovEquipVisitTercPassagRepository) { bind<MovEquipVisitTercPassagRepository>() }
+    singleOf(::IMovEquipResidenciaRepository) { bind<MovEquipResidenciaRepository>() }
 
-    singleOf(::ColabRepositoryImpl) { bind<ColabRepository>() }
-    singleOf(::EquipRepositoryImpl) { bind<EquipRepository>() }
-    singleOf(::FluxoRepositoryImpl) { bind<FluxoRepository>() }
-    singleOf(::LocalRepositoryImpl) { bind<LocalRepository>() }
-    singleOf(::RLocalFluxoRepositoryImpl) { bind<RLocalFluxoRepository>() }
-    singleOf(::TerceiroRepositoryImpl) { bind<TerceiroRepository>() }
-    singleOf(::VisitanteRepositoryImpl) { bind<VisitanteRepository>() }
+    singleOf(::IColabRepository) { bind<ColabRepository>() }
+    singleOf(::IEquipRepository) { bind<EquipRepository>() }
+    singleOf(::IFluxoRepository) { bind<FluxoRepository>() }
+    singleOf(::ILocalRepository) { bind<LocalRepository>() }
+    singleOf(::IRLocalFluxoRepository) { bind<RLocalFluxoRepository>() }
+    singleOf(::ITerceiroRepository) { bind<TerceiroRepository>() }
+    singleOf(::IVisitanteRepository) { bind<VisitanteRepository>() }
 
 }
 
 val datasourceSharedPreferencesModule = module {
 
-    singleOf(::ConfigSharedPreferencesDatasourceImpl) { bind<ConfigSharedPreferencesDatasource>() }
-    singleOf(::MovEquipProprioSharedPreferencesDatasourceImpl) { bind<MovEquipProprioSharedPreferencesDatasource>() }
-    singleOf(::MovEquipProprioEquipSegSharedPreferencesDatasourceImpl) { bind<MovEquipProprioEquipSegSharedPreferencesDatasource>() }
-    singleOf(::MovEquipProprioPassagSharedPreferencesDatasourceImpl) { bind<MovEquipProprioPassagSharedPreferencesDatasource>() }
-    singleOf(::MovEquipVisitTercSharedPreferencesDatasourceImpl) { bind<MovEquipVisitTercSharedPreferencesDatasource>() }
-    singleOf(::MovEquipVisitTercPassagSharedPreferencesDatasourceImpl) { bind<MovEquipVisitTercPassagSharedPreferencesDatasource>() }
-    singleOf(::MovEquipResidenciaSharedPreferencesDatasourceImpl) { bind<MovEquipResidenciaSharedPreferencesDatasource>() }
+    singleOf(::IConfigSharedPreferencesDatasource) { bind<ConfigSharedPreferencesDatasource>() }
+    singleOf(::IMovEquipProprioSharedPreferencesDatasource) { bind<MovEquipProprioSharedPreferencesDatasource>() }
+    singleOf(::IMovEquipProprioEquipSegSharedPreferencesDatasource) { bind<MovEquipProprioEquipSegSharedPreferencesDatasource>() }
+    singleOf(::IMovEquipProprioPassagSharedPreferencesDatasource) { bind<MovEquipProprioPassagSharedPreferencesDatasource>() }
+    singleOf(::IMovEquipVisitTercSharedPreferencesDatasource) { bind<MovEquipVisitTercSharedPreferencesDatasource>() }
+    singleOf(::IMovEquipVisitTercPassagSharedPreferencesDatasource) { bind<MovEquipVisitTercPassagSharedPreferencesDatasource>() }
+    singleOf(::IMovEquipResidenciaSharedPreferencesDatasource) { bind<MovEquipResidenciaSharedPreferencesDatasource>() }
 
 }
 
 val datasourceRoomModule = module {
 
-    singleOf(::MovEquipProprioRoomDatasourceImpl) { bind<MovEquipProprioRoomDatasource>() }
-    singleOf(::MovEquipProprioPassagRoomDatasourceImpl) { bind<MovEquipProprioPassagRoomDatasource>() }
-    singleOf(::MovEquipProprioEquipSegRoomDatasourceImpl) { bind<MovEquipProprioEquipSegRoomDatasource>() }
-    singleOf(::MovEquipVisitTercRoomDatasourceImpl) { bind<MovEquipVisitTercRoomDatasource>() }
-    singleOf(::MovEquipResidenciaRoomDatasourceImpl) { bind<MovEquipResidenciaRoomDatasource>() }
-    singleOf(::MovEquipVisitTercPassagRoomDatasourceImpl) { bind<MovEquipVisitTercPassagRoomDatasource>() }
+    singleOf(::IMovEquipProprioRoomDatasource) { bind<MovEquipProprioRoomDatasource>() }
+    singleOf(::IMovEquipProprioPassagRoomDatasource) { bind<MovEquipProprioPassagRoomDatasource>() }
+    singleOf(::IMovEquipProprioEquipSegRoomDatasource) { bind<MovEquipProprioEquipSegRoomDatasource>() }
+    singleOf(::IMovEquipVisitTercRoomDatasource) { bind<MovEquipVisitTercRoomDatasource>() }
+    singleOf(::IMovEquipResidenciaRoomDatasource) { bind<MovEquipResidenciaRoomDatasource>() }
+    singleOf(::IMovEquipVisitTercPassagRoomDatasource) { bind<MovEquipVisitTercPassagRoomDatasource>() }
 
-    singleOf(::ColabRoomDatasourceImpl) { bind<ColabRoomDatasource>() }
-    singleOf(::EquipRoomDatasourceImpl) { bind<EquipRoomDatasource>() }
-    singleOf(::FluxoRoomDatasourceImpl) { bind<FluxoRoomDatasource>() }
-    singleOf(::LocalRoomDatasourceImpl) { bind<LocalRoomDatasource>() }
-    singleOf(::RLocalFluxoRoomDatasourceImpl) { bind<RLocalFluxoRoomDatasource>() }
-    singleOf(::TerceiroRoomDatasourceImpl) { bind<TerceiroRoomDatasource>() }
-    singleOf(::VisitanteRoomDatasourceImpl) { bind<VisitanteRoomDatasource>() }
+    singleOf(::IColabRoomDatasource) { bind<ColabRoomDatasource>() }
+    singleOf(::IEquipRoomDatasource) { bind<EquipRoomDatasource>() }
+    singleOf(::IFluxoRoomDatasource) { bind<FluxoRoomDatasource>() }
+    singleOf(::ILocalRoomDatasource) { bind<LocalRoomDatasource>() }
+    singleOf(::IRLocalFluxoRoomDatasource) { bind<RLocalFluxoRoomDatasource>() }
+    singleOf(::ITerceiroRoomDatasource) { bind<TerceiroRoomDatasource>() }
+    singleOf(::IVisitanteRoomDatasource) { bind<VisitanteRoomDatasource>() }
 
 }
 
 val datasourceRetrofitModule = module {
 
-    singleOf(::ConfigRetrofitDatasourceImpl) { bind<ConfigRetrofitDatasource>() }
-    singleOf(::MovEquipProprioRetrofitDatasourceImpl) { bind<MovEquipProprioRetrofitDatasource>() }
-    singleOf(::MovEquipVisitTercRetrofitDatasourceImpl) { bind<MovEquipVisitTercRetrofitDatasource>() }
-    singleOf(::MovEquipResidenciaRetrofitDatasourceImpl) { bind<MovEquipResidenciaRetrofitDatasource>() }
+    singleOf(::IConfigRetrofitDatasource) { bind<ConfigRetrofitDatasource>() }
+    singleOf(::IMovEquipProprioRetrofitDatasource) { bind<MovEquipProprioRetrofitDatasource>() }
+    singleOf(::IMovEquipVisitTercRetrofitDatasource) { bind<MovEquipVisitTercRetrofitDatasource>() }
+    singleOf(::IMovEquipResidenciaRetrofitDatasource) { bind<MovEquipResidenciaRetrofitDatasource>() }
 
-    singleOf(::ColabRetrofitDatasourceImpl) { bind<ColabRetrofitDatasource>() }
-    singleOf(::EquipRetrofitDatasourceImpl) { bind<EquipRetrofitDatasource>() }
-    singleOf(::FluxoRetrofitDatasourceImpl) { bind<FluxoRetrofitDatasource>() }
-    singleOf(::LocalRetrofitDatasourceImpl) { bind<LocalRetrofitDatasource>() }
-    singleOf(::RLocalFluxoRetrofitDatasourceImpl) { bind<RLocalFluxoRetrofitDatasource>() }
-    singleOf(::TerceiroRetrofitDatasourceImpl) { bind<TerceiroRetrofitDatasource>() }
-    singleOf(::VisitanteRetrofitDatasourceImpl) { bind<VisitanteRetrofitDatasource>() }
+    singleOf(::IColabRetrofitDatasource) { bind<ColabRetrofitDatasource>() }
+    singleOf(::IEquipRetrofitDatasource) { bind<EquipRetrofitDatasource>() }
+    singleOf(::IFluxoRetrofitDatasource) { bind<FluxoRetrofitDatasource>() }
+    singleOf(::ILocalRetrofitDatasource) { bind<LocalRetrofitDatasource>() }
+    singleOf(::IRLocalFluxoRetrofitDatasource) { bind<RLocalFluxoRetrofitDatasource>() }
+    singleOf(::ITerceiroRetrofitDatasource) { bind<TerceiroRetrofitDatasource>() }
+    singleOf(::IVisitanteRetrofitDatasource) { bind<VisitanteRetrofitDatasource>() }
 
 }
 

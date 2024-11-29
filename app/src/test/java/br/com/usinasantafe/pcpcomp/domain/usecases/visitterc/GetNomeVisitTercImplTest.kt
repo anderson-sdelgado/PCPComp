@@ -33,7 +33,7 @@ class GetNomeVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetNomeVisitTercImpl(
+            val usecase = IGetNomeVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 terceiroRepository = terceiroRepository,
                 visitanteRepository = visitanteRepository
@@ -76,7 +76,7 @@ class GetNomeVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetNomeVisitTercImpl(
+            val usecase = IGetNomeVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 terceiroRepository = terceiroRepository,
                 visitanteRepository = visitanteRepository
@@ -119,7 +119,7 @@ class GetNomeVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetNomeVisitTercImpl(
+            val usecase = IGetNomeVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 terceiroRepository = terceiroRepository,
                 visitanteRepository = visitanteRepository
@@ -169,7 +169,7 @@ class GetNomeVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetNomeVisitTercImpl(
+            val usecase = IGetNomeVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 terceiroRepository = terceiroRepository,
                 visitanteRepository = visitanteRepository
@@ -219,7 +219,7 @@ class GetNomeVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetNomeVisitTercImpl(
+            val usecase = IGetNomeVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 terceiroRepository = terceiroRepository,
                 visitanteRepository = visitanteRepository
@@ -264,7 +264,7 @@ class GetNomeVisitTercImplTest {
             ).thenReturn(
                 Result.success("Empresas")
             )
-            val usecase = GetNomeVisitTercImpl(
+            val usecase = IGetNomeVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 terceiroRepository = terceiroRepository,
                 visitanteRepository = visitanteRepository
@@ -318,7 +318,7 @@ class GetNomeVisitTercImplTest {
             ).thenReturn(
                 Result.success("Empresas")
             )
-            val usecase = GetNomeVisitTercImpl(
+            val usecase = IGetNomeVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 terceiroRepository = terceiroRepository,
                 visitanteRepository = visitanteRepository

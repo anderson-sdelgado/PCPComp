@@ -29,7 +29,7 @@ class GetTitleCpfVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetTitleCpfVisitTercImpl(
+            val usecase = IGetTitleCpfVisitTerc(
                 movEquipVisitTercRepository
             )
             val result = usecase(
@@ -54,7 +54,7 @@ class GetTitleCpfVisitTercImplTest {
         ).thenReturn(
             Result.success(TypeVisitTerc.VISITANTE)
         )
-        val usecase = GetTitleCpfVisitTercImpl(
+        val usecase = IGetTitleCpfVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(

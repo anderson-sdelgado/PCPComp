@@ -12,7 +12,7 @@ interface SendMovVisitTercList {
     suspend operator fun invoke(): Result<List<MovEquipVisitTerc>>
 }
 
-class SendMovVisitTercListImpl(
+class ISendMovVisitTercList(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
     private val configRepository: ConfigRepository,

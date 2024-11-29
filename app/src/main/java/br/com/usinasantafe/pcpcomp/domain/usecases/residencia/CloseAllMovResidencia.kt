@@ -7,7 +7,7 @@ interface CloseAllMovResidencia {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CloseAllMovResidenciaImpl(
+class ICloseAllMovResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ): CloseAllMovResidencia {
 

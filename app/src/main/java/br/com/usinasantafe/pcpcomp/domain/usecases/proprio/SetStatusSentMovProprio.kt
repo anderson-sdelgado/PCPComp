@@ -7,7 +7,7 @@ interface SetStatusSentMovProprio {
     suspend operator fun invoke(list: List<MovEquipProprio>): Result<Boolean>
 }
 
-class SetStatusSentMovProprioImpl(
+class ISetStatusSentMovProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository
 ): SetStatusSentMovProprio {
 

@@ -7,7 +7,7 @@ interface CheckNroEquipProprio {
     suspend operator fun invoke(nroEquip: String): Result<Boolean>
 }
 
-class CheckNroEquipProprioImpl(
+class ICheckNroEquipProprio(
     private val equipRepository: EquipRepository
 ): CheckNroEquipProprio {
 

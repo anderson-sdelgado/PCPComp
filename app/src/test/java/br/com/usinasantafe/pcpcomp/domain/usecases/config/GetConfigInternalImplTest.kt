@@ -24,7 +24,7 @@ class GetConfigInternalImplTest {
                 )
             )
         )
-        val usecase = GetConfigInternalImpl(configRepository)
+        val usecase = IGetConfigInternal(configRepository)
         val result = usecase()
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.hasConfig")
@@ -34,7 +34,7 @@ class GetConfigInternalImplTest {
     fun `Check null if haven't db config save`() = runTest {
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.hasConfig()).thenReturn(Result.success(false))
-        val usecase = GetConfigInternalImpl(configRepository)
+        val usecase = IGetConfigInternal(configRepository)
         val result = usecase()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull(), null)
@@ -54,7 +54,7 @@ class GetConfigInternalImplTest {
                 )
             )
         )
-        val usecase = GetConfigInternalImpl(configRepository)
+        val usecase = IGetConfigInternal(configRepository)
         val result = usecase()
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> ConfigRepository.getConfig")
@@ -73,7 +73,7 @@ class GetConfigInternalImplTest {
         whenever(configRepository.getConfig()).thenReturn(
             Result.success(config)
         )
-        val usecase = GetConfigInternalImpl(configRepository)
+        val usecase = IGetConfigInternal(configRepository)
         val result = usecase()
         assertEquals(
             result.getOrNull()!!,

@@ -10,7 +10,7 @@ interface StartOutputMovEquipResidencia {
     suspend operator fun invoke(id: Int): Result<Boolean>
 }
 
-class StartOutputMovEquipResidenciaImpl(
+class IStartOutputMovEquipResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ) : StartOutputMovEquipResidencia {
 

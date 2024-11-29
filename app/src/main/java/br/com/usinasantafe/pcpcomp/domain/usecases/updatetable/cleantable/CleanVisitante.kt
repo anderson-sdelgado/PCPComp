@@ -6,7 +6,7 @@ interface CleanVisitante {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanVisitanteImpl(
+class ICleanVisitante(
     private val visitanteRepository: VisitanteRepository
 ): CleanVisitante {
 

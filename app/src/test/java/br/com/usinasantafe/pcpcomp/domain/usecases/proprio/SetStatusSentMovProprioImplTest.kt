@@ -31,7 +31,7 @@ class SetStatusSentMovProprioImplTest {
                     )
                 )
             )
-            val usecase = SetStatusSentMovProprioImpl(movEquipProprioRepository)
+            val usecase = ISetStatusSentMovProprio(movEquipProprioRepository)
             val result = usecase(list)
             assertTrue(result.isFailure)
             assertEquals(
@@ -54,7 +54,7 @@ class SetStatusSentMovProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetStatusSentMovProprioImpl(movEquipProprioRepository)
+            val usecase = ISetStatusSentMovProprio(movEquipProprioRepository)
             val result = usecase(list)
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)

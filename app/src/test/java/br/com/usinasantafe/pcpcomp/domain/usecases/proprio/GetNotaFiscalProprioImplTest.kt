@@ -21,7 +21,7 @@ class GetNotaFiscalProprioImplTest {
                 )
             )
         )
-        val usecase = GetNotaFiscalProprioImpl(
+        val usecase = IGetNotaFiscalProprio(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)
@@ -35,7 +35,7 @@ class GetNotaFiscalProprioImplTest {
         whenever(movEquipProprioRepository.getNotaFiscal(id = 1)).thenReturn(
             Result.success(123456)
         )
-        val usecase = GetNotaFiscalProprioImpl(
+        val usecase = IGetNotaFiscalProprio(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)
@@ -49,7 +49,7 @@ class GetNotaFiscalProprioImplTest {
         whenever(movEquipProprioRepository.getNotaFiscal(id = 1)).thenReturn(
             Result.success(null)
         )
-        val usecase = GetNotaFiscalProprioImpl(
+        val usecase = IGetNotaFiscalProprio(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)

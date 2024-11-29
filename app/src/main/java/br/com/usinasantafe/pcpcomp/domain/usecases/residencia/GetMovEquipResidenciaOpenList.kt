@@ -11,7 +11,7 @@ interface GetMovEquipResidenciaOpenList {
     suspend operator fun invoke(): Result<List<MovEquipResidenciaModel>>
 }
 
-class GetMovEquipResidenciaOpenListImpl(
+class IGetMovEquipResidenciaOpenList(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ): GetMovEquipResidenciaOpenList {
 

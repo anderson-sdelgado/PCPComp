@@ -28,7 +28,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovImpl(
+        val usecase = ICloseAllMov(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -68,7 +68,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovImpl(
+        val usecase = ICloseAllMov(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -111,7 +111,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovImpl(
+        val usecase = ICloseAllMov(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -164,7 +164,7 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovImpl(
+        val usecase = ICloseAllMov(
             movEquipProprioRepository,
             movEquipVisitTercRepository,
             movEquipResidenciaRepository
@@ -221,7 +221,7 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            val usecase = CloseAllMovImpl(
+            val usecase = ICloseAllMov(
                 movEquipProprioRepository,
                 movEquipVisitTercRepository,
                 movEquipResidenciaRepository
@@ -288,7 +288,7 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            val usecase = CloseAllMovImpl(
+            val usecase = ICloseAllMov(
                 movEquipProprioRepository,
                 movEquipVisitTercRepository,
                 movEquipResidenciaRepository
@@ -351,7 +351,7 @@ class CloseAllMovOpenImplTest {
             whenever(movEquipResidenciaRepository.setClose(movEquipResidencia)).thenReturn(
                 Result.success(true)
             )
-            val usecase = CloseAllMovImpl(
+            val usecase = ICloseAllMov(
                 movEquipProprioRepository,
                 movEquipVisitTercRepository,
                 movEquipResidenciaRepository

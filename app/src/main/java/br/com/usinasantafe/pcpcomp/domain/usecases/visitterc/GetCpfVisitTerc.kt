@@ -13,7 +13,7 @@ interface GetCpfVisitTerc {
     ): Result<String>
 }
 
-class GetCpfVisitTercImpl(
+class IGetCpfVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val terceiroRepository: TerceiroRepository,
     private val visitanteRepository: VisitanteRepository

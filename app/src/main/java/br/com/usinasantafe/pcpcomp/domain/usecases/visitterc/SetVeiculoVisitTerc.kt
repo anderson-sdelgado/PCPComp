@@ -12,7 +12,7 @@ interface SetVeiculoVisitTerc {
     ): Result<Boolean>
 }
 
-class SetVeiculoVisitTercImpl(
+class ISetVeiculoVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetVeiculoVisitTerc {

@@ -12,7 +12,7 @@ interface GetDetalheResidencia {
     ): Result<DetalheResidenciaModel>
 }
 
-class GetDetalheResidenciaImpl(
+class IGetDetalheResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ) : GetDetalheResidencia {
 

@@ -13,7 +13,7 @@ interface GetMovEquipProprioOpenList {
     suspend operator fun invoke(): Result<List<MovEquipProprioModel>>
 }
 
-class GetMovEquipProprioOpenListImpl(
+class IGetMovEquipProprioOpenList(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val equipRepository: EquipRepository,
     private val colabRepository: ColabRepository

@@ -9,7 +9,7 @@ interface SetCheckUpdateAllTable {
 }
 
 
-class SetCheckUpdateAllTableImpl (
+class ISetCheckUpdateAllTable (
     private val configRepository: ConfigRepository,
 ): SetCheckUpdateAllTable {
 

@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.VisitanteRepositor
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.nome.NomeVisitTercModel
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 
 interface GetNomeVisitTerc {
@@ -17,7 +16,7 @@ interface GetNomeVisitTerc {
     ): Result<NomeVisitTercModel>
 }
 
-class GetNomeVisitTercImpl(
+class IGetNomeVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val terceiroRepository: TerceiroRepository,
     private val visitanteRepository: VisitanteRepository

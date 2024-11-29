@@ -6,7 +6,7 @@ interface CleanRLocalFluxo {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanRLocalFluxoImpl(
+class ICleanRLocalFluxo(
     private val rLocalFluxoRepository: RLocalFluxoRepository
 ): CleanRLocalFluxo {
 

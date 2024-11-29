@@ -22,7 +22,7 @@ class CleanPassagColabImplTest {
                 )
             )
         )
-        val usecase = CleanPassagColabImpl(movEquipProprioPassagRepository)
+        val usecase = ICleanPassagColab(movEquipProprioPassagRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> MovEquipProprioPassagRepository.clear")
@@ -35,7 +35,7 @@ class CleanPassagColabImplTest {
         whenever(movEquipProprioPassagRepository.clear()).thenReturn(
             Result.success(true)
         )
-        val usecase = CleanPassagColabImpl(movEquipProprioPassagRepository)
+        val usecase = ICleanPassagColab(movEquipProprioPassagRepository)
         val result = usecase()
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)

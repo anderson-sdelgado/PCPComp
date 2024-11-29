@@ -8,7 +8,7 @@ interface StartInputMovEquipResidencia {
     suspend operator fun invoke(movEquipResidencia: MovEquipResidencia? = null): Result<Boolean>
 }
 
-class StartInputMovEquipResidenciaImpl(
+class IStartInputMovEquipResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ): StartInputMovEquipResidencia {
 

@@ -17,7 +17,7 @@ interface GetDetalheProprio {
     ): Result<DetalheProprioModel>
 }
 
-class GetDetalheProprioImpl(
+class IGetDetalheProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository,

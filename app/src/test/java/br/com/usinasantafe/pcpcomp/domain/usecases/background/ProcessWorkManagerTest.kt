@@ -4,20 +4,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.work.ListenableWorker
-import androidx.work.testing.TestListenableWorkerBuilder
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
-import br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource.ConfigSharedPreferencesDatasourceImpl
-import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
-import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
-import br.com.usinasantafe.pcpcomp.utils.StatusData
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource.IConfigSharedPreferencesDatasource
 import kotlinx.coroutines.test.runTest
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
 
 import org.junit.Test
@@ -29,7 +20,7 @@ class ProcessWorkManagerTest {
 
     private lateinit var context : Context
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var configSharedPreferencesDatasourceImpl: ConfigSharedPreferencesDatasourceImpl
+    private lateinit var IConfigSharedPreferencesDatasource: IConfigSharedPreferencesDatasource
     private lateinit var movEquipProprioDao: MovEquipProprioDao
     private lateinit var db: AppDatabaseRoom
 
@@ -37,7 +28,7 @@ class ProcessWorkManagerTest {
     fun before() {
         context = ApplicationProvider.getApplicationContext()
         sharedPreferences = context.getSharedPreferences("teste", Context.MODE_PRIVATE)
-        configSharedPreferencesDatasourceImpl = ConfigSharedPreferencesDatasourceImpl(sharedPreferences)
+        IConfigSharedPreferencesDatasource = IConfigSharedPreferencesDatasource(sharedPreferences)
         db = Room.inMemoryDatabaseBuilder(
             context, AppDatabaseRoom::class.java).allowMainThreadQueries().build()
         movEquipProprioDao = db.movEquipProprioDao()

@@ -16,7 +16,7 @@ interface GetPassagVisitTercList {
     ): Result<List<PassagVisitTercModel>>
 }
 
-class GetPassagVisitTercListImpl(
+class IGetPassagVisitTercList(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
     private val terceiroRepository: TerceiroRepository,

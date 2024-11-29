@@ -25,7 +25,7 @@ class GetDestinoVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetDestinoVisitTercImpl(
+        val usecase = IGetDestinoVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(id = 1)
@@ -46,7 +46,7 @@ class GetDestinoVisitTercImplTest {
         ).thenReturn(
             Result.success("Destino")
         )
-        val usecase = GetDestinoVisitTercImpl(
+        val usecase = IGetDestinoVisitTerc(
             movEquipVisitTercRepository,
         )
         val result = usecase(id = 1)

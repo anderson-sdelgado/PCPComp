@@ -15,7 +15,9 @@ class GetLocalListImplTest {
     @Test
     fun `Check return failure if have failure in getAll`() = runTest {
         val localRepository = mock<LocalRepository>()
-        whenever(localRepository.getAll()).thenReturn(
+        whenever(
+            localRepository.list()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "LocalRepository.getAll",
@@ -23,7 +25,7 @@ class GetLocalListImplTest {
                 )
             )
         )
-        val usecase = GetLocalListImpl(localRepository)
+        val usecase = IGetLocalList(localRepository)
         val result = usecase()
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Datasource -> LocalRepository.getAll")
@@ -32,7 +34,7 @@ class GetLocalListImplTest {
     @Test
     fun `Check return success`() = runTest {
         val localRepository = mock<LocalRepository>()
-        whenever(localRepository.getAll()).thenReturn(
+        whenever(localRepository.list()).thenReturn(
             Result.success(
                 listOf(
                     Local(
@@ -42,7 +44,7 @@ class GetLocalListImplTest {
                 )
             )
         )
-        val usecase = GetLocalListImpl(localRepository)
+        val usecase = IGetLocalList(localRepository)
         val result = usecase()
         assertTrue(result.isSuccess)
         val locals = result.getOrNull()!!

@@ -15,7 +15,7 @@ interface GetDetalheVisitTerc {
     ): Result<DetalheVisitTercModel>
 }
 
-class GetDetalheVisitTercImpl(
+class IGetDetalheVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
     private val getMotoristaVisitTerc: GetMotoristaVisitTerc,

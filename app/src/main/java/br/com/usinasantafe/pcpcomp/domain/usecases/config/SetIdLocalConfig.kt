@@ -7,7 +7,7 @@ interface SetIdLocalConfig {
     suspend operator fun invoke(idLocal: Int): Result<Boolean>
 }
 
-class SetIdLocalConfigImpl(
+class ISetIdLocalConfig(
     private val configRepository: ConfigRepository,
 ): SetIdLocalConfig {
 

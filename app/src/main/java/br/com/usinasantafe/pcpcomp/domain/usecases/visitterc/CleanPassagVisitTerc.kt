@@ -6,7 +6,7 @@ interface CleanPassagVisitTerc {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanPassagVisitTercImpl(
+class ICleanPassagVisitTerc(
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository
 ): CleanPassagVisitTerc {
 

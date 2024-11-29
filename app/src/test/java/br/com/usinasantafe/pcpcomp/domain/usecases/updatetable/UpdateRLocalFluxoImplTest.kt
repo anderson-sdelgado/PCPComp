@@ -4,8 +4,8 @@ import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.RLocalFluxo
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanRLocalFluxo
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllRLocalFluxoServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllRLocalFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerRLocalFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveRLocalFluxo
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
 import kotlinx.coroutines.flow.count
@@ -19,12 +19,12 @@ import org.mockito.kotlin.whenever
 class UpdateRRLocalFluxoFluxoImplTest {
 
     private val cleanRLocalFluxo = mock<CleanRLocalFluxo>()
-    private val getAllRLocalFluxoServer = mock<GetAllRLocalFluxoServer>()
-    private val saveAllRLocalFluxo = mock<SaveAllRLocalFluxo>()
-    private fun getUsecase() = UpdateRLocalFluxoImpl(
+    private val getServerRLocalFluxo = mock<GetServerRLocalFluxo>()
+    private val saveRLocalFluxo = mock<SaveRLocalFluxo>()
+    private fun getUsecase() = IUpdateRLocalFluxo(
         cleanRLocalFluxo = cleanRLocalFluxo,
-        getAllRLocalFluxoServer = getAllRLocalFluxoServer,
-        saveAllRLocalFluxo = saveAllRLocalFluxo,
+        getServerRLocalFluxo = getServerRLocalFluxo,
+        saveRLocalFluxo = saveRLocalFluxo,
     )
 
     @Test
@@ -32,7 +32,7 @@ class UpdateRRLocalFluxoFluxoImplTest {
         runTest {
             var pos = 0f
             whenever(
-                getAllRLocalFluxoServer()
+                getServerRLocalFluxo()
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -74,7 +74,7 @@ class UpdateRRLocalFluxoFluxoImplTest {
         runTest {
             var pos = 0f
             whenever(
-                getAllRLocalFluxoServer()
+                getServerRLocalFluxo()
             ).thenReturn(
                 Result.success(
                     rLocalFluxoList
@@ -131,7 +131,7 @@ class UpdateRRLocalFluxoFluxoImplTest {
         runTest {
             var pos = 0f
             whenever(
-                getAllRLocalFluxoServer()
+                getServerRLocalFluxo()
             ).thenReturn(
                 Result.success(
                     rLocalFluxoList
@@ -143,7 +143,7 @@ class UpdateRRLocalFluxoFluxoImplTest {
                 Result.success(true)
             )
             whenever(
-                saveAllRLocalFluxo(rLocalFluxoList)
+                saveRLocalFluxo(rLocalFluxoList)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -201,7 +201,7 @@ class UpdateRRLocalFluxoFluxoImplTest {
         runTest {
             var pos = 0f
             whenever(
-                getAllRLocalFluxoServer()
+                getServerRLocalFluxo()
             ).thenReturn(
                 Result.success(
                     rLocalFluxoList
@@ -213,7 +213,7 @@ class UpdateRRLocalFluxoFluxoImplTest {
                 Result.success(true)
             )
             whenever(
-                saveAllRLocalFluxo(rLocalFluxoList)
+                saveRLocalFluxo(rLocalFluxoList)
             ).thenReturn(
                 Result.success(true)
             )

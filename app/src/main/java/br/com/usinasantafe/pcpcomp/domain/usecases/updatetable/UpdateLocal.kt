@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanLocal
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllLocalServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllLocal
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerLocal
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveLocal
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TB_LOCAL
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
@@ -14,10 +14,10 @@ interface UpdateLocal {
     suspend operator fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate>
 }
 
-class UpdateLocalImpl(
+class IUpdateLocal(
     private val cleanLocal: CleanLocal,
-    private val getAllLocalServer: GetAllLocalServer,
-    private val saveAllLocal: SaveAllLocal,
+    private val getServerLocal: GetServerLocal,
+    private val saveLocal: SaveLocal,
 ): UpdateLocal  {
 
     override suspend fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate> = flow {
@@ -29,7 +29,7 @@ class UpdateLocalImpl(
                 currentProgress = updatePercentage(++pos, count, sizeAll)
             )
         )
-        val resultRecover = getAllLocalServer()
+        val resultRecover = getServerLocal()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -77,7 +77,7 @@ class UpdateLocalImpl(
             )
         )
         val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllLocal(list)
+        val resultSave = saveLocal(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

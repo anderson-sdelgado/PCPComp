@@ -15,7 +15,7 @@ import org.koin.test.inject
 
 class RecoverColabServerImplTest : KoinTest {
 
-    private val usecase: GetAllColabServer by inject()
+    private val usecase: GetServerColab by inject()
     private val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
 
     @Test

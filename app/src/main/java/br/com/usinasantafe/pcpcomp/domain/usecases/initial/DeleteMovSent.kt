@@ -13,7 +13,7 @@ interface DeleteMovSent {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class DeleteMovSentImpl(
+class IDeleteMovSent(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository,
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
@@ -30,15 +30,18 @@ class DeleteMovSentImpl(
             val movProprioList = resultMovProprioList.getOrNull()!!
             for(movProprio in movProprioList){
                 if(movProprio.dthrMovEquipProprio < dateToDelete()){
-                    val resultDelMovProprio = movEquipProprioRepository.delete(movProprio.idMovEquipProprio!!)
-                    if(resultDelMovProprio.isFailure)
-                        return Result.failure(resultDelMovProprio.exceptionOrNull()!!)
-                    val resultDelMovProprioPassag = movEquipProprioPassagRepository.delete(movProprio.idMovEquipProprio!!)
+                    val resultDelMovProprioPassag =
+                        movEquipProprioPassagRepository.delete(movProprio.idMovEquipProprio!!)
                     if(resultDelMovProprioPassag.isFailure)
                         return Result.failure(resultDelMovProprioPassag.exceptionOrNull()!!)
-                    val resultDelMovProprioEquipSeg = movEquipProprioEquipSegRepository.delete(movProprio.idMovEquipProprio!!)
+                    val resultDelMovProprioEquipSeg =
+                        movEquipProprioEquipSegRepository.delete(movProprio.idMovEquipProprio!!)
                     if(resultDelMovProprioEquipSeg.isFailure)
                         return Result.failure(resultDelMovProprioEquipSeg.exceptionOrNull()!!)
+                    val resultDelMovProprio =
+                        movEquipProprioRepository.delete(movProprio.idMovEquipProprio!!)
+                    if(resultDelMovProprio.isFailure)
+                        return Result.failure(resultDelMovProprio.exceptionOrNull()!!)
                 }
             }
             val resultMovVisitTercList = movEquipVisitTercRepository.listSent()

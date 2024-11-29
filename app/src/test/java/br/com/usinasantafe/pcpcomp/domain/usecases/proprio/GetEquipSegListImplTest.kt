@@ -32,7 +32,7 @@ class GetEquipSegListImplTest {
                     )
                 )
             )
-            val usecase = GetEquipSegListImpl(
+            val usecase = IGetEquipSegList(
                 movEquipProprioEquipSegRepository,
                 equipRepository
             )
@@ -65,7 +65,7 @@ class GetEquipSegListImplTest {
                 )
             )
         )
-        val usecase = GetEquipSegListImpl(
+        val usecase = IGetEquipSegList(
             movEquipProprioEquipSegRepository,
             equipRepository
         )
@@ -104,7 +104,7 @@ class GetEquipSegListImplTest {
                 )
             )
         )
-        val usecase = GetEquipSegListImpl(
+        val usecase = IGetEquipSegList(
             movEquipProprioEquipSegRepository,
             equipRepository
         )
@@ -140,7 +140,7 @@ class GetEquipSegListImplTest {
         whenever(equipRepository.getNro(10)).thenReturn(
             Result.success(100)
         )
-        val usecase = GetEquipSegListImpl(
+        val usecase = IGetEquipSegList(
             movEquipProprioEquipSegRepository,
             equipRepository
         )

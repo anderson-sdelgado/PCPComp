@@ -29,7 +29,7 @@ class GetMovEquipProprioOpenListImplTest {
                 )
             )
         )
-        val usecase = GetMovEquipProprioOpenListImpl(
+        val usecase = IGetMovEquipProprioOpenList(
             movEquipProprioRepository,
             equipRepository,
             colabRepository
@@ -52,7 +52,7 @@ class GetMovEquipProprioOpenListImplTest {
         whenever(movEquipProprioRepository.listOpen()).thenReturn(
             Result.success(movEquipProprioList)
         )
-        val usecase = GetMovEquipProprioOpenListImpl(
+        val usecase = IGetMovEquipProprioOpenList(
             movEquipProprioRepository,
             equipRepository,
             colabRepository
@@ -85,7 +85,7 @@ class GetMovEquipProprioOpenListImplTest {
                 )
             )
         )
-        val usecase = GetMovEquipProprioOpenListImpl(
+        val usecase = IGetMovEquipProprioOpenList(
             movEquipProprioRepository,
             equipRepository,
             colabRepository
@@ -121,7 +121,7 @@ class GetMovEquipProprioOpenListImplTest {
                 )
             )
         )
-        val usecase = GetMovEquipProprioOpenListImpl(
+        val usecase = IGetMovEquipProprioOpenList(
             movEquipProprioRepository,
             equipRepository,
             colabRepository
@@ -154,7 +154,7 @@ class GetMovEquipProprioOpenListImplTest {
         whenever(colabRepository.getNome(19759)).thenReturn(
             Result.success("ANDERSON DA SILVA DELGADO")
         )
-        val usecase = GetMovEquipProprioOpenListImpl(
+        val usecase = IGetMovEquipProprioOpenList(
             movEquipProprioRepository,
             equipRepository,
             colabRepository

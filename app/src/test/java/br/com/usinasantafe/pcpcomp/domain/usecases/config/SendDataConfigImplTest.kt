@@ -16,7 +16,7 @@ class SendDataConfigImplTest {
     @Test
     fun `Check return failure Usecase if occur Exception`() = runTest {
         val configRepository = mock<ConfigRepository>()
-        val usecase = SendDataConfigImpl(configRepository)
+        val usecase = ISendDataConfig(configRepository)
         val result = usecase(
                 number = "1df52",
                 password = "12345",
@@ -43,7 +43,7 @@ class SendDataConfigImplTest {
                 )
             )
         )
-        val usecase = SendDataConfigImpl(configRepository)
+        val usecase = ISendDataConfig(configRepository)
         val result = usecase(
             number = "16997417840",
             password = "12345",
@@ -70,7 +70,7 @@ class SendDataConfigImplTest {
                 )
             )
         )
-        val usecase = SendDataConfigImpl(configRepository)
+        val usecase = ISendDataConfig(configRepository)
         val result = usecase(
             number = "16997417840",
             password = "12345",
@@ -90,7 +90,7 @@ class SendDataConfigImplTest {
         )
         val configRepository = mock<ConfigRepository>()
         whenever(configRepository.send(config)).thenReturn(Result.success(1))
-        val usecase = SendDataConfigImpl(configRepository)
+        val usecase = ISendDataConfig(configRepository)
         val result = usecase(
             number = "16997417840",
             password = "12345",

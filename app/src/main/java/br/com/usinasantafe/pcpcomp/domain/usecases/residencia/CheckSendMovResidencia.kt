@@ -6,7 +6,7 @@ interface CheckSendMovResidencia {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CheckSendMovResidenciaImpl(
+class ICheckSendMovResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ): CheckSendMovResidencia {
 

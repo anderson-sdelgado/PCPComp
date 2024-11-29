@@ -8,7 +8,7 @@ interface StartInputMovEquipVisitTerc {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class StartInputMovEquipVisitTercImpl(
+class IStartInputMovEquipVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
 ) : StartInputMovEquipVisitTerc {

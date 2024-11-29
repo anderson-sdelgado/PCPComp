@@ -8,7 +8,6 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioE
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -34,7 +33,7 @@ class SaveMovEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipProprioImpl(
+            val usecase = ISaveMovEquipProprio(
                 configRepository,
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
@@ -62,7 +61,7 @@ class SaveMovEquipProprioImplTest {
                     Config()
                 )
             )
-            val usecase = SaveMovEquipProprioImpl(
+            val usecase = ISaveMovEquipProprio(
                 configRepository,
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
@@ -105,7 +104,7 @@ class SaveMovEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipProprioImpl(
+            val usecase = ISaveMovEquipProprio(
                 configRepository,
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
@@ -147,7 +146,7 @@ class SaveMovEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipProprioImpl(
+            val usecase = ISaveMovEquipProprio(
                 configRepository,
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
@@ -192,7 +191,7 @@ class SaveMovEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipProprioImpl(
+            val usecase = ISaveMovEquipProprio(
                 configRepository,
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
@@ -232,7 +231,7 @@ class SaveMovEquipProprioImplTest {
             whenever(movEquipProprioEquipSegRepository.save(1)).thenReturn(
                 Result.success(true)
             )
-            val usecase = SaveMovEquipProprioImpl(
+            val usecase = ISaveMovEquipProprio(
                 configRepository,
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,

@@ -12,10 +12,12 @@ const val BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_RESIDENCIA = "mov_equip_residen
 const val BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_VISIT_TERC = "mov_equip_visit_terc"
 const val BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_VISIT_TERC_PASSAG = "mov_equip_visit_terc_passag"
 
+const val TB_CHAVE = "tb_chave"
 const val TB_COLAB = "tb_colab"
 const val TB_EQUIP = "tb_equip"
 const val TB_FLUXO = "tb_fluxo"
 const val TB_LOCAL = "tb_local"
+const val TB_LOCAL_TRAB = "tb_local_trab"
 const val TB_R_LOCAL_FLUXO = "tb_r_local_fluxo"
 const val TB_TERCEIRO = "tb_terceiro"
 const val TB_VISITANTE = "tb_visitante"

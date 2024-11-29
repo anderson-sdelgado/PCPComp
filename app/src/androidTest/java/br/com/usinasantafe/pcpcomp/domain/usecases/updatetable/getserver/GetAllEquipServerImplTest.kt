@@ -15,7 +15,7 @@ import org.koin.test.inject
 
 class RecoverEquipServerImplTest : KoinTest {
 
-    private val usecase: GetAllEquipServer by inject()
+    private val usecase: GetServerEquip by inject()
     private val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
 
     @Test

@@ -107,7 +107,7 @@ fun DetalheResidenciaContent(
                 ItemListDesign(
                     text = "PLACA: $placa",
                     setActionItem = onNavPlaca,
-                    id = 1
+                    id = 2
                 )
             }
             item {

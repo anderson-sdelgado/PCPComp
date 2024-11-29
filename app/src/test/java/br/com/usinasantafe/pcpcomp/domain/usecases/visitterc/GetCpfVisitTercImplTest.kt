@@ -32,7 +32,7 @@ class GetCpfVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetCpfVisitTercImpl(
+        val usecase = IGetCpfVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
@@ -72,7 +72,7 @@ class GetCpfVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetCpfVisitTercImpl(
+        val usecase = IGetCpfVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
@@ -119,7 +119,7 @@ class GetCpfVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetCpfVisitTercImpl(
+        val usecase = IGetCpfVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
@@ -166,7 +166,7 @@ class GetCpfVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetCpfVisitTercImpl(
+        val usecase = IGetCpfVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
@@ -208,7 +208,7 @@ class GetCpfVisitTercImplTest {
         ).thenReturn(
             Result.success("123.456.789-00")
         )
-        val usecase = GetCpfVisitTercImpl(
+        val usecase = IGetCpfVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
@@ -247,7 +247,7 @@ class GetCpfVisitTercImplTest {
         ).thenReturn(
             Result.success("123.456.789-01")
         )
-        val usecase = GetCpfVisitTercImpl(
+        val usecase = IGetCpfVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository

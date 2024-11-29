@@ -10,7 +10,7 @@ interface GetHeader {
     suspend operator fun invoke(): Result<HeaderModel>
 }
 
-class GetHeaderImpl(
+class IGetHeader(
     private val configRepository: ConfigRepository,
     private val colabRepository: ColabRepository,
     private val localRepository: LocalRepository,

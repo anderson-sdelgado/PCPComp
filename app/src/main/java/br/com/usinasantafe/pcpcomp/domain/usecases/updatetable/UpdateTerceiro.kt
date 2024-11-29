@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanTerceiro
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllTerceiroServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllTerceiro
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerTerceiro
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveTerceiro
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TB_TERCEIRO
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
@@ -14,10 +14,10 @@ interface UpdateTerceiro {
     suspend operator fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate>
 }
 
-class UpdateTerceiroImpl(
+class IUpdateTerceiro(
     private val cleanTerceiro: CleanTerceiro,
-    private val getAllTerceiroServer: GetAllTerceiroServer,
-    private val saveAllTerceiro: SaveAllTerceiro,
+    private val getServerTerceiro: GetServerTerceiro,
+    private val saveTerceiro: SaveTerceiro,
 ): UpdateTerceiro  {
 
     override suspend fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate> = flow {
@@ -29,7 +29,7 @@ class UpdateTerceiroImpl(
                 currentProgress = updatePercentage(++pos, count, sizeAll)
             )
         )
-        val resultRecover = getAllTerceiroServer()
+        val resultRecover = getServerTerceiro()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -77,7 +77,7 @@ class UpdateTerceiroImpl(
             )
         )
         val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllTerceiro(list)
+        val resultSave = saveTerceiro(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

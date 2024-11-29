@@ -2,7 +2,6 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioEquipSegRepository
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioPassagRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -23,7 +22,7 @@ class CleanEquipSegImplTest {
                 )
             )
         )
-        val usecase = CleanEquipSegImpl(movEquipProprioEquipSegRepository)
+        val usecase = ICleanEquipSeg(movEquipProprioEquipSegRepository)
         val result = usecase()
         assertEquals(result.isFailure, true)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> MovEquipProprioEquipSegRepository.clear")
@@ -36,7 +35,7 @@ class CleanEquipSegImplTest {
         whenever(movEquipProprioEquipSegRepository.clear()).thenReturn(
             Result.success(true)
         )
-        val usecase = CleanEquipSegImpl(movEquipProprioEquipSegRepository)
+        val usecase = ICleanEquipSeg(movEquipProprioEquipSegRepository)
         val result = usecase()
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)

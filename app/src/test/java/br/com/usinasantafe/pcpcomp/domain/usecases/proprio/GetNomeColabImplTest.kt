@@ -14,7 +14,7 @@ class GetNomeColabImplTest {
     @Test
     fun `Check return failure if matric is invalid`() = runTest {
         val colabRepository = mock<ColabRepository>()
-        val usecase = GetNomeColabImpl(
+        val usecase = IGetNomeColab(
             colabRepository
         )
         val result = usecase("19759")
@@ -33,7 +33,7 @@ class GetNomeColabImplTest {
                 )
             )
         )
-        val usecase = GetNomeColabImpl(
+        val usecase = IGetNomeColab(
             colabRepository
         )
         val result = usecase("19759")
@@ -47,7 +47,7 @@ class GetNomeColabImplTest {
         whenever(colabRepository.getNome(19759)).thenReturn(
             Result.success("ANDERSON DA SILVA DELGADO")
         )
-        val usecase = GetNomeColabImpl(
+        val usecase = IGetNomeColab(
             colabRepository
         )
         val result = usecase("19759")

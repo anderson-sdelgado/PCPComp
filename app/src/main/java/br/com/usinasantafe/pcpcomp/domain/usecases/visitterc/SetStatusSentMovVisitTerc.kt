@@ -7,7 +7,7 @@ interface SetStatusSentMovVisitTerc {
     suspend operator fun invoke(list: List<MovEquipVisitTerc>): Result<Boolean>
 }
 
-class SetStatusSentMovVisitTercImpl(
+class ISetStatusSentMovVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository
 ): SetStatusSentMovVisitTerc {
 

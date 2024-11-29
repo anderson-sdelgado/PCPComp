@@ -11,7 +11,7 @@ interface DeletePassagVisitTerc {
     ): Result<Boolean>
 }
 
-class DeletePassagVisitTercImpl(
+class IDeletePassagVisitTerc(
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository
 ) : DeletePassagVisitTerc {
 

@@ -5,4 +5,5 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.RLocalFluxoRoomModel
 interface RLocalFluxoRoomDatasource {
     suspend fun addAll(list: List<RLocalFluxoRoomModel>): Result<Boolean>
     suspend fun deleteAll(): Result<Boolean>
+    suspend fun list(idLocal: Int): Result<List<RLocalFluxoRoomModel>>
 }

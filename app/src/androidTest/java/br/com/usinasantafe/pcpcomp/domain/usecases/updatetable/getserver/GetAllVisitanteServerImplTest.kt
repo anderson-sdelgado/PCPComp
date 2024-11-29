@@ -15,7 +15,7 @@ import org.koin.test.inject
 
 class RecoverVisitanteServerImplTest : KoinTest {
 
-    private val usecase: GetAllVisitanteServer by inject()
+    private val usecase: GetServerVisitante by inject()
     private val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
 
     @Test

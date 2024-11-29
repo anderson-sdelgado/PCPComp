@@ -38,7 +38,7 @@ class GetDetalheProprioImplTest {
                 )
             )
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -86,7 +86,7 @@ class GetDetalheProprioImplTest {
                 )
             )
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -137,7 +137,7 @@ class GetDetalheProprioImplTest {
                 )
             )
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -213,7 +213,7 @@ class GetDetalheProprioImplTest {
                 )
             )
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -292,7 +292,7 @@ class GetDetalheProprioImplTest {
                 )
             )
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -374,7 +374,7 @@ class GetDetalheProprioImplTest {
                 )
             )
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -467,7 +467,7 @@ class GetDetalheProprioImplTest {
                 )
             )
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -555,7 +555,7 @@ class GetDetalheProprioImplTest {
         whenever(colabRepository.getNome(19035)).thenReturn(
             Result.success("JOSE DONIZETE")
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,
@@ -633,7 +633,7 @@ class GetDetalheProprioImplTest {
         whenever(colabRepository.getNome(19035)).thenReturn(
             Result.success("JOSE DONIZETE")
         )
-        val usecase = GetDetalheProprioImpl(
+        val usecase = IGetDetalheProprio(
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
             movEquipProprioPassagRepository,

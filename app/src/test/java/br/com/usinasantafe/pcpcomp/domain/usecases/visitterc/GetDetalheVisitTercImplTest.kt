@@ -32,7 +32,7 @@ class GetDetalheVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetDetalheVisitTercImpl(
+        val usecase = IGetDetalheVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
             getMotoristaVisitTerc = getMotoristaVisitTerc
@@ -80,7 +80,7 @@ class GetDetalheVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetDetalheVisitTercImpl(
+        val usecase = IGetDetalheVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
             getMotoristaVisitTerc = getMotoristaVisitTerc
@@ -128,7 +128,7 @@ class GetDetalheVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetDetalheVisitTercImpl(
+        val usecase = IGetDetalheVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
             getMotoristaVisitTerc = getMotoristaVisitTerc
@@ -187,7 +187,7 @@ class GetDetalheVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetDetalheVisitTercImpl(
+            val usecase = IGetDetalheVisitTerc(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 getMotoristaVisitTerc = getMotoristaVisitTerc
@@ -261,7 +261,7 @@ class GetDetalheVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetDetalheVisitTercImpl(
+        val usecase = IGetDetalheVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
             getMotoristaVisitTerc = getMotoristaVisitTerc
@@ -335,7 +335,7 @@ class GetDetalheVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetDetalheVisitTercImpl(
+        val usecase = IGetDetalheVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
             getMotoristaVisitTerc = getMotoristaVisitTerc
@@ -406,7 +406,7 @@ class GetDetalheVisitTercImplTest {
                 "123.456.789-01 - Passageiro"
             )
         )
-        val usecase = GetDetalheVisitTercImpl(
+        val usecase = IGetDetalheVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
             getMotoristaVisitTerc = getMotoristaVisitTerc
@@ -506,7 +506,7 @@ class GetDetalheVisitTercImplTest {
                 "123.456.789-01 - Passageiro"
             )
         )
-        val usecase = GetDetalheVisitTercImpl(
+        val usecase = IGetDetalheVisitTerc(
             movEquipVisitTercRepository = movEquipVisitTercRepository,
             movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
             getMotoristaVisitTerc = getMotoristaVisitTerc

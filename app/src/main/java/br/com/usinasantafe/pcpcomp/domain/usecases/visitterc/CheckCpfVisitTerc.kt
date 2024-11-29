@@ -15,7 +15,7 @@ interface CheckCpfVisitTerc {
     ): Result<Boolean>
 }
 
-class CheckCpfVisitTercImpl(
+class ICheckCpfVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val terceiroRepository: TerceiroRepository,
     private val visitanteRepository: VisitanteRepository

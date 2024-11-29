@@ -1,6 +1,5 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
-import androidx.compose.ui.util.trace
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
@@ -23,7 +22,7 @@ class CloseAllMovVisitTercImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovVisitTercImpl(
+        val usecase = ICloseAllMovVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase()
@@ -59,7 +58,7 @@ class CloseAllMovVisitTercImplTest {
                 )
             )
         )
-        val usecase = CloseAllMovVisitTercImpl(
+        val usecase = ICloseAllMovVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase()
@@ -90,7 +89,7 @@ class CloseAllMovVisitTercImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = CloseAllMovVisitTercImpl(
+        val usecase = ICloseAllMovVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase()

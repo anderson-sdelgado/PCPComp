@@ -8,7 +8,7 @@ interface GetNomeVigia {
     suspend operator fun invoke(): Result<String>
 }
 
-class GetNomeVigiaImpl(
+class IGetNomeVigia(
     private val configRepository: ConfigRepository,
     private val colabRepository: ColabRepository,
 ): GetNomeVigia {

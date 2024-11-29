@@ -6,13 +6,12 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioE
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 
 interface SaveMovEquipProprio {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class SaveMovEquipProprioImpl(
+class ISaveMovEquipProprio(
     private val configRepository: ConfigRepository,
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository,

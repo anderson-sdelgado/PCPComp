@@ -24,7 +24,7 @@ class GetTypeMovImplTest {
                     )
                 )
             )
-            val result = GetTypeMovImpl(movEquipProprioRepository)
+            val result = IGetTypeMov(movEquipProprioRepository)
             val resultGet = result()
             assertEquals(resultGet.isFailure, true)
             assertEquals(
@@ -39,7 +39,7 @@ class GetTypeMovImplTest {
             whenever(movEquipProprioRepository.getTipoMov()).thenReturn(
                 Result.success(TypeMov.INPUT)
             )
-            val result = GetTypeMovImpl(movEquipProprioRepository)
+            val result = IGetTypeMov(movEquipProprioRepository)
             val resultGet = result()
             assertTrue(resultGet.isSuccess)
             assertEquals(

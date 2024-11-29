@@ -16,7 +16,7 @@ class CheckMovOpenImplTest {
     private val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
     private val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
 
-    private val usecase = CheckMovOpenImpl(
+    private val usecase = ICheckMovOpen(
         movEquipProprioRepository,
         movEquipVisitTercRepository,
         movEquipResidenciaRepository

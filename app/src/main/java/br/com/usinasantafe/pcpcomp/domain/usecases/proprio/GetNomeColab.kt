@@ -7,7 +7,7 @@ interface GetNomeColab {
     suspend operator fun invoke(matric: String): Result<String>
 }
 
-class GetNomeColabImpl(
+class IGetNomeColab(
     private val colabRepository: ColabRepository,
 ) : GetNomeColab {
 

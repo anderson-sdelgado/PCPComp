@@ -12,7 +12,7 @@ interface StartProcessSendData {
     suspend operator fun invoke()
 }
 
-class StartProcessSendDataImpl(
+class IStartProcessSendData(
     private val workManager: WorkManager,
 ) : StartProcessSendData {
 

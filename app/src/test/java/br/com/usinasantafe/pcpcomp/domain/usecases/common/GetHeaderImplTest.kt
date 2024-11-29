@@ -27,7 +27,7 @@ class GetHeaderImplTest {
                 )
             )
         )
-        val usecase = GetHeaderImpl(
+        val usecase = IGetHeader(
             configRepository,
             colabRepository,
             localRepository
@@ -57,7 +57,7 @@ class GetHeaderImplTest {
                 )
             )
         )
-        val usecase = GetHeaderImpl(
+        val usecase = IGetHeader(
             configRepository,
             colabRepository,
             localRepository
@@ -90,7 +90,7 @@ class GetHeaderImplTest {
                 )
             )
         )
-        val usecase = GetHeaderImpl(
+        val usecase = IGetHeader(
             configRepository,
             colabRepository,
             localRepository
@@ -118,7 +118,7 @@ class GetHeaderImplTest {
         whenever(localRepository.getDescr(1)).thenReturn(
             Result.success("1 - USINA")
         )
-        val usecase = GetHeaderImpl(
+        val usecase = IGetHeader(
             configRepository,
             colabRepository,
             localRepository

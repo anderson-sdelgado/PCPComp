@@ -22,7 +22,7 @@ class SetNroEquipProprioImplTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
         val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
         val startProcessSendData = mock<StartProcessSendData>()
-        val usecase = SetNroEquipImpl(
+        val usecase = ISetNroEquip(
             equipRepository,
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
@@ -48,7 +48,7 @@ class SetNroEquipProprioImplTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
         val movEquipProprioEquipSegRepository = mock<MovEquipProprioEquipSegRepository>()
         val startProcessSendData = mock<StartProcessSendData>()
-        val usecase = SetNroEquipImpl(
+        val usecase = ISetNroEquip(
             equipRepository,
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
@@ -82,7 +82,7 @@ class SetNroEquipProprioImplTest {
                 )
             )
         )
-        val usecase = SetNroEquipImpl(
+        val usecase = ISetNroEquip(
             equipRepository,
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
@@ -126,7 +126,7 @@ class SetNroEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SetNroEquipImpl(
+            val usecase = ISetNroEquip(
                 equipRepository,
                 movEquipProprioRepository,
                 movEquipProprioEquipSegRepository,
@@ -170,7 +170,7 @@ class SetNroEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SetNroEquipImpl(
+            val usecase = ISetNroEquip(
                 equipRepository,
                 movEquipProprioRepository,
                 movEquipProprioEquipSegRepository,
@@ -208,7 +208,7 @@ class SetNroEquipProprioImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = SetNroEquipImpl(
+        val usecase = ISetNroEquip(
             equipRepository,
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
@@ -242,7 +242,7 @@ class SetNroEquipProprioImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = SetNroEquipImpl(
+        val usecase = ISetNroEquip(
             equipRepository,
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
@@ -282,7 +282,7 @@ class SetNroEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SetNroEquipImpl(
+            val usecase = ISetNroEquip(
                 equipRepository,
                 movEquipProprioRepository,
                 movEquipProprioEquipSegRepository,
@@ -326,7 +326,7 @@ class SetNroEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SetNroEquipImpl(
+            val usecase = ISetNroEquip(
                 equipRepository,
                 movEquipProprioRepository,
                 movEquipProprioEquipSegRepository,
@@ -373,7 +373,7 @@ class SetNroEquipProprioImplTest {
                     )
                 )
             )
-            val usecase = SetNroEquipImpl(
+            val usecase = ISetNroEquip(
                 equipRepository,
                 movEquipProprioRepository,
                 movEquipProprioEquipSegRepository,
@@ -411,7 +411,7 @@ class SetNroEquipProprioImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = SetNroEquipImpl(
+        val usecase = ISetNroEquip(
             equipRepository,
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,
@@ -448,7 +448,7 @@ class SetNroEquipProprioImplTest {
         whenever(movEquipProprioRepository.setSend(1)).thenReturn(
             Result.success(true)
         )
-        val usecase = SetNroEquipImpl(
+        val usecase = ISetNroEquip(
             equipRepository,
             movEquipProprioRepository,
             movEquipProprioEquipSegRepository,

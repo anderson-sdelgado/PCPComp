@@ -16,7 +16,7 @@ interface SetMatricColab {
     ): Result<Boolean>
 }
 
-class SetMatricColabImpl(
+class ISetMatricColab(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository,
     private val startProcessSendData: StartProcessSendData

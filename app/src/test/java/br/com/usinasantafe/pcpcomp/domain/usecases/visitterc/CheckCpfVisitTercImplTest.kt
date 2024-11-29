@@ -32,7 +32,7 @@ class CheckCpfVisitTercImplTest {
                 )
             )
         )
-        val usecase = CheckCpfVisitTercImpl(
+        val usecase = ICheckCpfVisitTerc(
             movEquipVisitTercRepository,
             terceiroRepository,
             visitanteRepository
@@ -74,7 +74,7 @@ class CheckCpfVisitTercImplTest {
                 )
             )
         )
-        val usecase = CheckCpfVisitTercImpl(
+        val usecase = ICheckCpfVisitTerc(
             movEquipVisitTercRepository,
             terceiroRepository,
             visitanteRepository
@@ -116,7 +116,7 @@ class CheckCpfVisitTercImplTest {
                 )
             )
         )
-        val usecase = CheckCpfVisitTercImpl(
+        val usecase = ICheckCpfVisitTerc(
             movEquipVisitTercRepository,
             terceiroRepository,
             visitanteRepository
@@ -153,7 +153,7 @@ class CheckCpfVisitTercImplTest {
         ).thenReturn(
             Result.success(false)
         )
-        val usecase = CheckCpfVisitTercImpl(
+        val usecase = ICheckCpfVisitTerc(
             movEquipVisitTercRepository,
             terceiroRepository,
             visitanteRepository
@@ -187,7 +187,7 @@ class CheckCpfVisitTercImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = CheckCpfVisitTercImpl(
+        val usecase = ICheckCpfVisitTerc(
             movEquipVisitTercRepository,
             terceiroRepository,
             visitanteRepository

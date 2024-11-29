@@ -11,7 +11,7 @@ interface DeleteEquipSeg {
     ): Result<Boolean>
 }
 
-class DeleteEquipSegImpl(
+class IDeleteEquipSeg(
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository
 ) : DeleteEquipSeg {
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -15,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Fluxo
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
@@ -35,11 +38,12 @@ fun MenuApontScreen(
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             MenuApontContent(
+                flows = uiState.flows,
                 descrVigia = uiState.descrVigia,
                 descrLocal = uiState.descrLocal,
                 flagDialogCheck = uiState.flagDialogCheck,
                 setDialogCheck = viewModel::setDialogCheck,
-                closeAllMov = viewModel::closeAllMov,
+                closeAllMov = viewModel::closeAllMovOpen,
                 flagReturn = uiState.flagReturn,
                 flagDialog = uiState.flagDialog,
                 setCloseDialog = viewModel::setCloseDialog,
@@ -51,12 +55,14 @@ fun MenuApontScreen(
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.returnHeader()
+            viewModel.flowList()
         }
     }
 }
 
 @Composable
 fun MenuApontContent(
+    flows: List<Fluxo>,
     descrVigia: String,
     descrLocal: String,
     flagDialogCheck: Boolean,
@@ -84,25 +90,17 @@ fun MenuApontContent(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            item {
+            items(flows) { flow ->
                 ItemListDesign(
-                    text = "MOV. VEÍCULO PRÓPRIO",
-                    setActionItem = onNavMovVeicProprio,
-                    font = 24
-                )
-            }
-            item {
-                ItemListDesign(
-                    text = "MOV. VEÍCULO VISITANTE/TERCEIRO",
-                    setActionItem = onNavMovVeicVisitTerc,
-                    font = 24
-                )
-            }
-            item {
-                ItemListDesign(
-                    text = "MOV. VEÍCULO RESIDÊNCIA",
-                    setActionItem = onNavMovVeicResidencia,
-                    font = 24
+                    text = flow.descrFluxo,
+                    setActionItem = {
+                        when(flow.idFluxo){
+                            1 -> onNavMovVeicProprio()
+                            2 -> onNavMovVeicVisitTerc()
+                            3 -> onNavMovVeicResidencia()
+                        }
+                    },
+                    font = 26
                 )
             }
         }
@@ -141,6 +139,20 @@ fun MenuApontPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MenuApontContent(
+                flows = listOf(
+                    Fluxo(
+                        idFluxo = 1,
+                        descrFluxo = "MOV. VEÍCULO PRÓPRIO"
+                    ),
+                    Fluxo(
+                        idFluxo = 2,
+                        descrFluxo = "MOV. VEÍCULO VISITANTE/TERCEIRO"
+                    ),
+                    Fluxo(
+                        idFluxo = 3,
+                        descrFluxo = "MOV. VEÍCULO RESIDÊNCIA"
+                    ),
+                ),
                 descrVigia = "1975 - ANDERSON",
                 descrLocal = "1 - USINA",
                 flagDialogCheck = false,
@@ -166,6 +178,20 @@ fun MenuApontPagePreviewShowDialog() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MenuApontContent(
+                flows = listOf(
+                    Fluxo(
+                        idFluxo = 1,
+                        descrFluxo = "MOV. VEÍCULO PRÓPRIO"
+                    ),
+                    Fluxo(
+                        idFluxo = 2,
+                        descrFluxo = "MOV. VEÍCULO VISITANTE/TERCEIRO"
+                    ),
+                    Fluxo(
+                        idFluxo = 3,
+                        descrFluxo = "MOV. VEÍCULO RESIDÊNCIA"
+                    ),
+                ),
                 descrVigia = "1975 - ANDERSON",
                 descrLocal = "1 - USINA",
                 flagDialogCheck = false,
@@ -191,6 +217,20 @@ fun MenuApontPagePreviewShowDialogCheck() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MenuApontContent(
+                flows = listOf(
+                    Fluxo(
+                        idFluxo = 1,
+                        descrFluxo = "MOV. VEÍCULO PRÓPRIO"
+                    ),
+                    Fluxo(
+                        idFluxo = 2,
+                        descrFluxo = "MOV. VEÍCULO VISITANTE/TERCEIRO"
+                    ),
+                    Fluxo(
+                        idFluxo = 3,
+                        descrFluxo = "MOV. VEÍCULO RESIDÊNCIA"
+                    ),
+                ),
                 descrVigia = "1975 - ANDERSON",
                 descrLocal = "1 - USINA",
                 flagDialogCheck = true,

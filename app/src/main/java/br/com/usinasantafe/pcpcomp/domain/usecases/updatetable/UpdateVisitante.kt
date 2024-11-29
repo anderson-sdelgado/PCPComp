@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanVisitante
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllVisitanteServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllVisitante
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerVisitante
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveVisitante
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TB_VISITANTE
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
@@ -14,10 +14,10 @@ interface UpdateVisitante {
     suspend operator fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate>
 }
 
-class UpdateVisitanteImpl(
+class IUpdateVisitante(
     private val cleanVisitante: CleanVisitante,
-    private val getAllVisitanteServer: GetAllVisitanteServer,
-    private val saveAllVisitante: SaveAllVisitante,
+    private val getServerVisitante: GetServerVisitante,
+    private val saveVisitante: SaveVisitante,
 ): UpdateVisitante  {
 
     override suspend fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate> = flow {
@@ -29,7 +29,7 @@ class UpdateVisitanteImpl(
                 currentProgress = updatePercentage(++pos, count, sizeAll)
             )
         )
-        val resultRecover = getAllVisitanteServer()
+        val resultRecover = getServerVisitante()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -77,7 +77,7 @@ class UpdateVisitanteImpl(
             )
         )
         val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllVisitante(list)
+        val resultSave = saveVisitante(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

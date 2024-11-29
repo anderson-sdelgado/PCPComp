@@ -28,7 +28,7 @@ class GetMotoristaVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaVisitTercImpl(
+        val usecase = IGetMotoristaVisitTerc(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )
@@ -57,7 +57,7 @@ class GetMotoristaVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaVisitTercImpl(
+        val usecase = IGetMotoristaVisitTerc(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )
@@ -88,7 +88,7 @@ class GetMotoristaVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaVisitTercImpl(
+        val usecase = IGetMotoristaVisitTerc(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )
@@ -120,7 +120,7 @@ class GetMotoristaVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetMotoristaVisitTercImpl(
+        val usecase = IGetMotoristaVisitTerc(
             terceiroRepository = terceiroRepository,
             visitanteRepository = visitanteRepository
         )

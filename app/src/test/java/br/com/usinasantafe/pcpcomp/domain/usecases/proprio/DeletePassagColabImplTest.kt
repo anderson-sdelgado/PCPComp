@@ -29,7 +29,7 @@ class DeletePassagColabImplTest {
                     )
                 )
             )
-            val usecase = DeletePassagColabImpl(
+            val usecase = IDeletePassagColab(
                 movEquipProprioPassagRepository
             )
             val result = usecase(
@@ -57,7 +57,7 @@ class DeletePassagColabImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = DeletePassagColabImpl(
+            val usecase = IDeletePassagColab(
                 movEquipProprioPassagRepository
             )
             val result = usecase(

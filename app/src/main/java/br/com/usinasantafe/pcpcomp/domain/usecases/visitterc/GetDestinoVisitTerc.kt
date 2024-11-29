@@ -8,7 +8,7 @@ interface GetDestinoVisitTerc {
     ): Result<String>
 }
 
-class GetDestinoVisitTercImpl(
+class IGetDestinoVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository
 ) : GetDestinoVisitTerc {
 

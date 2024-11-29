@@ -8,7 +8,7 @@ interface GetNroEquip {
     suspend operator fun invoke(id: Int): Result<String>
 }
 
-class GetNroEquipImpl(
+class IGetNroEquip(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val equipRepository: EquipRepository
 ): GetNroEquip {

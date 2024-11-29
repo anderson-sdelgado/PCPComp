@@ -1,11 +1,8 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTercPassag
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
-import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -29,7 +26,7 @@ class StartInputMovEquipVisitTercImplTest {
                     )
                 )
             )
-            val usecase = StartInputMovEquipVisitTercImpl(
+            val usecase = IStartInputMovEquipVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository
             )
@@ -61,7 +58,7 @@ class StartInputMovEquipVisitTercImplTest {
                     )
                 )
             )
-            val usecase = StartInputMovEquipVisitTercImpl(
+            val usecase = IStartInputMovEquipVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository
             )
@@ -88,7 +85,7 @@ class StartInputMovEquipVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = StartInputMovEquipVisitTercImpl(
+            val usecase = IStartInputMovEquipVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository
             )

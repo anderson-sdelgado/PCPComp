@@ -15,7 +15,10 @@ interface FluxoDao {
     @Query("DELETE FROM $TB_FLUXO")
     suspend fun deleteAll()
 
+    @Query("SELECT * FROM $TB_FLUXO WHERE idFluxo = :id ORDER BY idFluxo ASC")
+    suspend fun get(id: Int): FluxoRoomModel
+
     @Query("SELECT * FROM $TB_FLUXO ORDER BY idFluxo ASC")
-    suspend fun getAll(): List<FluxoRoomModel>
+    suspend fun listAll(): List<FluxoRoomModel>
 
 }

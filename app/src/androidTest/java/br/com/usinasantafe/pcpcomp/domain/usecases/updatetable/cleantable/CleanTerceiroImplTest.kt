@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
@@ -39,7 +38,7 @@ class CleanTerceiroImplTest : KoinTest {
                     )
                 )
             )
-            val listBefore = terceiroDao.getAll()
+            val listBefore = terceiroDao.listAll()
             assertEquals(
                 listBefore.size,
                 1
@@ -53,7 +52,7 @@ class CleanTerceiroImplTest : KoinTest {
                 result,
                 Result.success(true)
             )
-            val listAfter = terceiroDao.getAll()
+            val listAfter = terceiroDao.listAll()
             assertEquals(
                 listAfter.size,
                 0

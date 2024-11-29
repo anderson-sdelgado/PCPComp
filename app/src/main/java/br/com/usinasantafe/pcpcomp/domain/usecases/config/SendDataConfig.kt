@@ -12,7 +12,7 @@ interface SendDataConfig {
     ): Result<Int>
 }
 
-class SendDataConfigImpl (
+class ISendDataConfig (
     private val configRepository: ConfigRepository
 ) : SendDataConfig {
 

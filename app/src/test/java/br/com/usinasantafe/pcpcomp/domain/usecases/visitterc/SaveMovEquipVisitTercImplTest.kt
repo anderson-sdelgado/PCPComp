@@ -7,7 +7,6 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -35,7 +34,7 @@ class SaveMovEquipVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipVisitTercImpl(
+            val usecase = ISaveMovEquipVisitTerc(
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
@@ -71,7 +70,7 @@ class SaveMovEquipVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipVisitTercImpl(
+            val usecase = ISaveMovEquipVisitTerc(
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
@@ -116,7 +115,7 @@ class SaveMovEquipVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipVisitTercImpl(
+            val usecase = ISaveMovEquipVisitTerc(
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
@@ -167,7 +166,7 @@ class SaveMovEquipVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SaveMovEquipVisitTercImpl(
+            val usecase = ISaveMovEquipVisitTerc(
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
@@ -213,7 +212,7 @@ class SaveMovEquipVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SaveMovEquipVisitTercImpl(
+            val usecase = ISaveMovEquipVisitTerc(
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,

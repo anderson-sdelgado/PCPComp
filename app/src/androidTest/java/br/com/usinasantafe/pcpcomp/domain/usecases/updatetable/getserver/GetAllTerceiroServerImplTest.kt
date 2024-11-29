@@ -15,7 +15,7 @@ import org.koin.test.inject
 
 class RecoverTerceiroServerImplTest : KoinTest {
 
-    private val usecase: GetAllTerceiroServer by inject()
+    private val usecase: GetServerTerceiro by inject()
     private val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
 
     @Test

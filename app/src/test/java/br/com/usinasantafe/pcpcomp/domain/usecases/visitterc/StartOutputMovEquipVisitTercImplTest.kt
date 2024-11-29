@@ -21,7 +21,7 @@ class StartOutputMovEquipVisitTercImplTest {
     private val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
     private val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
 
-    private fun getUsecase() = StartOutputMovEquipVisitTercImpl(
+    private fun getUsecase() = IStartOutputMovEquipVisitTerc(
         movEquipVisitTercRepository,
         movEquipVisitTercPassagRepository
     )

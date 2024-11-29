@@ -22,7 +22,7 @@ class GetDestinoProprioImplTest {
                     )
                 )
             )
-            val usecase = GetDestinoProprioImpl(
+            val usecase = IGetDestinoProprio(
                 movEquipProprioRepository
             )
             val result = usecase(id = 1)
@@ -40,7 +40,7 @@ class GetDestinoProprioImplTest {
             whenever(movEquipProprioRepository.getDestino(id = 1)).thenReturn(
                 Result.success("Destino")
             )
-            val usecase = GetDestinoProprioImpl(
+            val usecase = IGetDestinoProprio(
                 movEquipProprioRepository,
             )
             val result = usecase(id = 1)

@@ -14,7 +14,7 @@ class CheckNroEquipProprioImplTest {
     @Test
     fun `Check return failure if matric is incorrect`() = runTest {
         val equipRepository = mock<EquipRepository>()
-        val usecase = CheckNroEquipProprioImpl(equipRepository)
+        val usecase = ICheckNroEquipProprio(equipRepository)
         val result = usecase("100a")
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> CheckEquipProprio")
@@ -31,7 +31,7 @@ class CheckNroEquipProprioImplTest {
                 )
             )
         )
-        val usecase = CheckNroEquipProprioImpl(equipRepository)
+        val usecase = ICheckNroEquipProprio(equipRepository)
         val result = usecase("100")
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> EquipRepository.checkNro")
@@ -43,7 +43,7 @@ class CheckNroEquipProprioImplTest {
         whenever(equipRepository.checkNro(19759)).thenReturn(
             Result.success(true)
         )
-        val usecase = CheckNroEquipProprioImpl(equipRepository)
+        val usecase = ICheckNroEquipProprio(equipRepository)
         val result = usecase("19759")
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, true)
@@ -55,7 +55,7 @@ class CheckNroEquipProprioImplTest {
         whenever(equipRepository.checkNro(19759)).thenReturn(
             Result.success(false)
         )
-        val usecase = CheckNroEquipProprioImpl(equipRepository)
+        val usecase = ICheckNroEquipProprio(equipRepository)
         val result = usecase("19759")
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!, false)

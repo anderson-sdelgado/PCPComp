@@ -6,7 +6,7 @@ interface CheckSendMovProprio {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CheckSendMovProprioImpl(
+class ICheckSendMovProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository
 ): CheckSendMovProprio {
 

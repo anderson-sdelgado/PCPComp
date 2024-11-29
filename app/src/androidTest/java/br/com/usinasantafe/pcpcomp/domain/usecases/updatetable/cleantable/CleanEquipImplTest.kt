@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.EquipRoomModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
@@ -36,7 +35,7 @@ class CleanEquipImplTest : KoinTest {
                     )
                 )
             )
-            val listBefore = equipDao.getAll()
+            val listBefore = equipDao.listAll()
             assertEquals(
                 listBefore.size,
                 1
@@ -50,7 +49,7 @@ class CleanEquipImplTest : KoinTest {
                 result,
                 Result.success(true)
             )
-            val listAfter = equipDao.getAll()
+            val listAfter = equipDao.listAll()
             assertEquals(
                 listAfter.size,
                 0

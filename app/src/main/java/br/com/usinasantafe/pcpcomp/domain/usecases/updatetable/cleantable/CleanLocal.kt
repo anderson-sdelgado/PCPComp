@@ -6,7 +6,7 @@ interface CleanLocal {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanLocalImpl(
+class ICleanLocal(
     private val localRepository: LocalRepository
 ): CleanLocal {
 

@@ -9,7 +9,7 @@ interface CloseMovVisitTerc {
     ): Result<Boolean>
 }
 
-class CloseMovVisitTercImpl(
+class ICloseMovVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
 ): CloseMovVisitTerc {
 

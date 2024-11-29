@@ -1,6 +1,5 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
-import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
 
 interface GetDestinoProprio {
@@ -9,7 +8,7 @@ interface GetDestinoProprio {
     ): Result<String>
 }
 
-class GetDestinoProprioImpl(
+class IGetDestinoProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository
 ) : GetDestinoProprio {
 

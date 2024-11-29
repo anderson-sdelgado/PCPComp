@@ -23,7 +23,7 @@ class SetCheckUpdateAllTableImplTest {
                 )
             )
         )
-        val usecase = SetCheckUpdateAllTableImpl(configRepository)
+        val usecase = ISetCheckUpdateAllTable(configRepository)
         val result = usecase(FlagUpdate.UPDATED)
         assertTrue(result.isFailure)
         assertEquals(
@@ -38,7 +38,7 @@ class SetCheckUpdateAllTableImplTest {
         whenever(configRepository.setFlagUpdate(FlagUpdate.UPDATED)).thenReturn(
             Result.success(true)
         )
-        val usecase = SetCheckUpdateAllTableImpl(configRepository)
+        val usecase = ISetCheckUpdateAllTable(configRepository)
         val result = usecase(FlagUpdate.UPDATED)
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)

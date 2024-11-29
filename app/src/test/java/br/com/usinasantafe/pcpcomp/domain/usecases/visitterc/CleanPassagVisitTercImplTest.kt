@@ -23,7 +23,7 @@ class CleanPassagVisitTercImplTest {
                 )
             )
         )
-        val usecase = CleanPassagVisitTercImpl(movEquipVisitTercPassagRepository)
+        val usecase = ICleanPassagVisitTerc(movEquipVisitTercPassagRepository)
         val result = usecase()
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> MovEquipVisitTercPassagRepository.clear")
@@ -38,7 +38,7 @@ class CleanPassagVisitTercImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = CleanPassagVisitTercImpl(movEquipVisitTercPassagRepository)
+        val usecase = ICleanPassagVisitTerc(movEquipVisitTercPassagRepository)
         val result = usecase()
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)

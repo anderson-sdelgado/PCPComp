@@ -7,8 +7,6 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.GetObservVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SaveMovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.SetObservVisitTerc
 import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.StartOutputMovEquipVisitTerc
-import br.com.usinasantafe.pcpcomp.infra.repositories.variable.MovEquipProprioEquipSegRepositoryImpl
-import br.com.usinasantafe.pcpcomp.infra.repositories.variable.MovEquipProprioPassagRepositoryImpl
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS

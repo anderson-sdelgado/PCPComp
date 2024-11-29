@@ -7,7 +7,7 @@ interface CloseAllMovProprio {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CloseAllMovProprioImpl(
+class ICloseAllMovProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository,
 ) : CloseAllMovProprio {
 

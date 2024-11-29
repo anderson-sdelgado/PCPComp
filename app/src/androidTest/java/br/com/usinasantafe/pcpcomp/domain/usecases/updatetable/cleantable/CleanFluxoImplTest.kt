@@ -35,7 +35,7 @@ class CleanFluxoImplTest : KoinTest {
                     )
                 )
             )
-            val listBefore = fluxoDao.getAll()
+            val listBefore = fluxoDao.listAll()
             assertEquals(
                 listBefore.size,
                 1
@@ -49,7 +49,7 @@ class CleanFluxoImplTest : KoinTest {
                 result,
                 Result.success(true)
             )
-            val listAfter = fluxoDao.getAll()
+            val listAfter = fluxoDao.listAll()
             assertEquals(
                 listAfter.size,
                 0

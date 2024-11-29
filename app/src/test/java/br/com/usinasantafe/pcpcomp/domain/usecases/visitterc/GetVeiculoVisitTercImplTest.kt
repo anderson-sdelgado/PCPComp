@@ -26,7 +26,7 @@ class GetVeiculoVisitTercImplTest {
                     )
                 )
             )
-            val usecase = GetVeiculoVisitTercImpl(
+            val usecase = IGetVeiculoVisitTerc(
                 movEquipVisitTercRepository
             )
             val result = usecase(id = 1)
@@ -49,7 +49,7 @@ class GetVeiculoVisitTercImplTest {
                 "Veiculo"
             )
         )
-        val usecase = GetVeiculoVisitTercImpl(
+        val usecase = IGetVeiculoVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(id = 1)

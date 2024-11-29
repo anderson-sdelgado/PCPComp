@@ -1,14 +1,10 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTercPassag
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
-import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -36,7 +32,7 @@ class SetObservVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetObservVisitTercImpl(
+            val usecase = ISetObservVisitTerc(
                 movEquipVisitTercRepository,
                 startProcessSendData
             )
@@ -73,7 +69,7 @@ class SetObservVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetObservVisitTercImpl(
+            val usecase = ISetObservVisitTerc(
                 movEquipVisitTercRepository,
                 startProcessSendData
             )
@@ -108,7 +104,7 @@ class SetObservVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetObservVisitTercImpl(
+            val usecase = ISetObservVisitTerc(
                 movEquipVisitTercRepository,
                 startProcessSendData
             )
@@ -138,7 +134,7 @@ class SetObservVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetObservVisitTercImpl(
+            val usecase = ISetObservVisitTerc(
                 movEquipVisitTercRepository,
                 startProcessSendData
             )

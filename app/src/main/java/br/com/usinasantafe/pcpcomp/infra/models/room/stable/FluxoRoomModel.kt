@@ -12,6 +12,15 @@ data class FluxoRoomModel(
     val descrFluxo: String,
 )
 
+fun FluxoRoomModel.roomModelToEntity(): Fluxo {
+    return with(this) {
+        Fluxo(
+            idFluxo = this.idFluxo,
+            descrFluxo = this.descrFluxo,
+        )
+    }
+}
+
 fun Fluxo.entityToRoomModel(): FluxoRoomModel {
     return with(this) {
         FluxoRoomModel(

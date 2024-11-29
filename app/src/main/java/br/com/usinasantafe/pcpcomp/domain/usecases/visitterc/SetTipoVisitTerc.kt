@@ -7,7 +7,7 @@ interface SetTipoVisitTerc {
     suspend operator fun invoke(typeVisitTerc: TypeVisitTerc): Result<Boolean>
 }
 
-class SetTipoVisitTercImpl(
+class ISetTipoVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository
 ): SetTipoVisitTerc {
 

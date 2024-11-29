@@ -13,7 +13,7 @@ interface SetMotoristaResidencia {
     ): Result<Boolean>
 }
 
-class SetMotoristaResidenciaImpl(
+class ISetMotoristaResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetMotoristaResidencia {

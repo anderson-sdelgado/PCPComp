@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanFluxo
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllFluxoServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveFluxo
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TB_FLUXO
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
@@ -14,10 +14,10 @@ interface UpdateFluxo {
     suspend operator fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate>
 }
 
-class UpdateFluxoImpl(
+class IUpdateFluxo(
     private val cleanFluxo: CleanFluxo,
-    private val getAllFluxoServer: GetAllFluxoServer,
-    private val saveAllFluxo: SaveAllFluxo,
+    private val getServerFluxo: GetServerFluxo,
+    private val saveFluxo: SaveFluxo,
 ): UpdateFluxo  {
 
     override suspend fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate> = flow {
@@ -29,7 +29,7 @@ class UpdateFluxoImpl(
                 currentProgress = updatePercentage(++pos, count, sizeAll)
             )
         )
-        val resultRecover = getAllFluxoServer()
+        val resultRecover = getServerFluxo()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -77,7 +77,7 @@ class UpdateFluxoImpl(
             )
         )
         val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllFluxo(list)
+        val resultSave = saveFluxo(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

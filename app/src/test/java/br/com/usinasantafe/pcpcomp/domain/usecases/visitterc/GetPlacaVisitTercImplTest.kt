@@ -25,7 +25,7 @@ class GetPlacaVisitTercImplTest {
                 )
             )
         )
-        val usecase = GetPlacaVisitTercImpl(
+        val usecase = IGetPlacaVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(id = 1)
@@ -48,7 +48,7 @@ class GetPlacaVisitTercImplTest {
                 "Placa"
             )
         )
-        val usecase = GetPlacaVisitTercImpl(
+        val usecase = IGetPlacaVisitTerc(
             movEquipVisitTercRepository
         )
         val result = usecase(id = 1)

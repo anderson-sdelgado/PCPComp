@@ -36,7 +36,7 @@ class GetPassagVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -83,7 +83,7 @@ class GetPassagVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -143,7 +143,7 @@ class GetPassagVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -210,7 +210,7 @@ class GetPassagVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -274,7 +274,7 @@ class GetPassagVisitTercListImplTest {
                     "ANDERSON DA SILVA DELGADO"
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -322,7 +322,7 @@ class GetPassagVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -382,7 +382,7 @@ class GetPassagVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -449,7 +449,7 @@ class GetPassagVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,
@@ -513,7 +513,7 @@ class GetPassagVisitTercListImplTest {
                     "ANDERSON DA SILVA DELGADO"
                 )
             )
-            val usecase = GetPassagVisitTercListImpl(
+            val usecase = IGetPassagVisitTercList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository = movEquipVisitTercPassagRepository,
                 terceiroRepository = terceiroRepository,

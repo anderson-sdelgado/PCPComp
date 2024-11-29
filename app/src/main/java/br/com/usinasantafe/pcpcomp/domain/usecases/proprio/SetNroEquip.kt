@@ -17,7 +17,7 @@ interface SetNroEquip {
     ): Result<Boolean>
 }
 
-class SetNroEquipImpl(
+class ISetNroEquip(
     private val equipRepository: EquipRepository,
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,

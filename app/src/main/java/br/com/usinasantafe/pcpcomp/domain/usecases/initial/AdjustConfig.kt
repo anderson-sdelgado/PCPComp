@@ -1,6 +1,5 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.initial
 
-import br.com.usinasantafe.pcpcomp.BuildConfig
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
@@ -9,7 +8,7 @@ interface AdjustConfig {
     suspend operator fun invoke(version: String): Result<Boolean>
 }
 
-class AdjustConfigImpl(
+class IAdjustConfig(
     private val configRepository: ConfigRepository,
     private val startProcessSendData: StartProcessSendData
 ): AdjustConfig {

@@ -7,7 +7,7 @@ interface CheckMatricColab {
     suspend operator fun invoke(matricColab: String): Result<Boolean>
 }
 
-class CheckMatricColabImpl(
+class ICheckMatricColab(
     private val colabRepository: ColabRepository
 ): CheckMatricColab {
 

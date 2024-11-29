@@ -8,7 +8,7 @@ interface GetObservResidencia {
     ): Result<String?>
 }
 
-class GetObservResidenciaImpl(
+class IGetObservResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ) : GetObservResidencia {
 

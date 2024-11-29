@@ -9,7 +9,7 @@ interface GetNotaFiscalProprio {
     ): Result<String?>
 }
 
-class GetNotaFiscalProprioImpl(
+class IGetNotaFiscalProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository
 ) : GetNotaFiscalProprio {
 

@@ -25,7 +25,7 @@ class CheckSendMovProprioImplTest {
                     )
                 )
             )
-            val usecase = CheckSendMovProprioImpl(movEquipProprioRepository)
+            val usecase = ICheckSendMovProprio(movEquipProprioRepository)
             val result = usecase()
             assertTrue(result.isFailure)
             assertEquals(
@@ -43,7 +43,7 @@ class CheckSendMovProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = CheckSendMovProprioImpl(movEquipProprioRepository)
+            val usecase = ICheckSendMovProprio(movEquipProprioRepository)
             val result = usecase()
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
@@ -58,7 +58,7 @@ class CheckSendMovProprioImplTest {
             ).thenReturn(
                 Result.success(false)
             )
-            val usecase = CheckSendMovProprioImpl(movEquipProprioRepository)
+            val usecase = ICheckSendMovProprio(movEquipProprioRepository)
             val result = usecase()
             assertTrue(result.isSuccess)
             assertFalse(result.getOrNull()!!)

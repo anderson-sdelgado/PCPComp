@@ -7,12 +7,12 @@ interface GetLocalList {
     suspend operator fun invoke(): Result<List<Local>>
 }
 
-class GetLocalListImpl(
+class IGetLocalList(
     private val localRepository: LocalRepository
 ): GetLocalList {
 
     override suspend fun invoke(): Result<List<Local>> {
-        return localRepository.getAll()
+        return localRepository.list()
     }
 
 }

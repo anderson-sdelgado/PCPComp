@@ -13,7 +13,7 @@ interface SetNotaFiscalProprio {
     ): Result<Boolean>
 }
 
-class SetNotaFiscalProprioImpl(
+class ISetNotaFiscalProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetNotaFiscalProprio {

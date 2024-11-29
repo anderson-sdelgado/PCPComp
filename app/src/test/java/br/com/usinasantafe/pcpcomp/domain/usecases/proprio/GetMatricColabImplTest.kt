@@ -1,17 +1,12 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.utils.StatusData
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
-import java.util.Date
 
 class GetMatricColabImplTest {
 
@@ -26,7 +21,7 @@ class GetMatricColabImplTest {
                 )
             )
         )
-        val usecase = GetMatricColabImpl(
+        val usecase = IGetMatricColab(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)
@@ -40,7 +35,7 @@ class GetMatricColabImplTest {
         whenever(movEquipProprioRepository.getMatricColab(id = 1)).thenReturn(
             Result.success(19759)
         )
-        val usecase = GetMatricColabImpl(
+        val usecase = IGetMatricColab(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)

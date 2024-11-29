@@ -20,7 +20,7 @@ class SetMatricColabImplTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
         val movEquipProprioPassagRepository = mock<MovEquipProprioPassagRepository>()
         val startProcessSendData = mock<StartProcessSendData>()
-        val usecase = SetMatricColabImpl(
+        val usecase = ISetMatricColab(
             movEquipProprioRepository,
             movEquipProprioPassagRepository,
             startProcessSendData
@@ -59,7 +59,7 @@ class SetMatricColabImplTest {
                     )
                 )
             )
-            val usecase = SetMatricColabImpl(
+            val usecase = ISetMatricColab(
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
                 startProcessSendData
@@ -98,7 +98,7 @@ class SetMatricColabImplTest {
                     )
                 )
             )
-            val usecase = SetMatricColabImpl(
+            val usecase = ISetMatricColab(
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
                 startProcessSendData
@@ -132,7 +132,7 @@ class SetMatricColabImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetMatricColabImpl(
+            val usecase = ISetMatricColab(
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
                 startProcessSendData
@@ -162,7 +162,7 @@ class SetMatricColabImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetMatricColabImpl(
+            val usecase = ISetMatricColab(
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
                 startProcessSendData
@@ -197,7 +197,7 @@ class SetMatricColabImplTest {
                     )
                 )
             )
-            val usecase = SetMatricColabImpl(
+            val usecase = ISetMatricColab(
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
                 startProcessSendData
@@ -236,7 +236,7 @@ class SetMatricColabImplTest {
                     )
                 )
             )
-            val usecase = SetMatricColabImpl(
+            val usecase = ISetMatricColab(
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
                 startProcessSendData
@@ -278,7 +278,7 @@ class SetMatricColabImplTest {
                     )
                 )
             )
-            val usecase = SetMatricColabImpl(
+            val usecase = ISetMatricColab(
                 movEquipProprioRepository,
                 movEquipProprioPassagRepository,
                 startProcessSendData
@@ -311,7 +311,7 @@ class SetMatricColabImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = SetMatricColabImpl(
+        val usecase = ISetMatricColab(
             movEquipProprioRepository,
             movEquipProprioPassagRepository,
             startProcessSendData
@@ -345,7 +345,7 @@ class SetMatricColabImplTest {
         ).thenReturn(
             Result.success(true)
         )
-        val usecase = SetMatricColabImpl(
+        val usecase = ISetMatricColab(
             movEquipProprioRepository,
             movEquipProprioPassagRepository,
             startProcessSendData

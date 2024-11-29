@@ -1,10 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -25,7 +22,7 @@ class SetIdLocalConfigImplTest {
                 )
             )
         )
-        val usecase = SetIdLocalConfigImpl(configRepository)
+        val usecase = ISetIdLocalConfig(configRepository)
         val result = usecase(1)
         assertTrue(result.isFailure)
         assertEquals(result.exceptionOrNull()!!.message, "Failure Repository -> ConfigRepository.setIdLocal")
@@ -38,7 +35,7 @@ class SetIdLocalConfigImplTest {
         whenever(configRepository.setIdLocal(1)).thenReturn(
             Result.success(true)
         )
-        val usecase = SetIdLocalConfigImpl(configRepository)
+        val usecase = ISetIdLocalConfig(configRepository)
         val result = usecase(1)
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)

@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanColab
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllColabServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveColab
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TB_COLAB
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
@@ -14,10 +14,10 @@ interface UpdateColab {
     suspend operator fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate>
 }
 
-class UpdateColabImpl(
+class IUpdateColab(
     private val cleanColab: CleanColab,
-    private val getAllColabServer: GetAllColabServer,
-    private val saveAllColab: SaveAllColab,
+    private val getServerColab: GetServerColab,
+    private val saveColab: SaveColab,
 ): UpdateColab  {
 
     override suspend fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate> = flow {
@@ -29,7 +29,7 @@ class UpdateColabImpl(
                 currentProgress = updatePercentage(++pos, count, sizeAll)
             )
         )
-        val resultRecover = getAllColabServer()
+        val resultRecover = getServerColab()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -77,7 +77,7 @@ class UpdateColabImpl(
             )
         )
         val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllColab(list)
+        val resultSave = saveColab(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

@@ -11,7 +11,7 @@ interface DeletePassagColab {
     ): Result<Boolean>
 }
 
-class DeletePassagColabImpl(
+class IDeletePassagColab(
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository
 ): DeletePassagColab {
 

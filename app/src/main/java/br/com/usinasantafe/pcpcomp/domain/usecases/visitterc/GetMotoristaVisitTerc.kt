@@ -11,7 +11,7 @@ interface GetMotoristaVisitTerc {
     ): Result<String>
 }
 
-class GetMotoristaVisitTercImpl(
+class IGetMotoristaVisitTerc(
     private val terceiroRepository: TerceiroRepository,
     private val visitanteRepository: VisitanteRepository
 ): GetMotoristaVisitTerc {

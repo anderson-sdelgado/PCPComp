@@ -7,7 +7,7 @@ interface GetMatricColab {
     suspend operator fun invoke(id: Int): Result<String>
 }
 
-class GetMatricColabImpl(
+class IGetMatricColab(
     private val movEquipProprioRepository: MovEquipProprioRepository
 ) : GetMatricColab {
 

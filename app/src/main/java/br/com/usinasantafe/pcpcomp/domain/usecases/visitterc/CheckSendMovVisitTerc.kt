@@ -6,7 +6,7 @@ interface CheckSendMovVisitTerc {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CheckSendMovVisitTercImpl(
+class ICheckSendMovVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository
 ): CheckSendMovVisitTerc {
 

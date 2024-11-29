@@ -15,6 +15,16 @@ data class RLocalFluxoRoomModel(
     val idFluxo: Int,
 )
 
+fun RLocalFluxoRoomModel.roomModelToEntity(): RLocalFluxo {
+    return with(this) {
+        RLocalFluxo(
+            idRLocalFluxo = this.idRLocalFluxo,
+            idFluxo = this.idFluxo,
+            idLocal = this.idLocal,
+        )
+    }
+}
+
 fun RLocalFluxo.entityToRoomModel(): RLocalFluxoRoomModel {
     return with(this) {
         RLocalFluxoRoomModel(

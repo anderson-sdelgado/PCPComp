@@ -8,28 +8,22 @@ interface CheckAccessMain {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CheckAccessMainImpl(
+class ICheckAccessMain(
     private val configRepository: ConfigRepository
 ): CheckAccessMain {
 
     override suspend fun invoke(): Result<Boolean> {
         try {
             val checkHasConfig = configRepository.hasConfig()
-
             if(checkHasConfig.isFailure)
                 return Result.failure(checkHasConfig.exceptionOrNull()!!)
-
             if (!checkHasConfig.getOrNull()!!)
                 return Result.success(false)
-
             val flagUpdate = configRepository.getFlagUpdate()
             if(flagUpdate.isFailure)
                 return Result.failure(flagUpdate.exceptionOrNull()!!)
-
-
             if (flagUpdate.getOrNull()!! == FlagUpdate.OUTDATED)
                 return Result.success(false)
-
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(

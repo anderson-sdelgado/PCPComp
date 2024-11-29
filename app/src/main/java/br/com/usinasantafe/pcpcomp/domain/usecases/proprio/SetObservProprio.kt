@@ -12,7 +12,7 @@ interface SetObservProprio {
     ): Result<Boolean>
 }
 
-class SetObservProprioImpl(
+class ISetObservProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetObservProprio {

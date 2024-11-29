@@ -8,7 +8,7 @@ interface GetToken {
     suspend operator fun invoke(): Result<String>
 }
 
-class GetTokenImpl(
+class IGetToken(
     private val configRepository: ConfigRepository
 ): GetToken {
 

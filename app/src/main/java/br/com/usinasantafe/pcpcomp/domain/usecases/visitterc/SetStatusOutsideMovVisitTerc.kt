@@ -9,7 +9,7 @@ interface SetStatusOutsideMovVisitTerc {
     ): Result<Boolean>
 }
 
-class SetStatusOutsideMovVisitTercImpl(
+class ISetStatusOutsideMovVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
 ) : SetStatusOutsideMovVisitTerc {
 

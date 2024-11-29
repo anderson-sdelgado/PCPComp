@@ -15,7 +15,7 @@ import org.koin.test.inject
 
 class RecoverLocalServerImplTest : KoinTest {
 
-    private val usecase: GetAllLocalServer by inject()
+    private val usecase: GetServerLocal by inject()
     private val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
 
     @Test

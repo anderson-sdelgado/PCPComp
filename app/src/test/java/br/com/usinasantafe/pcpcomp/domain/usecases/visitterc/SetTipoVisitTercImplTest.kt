@@ -27,7 +27,7 @@ class SetTipoVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetTipoVisitTercImpl(
+            val usecase = ISetTipoVisitTerc(
                 movEquipVisitTercRepository
             )
             val result = usecase(
@@ -51,7 +51,7 @@ class SetTipoVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetTipoVisitTercImpl(
+            val usecase = ISetTipoVisitTerc(
                 movEquipVisitTercRepository
             )
             val result = usecase(

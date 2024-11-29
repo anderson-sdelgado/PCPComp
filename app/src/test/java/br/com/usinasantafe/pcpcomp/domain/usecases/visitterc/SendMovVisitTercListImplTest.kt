@@ -39,7 +39,7 @@ class SendMovVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = SendMovVisitTercListImpl(
+            val usecase = ISendMovVisitTercList(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 configRepository
@@ -95,7 +95,7 @@ class SendMovVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = SendMovVisitTercListImpl(
+            val usecase = ISendMovVisitTercList(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 configRepository
@@ -164,7 +164,7 @@ class SendMovVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = SendMovVisitTercListImpl(
+            val usecase = ISendMovVisitTercList(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 configRepository
@@ -256,7 +256,7 @@ class SendMovVisitTercListImplTest {
                     )
                 )
             )
-            val usecase = SendMovVisitTercListImpl(
+            val usecase = ISendMovVisitTercList(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 configRepository
@@ -343,7 +343,7 @@ class SendMovVisitTercListImplTest {
             ).thenReturn(
                 Result.success(listSendFull)
             )
-            val usecase = SendMovVisitTercListImpl(
+            val usecase = ISendMovVisitTercList(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 configRepository

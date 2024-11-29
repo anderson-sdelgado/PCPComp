@@ -9,7 +9,7 @@ interface GetConfigInternal {
     suspend operator fun invoke(): Result<ConfigModel?>
 }
 
-class GetConfigInternalImpl(
+class IGetConfigInternal(
     private val configRepository: ConfigRepository
 ): GetConfigInternal {
 

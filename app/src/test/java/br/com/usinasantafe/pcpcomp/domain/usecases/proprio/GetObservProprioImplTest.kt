@@ -21,7 +21,7 @@ class GetObservProprioImplTest {
                 )
             )
         )
-        val usecase = GetObservProprioImpl(
+        val usecase = IGetObservProprio(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)
@@ -35,7 +35,7 @@ class GetObservProprioImplTest {
         whenever(movEquipProprioRepository.getObserv(id = 1)).thenReturn(
             Result.success("Observação")
         )
-        val usecase = GetObservProprioImpl(
+        val usecase = IGetObservProprio(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)
@@ -50,7 +50,7 @@ class GetObservProprioImplTest {
         whenever(movEquipProprioRepository.getObserv(id = 1)).thenReturn(
             Result.success(null)
         )
-        val usecase = GetObservProprioImpl(
+        val usecase = IGetObservProprio(
             movEquipProprioRepository
         )
         val result = usecase(id = 1)

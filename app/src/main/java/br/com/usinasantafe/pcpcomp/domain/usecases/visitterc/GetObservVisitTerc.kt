@@ -8,7 +8,7 @@ interface GetObservVisitTerc {
     ): Result<String?>
 }
 
-class GetObservVisitTercImpl(
+class IGetObservVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository
 ) : GetObservVisitTerc {
 

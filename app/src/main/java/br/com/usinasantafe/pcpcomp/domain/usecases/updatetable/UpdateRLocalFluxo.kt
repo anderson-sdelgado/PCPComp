@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanRLocalFluxo
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllRLocalFluxoServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllRLocalFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerRLocalFluxo
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveRLocalFluxo
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TB_R_LOCAL_FLUXO
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
@@ -14,10 +14,10 @@ interface UpdateRLocalFluxo {
     suspend operator fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate>
 }
 
-class UpdateRLocalFluxoImpl(
+class IUpdateRLocalFluxo(
     private val cleanRLocalFluxo: CleanRLocalFluxo,
-    private val getAllRLocalFluxoServer: GetAllRLocalFluxoServer,
-    private val saveAllRLocalFluxo: SaveAllRLocalFluxo,
+    private val getServerRLocalFluxo: GetServerRLocalFluxo,
+    private val saveRLocalFluxo: SaveRLocalFluxo,
 ): UpdateRLocalFluxo  {
 
     override suspend fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate> = flow {
@@ -29,7 +29,7 @@ class UpdateRLocalFluxoImpl(
                 currentProgress = updatePercentage(++pos, count, sizeAll)
             )
         )
-        val resultRecover = getAllRLocalFluxoServer()
+        val resultRecover = getServerRLocalFluxo()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -77,7 +77,7 @@ class UpdateRLocalFluxoImpl(
             )
         )
         val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllRLocalFluxo(list)
+        val resultSave = saveRLocalFluxo(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

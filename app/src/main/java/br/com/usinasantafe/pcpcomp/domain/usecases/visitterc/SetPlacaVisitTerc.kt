@@ -13,7 +13,7 @@ interface SetPlacaVisitTerc {
     ): Result<Boolean>
 }
 
-class SetPlacaVisitTercImpl(
+class ISetPlacaVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetPlacaVisitTerc {

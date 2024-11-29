@@ -7,7 +7,7 @@ interface GetTypeMov {
     suspend operator fun invoke(): Result<TypeMov>
 }
 
-class GetTypeMovImpl(
+class IGetTypeMov(
     private val movEquipProprioRepository: MovEquipProprioRepository,
 ) : GetTypeMov {
 

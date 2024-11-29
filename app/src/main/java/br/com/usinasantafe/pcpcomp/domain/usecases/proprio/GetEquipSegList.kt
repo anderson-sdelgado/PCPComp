@@ -13,7 +13,7 @@ interface GetEquipSegList {
     ): Result<List<Equip>>
 }
 
-class GetEquipSegListImpl(
+class IGetEquipSegList(
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
     private val equipRepository: EquipRepository
 ) : GetEquipSegList {

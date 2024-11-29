@@ -6,7 +6,7 @@ interface CleanColab {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanColabImpl(
+class ICleanColab(
     private val colabRepository: ColabRepository
 ): CleanColab {
 

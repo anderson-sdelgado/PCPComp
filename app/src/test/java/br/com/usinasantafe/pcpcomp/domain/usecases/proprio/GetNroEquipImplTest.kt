@@ -1,19 +1,14 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.utils.StatusData
-import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
-import java.util.Date
 
 class GetNroEquipImplTest {
 
@@ -29,7 +24,7 @@ class GetNroEquipImplTest {
                 )
             )
         )
-        val usecase = GetNroEquipImpl(
+        val usecase = IGetNroEquip(
             movEquipProprioRepository,
             equipRepository
         )
@@ -53,7 +48,7 @@ class GetNroEquipImplTest {
                 )
             )
         )
-        val usecase = GetNroEquipImpl(
+        val usecase = IGetNroEquip(
             movEquipProprioRepository,
             equipRepository
         )
@@ -72,7 +67,7 @@ class GetNroEquipImplTest {
         whenever(equipRepository.getNro(idEquip = 10)).thenReturn(
             Result.success(100)
         )
-        val usecase = GetNroEquipImpl(
+        val usecase = IGetNroEquip(
             movEquipProprioRepository,
             equipRepository
         )

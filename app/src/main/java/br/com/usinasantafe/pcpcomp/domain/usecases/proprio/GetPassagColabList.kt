@@ -13,7 +13,7 @@ interface GetPassagColabList {
     ): Result<List<Colab>>
 }
 
-class GetPassagColabListImpl(
+class IGetPassagColabList(
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository,
     private val colabRepository: ColabRepository
 ) : GetPassagColabList {

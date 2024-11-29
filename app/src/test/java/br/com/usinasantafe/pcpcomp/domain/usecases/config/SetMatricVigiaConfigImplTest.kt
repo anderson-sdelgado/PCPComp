@@ -1,10 +1,7 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -26,7 +23,7 @@ class SetMatricVigiaConfigImplTest {
                     )
                 )
             )
-            val usecase = SetMatricVigiaConfigImpl(configRepository)
+            val usecase = ISetMatricVigiaConfig(configRepository)
             val result = usecase("19759")
             assertTrue(result.isFailure)
             assertEquals(
@@ -42,7 +39,7 @@ class SetMatricVigiaConfigImplTest {
             whenever(configRepository.setMatricVigia(19759)).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetMatricVigiaConfigImpl(configRepository)
+            val usecase = ISetMatricVigiaConfig(configRepository)
             val result = usecase("19759")
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)

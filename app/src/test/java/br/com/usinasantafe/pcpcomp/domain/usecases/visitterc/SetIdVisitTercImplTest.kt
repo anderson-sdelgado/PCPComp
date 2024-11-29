@@ -38,7 +38,7 @@ class SetIdVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -88,7 +88,7 @@ class SetIdVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -138,7 +138,7 @@ class SetIdVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -197,7 +197,7 @@ class SetIdVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -256,7 +256,7 @@ class SetIdVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -322,7 +322,7 @@ class SetIdVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -376,7 +376,7 @@ class SetIdVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -427,7 +427,7 @@ class SetIdVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,
@@ -485,7 +485,7 @@ class SetIdVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetIdVisitTercImpl(
+            val usecase = ISetIdVisitTerc(
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 terceiroRepository,

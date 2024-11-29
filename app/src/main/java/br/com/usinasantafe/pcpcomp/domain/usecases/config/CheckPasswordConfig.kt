@@ -7,7 +7,7 @@ interface CheckPasswordConfig {
     suspend operator fun invoke(password: String): Result<Boolean>
 }
 
-class CheckPasswordConfigImpl(
+class ICheckPasswordConfig(
     private val configRepository: ConfigRepository
 ): CheckPasswordConfig {
 

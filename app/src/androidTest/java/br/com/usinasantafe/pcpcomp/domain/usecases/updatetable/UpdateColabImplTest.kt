@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.stable.ColabDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -44,7 +43,7 @@ class UpdateColabImplTest : KoinTest {
                 count = 1f
             )
             val list = result.toList()
-            assertEquals(result.count(), 2)
+            assertEquals(list.count(), 3)
             assertEquals(
                 list[0],
                 ResultUpdate(
@@ -69,7 +68,7 @@ class UpdateColabImplTest : KoinTest {
                     currentProgress = updatePercentage(++pos, 1f, 16f)
                 )
             )
-            val listData = colabDao.getAll()
+            val listData = colabDao.listAll()
             assertEquals(
                 listData.size,
                 1

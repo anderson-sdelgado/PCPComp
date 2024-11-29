@@ -1,9 +1,6 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.config
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
-import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
-import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 
 interface SaveDataConfig {
@@ -15,7 +12,7 @@ interface SaveDataConfig {
     ): Result<Boolean>
 }
 
-class SaveDataConfigImpl(
+class ISaveDataConfig(
     private val configRepository: ConfigRepository
 ): SaveDataConfig {
 

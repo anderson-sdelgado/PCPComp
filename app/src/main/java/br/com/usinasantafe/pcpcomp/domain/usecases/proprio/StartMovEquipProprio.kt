@@ -10,7 +10,7 @@ interface StartMovEquipProprio {
     suspend operator fun invoke(typeMov: TypeMov): Result<Boolean>
 }
 
-class StartMovEquipProprioImpl(
+class IStartMovEquipProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository

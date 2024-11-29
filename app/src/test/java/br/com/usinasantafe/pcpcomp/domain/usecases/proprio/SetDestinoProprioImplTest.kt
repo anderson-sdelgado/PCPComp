@@ -32,7 +32,7 @@ class SetDestinoProprioImplTest {
                     )
                 )
             )
-            val usecase = SetDestinoProprioImpl(
+            val usecase = ISetDestinoProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )
@@ -62,7 +62,7 @@ class SetDestinoProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetDestinoProprioImpl(
+            val usecase = ISetDestinoProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )

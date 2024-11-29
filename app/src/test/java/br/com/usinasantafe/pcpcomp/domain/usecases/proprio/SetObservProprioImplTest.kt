@@ -31,7 +31,7 @@ class SetObservProprioImplTest {
                     )
                 )
             )
-            val usecase = SetObservProprioImpl(
+            val usecase = ISetObservProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )
@@ -61,7 +61,7 @@ class SetObservProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetObservProprioImpl(
+            val usecase = ISetObservProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )
@@ -89,7 +89,7 @@ class SetObservProprioImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetObservProprioImpl(
+            val usecase = ISetObservProprio(
                 movEquipProprioRepository,
                 startProcessSendData
             )

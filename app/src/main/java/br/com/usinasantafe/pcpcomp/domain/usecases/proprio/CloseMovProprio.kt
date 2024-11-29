@@ -9,7 +9,7 @@ interface CloseMovProprio {
     ): Result<Boolean>
 }
 
-class CloseMovProprioImpl(
+class ICloseMovProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository,
 ): CloseMovProprio {
 

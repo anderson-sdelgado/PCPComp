@@ -11,7 +11,7 @@ interface GetTitleCpfVisitTerc {
     ): Result<String>
 }
 
-class GetTitleCpfVisitTercImpl(
+class IGetTitleCpfVisitTerc(
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository
 ) : GetTitleCpfVisitTerc {
 

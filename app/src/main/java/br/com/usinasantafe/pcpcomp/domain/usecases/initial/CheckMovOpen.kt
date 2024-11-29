@@ -9,7 +9,7 @@ interface CheckMovOpen {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CheckMovOpenImpl(
+class ICheckMovOpen(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository

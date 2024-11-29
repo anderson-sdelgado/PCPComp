@@ -13,7 +13,7 @@ interface SetPlacaResidencia {
     ): Result<Boolean>
 }
 
-class SetPlacaResidenciaImpl(
+class ISetPlacaResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
     private val startProcessSendData: StartProcessSendData
 ) : SetPlacaResidencia {

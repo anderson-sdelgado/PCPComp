@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.loadKoinModules
@@ -36,7 +35,7 @@ class CleanLocalImplTest : KoinTest {
                     )
                 )
             )
-            val listBefore = localDao.getAll()
+            val listBefore = localDao.listAll()
             assertEquals(
                 listBefore.size,
                 1
@@ -50,7 +49,7 @@ class CleanLocalImplTest : KoinTest {
                 result,
                 Result.success(true)
             )
-            val listAfter = localDao.getAll()
+            val listAfter = localDao.listAll()
             assertEquals(
                 listAfter.size,
                 0

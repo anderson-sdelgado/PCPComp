@@ -8,7 +8,7 @@ interface GetMotoristaResidencia {
     ): Result<String>
 }
 
-class GetMotoristaResidenciaImpl(
+class IGetMotoristaResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ) : GetMotoristaResidencia {
 

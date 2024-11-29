@@ -31,7 +31,7 @@ class GetMovEquipVisitTercInsideListImplTest {
                     )
                 )
             )
-            val usecase = GetMovEquipVisitTercInsideListImpl(
+            val usecase = IGetMovEquipVisitTercInsideList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotoristaVisitTerc = getMotoristaVisitTerc
             )
@@ -77,7 +77,7 @@ class GetMovEquipVisitTercInsideListImplTest {
                     )
                 )
             )
-            val usecase = GetMovEquipVisitTercInsideListImpl(
+            val usecase = IGetMovEquipVisitTercInsideList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotoristaVisitTerc = getMotoristaVisitTerc
             )
@@ -134,7 +134,7 @@ class GetMovEquipVisitTercInsideListImplTest {
                     )
                 )
             )
-            val usecase = GetMovEquipVisitTercInsideListImpl(
+            val usecase = IGetMovEquipVisitTercInsideList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotoristaVisitTerc = getMotoristaVisitTerc
             )
@@ -188,7 +188,7 @@ class GetMovEquipVisitTercInsideListImplTest {
                     "123.456.789-00 - Anderson"
                 )
             )
-            val usecase = GetMovEquipVisitTercInsideListImpl(
+            val usecase = IGetMovEquipVisitTercInsideList(
                 movEquipVisitTercRepository = movEquipVisitTercRepository,
                 getMotoristaVisitTerc = getMotoristaVisitTerc
             )

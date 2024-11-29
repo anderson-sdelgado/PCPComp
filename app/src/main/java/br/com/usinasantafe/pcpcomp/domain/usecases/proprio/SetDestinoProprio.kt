@@ -12,7 +12,7 @@ interface SetDestinoProprio {
     ): Result<Boolean>
 }
 
-class SetDestinoProprioImpl(
+class ISetDestinoProprio(
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val startProcessSendData: StartProcessSendData
 ): SetDestinoProprio {

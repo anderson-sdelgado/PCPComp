@@ -8,7 +8,7 @@ interface GetPlacaResidencia {
     ): Result<String>
 }
 
-class GetPlacaResidenciaImpl(
+class IGetPlacaResidencia(
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository
 ) : GetPlacaResidencia {
 

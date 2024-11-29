@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.updatetable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.CleanEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetAllEquipServer
-import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savealltable.SaveAllEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.getserver.GetServerEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.SaveEquip
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.TB_EQUIP
 import br.com.usinasantafe.pcpcomp.utils.updatePercentage
@@ -14,10 +14,10 @@ interface UpdateEquip {
     suspend operator fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate>
 }
 
-class UpdateEquipImpl(
+class IUpdateEquip(
     private val cleanEquip: CleanEquip,
-    private val getAllEquipServer: GetAllEquipServer,
-    private val saveAllEquip: SaveAllEquip,
+    private val getServerEquip: GetServerEquip,
+    private val saveEquip: SaveEquip,
 ): UpdateEquip  {
 
     override suspend fun invoke(sizeAll: Float, count: Float): Flow<ResultUpdate> = flow {
@@ -29,7 +29,7 @@ class UpdateEquipImpl(
                 currentProgress = updatePercentage(++pos, count, sizeAll)
             )
         )
-        val resultRecover = getAllEquipServer()
+        val resultRecover = getServerEquip()
         if (resultRecover.isFailure) {
             val error = resultRecover.exceptionOrNull()!!
             val failure =
@@ -77,7 +77,7 @@ class UpdateEquipImpl(
             )
         )
         val list = resultRecover.getOrNull()!!
-        val resultSave = saveAllEquip(list)
+        val resultSave = saveEquip(list)
         if (resultSave.isFailure) {
             val error = resultSave.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"

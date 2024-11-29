@@ -23,7 +23,7 @@ class SetStatusOutsideMovVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetStatusOutsideMovVisitTercImpl(
+            val usecase = ISetStatusOutsideMovVisitTerc(
                 movEquipVisitTercRepository,
             )
             val result = usecase(1)
@@ -58,7 +58,7 @@ class SetStatusOutsideMovVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetStatusOutsideMovVisitTercImpl(
+            val usecase = ISetStatusOutsideMovVisitTerc(
                 movEquipVisitTercRepository,
             )
             val result = usecase(1)
@@ -88,7 +88,7 @@ class SetStatusOutsideMovVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetStatusOutsideMovVisitTercImpl(
+            val usecase = ISetStatusOutsideMovVisitTerc(
                 movEquipVisitTercRepository,
             )
             val result = usecase(1)

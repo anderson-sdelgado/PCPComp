@@ -30,7 +30,7 @@ class SetStatusSentMovVisitTercImplTest {
                     )
                 )
             )
-            val usecase = SetStatusSentMovVisitTercImpl(movEquipVisitTercRepository)
+            val usecase = ISetStatusSentMovVisitTerc(movEquipVisitTercRepository)
             val result = usecase(list)
             assertTrue(result.isFailure)
             assertEquals(
@@ -53,7 +53,7 @@ class SetStatusSentMovVisitTercImplTest {
             ).thenReturn(
                 Result.success(true)
             )
-            val usecase = SetStatusSentMovVisitTercImpl(movEquipVisitTercRepository)
+            val usecase = ISetStatusSentMovVisitTerc(movEquipVisitTercRepository)
             val result = usecase(list)
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)

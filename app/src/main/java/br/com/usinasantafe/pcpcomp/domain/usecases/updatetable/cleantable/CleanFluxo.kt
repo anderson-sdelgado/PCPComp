@@ -6,7 +6,7 @@ interface CleanFluxo {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanFluxoImpl(
+class ICleanFluxo(
     private val fluxoRepository: FluxoRepository
 ): CleanFluxo {
 

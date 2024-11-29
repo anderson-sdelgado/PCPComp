@@ -6,7 +6,7 @@ interface CleanTerceiro {
     suspend operator fun invoke(): Result<Boolean>
 }
 
-class CleanTerceiroImpl(
+class ICleanTerceiro(
     private val terceiroRepository: TerceiroRepository
 ): CleanTerceiro {
 

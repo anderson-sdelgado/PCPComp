@@ -14,7 +14,7 @@ import org.koin.test.inject
 
 class GetAllFluxoServerImplTest : KoinTest {
 
-    private val usecase: GetAllFluxoServer by inject()
+    private val usecase: GetServerFluxo by inject()
     private val configSharedPreferences: ConfigSharedPreferencesDatasource by inject()
 
     @Test
