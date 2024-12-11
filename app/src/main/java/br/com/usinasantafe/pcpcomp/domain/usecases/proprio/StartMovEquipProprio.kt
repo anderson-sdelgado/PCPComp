@@ -4,10 +4,10 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioEquipSegRepository
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 interface StartMovEquipProprio {
-    suspend operator fun invoke(typeMov: TypeMov): Result<Boolean>
+    suspend operator fun invoke(typeMov: TypeMovEquip): Result<Boolean>
 }
 
 class IStartMovEquipProprio(
@@ -16,7 +16,7 @@ class IStartMovEquipProprio(
     private val movEquipProprioPassagRepository: MovEquipProprioPassagRepository
 ): StartMovEquipProprio {
 
-    override suspend fun invoke(typeMov: TypeMov): Result<Boolean> {
+    override suspend fun invoke(typeMov: TypeMovEquip): Result<Boolean> {
         try {
             val resultStart = movEquipProprioRepository.start(typeMov)
             if (resultStart.isFailure)

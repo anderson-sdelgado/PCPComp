@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipVisitTercPassagSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipVisitTercSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -38,7 +38,7 @@ class IStartInputMovEquipVisitTercTest : KoinTest {
             val resultGet = movEquipVisitTercSharedPreferencesDatasource.get()
             assertTrue(resultGet.isSuccess)
             val entity = resultGet.getOrNull()!!
-            assertEquals(entity.tipoMovEquipVisitTerc, TypeMov.INPUT)
+            assertEquals(entity.tipoMovEquipVisitTerc, TypeMovEquip.INPUT)
             val resultClear = movEquipVisitTercPassagSharedPreferencesDatasource.list()
             assertTrue(resultClear.isSuccess)
             assertTrue(resultClear.getOrNull()!!.isEmpty())

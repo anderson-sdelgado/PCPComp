@@ -1,4 +1,4 @@
-package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
+package br.com.usinasantafe.pcpcomp.domain.usecases.common
 
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository

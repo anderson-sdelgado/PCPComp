@@ -18,6 +18,8 @@
     <string name="text_title_mov_proprio">CONTROLE VEÍCULO USINA</string>
     <string name="text_title_mov_visit_terc">CONTROLE VEÍCULO VISITANTE/TERCEIRO</string>
     <string name="text_title_mov_residencia">CONTROLE VEÍCULO RESIDÊNCIA</string>
+    <string name="text_title_controle_chave">CONTROLE DE CHAVE</string>
+    <string name="text_title_controle_chave_equip">CONTROLE DE CHAVE DE EQUIPAMENTO</string>
     <string name="text_input">ENTRADA</string>
     <string name="text_output">SAÍDA</string>
     <string name="text_close_mov">FECHAR MOVIMENTO(S)</string>
@@ -53,4 +55,7 @@
     <string name="text_number_0">0</string>
     <string name="text_pattern_clean">APAGAR</string>
     <string name="text_pattern_update">ATUALIZAR DADOS</string>
+    <string name="text_remove_key">RETIRADA DE CHAVE</string>
+    <string name="text_receipt_key">RECEBIMENTO DE CHAVE</string>
+    <string name="text_title_list_key">LISTA DE CHAVE</string>
 </resources>

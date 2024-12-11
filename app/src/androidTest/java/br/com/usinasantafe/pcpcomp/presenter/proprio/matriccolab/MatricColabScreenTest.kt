@@ -20,7 +20,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.BUTTON_OK_ALERT_DIALOG_SIMPLE
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import br.com.usinasantafe.pcpcomp.utils.waitUntilTimeout
 import kotlinx.coroutines.test.runTest

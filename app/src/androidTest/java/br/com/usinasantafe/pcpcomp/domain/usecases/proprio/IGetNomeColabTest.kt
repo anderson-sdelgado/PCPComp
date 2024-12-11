@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetNomeColab
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.ColabDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ColabRoomModel

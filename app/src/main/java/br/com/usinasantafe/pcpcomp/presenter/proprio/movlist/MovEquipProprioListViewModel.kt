@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CloseAllMovProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMovEquipProprioOpenList
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.StartMovEquipProprio
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -83,7 +83,7 @@ class MovEquipProprioListViewModel(
         }
     }
 
-    fun startMov(typeMov: TypeMov) = viewModelScope.launch {
+    fun startMov(typeMov: TypeMovEquip) = viewModelScope.launch {
         val resultStart = startMovEquipProprio(typeMov = typeMov)
         if(resultStart.isFailure){
             val error = resultStart.exceptionOrNull()!!

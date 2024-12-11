@@ -10,7 +10,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipReside
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -41,7 +41,7 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
     fun check_return_failure_if_not_have_data_output() =
         runTest {
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -56,9 +56,9 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
         runTest {
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -66,11 +66,11 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -85,9 +85,9 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
         runTest {
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -95,7 +95,7 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             configSharedPreferencesDatasource.save(
@@ -105,7 +105,7 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
                 )
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -120,9 +120,9 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
         runTest {
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -130,7 +130,7 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             configSharedPreferencesDatasource.save(
@@ -141,7 +141,7 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
             )
             movEquipResidenciaSharedPreferencesDatasource.start(
                 MovEquipResidenciaSharedPreferencesModel(
-                    tipoMovEquipResidencia = TypeMov.OUTPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.OUTPUT,
                     dthrMovEquipResidencia = Date(1723213270250),
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -150,28 +150,28 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
                 )
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
             val roomModel1 = movEquipResidenciaDao.get(1)
             assertEquals(roomModel1.idMovEquipResidencia, 1)
-            assertEquals(roomModel1.tipoMovEquipResidencia, TypeMov.INPUT)
+            assertEquals(roomModel1.tipoMovEquipResidencia, TypeMovEquip.INPUT)
             assertEquals(roomModel1.observMovEquipResidencia, "OBSERV TESTE")
-            assertEquals(roomModel1.statusMovEquipForeigResidencia, StatusForeigner.OUTSIDE)
+            assertEquals(roomModel1.statusMovEquipForeignerResidencia, StatusForeigner.OUTSIDE)
             val roomModel2 = movEquipResidenciaDao.get(2)
             assertEquals(roomModel2.idMovEquipResidencia, 2)
-            assertEquals(roomModel2.tipoMovEquipResidencia, TypeMov.OUTPUT)
+            assertEquals(roomModel2.tipoMovEquipResidencia, TypeMovEquip.OUTPUT)
             assertEquals(roomModel2.observMovEquipResidencia, null)
-            assertEquals(roomModel2.statusMovEquipForeigResidencia, StatusForeigner.OUTSIDE)
+            assertEquals(roomModel2.statusMovEquipForeignerResidencia, StatusForeigner.OUTSIDE)
         }
 
     @Test
     fun check_return_failure_if_not_have_data_input() =
         runTest {
             val result = usecase(
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 id = 0
             )
             assertTrue(result.isFailure)
@@ -191,7 +191,7 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
                 )
             )
             val result = usecase(
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 id = 0
             )
             assertTrue(result.isFailure)
@@ -212,7 +212,7 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
             )
             movEquipResidenciaSharedPreferencesDatasource.start(
                 MovEquipResidenciaSharedPreferencesModel(
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = Date(1723213270250),
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -221,15 +221,15 @@ class SaveMovEquipResidenciaImplTest : KoinTest {
                 )
             )
             val result = usecase(
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 id = 1
             )
             assertTrue(result.isSuccess)
             assertTrue(result.getOrNull()!!)
             val roomModel1 = movEquipResidenciaDao.get(1)
             assertEquals(roomModel1.idMovEquipResidencia, 1)
-            assertEquals(roomModel1.tipoMovEquipResidencia, TypeMov.INPUT)
+            assertEquals(roomModel1.tipoMovEquipResidencia, TypeMovEquip.INPUT)
             assertEquals(roomModel1.observMovEquipResidencia, "OBSERV TESTE")
-            assertEquals(roomModel1.statusMovEquipForeigResidencia, StatusForeigner.INSIDE)
+            assertEquals(roomModel1.statusMovEquipForeignerResidencia, StatusForeigner.INSIDE)
         }
 }

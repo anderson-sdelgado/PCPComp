@@ -125,6 +125,8 @@ class MenuApontScreenTest: KoinTest {
                 onNavMovVeicResidencia = {},
                 onNavMovVeicVisitTerc = {},
                 onNavMovVeicProprio = {},
+                onNavMovChave = {},
+                onNavMovChaveEquip = {},
                 onNavSplashScreen = {}
             )
         }

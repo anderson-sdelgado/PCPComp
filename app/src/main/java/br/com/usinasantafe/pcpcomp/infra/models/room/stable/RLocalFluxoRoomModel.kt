@@ -6,7 +6,6 @@ import br.com.usinasantafe.pcpcomp.domain.entities.stable.RLocalFluxo
 import br.com.usinasantafe.pcpcomp.utils.TB_FLUXO
 import br.com.usinasantafe.pcpcomp.utils.TB_R_LOCAL_FLUXO
 
-
 @Entity(tableName = TB_R_LOCAL_FLUXO)
 data class RLocalFluxoRoomModel(
     @PrimaryKey

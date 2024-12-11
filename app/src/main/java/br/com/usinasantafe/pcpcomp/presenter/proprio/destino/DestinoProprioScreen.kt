@@ -28,7 +28,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 const val TAG_DESTINO_TEXT_FIELD_PROPRIO = "tag_destino_text_field_proprio"
 
@@ -70,7 +70,7 @@ fun DestinoProprioContent(
     destino: String,
     onDestinoChanged: (String) -> Unit,
     setDestino: () -> Unit,
-    typeMov: TypeMov,
+    typeMov: TypeMovEquip,
     flagAccess: Boolean,
     flagDialog: Boolean,
     setCloseDialog: () -> Unit,
@@ -144,8 +144,8 @@ fun DestinoProprioContent(
             when (flowApp) {
                 FlowApp.ADD -> {
                     when (typeMov) {
-                        TypeMov.INPUT -> onNavObserv()
-                        TypeMov.OUTPUT -> onNavNotaFiscal()
+                        TypeMovEquip.INPUT -> onNavObserv()
+                        TypeMovEquip.OUTPUT -> onNavNotaFiscal()
                     }
                 }
                 FlowApp.CHANGE -> onNavDetalheMovProprio()
@@ -165,7 +165,7 @@ fun DestinoProprioPagePreview() {
                 destino = "Tabatinga",
                 onDestinoChanged = {},
                 setDestino = {},
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 flagAccess = false,
                 flagDialog = false,
                 setCloseDialog = {},
@@ -190,7 +190,7 @@ fun DestinoProprioPagePreviewFieldEmpty() {
                 flowApp = FlowApp.ADD,
                 onDestinoChanged = {},
                 setDestino = {},
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 flagAccess = false,
                 flagDialog = true,
                 setCloseDialog = {},
@@ -215,7 +215,7 @@ fun DestinoProprioPagePreviewFailure() {
                 flowApp = FlowApp.ADD,
                 onDestinoChanged = {},
                 setDestino = {},
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 flagAccess = false,
                 flagDialog = true,
                 setCloseDialog = {},

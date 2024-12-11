@@ -81,7 +81,9 @@ fun MovEquipVisitTercListContent(
         TextSmallDesign(text = "VIGIA: $descrVigia")
         TextSmallDesign(text = "LOCAL: $descrLocal")
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
-        TitleDesign(text = stringResource(id = R.string.text_title_mov_visit_terc))
+        TitleDesign(
+            text = stringResource(id = R.string.text_title_mov_visit_terc)
+        )
         Spacer(modifier = Modifier.padding(vertical = 6.dp))
         LazyColumn(
             modifier = Modifier
@@ -148,6 +150,7 @@ fun MovEquipVisitTercListPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MovEquipVisitTercListContent(
+                startMov = {},
                 descrVigia = "19759 - ANDERSON DA SILVA DELGADO",
                 descrLocal = "1 - USINA",
                 movEquipVisitTercModelList = listOf(
@@ -168,14 +171,13 @@ fun MovEquipVisitTercListPagePreview() {
                         tipoVisitTerc = "TERCEIRO"
                     )
                 ),
-                onNavObserv = {},
                 flagAccess = false,
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
                 onNavVeiculo = {},
                 onNavMovEquipEditList = {},
-                startMov = {},
+                onNavObserv = {},
                 onNavMenuApont = {},
                 modifier = Modifier.padding(innerPadding)
             )

@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource.IMovEqu
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipProprioSharedPreferencesModel
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -81,7 +81,7 @@ class ISaveMovEquipProprioTest : KoinTest {
         )
         movEquipProprioSharedPreferencesDatasource.save(
             MovEquipProprioSharedPreferencesModel(
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
                 destinoMovEquipProprio = "Teste",

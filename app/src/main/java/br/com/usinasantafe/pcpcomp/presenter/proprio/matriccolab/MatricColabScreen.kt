@@ -109,7 +109,6 @@ fun MatricColabContent(
             onValueChange = {},
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(TAG_NUMBER_TEXT_FIELD_MATRIC_VIGIA_SCREEN)
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         ButtonsGenericNumeric(setActionButton = setTextField)

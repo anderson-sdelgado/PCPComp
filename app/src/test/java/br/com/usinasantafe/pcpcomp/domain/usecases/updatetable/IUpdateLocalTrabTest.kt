@@ -16,7 +16,7 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class LocalTrabImplTest {
+class IUpdateLocalTrabTest {
 
     private val cleanLocalTrab = mock<CleanLocalTrab>()
     private val getServerLocalTrab = mock<GetServerLocalTrab>()
@@ -28,7 +28,7 @@ class LocalTrabImplTest {
     )
 
     @Test
-    fun `Check return failure usecase if have error in usecase RecoverLocalTrabServer`() =
+    fun `check return failure usecase if have error in usecase RecoverLocalTrabServer`() =
         runTest {
             var pos = 0f
             whenever(
@@ -252,7 +252,7 @@ class LocalTrabImplTest {
 
 }
 
-val localTrabList = listOf (
+val localTrabList = listOf(
     LocalTrab(
         idLocalTrab = 1,
         descrLocalTrab = "TI"

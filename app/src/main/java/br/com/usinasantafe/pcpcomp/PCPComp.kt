@@ -12,6 +12,7 @@ import br.com.usinasantafe.pcpcomp.di.repositoryModule
 import br.com.usinasantafe.pcpcomp.di.roomModule
 import br.com.usinasantafe.pcpcomp.di.sharedPreferencesModule
 import br.com.usinasantafe.pcpcomp.di.usecaseBackgroundModule
+import br.com.usinasantafe.pcpcomp.di.usecaseChaveModule
 import br.com.usinasantafe.pcpcomp.di.usecaseCleanTableModule
 import br.com.usinasantafe.pcpcomp.di.usecaseCommonModule
 import br.com.usinasantafe.pcpcomp.di.usecaseConfigModule
@@ -22,6 +23,7 @@ import br.com.usinasantafe.pcpcomp.di.usecaseResidenciaModule
 import br.com.usinasantafe.pcpcomp.di.usecaseUpdateModule
 import br.com.usinasantafe.pcpcomp.di.usecaseSaveAllTableModule
 import br.com.usinasantafe.pcpcomp.di.usecaseVisitTercModule
+import br.com.usinasantafe.pcpcomp.di.viewModelChaveModule
 import br.com.usinasantafe.pcpcomp.di.viewModelConfigModule
 import br.com.usinasantafe.pcpcomp.di.viewModelInicialModule
 import br.com.usinasantafe.pcpcomp.di.viewModelProprioModule
@@ -63,10 +65,12 @@ val commonModuleList = listOf(
     viewModelConfigModule,
     viewModelInicialModule,
     viewModelSplashModule,
+    viewModelChaveModule,
     viewModelProprioModule,
     viewModelResidenciaModule,
     viewModelVisitTercModule,
     usecaseBackgroundModule,
+    usecaseChaveModule,
     usecaseCleanTableModule,
     usecaseCommonModule,
     usecaseConfigModule,

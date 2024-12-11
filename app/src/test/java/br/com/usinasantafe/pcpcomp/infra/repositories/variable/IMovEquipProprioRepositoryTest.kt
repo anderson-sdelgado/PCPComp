@@ -12,7 +12,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipPropri
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -62,7 +62,7 @@ class IMovEquipProprioRepositoryTest {
             val movEquipProprioRoomModel = MovEquipProprioRoomModel(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -75,7 +75,7 @@ class IMovEquipProprioRepositoryTest {
             val movEquipProprio = MovEquipProprio(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -109,7 +109,7 @@ class IMovEquipProprioRepositoryTest {
         val movEquipProprioRoomModel = MovEquipProprioRoomModel(
             matricVigiaMovEquipProprio = 19759,
             idLocalMovEquipProprio = 1,
-            tipoMovEquipProprio = TypeMov.INPUT,
+            tipoMovEquipProprio = TypeMovEquip.INPUT,
             dthrMovEquipProprio = 1723213270250,
             idEquipMovEquipProprio = 1,
             matricColabMovEquipProprio = 19759,
@@ -122,7 +122,7 @@ class IMovEquipProprioRepositoryTest {
         val movEquipProprio = MovEquipProprio(
             matricVigiaMovEquipProprio = 19759,
             idLocalMovEquipProprio = 1,
-            tipoMovEquipProprio = TypeMov.INPUT,
+            tipoMovEquipProprio = TypeMovEquip.INPUT,
             dthrMovEquipProprio = Date(1723213270250),
             idEquipMovEquipProprio = 1,
             matricColabMovEquipProprio = 19759,
@@ -157,7 +157,7 @@ class IMovEquipProprioRepositoryTest {
             val movEquipProprioRoomModel = MovEquipProprioRoomModel(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -170,7 +170,7 @@ class IMovEquipProprioRepositoryTest {
             val movEquipProprio = MovEquipProprio(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -195,7 +195,7 @@ class IMovEquipProprioRepositoryTest {
     fun `Check failure if have failure in MovEquipProprioSharedPreferencesDatasource start`() =
         runTest {
             whenever(
-                movEquipProprioSharedPreferencesDatasource.start(TypeMov.INPUT)
+                movEquipProprioSharedPreferencesDatasource.start(TypeMovEquip.INPUT)
             ).thenReturn(
                 Result.failure(
                     DatasourceException(
@@ -205,7 +205,7 @@ class IMovEquipProprioRepositoryTest {
                 )
             )
             val repository = getRepository()
-            val result = repository.start(TypeMov.INPUT)
+            val result = repository.start(TypeMovEquip.INPUT)
             assertEquals(result.isFailure, true)
             assertEquals(
                 result.exceptionOrNull()!!.message,
@@ -217,12 +217,12 @@ class IMovEquipProprioRepositoryTest {
     fun `Check success if MovEquipProprioSharedPreferencesDatasource start execute correctly`() =
         runTest {
             whenever(
-                movEquipProprioSharedPreferencesDatasource.start(TypeMov.INPUT)
+                movEquipProprioSharedPreferencesDatasource.start(TypeMovEquip.INPUT)
             ).thenReturn(
                 Result.success(true)
             )
             val repository = getRepository()
-            val result = repository.start(TypeMov.INPUT)
+            val result = repository.start(TypeMovEquip.INPUT)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }
@@ -507,7 +507,7 @@ class IMovEquipProprioRepositoryTest {
             ).thenReturn(
                 Result.success(
                     MovEquipProprioSharedPreferencesModel(
-                        tipoMovEquipProprio = TypeMov.INPUT
+                        tipoMovEquipProprio = TypeMovEquip.INPUT
                     )
                 )
             )
@@ -516,7 +516,7 @@ class IMovEquipProprioRepositoryTest {
             assertTrue(result.isSuccess)
             assertEquals(
                 result.getOrNull()!!,
-                TypeMov.INPUT
+                TypeMovEquip.INPUT
             )
         }
 
@@ -754,7 +754,7 @@ class IMovEquipProprioRepositoryTest {
     fun `Check return failure if have erros in MovEquipProprioSharedPreferencesDatasource save`() =
         runTest {
             val movEquipProprioSharedPreferencesModel = MovEquipProprioSharedPreferencesModel(
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -765,7 +765,7 @@ class IMovEquipProprioRepositoryTest {
             val movEquipProprioRoomModel = MovEquipProprioRoomModel(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -812,7 +812,7 @@ class IMovEquipProprioRepositoryTest {
             val movEquipProprioRoomModel = MovEquipProprioRoomModel(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -823,7 +823,7 @@ class IMovEquipProprioRepositoryTest {
                 statusSendMovEquipProprio = StatusSend.SEND
             )
             val movEquipProprioSharedPreferencesModel = MovEquipProprioSharedPreferencesModel(
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -862,7 +862,7 @@ class IMovEquipProprioRepositoryTest {
             val movEquipProprioRoomModel = MovEquipProprioRoomModel(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -873,7 +873,7 @@ class IMovEquipProprioRepositoryTest {
                 statusSendMovEquipProprio = StatusSend.SEND
             )
             val movEquipProprioSharedPreferencesModel = MovEquipProprioSharedPreferencesModel(
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -983,7 +983,7 @@ class IMovEquipProprioRepositoryTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -1041,7 +1041,7 @@ class IMovEquipProprioRepositoryTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -1106,7 +1106,7 @@ class IMovEquipProprioRepositoryTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -1277,7 +1277,7 @@ class IMovEquipProprioRepositoryTest {
                         idMovEquipProprio = 1,
                         matricVigiaMovEquipProprio = 19759,
                         idLocalMovEquipProprio = 1,
-                        tipoMovEquipProprio = TypeMov.INPUT,
+                        tipoMovEquipProprio = TypeMovEquip.INPUT,
                         dthrMovEquipProprio = 1723213270250,
                         idEquipMovEquipProprio = 1,
                         matricColabMovEquipProprio = 19759,
@@ -1330,7 +1330,7 @@ class IMovEquipProprioRepositoryTest {
                         idMovEquipProprio = 1,
                         matricVigiaMovEquipProprio = 19759,
                         idLocalMovEquipProprio = 1,
-                        tipoMovEquipProprio = TypeMov.INPUT,
+                        tipoMovEquipProprio = TypeMovEquip.INPUT,
                         dthrMovEquipProprio = 1723213270250,
                         idEquipMovEquipProprio = 1,
                         matricColabMovEquipProprio = 19759,
@@ -1381,7 +1381,7 @@ class IMovEquipProprioRepositoryTest {
                         idMovEquipProprio = 1,
                         matricVigiaMovEquipProprio = 19759,
                         idLocalMovEquipProprio = 1,
-                        tipoMovEquipProprio = TypeMov.INPUT,
+                        tipoMovEquipProprio = TypeMovEquip.INPUT,
                         dthrMovEquipProprio = 1723213270250,
                         idEquipMovEquipProprio = 1,
                         matricColabMovEquipProprio = 19759,
@@ -1410,7 +1410,7 @@ class IMovEquipProprioRepositoryTest {
                         idMovEquipProprio = 1,
                         matricVigiaMovEquipProprio = 19759,
                         idLocalMovEquipProprio = 1,
-                        tipoMovEquipProprio = TypeMov.INPUT,
+                        tipoMovEquipProprio = TypeMovEquip.INPUT,
                         dthrMovEquipProprio = 1723213270250,
                         idEquipMovEquipProprio = 1,
                         matricColabMovEquipProprio = 19759,
@@ -1461,7 +1461,7 @@ class IMovEquipProprioRepositoryTest {
                         idMovEquipProprio = 1,
                         matricVigiaMovEquipProprio = 19759,
                         idLocalMovEquipProprio = 1,
-                        tipoMovEquipProprio = TypeMov.INPUT,
+                        tipoMovEquipProprio = TypeMovEquip.INPUT,
                         dthrMovEquipProprio = 1723213270250,
                         idEquipMovEquipProprio = 1,
                         matricColabMovEquipProprio = 19759,
@@ -1490,7 +1490,7 @@ class IMovEquipProprioRepositoryTest {
                         idMovEquipProprio = 1,
                         matricVigiaMovEquipProprio = 19759,
                         idLocalMovEquipProprio = 1,
-                        tipoMovEquipProprio = TypeMov.INPUT,
+                        tipoMovEquipProprio = TypeMovEquip.INPUT,
                         dthrMovEquipProprio = 1723213270250,
                         idEquipMovEquipProprio = 1,
                         matricColabMovEquipProprio = 19759,
@@ -1572,7 +1572,7 @@ class IMovEquipProprioRepositoryTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -1612,7 +1612,7 @@ class IMovEquipProprioRepositoryTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -1667,7 +1667,7 @@ class IMovEquipProprioRepositoryTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,

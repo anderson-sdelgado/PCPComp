@@ -1,7 +1,7 @@
 package br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences
 
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipProprioSharedPreferencesModel
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 interface MovEquipProprioSharedPreferencesDatasource {
     suspend fun clear(): Result<Boolean>
@@ -11,5 +11,5 @@ interface MovEquipProprioSharedPreferencesDatasource {
     suspend fun setNotaFiscal(notaFiscal: Int?): Result<Boolean>
     suspend fun setMatricColab(matric: Int): Result<Boolean>
     suspend fun setObserv(observ: String?): Result<Boolean>
-    suspend fun start(typeMov: TypeMov): Result<Boolean>
+    suspend fun start(typeMov: TypeMovEquip): Result<Boolean>
 }

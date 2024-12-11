@@ -7,7 +7,7 @@ import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TB_MOV_EQUIP_VISIT_TERC
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import java.util.Date
 
@@ -17,7 +17,7 @@ data class MovEquipVisitTercRoomModel(
     var idMovEquipVisitTerc: Int? = null,
     var nroMatricVigiaMovEquipVisitTerc: Int,
     var idLocalMovEquipVisitTerc: Int,
-    var tipoMovEquipVisitTerc: TypeMov,
+    var tipoMovEquipVisitTerc: TypeMovEquip,
     var idVisitTercMovEquipVisitTerc: Int,
     var tipoVisitTercMovEquipVisitTerc: TypeVisitTerc,
     var dthrMovEquipVisitTerc: Long,
@@ -46,7 +46,7 @@ fun MovEquipVisitTercRoomModel.roomModelToEntity(): MovEquipVisitTerc {
             observMovEquipVisitTerc = this.observMovEquipVisitTerc,
             statusMovEquipVisitTerc = this.statusMovEquipVisitTerc,
             statusSendMovEquipVisitTerc = this.statusSendMovEquipVisitTerc,
-            statusMovEquipForeigVisitTerc = this.statusMovEquipForeigVisitTerc,
+            statusMovEquipForeignerVisitTerc = this.statusMovEquipForeigVisitTerc,
         )
     }
 }
@@ -70,7 +70,7 @@ fun MovEquipVisitTerc.entityToRoomModel(
             observMovEquipVisitTerc = this.observMovEquipVisitTerc,
             statusMovEquipVisitTerc = this.statusMovEquipVisitTerc,
             statusSendMovEquipVisitTerc = this.statusSendMovEquipVisitTerc,
-            statusMovEquipForeigVisitTerc = this.statusMovEquipForeigVisitTerc,
+            statusMovEquipForeigVisitTerc = this.statusMovEquipForeignerVisitTerc,
         )
     }
 }

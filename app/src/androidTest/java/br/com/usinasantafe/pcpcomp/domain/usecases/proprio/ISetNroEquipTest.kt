@@ -12,7 +12,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -72,7 +72,7 @@ class ISetNroEquipTest: KoinTest {
 
     @Test
     fun check_return_failure_if_not_have_data_in_equip_flowapp_add() = runTest {
-        movEquipProprioSharedPreferencesDatasource.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasource.start(TypeMovEquip.INPUT)
         val result = usecase(
             nroEquip = "100",
             flowApp = FlowApp.ADD,
@@ -90,7 +90,7 @@ class ISetNroEquipTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -113,7 +113,7 @@ class ISetNroEquipTest: KoinTest {
 
     @Test
     fun check_return_true_if_have_success_in_set_id_equip_flowapp_add() = runTest {
-        movEquipProprioSharedPreferencesDatasource.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasource.start(TypeMovEquip.INPUT)
         equipDAO.insertAll(
             listOf(
                 EquipRoomModel(
@@ -141,7 +141,7 @@ class ISetNroEquipTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
@@ -202,7 +202,7 @@ class ISetNroEquipTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,

@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -62,7 +62,7 @@ class SetObservVisitTercImplTest {
                     MovEquipVisitTerc(
                         idMovEquipVisitTerc = 1,
                         dthrMovEquipVisitTerc = Date(1723213270250),
-                        tipoMovEquipVisitTerc = TypeMov.INPUT,
+                        tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                         veiculoMovEquipVisitTerc = "GOL",
                         placaMovEquipVisitTerc = "AAA-0000",
                         idVisitTercMovEquipVisitTerc = 1

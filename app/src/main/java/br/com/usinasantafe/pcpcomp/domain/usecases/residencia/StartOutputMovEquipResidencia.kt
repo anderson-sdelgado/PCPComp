@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.util.Date
 
 interface StartOutputMovEquipResidencia {
@@ -21,9 +21,9 @@ class IStartOutputMovEquipResidencia(
                 return Result.failure(resultMov.exceptionOrNull()!!)
             val movEquipResidencia = resultMov.getOrNull()!!
             movEquipResidencia.observMovEquipResidencia = null
-            movEquipResidencia.tipoMovEquipResidencia = TypeMov.OUTPUT
+            movEquipResidencia.tipoMovEquipResidencia = TypeMovEquip.OUTPUT
             movEquipResidencia.dthrMovEquipResidencia = Date()
-            movEquipResidencia.statusMovEquipForeigResidencia = StatusForeigner.OUTSIDE
+            movEquipResidencia.statusMovEquipForeignerResidencia = StatusForeigner.OUTSIDE
             val resultStart = movEquipResidenciaRepository.start(movEquipResidencia)
             if (resultStart.isFailure)
                 return Result.failure(resultStart.exceptionOrNull()!!)

@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipResidenciaSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -34,7 +34,7 @@ class StartInputMovEquipResidenciaImplTest : KoinTest {
             val resultGet = movEquipResidenciaSharedPreferencesDatasource.get()
             assertTrue(resultGet.isSuccess)
             val entity = resultGet.getOrNull()!!
-            assertEquals(entity.tipoMovEquipResidencia, TypeMov.INPUT)
+            assertEquals(entity.tipoMovEquipResidencia, TypeMovEquip.INPUT)
         }
 
 }

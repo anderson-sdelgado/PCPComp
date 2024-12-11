@@ -2,8 +2,40 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ffba002aa1c3219edce886a8b8c5f728",
+    "identityHash": "d29b4cb3f24654629b73848278d80adf",
     "entities": [
+      {
+        "tableName": "tb_chave",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idChave` INTEGER NOT NULL, `descrChave` TEXT NOT NULL, `idLocalTrab` INTEGER NOT NULL, PRIMARY KEY(`idChave`))",
+        "fields": [
+          {
+            "fieldPath": "idChave",
+            "columnName": "idChave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descrChave",
+            "columnName": "descrChave",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLocalTrab",
+            "columnName": "idLocalTrab",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idChave"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
       {
         "tableName": "tb_colab",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matricColab` INTEGER NOT NULL, `nomeColab` TEXT NOT NULL, PRIMARY KEY(`matricColab`))",
@@ -103,6 +135,32 @@
           "autoGenerate": false,
           "columnNames": [
             "idLocal"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_local_trab",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idLocalTrab` INTEGER NOT NULL, `descrLocalTrab` TEXT NOT NULL, PRIMARY KEY(`idLocalTrab`))",
+        "fields": [
+          {
+            "fieldPath": "idLocalTrab",
+            "columnName": "idLocalTrab",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descrLocalTrab",
+            "columnName": "descrLocalTrab",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idLocalTrab"
           ]
         },
         "indices": [],
@@ -217,6 +275,86 @@
           "autoGenerate": false,
           "columnNames": [
             "idVisitante"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_mov_chave",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovChave` INTEGER PRIMARY KEY AUTOINCREMENT, `matricVigiaMovChave` INTEGER NOT NULL, `idLocalMovChave` INTEGER NOT NULL, `tipoMovChave` TEXT NOT NULL, `dthrMovChave` INTEGER NOT NULL, `idChaveMovChave` INTEGER NOT NULL, `matricColabMovChave` INTEGER NOT NULL, `observMovChave` TEXT, `statusMovChave` TEXT NOT NULL, `statusSendMovChave` TEXT NOT NULL, `statusForeignerMovChave` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovChave",
+            "columnName": "idMovChave",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "matricVigiaMovChave",
+            "columnName": "matricVigiaMovChave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLocalMovChave",
+            "columnName": "idLocalMovChave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoMovChave",
+            "columnName": "tipoMovChave",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dthrMovChave",
+            "columnName": "dthrMovChave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idChaveMovChave",
+            "columnName": "idChaveMovChave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matricColabMovChave",
+            "columnName": "matricColabMovChave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observMovChave",
+            "columnName": "observMovChave",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "statusMovChave",
+            "columnName": "statusMovChave",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusSendMovChave",
+            "columnName": "statusSendMovChave",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusForeignerMovChave",
+            "columnName": "statusForeignerMovChave",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovChave"
           ]
         },
         "indices": [],
@@ -374,7 +512,7 @@
       },
       {
         "tableName": "tb_mov_equip_residencia",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipResidencia` INTEGER PRIMARY KEY AUTOINCREMENT, `nroMatricVigiaMovEquipResidencia` INTEGER NOT NULL, `idLocalMovEquipResidencia` INTEGER NOT NULL, `tipoMovEquipResidencia` TEXT NOT NULL, `dthrMovEquipResidencia` INTEGER NOT NULL, `motoristaMovEquipResidencia` TEXT NOT NULL, `veiculoMovEquipResidencia` TEXT NOT NULL, `placaMovEquipResidencia` TEXT NOT NULL, `observMovEquipResidencia` TEXT, `statusMovEquipResidencia` TEXT NOT NULL, `statusSendMovEquipResidencia` TEXT NOT NULL, `statusMovEquipForeigResidencia` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovEquipResidencia` INTEGER PRIMARY KEY AUTOINCREMENT, `matricVigiaMovEquipResidencia` INTEGER NOT NULL, `idLocalMovEquipResidencia` INTEGER NOT NULL, `tipoMovEquipResidencia` TEXT NOT NULL, `dthrMovEquipResidencia` INTEGER NOT NULL, `motoristaMovEquipResidencia` TEXT NOT NULL, `veiculoMovEquipResidencia` TEXT NOT NULL, `placaMovEquipResidencia` TEXT NOT NULL, `observMovEquipResidencia` TEXT, `statusMovEquipResidencia` TEXT NOT NULL, `statusSendMovEquipResidencia` TEXT NOT NULL, `statusMovEquipForeignerResidencia` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "idMovEquipResidencia",
@@ -383,8 +521,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "nroMatricVigiaMovEquipResidencia",
-            "columnName": "nroMatricVigiaMovEquipResidencia",
+            "fieldPath": "matricVigiaMovEquipResidencia",
+            "columnName": "matricVigiaMovEquipResidencia",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -443,8 +581,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "statusMovEquipForeigResidencia",
-            "columnName": "statusMovEquipForeigResidencia",
+            "fieldPath": "statusMovEquipForeignerResidencia",
+            "columnName": "statusMovEquipForeignerResidencia",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -592,7 +730,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ffba002aa1c3219edce886a8b8c5f728')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd29b4cb3f24654629b73848278d80adf')"
     ]
   }
 }

@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.external.retrofit.datasource.variable
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.variable.MovEquipResidenciaApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitTest
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipResidenciaRetrofitModelOutput
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -21,7 +21,7 @@ class IMovEquipResidenciaRetrofitDatasourceTest {
             idMovEquipResidencia = 1,
             nroMatricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT.ordinal + 1,
             dthrMovEquipResidencia = SimpleDateFormat(
                 "dd/MM/yyyy HH:mm",
                 Locale("pt", "BR")
@@ -57,7 +57,7 @@ class IMovEquipResidenciaRetrofitDatasourceTest {
             idMovEquipResidencia = 1,
             nroMatricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT.ordinal + 1,
             dthrMovEquipResidencia = SimpleDateFormat(
                 "dd/MM/yyyy HH:mm",
                 Locale("pt", "BR")
@@ -99,7 +99,7 @@ class IMovEquipResidenciaRetrofitDatasourceTest {
             idMovEquipResidencia = 1,
             nroMatricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT.ordinal + 1,
             dthrMovEquipResidencia = SimpleDateFormat(
                 "dd/MM/yyyy HH:mm",
                 Locale("pt", "BR")
@@ -143,7 +143,7 @@ class IMovEquipResidenciaRetrofitDatasourceTest {
             idMovEquipResidencia = 1,
             nroMatricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT.ordinal + 1,
             dthrMovEquipResidencia = SimpleDateFormat(
                 "dd/MM/yyyy HH:mm",
                 Locale("pt", "BR")

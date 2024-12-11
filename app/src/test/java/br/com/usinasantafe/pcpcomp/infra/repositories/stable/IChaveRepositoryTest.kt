@@ -1,49 +1,52 @@
 package br.com.usinasantafe.pcpcomp.infra.repositories.stable
 
+import br.com.usinasantafe.pcpcomp.domain.entities.stable.Chave
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.RLocalFluxo
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
-import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.RLocalFluxoRetrofitDatasource
-import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.RLocalFluxoRoomDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.ChaveRetrofitDatasource
+import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.ChaveRoomDatasource
+import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.ChaveRetrofitModel
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.RLocalFluxoRetrofitModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.ChaveRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.RLocalFluxoRoomModel
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class RLocalIFluxoRepositoryTest {
+class IChaveRepositoryTest {
 
-    private val rLocalFluxoRoomDatasource = mock<RLocalFluxoRoomDatasource>()
-    private val rLocalFluxoRetrofitDatasource = mock<RLocalFluxoRetrofitDatasource>()
-    private fun getRepository() = IRLocalFluxoRepository(
-        rLocalFluxoRoomDatasource,
-        rLocalFluxoRetrofitDatasource
+    private val chaveRoomDatasource = mock<ChaveRoomDatasource>()
+    private val chaveRetrofitDatasource = mock<ChaveRetrofitDatasource>()
+    private fun getRepository() = IChaveRepository(
+        chaveRetrofitDatasource = chaveRetrofitDatasource,
+        chaveRoomDatasource = chaveRoomDatasource
     )
 
     @Test
     fun `AddAll - Check return failure if have error`() =
         runTest {
             val roomModelList = listOf(
-                RLocalFluxoRoomModel(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
+                ChaveRoomModel(
+                    idChave = 1,
+                    descrChave = "01 - TI",
+                    idLocalTrab = 1
                 )
             )
             val entityList = listOf(
-                RLocalFluxo(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
+                Chave(
+                    idChave = 1,
+                    descrChave = "01 - TI",
+                    idLocalTrab = 1
                 )
             )
             whenever(
-                rLocalFluxoRoomDatasource.addAll(roomModelList)
+                chaveRoomDatasource.addAll(roomModelList)
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
-                        function = "RLocalFluxoRepositoryImpl.addAll",
+                        function = "IChaveRepository.addAll",
                         cause = Exception()
                     )
                 )
@@ -56,29 +59,29 @@ class RLocalIFluxoRepositoryTest {
             )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> RLocalFluxoRepositoryImpl.addAll"
+                "Failure Repository -> IChaveRepository.addAll"
             )
         }
 
     @Test
-    fun `AddAll - Check return true if RLocalFluxoRepositoryImpl addAll execute successfully`() =
+    fun `AddAll - Check return true if function execute successfully`() =
         runTest {
             val roomModelList = listOf(
-                RLocalFluxoRoomModel(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
+                ChaveRoomModel(
+                    idChave = 1,
+                    descrChave = "01 - TI",
+                    idLocalTrab = 1
                 )
             )
             val entityList = listOf(
-                RLocalFluxo(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
+                Chave(
+                    idChave = 1,
+                    descrChave = "01 - TI",
+                    idLocalTrab = 1
                 )
             )
             whenever(
-                rLocalFluxoRoomDatasource.addAll(roomModelList)
+                chaveRoomDatasource.addAll(roomModelList)
             ).thenReturn(
                 Result.success(true)
             )
@@ -98,11 +101,11 @@ class RLocalIFluxoRepositoryTest {
     fun `DeleteAll - Check return failure if have error`() =
         runTest {
             whenever(
-                rLocalFluxoRoomDatasource.deleteAll()
+                chaveRoomDatasource.deleteAll()
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
-                        function = "RLocalFluxoRepositoryImpl.deleteAll",
+                        function = "IChaveRepository.deleteAll",
                         cause = Exception()
                     )
                 )
@@ -115,15 +118,15 @@ class RLocalIFluxoRepositoryTest {
             )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> RLocalFluxoRepositoryImpl.deleteAll"
+                "Failure Repository -> IChaveRepository.deleteAll"
             )
         }
 
     @Test
-    fun `DeleteAll - Check return true if RLocalFluxoRepositoryImpl deleteAll execute successfully`() =
+    fun `DeleteAll - Check return true if function execute successfully`() =
         runTest {
             whenever(
-                rLocalFluxoRoomDatasource.deleteAll()
+                chaveRoomDatasource.deleteAll()
             ).thenReturn(
                 Result.success(true)
             )
@@ -140,14 +143,14 @@ class RLocalIFluxoRepositoryTest {
         }
 
     @Test
-    fun `RecoverAll - Check return failure if have error in RLocalFluxoRetrofitDatasource recoverAll`() =
+    fun `RecoverAll - Check return failure if have error`() =
         runTest {
             whenever(
-                rLocalFluxoRetrofitDatasource.recoverAll("token")
+                chaveRetrofitDatasource.recoverAll("token")
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
-                        function = "RLocalFluxoRepositoryImpl.recoverAll",
+                        function = "IChaveRepository.recoverAll",
                         cause = Exception()
                     )
                 )
@@ -157,32 +160,32 @@ class RLocalIFluxoRepositoryTest {
             assertEquals(
                 result.isFailure,
                 true
-                )
+            )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> RLocalFluxoRepositoryImpl.recoverAll"
+                "Failure Repository -> IChaveRepository.recoverAll"
             )
         }
 
     @Test
-    fun `RecoverAll - Check return true if RLocalFluxoRepositoryImpl RecoverAll execute successfully`() =
+    fun `RecoverAll - Check return true if function execute successfully`() =
         runTest {
             val retrofitModelList = listOf(
-                RLocalFluxoRetrofitModel(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
+                ChaveRetrofitModel(
+                    idChave = 1,
+                    descrChave = "01 - TI",
+                    idLocalTrab = 1
                 )
             )
             val entityList = listOf(
-                RLocalFluxo(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
+                Chave(
+                    idChave = 1,
+                    descrChave = "01 - TI",
+                    idLocalTrab = 1
                 )
             )
             whenever(
-                rLocalFluxoRetrofitDatasource.recoverAll("token")
+                chaveRetrofitDatasource.recoverAll("token")
             ).thenReturn(
                 Result.success(
                     retrofitModelList
@@ -201,65 +204,90 @@ class RLocalIFluxoRepositoryTest {
         }
 
     @Test
-    fun `List - Check return failure if have error in RLocalFluxoRoomDatasource list`() =
+    fun `Check return failure if have error in ChaveRoomDatasource getDescr`() =
         runTest {
             whenever(
-                rLocalFluxoRoomDatasource.list(1)
+                chaveRoomDatasource.get(1)
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
-                        function = "RLocalFluxoRepositoryImpl.list",
+                        function = "IChaveRepository.get",
                         cause = Exception()
                     )
                 )
             )
             val repository = getRepository()
-            val result = repository.list(1)
+            val result = repository.get(1)
             assertEquals(
                 result.isFailure,
                 true
             )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> RLocalFluxoRepositoryImpl.list"
+                "Failure Repository -> IChaveRepository.get"
             )
         }
 
     @Test
-    fun `List - Check return true if RLocalFluxoRepositoryImpl List execute successfully`() =
+    fun `listAll - Check return failure if have error in ChaveRoomDatasource listAll`() =
         runTest {
-            val roomModelList = listOf(
-                RLocalFluxoRoomModel(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
-                )
-            )
-            val entityList = listOf(
-                RLocalFluxo(
-                    idRLocalFluxo = 1,
-                    idLocal = 1,
-                    idFluxo = 1
-                )
-            )
             whenever(
-                rLocalFluxoRoomDatasource.list(1)
+                chaveRoomDatasource.listAll()
             ).thenReturn(
-                Result.success(
-                    roomModelList
+                Result.failure(
+                    RepositoryException(
+                        function = "IChaveRepository.get",
+                        cause = Exception()
+                    )
                 )
             )
             val repository = getRepository()
-            val result = repository.list(1)
+            val result = repository.listAll()
+            assertEquals(
+                result.isFailure,
+                true
+            )
+            assertEquals(
+                result.exceptionOrNull()!!.message,
+                "Failure Repository -> IChaveRepository.get"
+            )
+        }
+
+    @Test
+    fun `listAll - Check return correct if function execute successfully`() =
+        runTest {
+            whenever(
+                chaveRoomDatasource.listAll()
+            ).thenReturn(
+                Result.success(
+                    listOf(
+                        ChaveRoomModel(
+                            idChave = 1,
+                            descrChave = "01 - TI",
+                            idLocalTrab = 1
+                        )
+                    )
+                )
+            )
+            val repository = getRepository()
+            val result = repository.listAll()
             assertEquals(
                 result.isSuccess,
                 true
             )
             val list = result.getOrNull()!!
             assertEquals(
-                list,
-                entityList
+                list.size,
+                1
+            )
+            val entity = list[0]
+            assertEquals(
+                entity.idChave,
+                1
+            )
+            assertEquals(
+                entity.descrChave,
+                "01 - TI"
             )
         }
-
 }

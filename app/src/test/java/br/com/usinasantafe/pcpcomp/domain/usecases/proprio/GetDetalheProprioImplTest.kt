@@ -12,7 +12,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioR
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -66,7 +66,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,
@@ -114,7 +114,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,
@@ -165,7 +165,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,
@@ -241,7 +241,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,
@@ -320,7 +320,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,
@@ -402,7 +402,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,
@@ -495,7 +495,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,
@@ -582,7 +582,7 @@ class GetDetalheProprioImplTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 10,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = Date(1723213270250),
                     idEquipMovEquipProprio = 10,
                     matricColabMovEquipProprio = 19759,

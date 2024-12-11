@@ -32,6 +32,8 @@ fun MenuApontScreen(
     onNavMovVeicProprio: () -> Unit,
     onNavMovVeicVisitTerc: () -> Unit,
     onNavMovVeicResidencia: () -> Unit,
+    onNavMovChave: () -> Unit,
+    onNavMovChaveEquip: () -> Unit,
     onNavSplashScreen: () -> Unit,
 ) {
     PCPCompTheme {
@@ -51,6 +53,8 @@ fun MenuApontScreen(
                 onNavMovVeicProprio = onNavMovVeicProprio,
                 onNavMovVeicVisitTerc = onNavMovVeicVisitTerc,
                 onNavMovVeicResidencia = onNavMovVeicResidencia,
+                onNavMovChave = onNavMovChave,
+                onNavMovChaveEquip = onNavMovChaveEquip,
                 onNavSplashScreen = onNavSplashScreen,
                 modifier = Modifier.padding(innerPadding)
             )
@@ -75,6 +79,8 @@ fun MenuApontContent(
     onNavMovVeicProprio: () -> Unit,
     onNavMovVeicVisitTerc: () -> Unit,
     onNavMovVeicResidencia: () -> Unit,
+    onNavMovChave: () -> Unit,
+    onNavMovChaveEquip: () -> Unit,
     onNavSplashScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -98,6 +104,8 @@ fun MenuApontContent(
                             1 -> onNavMovVeicProprio()
                             2 -> onNavMovVeicVisitTerc()
                             3 -> onNavMovVeicResidencia()
+                            4 -> onNavMovChave()
+                            5 -> onNavMovChaveEquip()
                         }
                     },
                     font = 26
@@ -165,6 +173,8 @@ fun MenuApontPagePreview() {
                 onNavMovVeicProprio = {},
                 onNavMovVeicVisitTerc = {},
                 onNavMovVeicResidencia = {},
+                onNavMovChave = {},
+                onNavMovChaveEquip = {},
                 onNavSplashScreen = {},
                 modifier = Modifier.padding(innerPadding)
             )
@@ -204,6 +214,8 @@ fun MenuApontPagePreviewShowDialog() {
                 onNavMovVeicProprio = {},
                 onNavMovVeicVisitTerc = {},
                 onNavMovVeicResidencia = {},
+                onNavMovChave = {},
+                onNavMovChaveEquip = {},
                 onNavSplashScreen = {},
                 modifier = Modifier.padding(innerPadding)
             )
@@ -243,6 +255,8 @@ fun MenuApontPagePreviewShowDialogCheck() {
                 onNavMovVeicProprio = {},
                 onNavMovVeicVisitTerc = {},
                 onNavMovVeicResidencia = {},
+                onNavMovChave = {},
+                onNavMovChaveEquip = {},
                 onNavSplashScreen = {},
                 modifier = Modifier.padding(innerPadding)
             )

@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -40,9 +40,9 @@ class GetMovEquipResidenciaOpenListImplTest : KoinTest {
     fun check_return_true_and_data_returned() =
         runTest {
             val roomModel1 = MovEquipResidenciaRoomModel(
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -50,12 +50,12 @@ class GetMovEquipResidenciaOpenListImplTest : KoinTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val roomModel2 = MovEquipResidenciaRoomModel(
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.OUTPUT,
+                tipoMovEquipResidencia = TypeMovEquip.OUTPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE 2",
                 veiculoMovEquipResidencia = "VEICULO TESTE 2",
@@ -63,7 +63,7 @@ class GetMovEquipResidenciaOpenListImplTest : KoinTest {
                 observMovEquipResidencia = "OBSERV TESTE 2",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             movEquipResidenciaDao.insert(roomModel1)
             movEquipResidenciaDao.insert(roomModel2)

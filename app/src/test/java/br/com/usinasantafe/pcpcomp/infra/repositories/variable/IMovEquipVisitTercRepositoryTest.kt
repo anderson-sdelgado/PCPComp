@@ -16,7 +16,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -72,7 +72,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -88,7 +88,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -98,7 +98,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipVisitTercRoomDatasource.listOpen()
@@ -125,7 +125,7 @@ class IMovEquipVisitTercRepositoryTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
             dthrMovEquipVisitTerc = 1723213270250,
@@ -141,7 +141,7 @@ class IMovEquipVisitTercRepositoryTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
             dthrMovEquipVisitTerc = Date(1723213270250),
@@ -151,7 +151,7 @@ class IMovEquipVisitTercRepositoryTest {
             observMovEquipVisitTerc = "TESTE",
             statusMovEquipVisitTerc = StatusData.OPEN,
             statusSendMovEquipVisitTerc = StatusSend.SEND,
-            statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
         )
         whenever(
             movEquipVisitTercRoomDatasource.setClose(movEquipVisitTercRoomModel)
@@ -179,7 +179,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -195,7 +195,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -205,7 +205,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipVisitTercRoomDatasource.setClose(movEquipVisitTercRoomModel)
@@ -246,7 +246,7 @@ class IMovEquipVisitTercRepositoryTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
             dthrMovEquipVisitTerc = 1723213270250,
@@ -262,7 +262,7 @@ class IMovEquipVisitTercRepositoryTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
             dthrMovEquipVisitTerc = Date(1723213270250),
@@ -272,7 +272,7 @@ class IMovEquipVisitTercRepositoryTest {
             observMovEquipVisitTerc = "TESTE",
             statusMovEquipVisitTerc = StatusData.OPEN,
             statusSendMovEquipVisitTerc = StatusSend.SEND,
-            statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+            statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
         )
         whenever(
             movEquipVisitTercRoomDatasource.get(1)
@@ -320,7 +320,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -372,7 +372,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -424,7 +424,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -476,7 +476,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -580,7 +580,7 @@ class IMovEquipVisitTercRepositoryTest {
                         idMovEquipVisitTerc = 1,
                         nroMatricVigiaMovEquipVisitTerc = 19759,
                         idLocalMovEquipVisitTerc = 1,
-                        tipoMovEquipVisitTerc = TypeMov.INPUT,
+                        tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                         idVisitTercMovEquipVisitTerc = 1000,
                         tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
                         dthrMovEquipVisitTerc = 1723213270250,
@@ -632,7 +632,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -696,7 +696,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -750,7 +750,7 @@ class IMovEquipVisitTercRepositoryTest {
     fun `Check return failure if have error in MovEquipVisitTercRoomDatasource Save`() =
         runTest {
             val modelSharedPreferences = MovEquipVisitTercSharedPreferencesModel(
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -796,7 +796,7 @@ class IMovEquipVisitTercRepositoryTest {
     fun `Check return failure if have error in MovEquipVisitTercSharedPreferencesDatasource Clear`() =
         runTest {
             val modelSharedPreferences = MovEquipVisitTercSharedPreferencesModel(
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -847,7 +847,7 @@ class IMovEquipVisitTercRepositoryTest {
     fun `Check return failure if have error in id is 0`() =
         runTest {
             val modelSharedPreferences = MovEquipVisitTercSharedPreferencesModel(
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -897,7 +897,7 @@ class IMovEquipVisitTercRepositoryTest {
     fun `Check return true if Save execute successfully`() =
         runTest {
             val modelSharedPreferences = MovEquipVisitTercSharedPreferencesModel(
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -1453,7 +1453,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.OUTPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -1463,7 +1463,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipVisitTercSharedPreferencesDatasource.start(
@@ -1493,7 +1493,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.OUTPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -1503,7 +1503,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipVisitTercSharedPreferencesDatasource.start(
@@ -1525,7 +1525,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -1541,7 +1541,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -1551,7 +1551,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipVisitTercRoomDatasource.setOutside(movEquipVisitTercRoomModel)
@@ -1579,7 +1579,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -1595,7 +1595,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -1605,7 +1605,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipVisitTercRoomDatasource.setOutside(movEquipVisitTercRoomModel)
@@ -1697,7 +1697,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -1735,7 +1735,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT.ordinal + 1,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT.ordinal + 1,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO.ordinal + 1,
                 dthrMovEquipVisitTerc = SimpleDateFormat(
@@ -1755,7 +1755,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -1765,7 +1765,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "OBSERV TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             val retrofitModelList = listOf(retrofitModel)
             val list = listOf(entity)
@@ -1804,7 +1804,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT.ordinal + 1,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT.ordinal + 1,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO.ordinal + 1,
                 dthrMovEquipVisitTerc = SimpleDateFormat(
@@ -1824,7 +1824,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = Date(1723213270250),
@@ -1834,7 +1834,7 @@ class IMovEquipVisitTercRepositoryTest {
                 observMovEquipVisitTerc = "OBSERV TESTE",
                 statusMovEquipVisitTerc = StatusData.OPEN,
                 statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
             )
             val retrofitModelInput = MovEquipVisitTercRetrofitModelInput(
                 idMovEquipVisitTerc = 1,
@@ -1996,7 +1996,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -2038,7 +2038,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,
@@ -2095,7 +2095,7 @@ class IMovEquipVisitTercRepositoryTest {
                 idMovEquipVisitTerc = 1,
                 nroMatricVigiaMovEquipVisitTerc = 19759,
                 idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 idVisitTercMovEquipVisitTerc = 1000,
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                 dthrMovEquipVisitTerc = 1723213270250,

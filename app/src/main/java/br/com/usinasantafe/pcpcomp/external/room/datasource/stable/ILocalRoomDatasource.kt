@@ -23,18 +23,6 @@ class ILocalRoomDatasource(
         }
     }
 
-    override suspend fun getAll(): Result<List<LocalRoomModel>> {
-        return try {
-            Result.success(localDao.listAll())
-        } catch (e: Exception) {
-            Result.failure(
-                DatasourceException(
-                    function = "LocalRoomDatasourceImpl.addAll",
-                    cause = e
-                )
-            )
-        }
-    }
 
     override suspend fun getDescr(id: Int): Result<String> {
         try {
@@ -58,6 +46,19 @@ class ILocalRoomDatasource(
             return Result.failure(
                 DatasourceException(
                     function = "LocalRoomDatasourceImpl.deleteAll",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun listAll(): Result<List<LocalRoomModel>> {
+        return try {
+            Result.success(localDao.listAll())
+        } catch (e: Exception) {
+            Result.failure(
+                DatasourceException(
+                    function = "LocalRoomDatasourceImpl.addAll",
                     cause = e
                 )
             )

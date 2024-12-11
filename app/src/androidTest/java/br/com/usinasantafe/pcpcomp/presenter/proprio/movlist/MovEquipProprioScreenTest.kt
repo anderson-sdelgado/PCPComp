@@ -18,13 +18,12 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
 import org.junit.Rule
-
 import org.junit.Test
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.context.loadKoinModules
@@ -105,7 +104,7 @@ class MovEquipProprioScreenTest: KoinTest {
             MovEquipProprioRoomModel(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,

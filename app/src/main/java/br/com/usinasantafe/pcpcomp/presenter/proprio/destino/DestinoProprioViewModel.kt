@@ -9,7 +9,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetDestinoProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,7 +19,7 @@ data class DestinoProprioState(
     val flowApp: FlowApp = FlowApp.ADD,
     val id: Int = 0,
     val destino: String = "",
-    val typeMov: TypeMov = TypeMov.INPUT,
+    val typeMov: TypeMovEquip = TypeMovEquip.INPUT,
     val flagGetDestino: Boolean = true,
     val flagAccess: Boolean = false,
     val flagDialog: Boolean = false,

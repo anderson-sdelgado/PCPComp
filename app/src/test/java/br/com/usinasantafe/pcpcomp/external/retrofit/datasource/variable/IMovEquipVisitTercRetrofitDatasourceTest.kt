@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.external.retrofit.datasource.variable
 import br.com.usinasantafe.pcpcomp.external.retrofit.api.variable.MovEquipVisitTercApi
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofitTest
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.MovEquipVisitTercRetrofitModelOutput
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -22,7 +22,7 @@ class IMovEquipVisitTercRetrofitDatasourceTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT.ordinal + 1,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO.ordinal + 1,
             dthrMovEquipVisitTerc = SimpleDateFormat(
@@ -61,7 +61,7 @@ class IMovEquipVisitTercRetrofitDatasourceTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT.ordinal + 1,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO.ordinal + 1,
             dthrMovEquipVisitTerc = SimpleDateFormat(
@@ -106,7 +106,7 @@ class IMovEquipVisitTercRetrofitDatasourceTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT.ordinal + 1,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO.ordinal + 1,
             dthrMovEquipVisitTerc = SimpleDateFormat(
@@ -153,7 +153,7 @@ class IMovEquipVisitTercRetrofitDatasourceTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT.ordinal + 1,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT.ordinal + 1,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO.ordinal + 1,
             dthrMovEquipVisitTerc = SimpleDateFormat(

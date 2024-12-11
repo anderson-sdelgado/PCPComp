@@ -7,16 +7,16 @@ import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TB_MOV_EQUIP_RESIDENCIA
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.util.Date
 
 @Entity(tableName = TB_MOV_EQUIP_RESIDENCIA)
 data class MovEquipResidenciaRoomModel(
     @PrimaryKey(autoGenerate = true)
     var idMovEquipResidencia: Int? = null,
-    var nroMatricVigiaMovEquipResidencia: Int,
+    var matricVigiaMovEquipResidencia: Int,
     var idLocalMovEquipResidencia: Int,
-    var tipoMovEquipResidencia: TypeMov,
+    var tipoMovEquipResidencia: TypeMovEquip,
     var dthrMovEquipResidencia: Long,
     var motoristaMovEquipResidencia: String,
     var veiculoMovEquipResidencia: String,
@@ -24,14 +24,14 @@ data class MovEquipResidenciaRoomModel(
     var observMovEquipResidencia: String?,
     var statusMovEquipResidencia: StatusData,
     var statusSendMovEquipResidencia: StatusSend,
-    var statusMovEquipForeigResidencia: StatusForeigner,
+    var statusMovEquipForeignerResidencia: StatusForeigner,
 )
 
 fun MovEquipResidenciaRoomModel.roomModelToEntity(): MovEquipResidencia {
     return with(this){
         MovEquipResidencia(
             idMovEquipResidencia = this.idMovEquipResidencia,
-            nroMatricVigiaMovEquipResidencia = this.nroMatricVigiaMovEquipResidencia,
+            matricVigiaMovEquipResidencia = this.matricVigiaMovEquipResidencia,
             idLocalMovEquipResidencia = this.idLocalMovEquipResidencia,
             dthrMovEquipResidencia = Date(this.dthrMovEquipResidencia),
             tipoMovEquipResidencia = this.tipoMovEquipResidencia,
@@ -41,7 +41,7 @@ fun MovEquipResidenciaRoomModel.roomModelToEntity(): MovEquipResidencia {
             observMovEquipResidencia = this.observMovEquipResidencia,
             statusMovEquipResidencia = this.statusMovEquipResidencia,
             statusSendMovEquipResidencia = this.statusSendMovEquipResidencia,
-            statusMovEquipForeigResidencia = this.statusMovEquipForeigResidencia,
+            statusMovEquipForeignerResidencia = this.statusMovEquipForeignerResidencia,
         )
     }
 }
@@ -50,7 +50,7 @@ fun MovEquipResidencia.entityToRoomModel(matricVigia: Int, idLocal: Int): MovEqu
     return with(this){
         MovEquipResidenciaRoomModel(
             idMovEquipResidencia = this.idMovEquipResidencia,
-            nroMatricVigiaMovEquipResidencia = matricVigia,
+            matricVigiaMovEquipResidencia = matricVigia,
             idLocalMovEquipResidencia = idLocal,
             dthrMovEquipResidencia = this.dthrMovEquipResidencia.time,
             tipoMovEquipResidencia = this.tipoMovEquipResidencia!!,
@@ -60,7 +60,7 @@ fun MovEquipResidencia.entityToRoomModel(matricVigia: Int, idLocal: Int): MovEqu
             observMovEquipResidencia = this.observMovEquipResidencia,
             statusMovEquipResidencia = this.statusMovEquipResidencia,
             statusSendMovEquipResidencia = this.statusSendMovEquipResidencia,
-            statusMovEquipForeigResidencia = this.statusMovEquipForeigResidencia,
+            statusMovEquipForeignerResidencia = this.statusMovEquipForeignerResidencia,
         )
     }
 }

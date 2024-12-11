@@ -16,7 +16,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercR
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -61,7 +61,7 @@ class IDeleteMovSentTest: KoinTest {
                     idMovEquipProprio = 1,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 1,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = 1723213270250,
                     idEquipMovEquipProprio = 1,
                     matricColabMovEquipProprio = 19759,
@@ -77,7 +77,7 @@ class IDeleteMovSentTest: KoinTest {
                     idMovEquipProprio = 2,
                     matricVigiaMovEquipProprio = 19759,
                     idLocalMovEquipProprio = 1,
-                    tipoMovEquipProprio = TypeMov.INPUT,
+                    tipoMovEquipProprio = TypeMovEquip.INPUT,
                     dthrMovEquipProprio = 1723213270250,
                     idEquipMovEquipProprio = 1,
                     matricColabMovEquipProprio = 19759,
@@ -107,7 +107,7 @@ class IDeleteMovSentTest: KoinTest {
                     idMovEquipVisitTerc = 1,
                     nroMatricVigiaMovEquipVisitTerc = 19759,
                     idLocalMovEquipVisitTerc = 1,
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     idVisitTercMovEquipVisitTerc = 1000,
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                     dthrMovEquipVisitTerc = 1723213270250,
@@ -125,7 +125,7 @@ class IDeleteMovSentTest: KoinTest {
                     idMovEquipVisitTerc = 2,
                     nroMatricVigiaMovEquipVisitTerc = 19759,
                     idLocalMovEquipVisitTerc = 1,
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     idVisitTercMovEquipVisitTerc = 1000,
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                     dthrMovEquipVisitTerc = 1723213270250,
@@ -148,9 +148,9 @@ class IDeleteMovSentTest: KoinTest {
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
                     idMovEquipResidencia = 1,
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -158,15 +158,15 @@ class IDeleteMovSentTest: KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.CLOSE,
                     statusSendMovEquipResidencia = StatusSend.SENT,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
                     idMovEquipResidencia = 2,
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -174,7 +174,7 @@ class IDeleteMovSentTest: KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.CLOSE,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             val movProprioListBefore = movEquipProprioDao.listStatusData(StatusData.CLOSE)

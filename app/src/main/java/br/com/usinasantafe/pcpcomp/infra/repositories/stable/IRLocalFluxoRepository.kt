@@ -21,7 +21,7 @@ class IRLocalFluxoRepository(
         } catch (e: Exception){
             return Result.failure(
                 RepositoryException(
-                    function = "RLocalFluxoRepositoryImpl.addAll",
+                    function = "IRLocalFluxoRepository.addAll",
                     cause = e
                 )
             )
@@ -50,7 +50,7 @@ class IRLocalFluxoRepository(
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(
-                    function = "FluxoRepositoryImpl.recoverAll",
+                    function = "IRLocalFluxoRepository.recoverAll",
                     cause = e
                 )
             )

@@ -1,13 +1,13 @@
 package br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.util.Date
 
 
 data class MovEquipProprioSharedPreferencesModel(
     var dthrMovEquipProprio: Date = Date(),
-    var tipoMovEquipProprio: TypeMov,
+    var tipoMovEquipProprio: TypeMovEquip,
     var idEquipMovEquipProprio: Int? = null,
     var matricColabMovEquipProprio: Int? = null,
     var destinoMovEquipProprio: String? = null,

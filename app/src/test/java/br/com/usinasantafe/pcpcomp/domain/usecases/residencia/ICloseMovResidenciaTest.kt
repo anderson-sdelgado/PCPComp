@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenc
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -46,9 +46,9 @@ class ICloseMovResidenciaTest {
         runTest {
             val mov = MovEquipResidencia(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
+                matricVigiaMovEquipResidencia = 1000,
                 idLocalMovEquipResidencia = 1000,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = Date(1723213270250),
                 motoristaMovEquipResidencia = "TESTE",
                 veiculoMovEquipResidencia = "TESTE",
@@ -56,7 +56,7 @@ class ICloseMovResidenciaTest {
                 observMovEquipResidencia = "TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             whenever(
@@ -89,9 +89,9 @@ class ICloseMovResidenciaTest {
         runTest {
             val mov = MovEquipResidencia(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
+                matricVigiaMovEquipResidencia = 1000,
                 idLocalMovEquipResidencia = 1000,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = Date(1723213270250),
                 motoristaMovEquipResidencia = "TESTE",
                 veiculoMovEquipResidencia = "TESTE",
@@ -99,7 +99,7 @@ class ICloseMovResidenciaTest {
                 observMovEquipResidencia = "TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             whenever(

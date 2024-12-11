@@ -9,7 +9,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
@@ -54,9 +54,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return true if have mov open`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -64,7 +64,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         movEquipResidenciaDao.insert(
@@ -80,9 +80,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check alter status in mov open set`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -90,7 +90,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         movEquipResidenciaDao.insert(
@@ -108,9 +108,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check add movEquipResidencia`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -118,7 +118,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         val resultSave = datasource.save(movEquipResidenciaRoomModel)
@@ -152,9 +152,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return roomModel if get execute correctly`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -162,7 +162,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(movEquipResidenciaRoomModel)
@@ -175,9 +175,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return true if setMotorista execute correctly`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -185,7 +185,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(movEquipResidenciaRoomModel)
@@ -200,9 +200,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return true if setObserv execute correctly`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -210,7 +210,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(movEquipResidenciaRoomModel)
@@ -225,9 +225,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return true if setObserv execute correctly null`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -235,7 +235,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(movEquipResidenciaRoomModel)
@@ -250,9 +250,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return true if setOutside execute correctly null`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -260,27 +260,27 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         movEquipResidenciaDao.insert(
             movEquipResidenciaRoomModel
         )
         val roomModelBefore = movEquipResidenciaDao.get(1)
-        assertEquals(roomModelBefore.statusMovEquipForeigResidencia, StatusForeigner.INSIDE)
+        assertEquals(roomModelBefore.statusMovEquipForeignerResidencia, StatusForeigner.INSIDE)
         val result = datasource.setOutside(roomModelBefore)
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, true)
         val roomModelAfter = movEquipResidenciaDao.get(1)
-        assertEquals(roomModelAfter.statusMovEquipForeigResidencia, StatusForeigner.OUTSIDE)
+        assertEquals(roomModelAfter.statusMovEquipForeignerResidencia, StatusForeigner.OUTSIDE)
     }
 
     @Test
     fun `Check return true if setPlaca execute correctly`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -288,7 +288,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(movEquipResidenciaRoomModel)
@@ -303,9 +303,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return true if setVeiculo execute correctly`() = runTest {
         val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -313,7 +313,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(movEquipResidenciaRoomModel)
@@ -329,9 +329,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     fun `CheckSend - Check return true if have mov send`() =
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -339,7 +339,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
             datasource.save(movEquipResidenciaRoomModel)
@@ -360,9 +360,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return list if have mov send`() = runTest {
         val roomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -370,7 +370,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(roomModel)
@@ -386,9 +386,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `Check return list empty if not have mov send`() = runTest {
         val roomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -396,7 +396,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SENT,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(roomModel)
@@ -424,9 +424,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     @Test
     fun `setSent - Check return true if setSent execute correctly`() = runTest {
         val roomModel = MovEquipResidenciaRoomModel(
-            nroMatricVigiaMovEquipResidencia = 19759,
+            matricVigiaMovEquipResidencia = 19759,
             idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMov.INPUT,
+            tipoMovEquipResidencia = TypeMovEquip.INPUT,
             dthrMovEquipResidencia = 1723213270250,
             motoristaMovEquipResidencia = "MOTORISTA TESTE",
             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -434,7 +434,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
             observMovEquipResidencia = "OBSERV TESTE",
             statusMovEquipResidencia = StatusData.OPEN,
             statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
         )
         val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
         datasource.save(roomModel)
@@ -457,9 +457,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
         runTest {
             val roomModel1 = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -467,13 +467,13 @@ class IMovEquipResidenciaRoomDatasourceTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SENT,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val roomModel2 = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 2,
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -481,13 +481,13 @@ class IMovEquipResidenciaRoomDatasourceTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SENT,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val roomModel3 = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 3,
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -495,7 +495,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             movEquipResidenciaDao.insert(roomModel1)
             movEquipResidenciaDao.insert(roomModel2)
@@ -514,9 +514,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
         runTest {
             val roomModel1 = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -524,13 +524,13 @@ class IMovEquipResidenciaRoomDatasourceTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SENT,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val roomModel2 = MovEquipResidenciaRoomModel(
                 idMovEquipResidencia = 2,
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -538,7 +538,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SENT,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             movEquipResidenciaDao.insert(roomModel1)
             movEquipResidenciaDao.insert(roomModel2)
@@ -556,9 +556,9 @@ class IMovEquipResidenciaRoomDatasourceTest {
     fun `CheckOpen - Check return true if have mov open`() =
         runTest {
             val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -566,7 +566,7 @@ class IMovEquipResidenciaRoomDatasourceTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val datasource = IMovEquipResidenciaRoomDatasource(movEquipResidenciaDao)
             datasource.save(movEquipResidenciaRoomModel)

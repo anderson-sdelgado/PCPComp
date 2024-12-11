@@ -4,15 +4,12 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipResidenciaSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidenciaRoomModel
-import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipResidenciaSharedPreferencesModel
-import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipVisitTercSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
-import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -119,9 +116,9 @@ class SetMotoristaResidenciaImplTest : KoinTest {
         runTest {
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -129,7 +126,7 @@ class SetMotoristaResidenciaImplTest : KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             val entityBefore = movEquipResidenciaDao.get(1)

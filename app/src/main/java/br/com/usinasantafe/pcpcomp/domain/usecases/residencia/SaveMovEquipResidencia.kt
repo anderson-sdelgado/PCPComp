@@ -4,11 +4,11 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 interface SaveMovEquipResidencia {
     suspend operator fun invoke(
-        typeMov: TypeMov,
+        typeMov: TypeMovEquip,
         id: Int
     ): Result<Boolean>
 }
@@ -21,11 +21,11 @@ class ISaveMovEquipResidencia(
 ) : SaveMovEquipResidencia {
 
     override suspend fun invoke(
-        typeMov: TypeMov,
+        typeMov: TypeMovEquip,
         id: Int
     ): Result<Boolean> {
         try {
-            if (typeMov == TypeMov.OUTPUT) {
+            if (typeMov == TypeMovEquip.OUTPUT) {
                 val resultClose = setStatusOutsideMovResidencia(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
@@ -41,7 +41,7 @@ class ISaveMovEquipResidencia(
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
             val idSave = resultSave.getOrNull()!!
-            if (typeMov == TypeMov.OUTPUT) {
+            if (typeMov == TypeMovEquip.OUTPUT) {
                 val resultClose = setStatusOutsideMovResidencia(idSave)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)

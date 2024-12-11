@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNomeColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetNomeColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp

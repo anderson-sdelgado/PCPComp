@@ -1,5 +1,6 @@
 package br.com.usinasantafe.pcpcomp.di
 
+import br.com.usinasantafe.pcpcomp.presenter.chave.matriccolab.MatricColabChaveViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.SenhaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.menuinicial.MenuInicialViewModel
@@ -37,6 +38,7 @@ import br.com.usinasantafe.pcpcomp.presenter.visitterc.placa.PlacaVisitTercViewM
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.tipo.TipoVisitTercViewModel
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo.VeiculoVisitTercViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.*
@@ -48,6 +50,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.visitterc.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.residencia.*
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.*
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.GetDescrFullChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.*
 import br.com.usinasantafe.pcpcomp.infra.repositories.variable.*
 import br.com.usinasantafe.pcpcomp.infra.repositories.stable.*
@@ -67,16 +70,16 @@ import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.sharedpreferences.providerSharedPreferences
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofit
 import br.com.usinasantafe.pcpcomp.external.room.provideRoom
+import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.ChaveListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.controlelist.ControleChaveListViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.androidx.workmanager.dsl.workerOf
-
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
-
 
 val viewModelConfigModule = module {
     viewModelOf(::MenuInicialViewModel)
@@ -93,6 +96,12 @@ val viewModelInicialModule = module {
 
 val viewModelSplashModule = module {
     viewModelOf(::SplashViewModel)
+}
+
+val viewModelChaveModule = module {
+    viewModelOf(::ChaveListViewModel)
+    viewModelOf(::ControleChaveListViewModel)
+    viewModelOf(::MatricColabChaveViewModel)
 }
 
 val viewModelProprioModule = module {
@@ -134,6 +143,15 @@ val viewModelVisitTercModule = module {
 
 val usecaseBackgroundModule = module {
     singleOf(::IStartProcessSendData) { bind<StartProcessSendData>() }
+}
+
+val usecaseChaveModule = module {
+    singleOf(::IGetChaveList) { bind<GetChaveList>() }
+    singleOf(::IGetDescrFullChave) { bind<GetDescrFullChave>() }
+    singleOf(::IGetMovChaveRemoveList) { bind<GetMovChaveRemoveList>() }
+    singleOf(::ISetMatricColabMovChave) { bind<SetMatricColabMovChave>() }
+    singleOf(::ISetIdChaveMovChave) { bind<SetIdChaveMovChave>() }
+    singleOf(::IStartRemoveChave) { bind<StartRemoveChave>() }
 }
 
 val usecaseCommonModule = module {
@@ -250,43 +268,51 @@ val usecaseResidenciaModule = module {
     singleOf(::IStartOutputMovEquipResidencia) { bind<StartOutputMovEquipResidencia>() }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 val usecaseUpdateModule = module {
+    singleOf(::IUpdateChave) { bind<UpdateChave>() }
     singleOf(::IUpdateColab) { bind<UpdateColab>() }
     singleOf(::IUpdateEquip) { bind<UpdateEquip>() }
     singleOf(::IUpdateFluxo) { bind<UpdateFluxo>() }
     singleOf(::IUpdateLocal) { bind<UpdateLocal>() }
+    singleOf(::IUpdateLocalTrab) { bind<UpdateLocalTrab>() }
     singleOf(::IUpdateRLocalFluxo) { bind<UpdateRLocalFluxo>() }
     singleOf(::IUpdateTerceiro) { bind<UpdateTerceiro>() }
     singleOf(::IUpdateVisitante) { bind<UpdateVisitante>() }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 val usecaseCleanTableModule = module {
+    singleOf(::ICleanChave) { bind<CleanChave>() }
     singleOf(::ICleanColab) { bind<CleanColab>() }
     singleOf(::ICleanEquip) { bind<CleanEquip>() }
     singleOf(::ICleanFluxo) { bind<CleanFluxo>() }
     singleOf(::ICleanLocal) { bind<CleanLocal>() }
+    singleOf(::ICleanLocalTrab) { bind<CleanLocalTrab>() }
     singleOf(::ICleanRLocalFluxo) { bind<CleanRLocalFluxo>() }
     singleOf(::ICleanTerceiro) { bind<CleanTerceiro>() }
     singleOf(::ICleanVisitante) { bind<CleanVisitante>() }
 }
 
 val usecaseRecoverServerModule = module {
+    singleOf(::IGetServerChave) { bind<GetServerChave>() }
     singleOf(::IGetServerColab) { bind<GetServerColab>() }
     singleOf(::IGetServerEquip) { bind<GetServerEquip>() }
     singleOf(::IGetServerFluxo) { bind<GetServerFluxo>() }
     singleOf(::IGetServerLocal) { bind<GetServerLocal>() }
+    singleOf(::IGetServerLocalTrab) { bind<GetServerLocalTrab>() }
     singleOf(::IGetServerRLocalFluxo) { bind<GetServerRLocalFluxo>() }
     singleOf(::IGetServerTerceiro) { bind<GetServerTerceiro>() }
     singleOf(::IGetServerVisitante) { bind<GetServerVisitante>() }
 }
 
 val usecaseSaveAllTableModule = module {
+    singleOf(::ISaveChave) { bind<SaveChave>() }
     singleOf(::ISaveColab) { bind<SaveColab>() }
     singleOf(::ISaveEquip) { bind<SaveEquip>() }
     singleOf(::ISaveFluxo) { bind<SaveFluxo>() }
     singleOf(::ISaveLocal) { bind<SaveLocal>() }
+    singleOf(::ISaveLocalTrab) { bind<SaveLocalTrab>() }
     singleOf(::ISaveRLocalFluxo) { bind<SaveRLocalFluxo>() }
     singleOf(::ISaveTerceiro) { bind<SaveTerceiro>() }
     singleOf(::ISaveVisitante) { bind<SaveVisitante>() }
@@ -297,6 +323,7 @@ val usecaseSaveAllTableModule = module {
 val repositoryModule = module {
 
     singleOf(::IConfigRepository) { bind<ConfigRepository>() }
+    singleOf(::IMovChaveRepository) { bind<MovChaveRepository>() }
     singleOf(::IMovEquipProprioRepository) { bind<MovEquipProprioRepository>() }
     singleOf(::IMovEquipProprioPassagRepository) { bind<MovEquipProprioPassagRepository>() }
     singleOf(::IMovEquipProprioEquipSegRepository) { bind<MovEquipProprioEquipSegRepository>() }
@@ -304,10 +331,12 @@ val repositoryModule = module {
     singleOf(::IMovEquipVisitTercPassagRepository) { bind<MovEquipVisitTercPassagRepository>() }
     singleOf(::IMovEquipResidenciaRepository) { bind<MovEquipResidenciaRepository>() }
 
+    singleOf(::IChaveRepository) { bind<ChaveRepository>() }
     singleOf(::IColabRepository) { bind<ColabRepository>() }
     singleOf(::IEquipRepository) { bind<EquipRepository>() }
     singleOf(::IFluxoRepository) { bind<FluxoRepository>() }
     singleOf(::ILocalRepository) { bind<LocalRepository>() }
+    singleOf(::ILocalTrabRepository) { bind<LocalTrabRepository>() }
     singleOf(::IRLocalFluxoRepository) { bind<RLocalFluxoRepository>() }
     singleOf(::ITerceiroRepository) { bind<TerceiroRepository>() }
     singleOf(::IVisitanteRepository) { bind<VisitanteRepository>() }
@@ -317,6 +346,7 @@ val repositoryModule = module {
 val datasourceSharedPreferencesModule = module {
 
     singleOf(::IConfigSharedPreferencesDatasource) { bind<ConfigSharedPreferencesDatasource>() }
+    singleOf(::IMovChaveSharedPreferencesDatasource) { bind<MovChaveSharedPreferencesDatasource>() }
     singleOf(::IMovEquipProprioSharedPreferencesDatasource) { bind<MovEquipProprioSharedPreferencesDatasource>() }
     singleOf(::IMovEquipProprioEquipSegSharedPreferencesDatasource) { bind<MovEquipProprioEquipSegSharedPreferencesDatasource>() }
     singleOf(::IMovEquipProprioPassagSharedPreferencesDatasource) { bind<MovEquipProprioPassagSharedPreferencesDatasource>() }
@@ -329,16 +359,19 @@ val datasourceSharedPreferencesModule = module {
 val datasourceRoomModule = module {
 
     singleOf(::IMovEquipProprioRoomDatasource) { bind<MovEquipProprioRoomDatasource>() }
+    singleOf(::IMovChaveRoomDatasource) { bind<MovChaveRoomDatasource>() }
     singleOf(::IMovEquipProprioPassagRoomDatasource) { bind<MovEquipProprioPassagRoomDatasource>() }
     singleOf(::IMovEquipProprioEquipSegRoomDatasource) { bind<MovEquipProprioEquipSegRoomDatasource>() }
     singleOf(::IMovEquipVisitTercRoomDatasource) { bind<MovEquipVisitTercRoomDatasource>() }
     singleOf(::IMovEquipResidenciaRoomDatasource) { bind<MovEquipResidenciaRoomDatasource>() }
     singleOf(::IMovEquipVisitTercPassagRoomDatasource) { bind<MovEquipVisitTercPassagRoomDatasource>() }
 
+    singleOf(::IChaveRoomDatasource) { bind<ChaveRoomDatasource>() }
     singleOf(::IColabRoomDatasource) { bind<ColabRoomDatasource>() }
     singleOf(::IEquipRoomDatasource) { bind<EquipRoomDatasource>() }
     singleOf(::IFluxoRoomDatasource) { bind<FluxoRoomDatasource>() }
     singleOf(::ILocalRoomDatasource) { bind<LocalRoomDatasource>() }
+    singleOf(::ILocalTrabRoomDatasource) { bind<LocalTrabRoomDatasource>() }
     singleOf(::IRLocalFluxoRoomDatasource) { bind<RLocalFluxoRoomDatasource>() }
     singleOf(::ITerceiroRoomDatasource) { bind<TerceiroRoomDatasource>() }
     singleOf(::IVisitanteRoomDatasource) { bind<VisitanteRoomDatasource>() }
@@ -352,10 +385,12 @@ val datasourceRetrofitModule = module {
     singleOf(::IMovEquipVisitTercRetrofitDatasource) { bind<MovEquipVisitTercRetrofitDatasource>() }
     singleOf(::IMovEquipResidenciaRetrofitDatasource) { bind<MovEquipResidenciaRetrofitDatasource>() }
 
+    singleOf(::IChaveRetrofitDatasource) { bind<ChaveRetrofitDatasource>() }
     singleOf(::IColabRetrofitDatasource) { bind<ColabRetrofitDatasource>() }
     singleOf(::IEquipRetrofitDatasource) { bind<EquipRetrofitDatasource>() }
     singleOf(::IFluxoRetrofitDatasource) { bind<FluxoRetrofitDatasource>() }
     singleOf(::ILocalRetrofitDatasource) { bind<LocalRetrofitDatasource>() }
+    singleOf(::ILocalTrabRetrofitDatasource) { bind<LocalTrabRetrofitDatasource>() }
     singleOf(::IRLocalFluxoRetrofitDatasource) { bind<RLocalFluxoRetrofitDatasource>() }
     singleOf(::ITerceiroRetrofitDatasource) { bind<TerceiroRetrofitDatasource>() }
     singleOf(::IVisitanteRetrofitDatasource) { bind<VisitanteRetrofitDatasource>() }
@@ -369,10 +404,12 @@ val apiRetrofitModule = module {
     single { get<Retrofit>().create(MovEquipVisitTercApi::class.java) }
     single { get<Retrofit>().create(MovEquipResidenciaApi::class.java) }
 
+    single { get<Retrofit>().create(ChaveApi::class.java) }
     single { get<Retrofit>().create(ColabApi::class.java) }
     single { get<Retrofit>().create(EquipApi::class.java) }
     single { get<Retrofit>().create(FluxoApi::class.java) }
     single { get<Retrofit>().create(LocalApi::class.java) }
+    single { get<Retrofit>().create(LocalTrabApi::class.java) }
     single { get<Retrofit>().create(RLocalFluxoApi::class.java) }
     single { get<Retrofit>().create(TerceiroApi::class.java) }
     single { get<Retrofit>().create(VisitanteApi::class.java) }
@@ -381,15 +418,17 @@ val apiRetrofitModule = module {
 
 val apiRoomModule = module {
 
+    single { get<AppDatabaseRoom>().chaveDao() }
     single { get<AppDatabaseRoom>().colabDao() }
     single { get<AppDatabaseRoom>().equipDao() }
     single { get<AppDatabaseRoom>().fluxoDao() }
     single { get<AppDatabaseRoom>().localDao() }
-    single { get<AppDatabaseRoom>().rLocalFluxoDao() }
+    single { get<AppDatabaseRoom>().localTrabDao() }
     single { get<AppDatabaseRoom>().rLocalFluxoDao() }
     single { get<AppDatabaseRoom>().terceiroDao() }
     single { get<AppDatabaseRoom>().visitanteDao() }
 
+    single { get<AppDatabaseRoom>().movChaveDao() }
     single { get<AppDatabaseRoom>().movEquipProprioDao() }
     single { get<AppDatabaseRoom>().movEquipProprioPassagDao() }
     single { get<AppDatabaseRoom>().movEquipProprioEquipSegDao() }

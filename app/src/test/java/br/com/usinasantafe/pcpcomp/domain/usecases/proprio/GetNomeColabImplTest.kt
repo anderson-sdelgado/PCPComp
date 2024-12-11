@@ -2,6 +2,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.IGetNomeColab
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 

@@ -8,7 +8,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CloseAllMovProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetMovEquipProprioOpenList
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.StartMovEquipProprio
 import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -84,7 +84,7 @@ class MovEquipProprioViewModelTest {
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
         val closeAllMovProprio = mock<CloseAllMovProprio>()
-        whenever(startMovEquipProprio(typeMov = TypeMov.INPUT)).thenReturn(
+        whenever(startMovEquipProprio(typeMov = TypeMovEquip.INPUT)).thenReturn(
             Result.failure(
                 UsecaseException(
                     function = "StartMovEquipProprio",
@@ -98,7 +98,7 @@ class MovEquipProprioViewModelTest {
             getMovEquipProprioOpenList,
             closeAllMovProprio
         )
-        viewModel.startMov(typeMov = TypeMov.INPUT)
+        viewModel.startMov(typeMov = TypeMovEquip.INPUT)
         assertEquals(viewModel.uiState.value.flagDialog, true)
         assertEquals(
             viewModel.uiState.value.failure,
@@ -112,7 +112,7 @@ class MovEquipProprioViewModelTest {
         val startMovEquipProprio = mock<StartMovEquipProprio>()
         val getMovEquipProprioOpenList = mock<GetMovEquipProprioOpenList>()
         val closeAllMovProprio = mock<CloseAllMovProprio>()
-        whenever(startMovEquipProprio(typeMov = TypeMov.INPUT)).thenReturn(
+        whenever(startMovEquipProprio(typeMov = TypeMovEquip.INPUT)).thenReturn(
             Result.success(true)
         )
         val viewModel = MovEquipProprioListViewModel(
@@ -121,7 +121,7 @@ class MovEquipProprioViewModelTest {
             getMovEquipProprioOpenList,
             closeAllMovProprio
         )
-        viewModel.startMov(typeMov = TypeMov.INPUT)
+        viewModel.startMov(typeMov = TypeMovEquip.INPUT)
         assertEquals(viewModel.uiState.value.flagDialog, false)
         assertEquals(viewModel.uiState.value.flagAccess, true)
     }

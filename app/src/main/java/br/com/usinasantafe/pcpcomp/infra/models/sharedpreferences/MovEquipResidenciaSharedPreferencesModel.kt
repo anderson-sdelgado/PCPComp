@@ -2,12 +2,12 @@ package br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.util.Date
 
 data class MovEquipResidenciaSharedPreferencesModel(
     var dthrMovEquipResidencia: Date = Date(),
-    var tipoMovEquipResidencia: TypeMov = TypeMov.INPUT,
+    var tipoMovEquipResidencia: TypeMovEquip = TypeMovEquip.INPUT,
     var motoristaMovEquipResidencia: String? = null,
     var veiculoMovEquipResidencia: String? = null,
     var placaMovEquipResidencia: String? = null,

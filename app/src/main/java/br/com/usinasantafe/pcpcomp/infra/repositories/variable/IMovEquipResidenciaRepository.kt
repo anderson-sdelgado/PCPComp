@@ -287,7 +287,7 @@ class IMovEquipResidenciaRepository(
     override suspend fun setClose(movEquipResidencia: MovEquipResidencia): Result<Boolean> {
         try {
             val movEquipResidenciaRoomModel = movEquipResidencia.entityToRoomModel(
-                matricVigia = movEquipResidencia.nroMatricVigiaMovEquipResidencia!!,
+                matricVigia = movEquipResidencia.matricVigiaMovEquipResidencia!!,
                 idLocal = movEquipResidencia.idLocalMovEquipResidencia!!
             )
             val resultSetClose =
@@ -348,7 +348,7 @@ class IMovEquipResidenciaRepository(
     override suspend fun setOutside(movEquipResidencia: MovEquipResidencia): Result<Boolean> {
         try {
             val movEquipResidenciaRoomModel = movEquipResidencia.entityToRoomModel(
-                matricVigia = movEquipResidencia.nroMatricVigiaMovEquipResidencia!!,
+                matricVigia = movEquipResidencia.matricVigiaMovEquipResidencia!!,
                 idLocal = movEquipResidencia.idLocalMovEquipResidencia!!
             )
             val resultSetClose =

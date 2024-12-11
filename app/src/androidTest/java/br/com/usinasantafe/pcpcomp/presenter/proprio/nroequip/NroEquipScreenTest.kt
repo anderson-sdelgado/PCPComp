@@ -24,7 +24,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -196,7 +196,7 @@ class NroEquipScreenTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 10,
                 matricColabMovEquipProprio = 19759,
@@ -226,7 +226,7 @@ class NroEquipScreenTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 10,
                 matricColabMovEquipProprio = 19759,

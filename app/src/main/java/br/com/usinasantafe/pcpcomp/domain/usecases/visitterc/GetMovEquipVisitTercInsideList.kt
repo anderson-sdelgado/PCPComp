@@ -21,7 +21,7 @@ class IGetMovEquipVisitTercInsideList(
             if (resultList.isFailure)
                 return Result.failure(resultList.exceptionOrNull()!!)
             val list = resultList.getOrNull()!!
-            val modelList = list.map {
+            val entityList = list.map {
                 val resultMotorista = getMotoristaVisitTerc(
                     typeVisitTerc = it.tipoVisitTercMovEquipVisitTerc!!,
                     idVisitTerc = it.idVisitTercMovEquipVisitTerc!!
@@ -41,7 +41,7 @@ class IGetMovEquipVisitTercInsideList(
                     motorista = motorista
                 )
             }
-            return Result.success(modelList)
+            return Result.success(entityList)
         } catch (e: Exception) {
             return Result.failure(
                 UsecaseException(

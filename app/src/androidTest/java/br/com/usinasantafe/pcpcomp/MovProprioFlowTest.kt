@@ -30,7 +30,7 @@ import br.com.usinasantafe.pcpcomp.presenter.proprio.observ.TAG_OBSERV_TEXT_FIEL
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.dispatcherSuccessFunctional
 import br.com.usinasantafe.pcpcomp.utils.returnDataServerColab
 import br.com.usinasantafe.pcpcomp.utils.returnDataServerEquip
@@ -270,7 +270,7 @@ class MovProprioFlowTest : KoinTest {
             MovEquipProprioRoomModel(
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date().time,
                 idEquipMovEquipProprio = 300,
                 matricColabMovEquipProprio = 19759,

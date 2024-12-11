@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -10,7 +10,7 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 
-class GetTypeMovImplTest {
+class GetTypeMovEquipImplTest {
 
     @Test
     fun `Chech return failure Datasource if have error in MovEquipProprioRepository getTipo`() =
@@ -37,14 +37,14 @@ class GetTypeMovImplTest {
         runTest {
             val movEquipProprioRepository = mock<MovEquipProprioRepository>()
             whenever(movEquipProprioRepository.getTipoMov()).thenReturn(
-                Result.success(TypeMov.INPUT)
+                Result.success(TypeMovEquip.INPUT)
             )
             val result = IGetTypeMov(movEquipProprioRepository)
             val resultGet = result()
             assertTrue(resultGet.isSuccess)
             assertEquals(
                 resultGet.getOrNull()!!,
-                TypeMov.INPUT
+                TypeMovEquip.INPUT
             )
         }
 }

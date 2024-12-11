@@ -26,7 +26,7 @@ fun MovEquipResidencia.entityToRetrofitModelOutput(nroAparelho: Long): MovEquipR
         MovEquipResidenciaRetrofitModelOutput(
             idMovEquipResidencia = this.idMovEquipResidencia!!,
             nroAparelhoMovEquipResidencia = nroAparelho,
-            nroMatricVigiaMovEquipResidencia = this.nroMatricVigiaMovEquipResidencia!!,
+            nroMatricVigiaMovEquipResidencia = this.matricVigiaMovEquipResidencia!!,
             idLocalMovEquipResidencia = this.idLocalMovEquipResidencia!!,
             dthrMovEquipResidencia = SimpleDateFormat(
                 "dd/MM/yyyy HH:mm",

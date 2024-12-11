@@ -198,7 +198,7 @@ class IMovEquipResidenciaRoomDatasource(
 
     override suspend fun setOutside(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Boolean> {
         try {
-            movEquipResidenciaRoomModel.statusMovEquipForeigResidencia = StatusForeigner.OUTSIDE
+            movEquipResidenciaRoomModel.statusMovEquipForeignerResidencia = StatusForeigner.OUTSIDE
             movEquipResidenciaDao.update(movEquipResidenciaRoomModel)
             return Result.success(true)
         } catch (e: Exception) {

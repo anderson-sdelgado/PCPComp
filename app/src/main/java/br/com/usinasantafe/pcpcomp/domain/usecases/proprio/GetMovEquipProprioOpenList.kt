@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
 import br.com.usinasantafe.pcpcomp.presenter.proprio.movlist.MovEquipProprioModel
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -40,7 +40,7 @@ class IGetMovEquipProprioOpenList(
                         "dd/MM/yyyy HH:mm",
                         Locale("pt", "BR")
                     ).format(it.dthrMovEquipProprio),
-                    typeMov = if (it.tipoMovEquipProprio == TypeMov.INPUT) "ENTRADA" else "SAIDA",
+                    typeMov = if (it.tipoMovEquipProprio == TypeMovEquip.INPUT) "ENTRADA" else "SAIDA",
                     equip = "$nroEquip",
                     colab = " ${it.matricColabMovEquipProprio!!} - $nomeColab"
                 )

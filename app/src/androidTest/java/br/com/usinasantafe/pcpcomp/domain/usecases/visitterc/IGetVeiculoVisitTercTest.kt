@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercR
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -45,7 +45,7 @@ class IGetVeiculoVisitTercTest : KoinTest {
             idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMov.INPUT,
+            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
             idVisitTercMovEquipVisitTerc = 1000,
             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
             dthrMovEquipVisitTerc = 1723213270250,

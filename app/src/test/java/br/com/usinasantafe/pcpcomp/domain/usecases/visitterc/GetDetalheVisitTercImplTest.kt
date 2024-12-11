@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -57,7 +57,7 @@ class GetDetalheVisitTercImplTest {
                 MovEquipVisitTerc(
                     idMovEquipVisitTerc = 1,
                     dthrMovEquipVisitTerc = Date(),
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     veiculoMovEquipVisitTerc = "GOL",
                     placaMovEquipVisitTerc = "AAA-0000",
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -105,7 +105,7 @@ class GetDetalheVisitTercImplTest {
                 MovEquipVisitTerc(
                     idMovEquipVisitTerc = 1,
                     dthrMovEquipVisitTerc = Date(),
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     veiculoMovEquipVisitTerc = "GOL",
                     placaMovEquipVisitTerc = "AAA-0000",
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
@@ -154,7 +154,7 @@ class GetDetalheVisitTercImplTest {
                     MovEquipVisitTerc(
                         idMovEquipVisitTerc = 1,
                         dthrMovEquipVisitTerc = Date(),
-                        tipoMovEquipVisitTerc = TypeMov.INPUT,
+                        tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                         veiculoMovEquipVisitTerc = "GOL",
                         placaMovEquipVisitTerc = "AAA-0000",
                         tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -212,7 +212,7 @@ class GetDetalheVisitTercImplTest {
                 MovEquipVisitTerc(
                     idMovEquipVisitTerc = 1,
                     dthrMovEquipVisitTerc = Date(),
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     veiculoMovEquipVisitTerc = "GOL",
                     placaMovEquipVisitTerc = "AAA-0000",
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -286,7 +286,7 @@ class GetDetalheVisitTercImplTest {
                 MovEquipVisitTerc(
                     idMovEquipVisitTerc = 1,
                     dthrMovEquipVisitTerc = Date(),
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     veiculoMovEquipVisitTerc = "GOL",
                     placaMovEquipVisitTerc = "AAA-0000",
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
@@ -360,7 +360,7 @@ class GetDetalheVisitTercImplTest {
                 MovEquipVisitTerc(
                     idMovEquipVisitTerc = 1,
                     dthrMovEquipVisitTerc = Date(),
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     veiculoMovEquipVisitTerc = "GOL",
                     placaMovEquipVisitTerc = "AAA-0000",
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -460,7 +460,7 @@ class GetDetalheVisitTercImplTest {
                 MovEquipVisitTerc(
                     idMovEquipVisitTerc = 1,
                     dthrMovEquipVisitTerc = Date(),
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     veiculoMovEquipVisitTerc = "GOL",
                     placaMovEquipVisitTerc = "AAA-0000",
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,

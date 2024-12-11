@@ -9,7 +9,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoo
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -70,7 +70,7 @@ class ISetMatricColabTest: KoinTest {
 
     @Test
     fun check_return_success_if_have_data_in_mov_equip_proprio_internal_flowapp_add() = runTest {
-        movEquipProprioSharedPreferencesDatasource.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasource.start(TypeMovEquip.INPUT)
         val result = usecase(
             matricColab = "19759",
             flowApp = FlowApp.ADD,
@@ -90,7 +90,7 @@ class ISetMatricColabTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 18017,
@@ -135,7 +135,7 @@ class ISetMatricColabTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 18017,

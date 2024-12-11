@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -39,7 +39,7 @@ class ISaveMovEquipResidenciaTest {
                 setStatusOutsideMovResidencia
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -78,7 +78,7 @@ class ISaveMovEquipResidenciaTest {
                 setStatusOutsideMovResidencia
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -127,7 +127,7 @@ class ISaveMovEquipResidenciaTest {
                 setStatusOutsideMovResidencia
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -172,7 +172,7 @@ class ISaveMovEquipResidenciaTest {
                 setStatusOutsideMovResidencia
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isSuccess)

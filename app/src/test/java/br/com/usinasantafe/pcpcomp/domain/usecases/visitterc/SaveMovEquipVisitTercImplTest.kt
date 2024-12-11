@@ -7,7 +7,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -42,7 +42,7 @@ class SaveMovEquipVisitTercImplTest {
                 setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 1
             )
             assertTrue(result.isFailure)
@@ -78,7 +78,7 @@ class SaveMovEquipVisitTercImplTest {
                 setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 0
             )
             assertTrue(result.isFailure)
@@ -123,7 +123,7 @@ class SaveMovEquipVisitTercImplTest {
                 setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 0
             )
             assertTrue(result.isFailure)
@@ -174,7 +174,7 @@ class SaveMovEquipVisitTercImplTest {
                 setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 0
             )
             assertTrue(result.isFailure)
@@ -220,7 +220,7 @@ class SaveMovEquipVisitTercImplTest {
                 setStatusOutsideMovVisitTerc
             )
             val result = usecase(
-                typeMov = TypeMov.OUTPUT,
+                typeMov = TypeMovEquip.OUTPUT,
                 id = 0
             )
             assertTrue(result.isSuccess)

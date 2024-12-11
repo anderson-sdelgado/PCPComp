@@ -11,7 +11,7 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import br.com.usinasantafe.pcpcomp.utils.token
 import kotlinx.coroutines.test.runTest
@@ -67,7 +67,7 @@ class SendMovVisitTercListImplTest {
                             idMovEquipVisitTerc = 1,
                             nroMatricVigiaMovEquipVisitTerc = 19759,
                             idLocalMovEquipVisitTerc = 1,
-                            tipoMovEquipVisitTerc = TypeMov.INPUT,
+                            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                             idVisitTercMovEquipVisitTerc = 1000,
                             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                             dthrMovEquipVisitTerc = Date(1723213270250),
@@ -77,7 +77,7 @@ class SendMovVisitTercListImplTest {
                             observMovEquipVisitTerc = "OBSERV TESTE",
                             statusMovEquipVisitTerc = StatusData.OPEN,
                             statusSendMovEquipVisitTerc = StatusSend.SEND,
-                            statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                            statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
                         )
                     )
                 )
@@ -123,7 +123,7 @@ class SendMovVisitTercListImplTest {
                             idMovEquipVisitTerc = 1,
                             nroMatricVigiaMovEquipVisitTerc = 19759,
                             idLocalMovEquipVisitTerc = 1,
-                            tipoMovEquipVisitTerc = TypeMov.INPUT,
+                            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                             idVisitTercMovEquipVisitTerc = 1000,
                             tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                             dthrMovEquipVisitTerc = Date(1723213270250),
@@ -133,7 +133,7 @@ class SendMovVisitTercListImplTest {
                             observMovEquipVisitTerc = "OBSERV TESTE",
                             statusMovEquipVisitTerc = StatusData.OPEN,
                             statusSendMovEquipVisitTerc = StatusSend.SEND,
-                            statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                            statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
                         )
                     )
                 )
@@ -186,7 +186,7 @@ class SendMovVisitTercListImplTest {
                         idMovEquipVisitTerc = 1,
                         nroMatricVigiaMovEquipVisitTerc = 19759,
                         idLocalMovEquipVisitTerc = 1,
-                        tipoMovEquipVisitTerc = TypeMov.INPUT,
+                        tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                         idVisitTercMovEquipVisitTerc = 1000,
                         tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                         dthrMovEquipVisitTerc = Date(1723213270250),
@@ -196,7 +196,7 @@ class SendMovVisitTercListImplTest {
                         observMovEquipVisitTerc = "OBSERV TESTE",
                         statusMovEquipVisitTerc = StatusData.OPEN,
                         statusSendMovEquipVisitTerc = StatusSend.SEND,
-                        statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                        statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
                     )
                 )
             val listPassag =
@@ -278,7 +278,7 @@ class SendMovVisitTercListImplTest {
                         idMovEquipVisitTerc = 1,
                         nroMatricVigiaMovEquipVisitTerc = 19759,
                         idLocalMovEquipVisitTerc = 1,
-                        tipoMovEquipVisitTerc = TypeMov.INPUT,
+                        tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                         idVisitTercMovEquipVisitTerc = 1000,
                         tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                         dthrMovEquipVisitTerc = Date(1723213270250),
@@ -288,7 +288,7 @@ class SendMovVisitTercListImplTest {
                         observMovEquipVisitTerc = "OBSERV TESTE",
                         statusMovEquipVisitTerc = StatusData.OPEN,
                         statusSendMovEquipVisitTerc = StatusSend.SEND,
-                        statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
+                        statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
                     )
                 )
             val listPassag =

@@ -11,7 +11,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 data class ObservVisitTercState(
     val flowApp: FlowApp = FlowApp.ADD,
     val id: Int = 0,
-    val typeMov: TypeMov = TypeMov.INPUT,
+    val typeMov: TypeMovEquip = TypeMovEquip.INPUT,
     val observ: String? = null,
     val flagGetObserv: Boolean = true,
     val flagAccess: Boolean = false,
@@ -47,7 +47,7 @@ class ObservVisitTercViewModel(
         _uiState.update {
             it.copy(
                 flowApp = FlowApp.entries[flowApp],
-                typeMov = TypeMov.entries[typeMov],
+                typeMov = TypeMovEquip.entries[typeMov],
                 id = id
             )
         }
@@ -96,7 +96,7 @@ class ObservVisitTercViewModel(
 
     fun setObserv() = viewModelScope.launch {
         if (
-            (uiState.value.typeMov == TypeMov.OUTPUT) &&
+            (uiState.value.typeMov == TypeMovEquip.OUTPUT) &&
             (uiState.value.flowApp == FlowApp.ADD)
         ) {
             val resultStart = startOutputMovEquipVisitTerc(

@@ -252,7 +252,6 @@ class IUpdateFluxoTest {
 
 }
 
-
 val fluxoList = listOf(
     Fluxo(
         idFluxo = 1,

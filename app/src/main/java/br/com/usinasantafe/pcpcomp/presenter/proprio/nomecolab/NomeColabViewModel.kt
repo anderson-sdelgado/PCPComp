@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.nomecolab
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNomeColab
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetNomeColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetMatricColab
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.MATRIC_COLAB_ARGS

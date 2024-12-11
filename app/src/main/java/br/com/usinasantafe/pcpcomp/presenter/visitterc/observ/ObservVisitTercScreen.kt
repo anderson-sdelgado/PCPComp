@@ -28,7 +28,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 const val TAG_OBSERV_TEXT_FIELD_VISIT_TERC = "tag_observ_text_field_visit_terc"
 
@@ -65,7 +65,7 @@ fun ObservVisitTercScreen(
 @Composable
 fun ObservVisitTercContent(
     flowApp: FlowApp,
-    typeMov: TypeMov,
+    typeMov: TypeMovEquip,
     observ: String?,
     onObservChanged: (String) -> Unit,
     setObserv: () -> Unit,
@@ -107,8 +107,8 @@ fun ObservVisitTercContent(
                     when (flowApp) {
                         FlowApp.ADD -> {
                             when(typeMov){
-                                TypeMov.INPUT -> onNavDestino()
-                                TypeMov.OUTPUT -> onNavMovEquipList()
+                                TypeMovEquip.INPUT -> onNavDestino()
+                                TypeMovEquip.OUTPUT -> onNavMovEquipList()
                             }
                         }
                         FlowApp.CHANGE -> onNavDetalhe()
@@ -152,7 +152,7 @@ fun ObservVisitTercPagePreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             ObservVisitTercContent(
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 observ = "Teste",
                 onObservChanged = {},
                 setObserv = {},

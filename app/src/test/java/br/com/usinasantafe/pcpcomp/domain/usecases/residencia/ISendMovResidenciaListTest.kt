@@ -8,7 +8,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenc
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.token
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -58,9 +58,9 @@ class ISendMovResidenciaListTest {
                     listOf(
                         MovEquipResidencia(
                             idMovEquipResidencia = 1,
-                            nroMatricVigiaMovEquipResidencia = 19759,
+                            matricVigiaMovEquipResidencia = 19759,
                             idLocalMovEquipResidencia = 1,
-                            tipoMovEquipResidencia = TypeMov.INPUT,
+                            tipoMovEquipResidencia = TypeMovEquip.INPUT,
                             dthrMovEquipResidencia = Date(1723213270250),
                             motoristaMovEquipResidencia = "MOTORISTA TESTE",
                             veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -68,7 +68,7 @@ class ISendMovResidenciaListTest {
                             observMovEquipResidencia = "OBSERV TESTE",
                             statusMovEquipResidencia = StatusData.OPEN,
                             statusSendMovEquipResidencia = StatusSend.SEND,
-                            statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                         )
                     )
                 )
@@ -101,9 +101,9 @@ class ISendMovResidenciaListTest {
             val entityList = listOf(
                 MovEquipResidencia(
                     idMovEquipResidencia = 1,
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = Date(1723213270250),
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -111,7 +111,7 @@ class ISendMovResidenciaListTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             val entityConfig = Config(
@@ -168,9 +168,9 @@ class ISendMovResidenciaListTest {
             val entityList = listOf(
                 MovEquipResidencia(
                     idMovEquipResidencia = 1,
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = Date(1723213270250),
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -178,7 +178,7 @@ class ISendMovResidenciaListTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             val entityConfig = Config(

@@ -28,10 +28,10 @@ import kotlinx.coroutines.launch
 
 data class MatricColabState(
     val flowApp: FlowApp = FlowApp.ADD,
+    val id: Int = 0,
     val matricColab: String = "",
     val typeOcupante: TypeOcupante = TypeOcupante.MOTORISTA,
     val checkGetMatricColab: Boolean = true,
-    val id: Int = 0,
     val flagAccess: Boolean = false,
     val flagFailure: Boolean = false,
     val flagDialog: Boolean = false,

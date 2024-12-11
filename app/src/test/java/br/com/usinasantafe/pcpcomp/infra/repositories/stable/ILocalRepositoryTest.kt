@@ -158,7 +158,7 @@ class ILocalRepositoryTest {
     @Test
     fun `Check failure Datasource in getAll`() = runTest {
         whenever(
-            localRoomDatasource.getAll()
+            localRoomDatasource.listAll()
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -188,7 +188,7 @@ class ILocalRepositoryTest {
             )
         )
         whenever(
-            localRoomDatasource.getAll()
+            localRoomDatasource.listAll()
         ).thenReturn(
             Result.success(
                 localRoomModels

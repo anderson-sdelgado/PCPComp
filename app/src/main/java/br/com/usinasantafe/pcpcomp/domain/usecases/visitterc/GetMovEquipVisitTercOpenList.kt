@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.visitterc
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.model.MovEquipVisitTercModel
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -40,7 +40,7 @@ class IGetMovEquipVisitTercOpenList(
                     placa = it.placaMovEquipVisitTerc!!,
                     tipoVisitTerc = it.tipoVisitTercMovEquipVisitTerc!!.name,
                     motorista = motorista,
-                    tipoMov = if (it.tipoMovEquipVisitTerc == TypeMov.INPUT) "ENTRADA" else "SAIDA",
+                    tipoMov = if (it.tipoMovEquipVisitTerc == TypeMovEquip.INPUT) "ENTRADA" else "SAIDA",
                 )
             }
             return Result.success(modelList)

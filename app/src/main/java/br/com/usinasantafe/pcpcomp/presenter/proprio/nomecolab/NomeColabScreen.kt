@@ -100,7 +100,9 @@ fun NomeColabContent(
                 onClick = onNavMatricColab,
                 modifier = Modifier.weight(1f)
             ) {
-                TextButtonDesign(text = stringResource(id = R.string.text_pattern_cancel))
+                TextButtonDesign(
+                    text = stringResource(id = R.string.text_pattern_cancel)
+                )
             }
             Button(
                 onClick = setMatric,

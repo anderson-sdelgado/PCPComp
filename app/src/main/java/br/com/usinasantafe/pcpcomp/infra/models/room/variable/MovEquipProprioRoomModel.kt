@@ -6,9 +6,8 @@ import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
 import br.com.usinasantafe.pcpcomp.utils.TB_MOV_EQUIP_PROPRIO
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.util.Date
-
 
 @Entity(tableName = TB_MOV_EQUIP_PROPRIO)
 data class MovEquipProprioRoomModel(
@@ -16,7 +15,7 @@ data class MovEquipProprioRoomModel(
     var idMovEquipProprio: Int? = null,
     var matricVigiaMovEquipProprio: Int,
     var idLocalMovEquipProprio: Int,
-    var tipoMovEquipProprio: TypeMov,
+    var tipoMovEquipProprio: TypeMovEquip,
     var dthrMovEquipProprio: Long,
     var idEquipMovEquipProprio: Int,
     var matricColabMovEquipProprio: Int,

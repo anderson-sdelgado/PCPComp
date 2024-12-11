@@ -12,7 +12,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.observ.ObservVisitTercViewModel
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -59,7 +59,7 @@ class ObservResidenciaViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     ID_ARGS to 1
                 )
@@ -83,7 +83,7 @@ class ObservResidenciaViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     ID_ARGS to 1
                 )
@@ -111,7 +111,7 @@ class ObservResidenciaViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.OUTPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.OUTPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 1
                 )
@@ -143,7 +143,7 @@ class ObservResidenciaViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 0
                 )
@@ -169,7 +169,7 @@ class ObservResidenciaViewModelTest {
         )
         whenever(
             saveMovEquipResidencia(
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 id = 1
             )
         ).thenReturn(
@@ -183,7 +183,7 @@ class ObservResidenciaViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 1
                 )
@@ -209,7 +209,7 @@ class ObservResidenciaViewModelTest {
         )
         whenever(
             saveMovEquipResidencia(
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 id = 1
             )
         ).thenReturn(
@@ -218,7 +218,7 @@ class ObservResidenciaViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 1
                 )

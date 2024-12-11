@@ -7,10 +7,12 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.config.SendDataConfig
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetCheckUpdateAllTable
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateFluxo
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateLocal
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateLocalTrab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateRLocalFluxo
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateVisitante
@@ -38,24 +40,31 @@ class ConfigViewModelTest {
     private val getConfigInternal = mock<GetConfigInternal>()
     private val sendDataConfig = mock<SendDataConfig>()
     private val saveDataConfig = mock<SaveDataConfig>()
+    private val updateChave = mock<UpdateChave>()
     private val updateColab = mock<UpdateColab>()
     private val updateEquip = mock<UpdateEquip>()
     private val updateFluxo = mock<UpdateFluxo>()
     private val updateLocal = mock<UpdateLocal>()
+    private val updateLocalTrab = mock<UpdateLocalTrab>()
     private val updateRLocalFluxo = mock<UpdateRLocalFluxo>()
     private val updateTerceiro = mock<UpdateTerceiro>()
     private val updateVisitante = mock<UpdateVisitante>()
     private val setCheckUpdateAllTable = mock<SetCheckUpdateAllTable>()
-
+    private val sizeAll = 28f
+    private var contWhenever = 0f
+    private var contResult = 0f
+    private var contUpdate = 0f
 
     private fun getViewModel() = ConfigViewModel(
         getConfigInternal = getConfigInternal,
         sendDataConfig = sendDataConfig,
         saveDataConfig = saveDataConfig,
+        updateChave = updateChave,
         updateColab = updateColab,
         updateEquip = updateEquip,
         updateFluxo = updateFluxo,
         updateLocal = updateLocal,
+        updateLocalTrab = updateLocalTrab,
         updateRLocalFluxo = updateRLocalFluxo,
         updateTerceiro = updateTerceiro,
         updateVisitante = updateVisitante,
@@ -332,20 +341,67 @@ class ConfigViewModelTest {
             )
         )
     }
-
     @Test
-    fun `Check return failure usecase if have error in usecase UpdateColab`() = runTest {
+    fun `Check return failure usecase if have error in usecase UpdateChave`() = runTest {
         whenever(
-            updateColab(
-                sizeAll = 22f,
+            updateChave(
+                sizeAll = sizeAll,
                 count = 1f
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_chave",
+                    currentProgress = percentage(1f, sizeAll)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanChave -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanChave -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), 2)
+        assertEquals(
+            result[0],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_chave",
+                currentProgress = percentage(1f, sizeAll)
+            )
+        )
+        assertEquals(
+            result[1],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanChave -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanChave -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateColab`() = runTest {
+        val qtdBefore = 1f
+        wheneverSuccessChave()
+        whenever(
+            updateColab(
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
                     msgProgress = "Limpando a tabela tb_colab",
-                    currentProgress = percentage(1f, 22f)
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
                 ),
                 ResultUpdate(
                     errors = Errors.UPDATE,
@@ -358,17 +414,18 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 2)
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
         assertEquals(
-            result[0],
+            result[(qtdBefore * 3).toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = percentage(1f, 22f)
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
             )
         )
         assertEquals(
-            result[1],
+            result[((qtdBefore * 3) + 1).toInt()],
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
@@ -381,18 +438,20 @@ class ConfigViewModelTest {
 
     @Test
     fun `Check return failure usecase if have error in usecase UpdateEquip`() = runTest {
+        val qtdBefore = 2f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         whenever(
             updateEquip(
-                sizeAll = 22f,
-                count = 2f
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_equip",
-                    currentProgress = percentage(4f, 22f)
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
                 ),
                 ResultUpdate(
                     errors = Errors.UPDATE,
@@ -405,18 +464,19 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 5)
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
         checkResultUpdateColab(result)
         assertEquals(
-            result[3],
+            result[(qtdBefore * 3).toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_equip",
-                currentProgress = percentage(4f, 22f)
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
             )
         )
         assertEquals(
-            result[4],
+            result[((qtdBefore * 3) + 1).toInt()],
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
@@ -429,19 +489,21 @@ class ConfigViewModelTest {
 
     @Test
     fun `Check return failure usecase if have error in usecase UpdateFluxo`() = runTest {
+        val qtdBefore = 3f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         whenever(
             updateFluxo(
-                sizeAll = 22f,
-                count = 3f
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_fluxo",
-                    currentProgress = percentage(7f, 22f)
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
                 ),
                 ResultUpdate(
                     errors = Errors.UPDATE,
@@ -454,19 +516,20 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 8)
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
         checkResultUpdateColab(result)
         checkResultUpdateEquip(result)
         assertEquals(
-            result[6],
+            result[(qtdBefore * 3).toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_fluxo",
-                currentProgress = percentage(7f, 22f)
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
             )
         )
         assertEquals(
-            result[7],
+            result[((qtdBefore * 3) + 1).toInt()],
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
@@ -479,20 +542,22 @@ class ConfigViewModelTest {
 
     @Test
     fun `Check return failure usecase if have error in usecase UpdateLocal`() = runTest {
+        val qtdBefore = 4f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessFluxo()
         whenever(
             updateLocal(
-                sizeAll = 22f,
-                count = 4f
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_local",
-                    currentProgress = percentage(10f, 22f)
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
                 ),
                 ResultUpdate(
                     errors = Errors.UPDATE,
@@ -505,20 +570,21 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 11)
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
         checkResultUpdateColab(result)
         checkResultUpdateEquip(result)
         checkResultUpdateFluxo(result)
         assertEquals(
-            result[9],
+            result[(qtdBefore * 3).toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_local",
-                currentProgress = percentage(10f, 22f)
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
             )
         )
         assertEquals(
-            result[10],
+            result[((qtdBefore * 3) + 1).toInt()],
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
@@ -530,22 +596,81 @@ class ConfigViewModelTest {
     }
 
     @Test
-    fun `Check return failure usecase if have error in usecase UpdateRLocalFluxo`() = runTest {
+    fun `Check return failure usecase if have error in usecase UpdateLocalTrab`() = runTest {
+        val qtdBefore = 5f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessFluxo()
         wheneverSuccessLocal()
         whenever(
+            updateLocalTrab(
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_local_trab",
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
+                ),
+                ResultUpdate(
+                    errors = Errors.UPDATE,
+                    flagDialog = true,
+                    flagFailure = true,
+                    failure = "Failure Usecase -> CleanLocalTrab -> java.lang.NullPointerException",
+                    msgProgress = "Failure Usecase -> CleanLocalTrab -> java.lang.NullPointerException",
+                )
+            )
+        )
+        val viewModel = getViewModel()
+        val result = viewModel.updateAllDatabase().toList()
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
+        checkResultUpdateFluxo(result)
+        assertEquals(
+            result[(qtdBefore * 3).toInt()],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_local_trab",
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
+            )
+        )
+        assertEquals(
+            result[((qtdBefore * 3) + 1).toInt()],
+            ConfigState(
+                errors = Errors.UPDATE,
+                flagDialog = true,
+                flagFailure = true,
+                failure = "Failure Usecase -> CleanLocalTrab -> java.lang.NullPointerException",
+                msgProgress = "Failure Usecase -> CleanLocalTrab -> java.lang.NullPointerException",
+            )
+        )
+    }
+
+    @Test
+    fun `Check return failure usecase if have error in usecase UpdateRLocalFluxo`() = runTest {
+        val qtdBefore = 6f
+        wheneverSuccessChave()
+        wheneverSuccessColab()
+        wheneverSuccessEquip()
+        wheneverSuccessFluxo()
+        wheneverSuccessLocal()
+        wheneverSuccessLocalTrab()
+        whenever(
             updateRLocalFluxo(
-                sizeAll = 22f,
-                count = 5f
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_r_local_fluxo",
-                    currentProgress = percentage(13f, 22f)
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
                 ),
                 ResultUpdate(
                     errors = Errors.UPDATE,
@@ -558,21 +683,23 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 14)
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
         checkResultUpdateColab(result)
         checkResultUpdateEquip(result)
         checkResultUpdateFluxo(result)
         checkResultUpdateLocal(result)
+        checkResultUpdateLocalTrab(result)
         assertEquals(
-            result[12],
+            result[(qtdBefore * 3).toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_r_local_fluxo",
-                currentProgress = percentage(13f, 22f)
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
             )
         )
         assertEquals(
-            result[13],
+            result[((qtdBefore * 3) + 1).toInt()],
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
@@ -585,22 +712,25 @@ class ConfigViewModelTest {
 
     @Test
     fun `Check return failure usecase if have error in usecase UpdateTerceiro`() = runTest {
+        val qtdBefore = 7f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessFluxo()
         wheneverSuccessLocal()
+        wheneverSuccessLocalTrab()
         wheneverSuccessRLocalFluxo()
         whenever(
             updateTerceiro(
-                sizeAll = 22f,
-                count = 6f
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_terceiro",
-                    currentProgress = percentage(16f, 22f)
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
                 ),
                 ResultUpdate(
                     errors = Errors.UPDATE,
@@ -613,22 +743,24 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 17)
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
         checkResultUpdateColab(result)
         checkResultUpdateEquip(result)
         checkResultUpdateFluxo(result)
         checkResultUpdateLocal(result)
+        checkResultUpdateLocalTrab(result)
         checkResultUpdateRLocalFluxo(result)
         assertEquals(
-            result[15],
+            result[(qtdBefore * 3).toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_terceiro",
-                currentProgress = percentage(16f, 22f)
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
             )
         )
         assertEquals(
-            result[16],
+            result[((qtdBefore * 3) + 1).toInt()],
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
@@ -641,23 +773,26 @@ class ConfigViewModelTest {
 
     @Test
     fun `Check return failure usecase if have error in usecase UpdateVisitante`() = runTest {
+        val qtdBefore = 8f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessFluxo()
         wheneverSuccessLocal()
+        wheneverSuccessLocalTrab()
         wheneverSuccessRLocalFluxo()
         wheneverSuccessTerceiro()
         whenever(
             updateVisitante(
-                sizeAll = 22f,
-                count = 7f
+                sizeAll = sizeAll,
+                count = (qtdBefore + 1)
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_visitante",
-                    currentProgress = percentage(19f, 22f)
+                    currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
                 ),
                 ResultUpdate(
                     errors = Errors.UPDATE,
@@ -670,23 +805,25 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 20)
+        assertEquals(result.count(), ((qtdBefore * 3) + 2).toInt())
+        checkResultUpdateChave(result)
         checkResultUpdateColab(result)
         checkResultUpdateEquip(result)
         checkResultUpdateFluxo(result)
         checkResultUpdateLocal(result)
+        checkResultUpdateLocalTrab(result)
         checkResultUpdateRLocalFluxo(result)
         checkResultUpdateTerceiro(result)
         assertEquals(
-            result[18],
+            result[(qtdBefore * 3).toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = percentage(19f, 22f)
+                currentProgress = percentage(((qtdBefore * 3) + 1), sizeAll)
             )
         )
         assertEquals(
-            result[19],
+            result[((qtdBefore * 3) + 1).toInt()],
             ConfigState(
                 errors = Errors.UPDATE,
                 flagDialog = true,
@@ -699,10 +836,13 @@ class ConfigViewModelTest {
 
     @Test
     fun `Check return failure datasource if have error in datasource SetCheckUpdateAllTable`() = runTest {
+        val qtdBefore = 9f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessFluxo()
         wheneverSuccessLocal()
+        wheneverSuccessLocalTrab()
         wheneverSuccessRLocalFluxo()
         wheneverSuccessTerceiro()
         wheneverSuccessVisitante()
@@ -718,26 +858,18 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 22)
-        assertEquals(
-            result[0],
-            ConfigState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = percentage(1f, 22f)
-            )
-        )
+        assertEquals(result.count(), ((qtdBefore * 3) + 1).toInt())
+        checkResultUpdateChave(result)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
         checkResultUpdateFluxo(result)
+        checkResultUpdateLocal(result)
+        checkResultUpdateLocalTrab(result)
+        checkResultUpdateRLocalFluxo(result)
+        checkResultUpdateTerceiro(result)
+        checkResultUpdateVisitante(result)
         assertEquals(
-            result[18],
-            ConfigState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = percentage(19f, 22f)
-            )
-        )
-        assertEquals(
-            result[21],
+            result[27],
             ConfigState(
                 errors = Errors.EXCEPTION,
                 flagDialog = true,
@@ -749,10 +881,13 @@ class ConfigViewModelTest {
 
     @Test
     fun `check return success if all update run correctly`() = runTest {
+        val qtdBefore = 9f
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessFluxo()
         wheneverSuccessLocal()
+        wheneverSuccessLocalTrab()
         wheneverSuccessRLocalFluxo()
         wheneverSuccessTerceiro()
         wheneverSuccessVisitante()
@@ -763,26 +898,18 @@ class ConfigViewModelTest {
         )
         val viewModel = getViewModel()
         val result = viewModel.updateAllDatabase().toList()
-        assertEquals(result.count(), 22)
-        assertEquals(
-            result[0],
-            ConfigState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = percentage(1f, 22f)
-            )
-        )
+        assertEquals(result.count(), ((qtdBefore * 3) + 1).toInt())
+        checkResultUpdateChave(result)
+        checkResultUpdateColab(result)
+        checkResultUpdateEquip(result)
         checkResultUpdateFluxo(result)
+        checkResultUpdateLocal(result)
+        checkResultUpdateLocalTrab(result)
+        checkResultUpdateRLocalFluxo(result)
+        checkResultUpdateTerceiro(result)
+        checkResultUpdateVisitante(result)
         assertEquals(
-            result[18],
-            ConfigState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = percentage(19f, 22f)
-            )
-        )
-        assertEquals(
-            result[21],
+            result[27],
             ConfigState(
                 flagDialog = true,
                 flagProgress = true,
@@ -795,10 +922,12 @@ class ConfigViewModelTest {
     @Test
     fun `check return success if saveTokenAndUpdateAllDatabase is success`() = runTest {
         wheneverSuccessToken()
+        wheneverSuccessChave()
         wheneverSuccessColab()
         wheneverSuccessEquip()
         wheneverSuccessFluxo()
         wheneverSuccessLocal()
+        wheneverSuccessLocalTrab()
         wheneverSuccessRLocalFluxo()
         wheneverSuccessTerceiro()
         wheneverSuccessVisitante()
@@ -835,82 +964,139 @@ class ConfigViewModelTest {
         )
     }
 
+    private fun wheneverSuccessChave() =
+        runTest {
+            whenever(
+                updateChave(
+                    sizeAll = sizeAll,
+                    count = ++contUpdate
+                )
+            ).thenReturn(
+                flowOf(
+                    ResultUpdate(
+                        flagProgress = true,
+                        msgProgress = "Limpando a tabela tb_chave",
+                        currentProgress = percentage(++contWhenever, sizeAll)
+                    ),
+                    ResultUpdate(
+                        flagProgress = true,
+                        msgProgress = "Recuperando dados da tabela tb_chave do Web Service",
+                        currentProgress = percentage(++contWhenever, sizeAll)
+                    ),
+                    ResultUpdate(
+                        flagProgress = true,
+                        msgProgress = "Salvando dados na tabela tb_chave",
+                        currentProgress = percentage(++contWhenever, sizeAll)
+                    ),
+                )
+            )
+        }
+
+    private fun checkResultUpdateChave(result: List<ConfigState>) =
+        runTest {
+            assertEquals(
+                result[contResult.toInt()],
+                ConfigState(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_chave",
+                    currentProgress = percentage(++contResult, sizeAll)
+                )
+            )
+            assertEquals(
+                result[contResult.toInt()],
+                ConfigState(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_chave do Web Service",
+                    currentProgress = percentage(++contResult, sizeAll)
+                )
+            )
+            assertEquals(
+                result[contResult.toInt()],
+                ConfigState(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_chave",
+                    currentProgress = percentage(++contResult, sizeAll)
+                )
+            )
+        }
+
     private fun wheneverSuccessColab() = runTest {
         whenever(
             updateColab(
-                sizeAll = 22f,
-                count = 1f
+                sizeAll = sizeAll,
+                count = ++contUpdate
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_colab",
-                    currentProgress = percentage(1f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-                    currentProgress = percentage(2f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Salvando dados na tabela tb_colab",
-                    currentProgress = percentage(3f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
             )
         )
     }
 
-    private fun checkResultUpdateColab(result: List<ConfigState>) = runTest {
-        assertEquals(
-            result[0],
-            ConfigState(
-                flagProgress = true,
-                msgProgress = "Limpando a tabela tb_colab",
-                currentProgress = percentage(1f, 22f)
+    private fun checkResultUpdateColab(result: List<ConfigState>) =
+        runTest {
+            assertEquals(
+                result[contResult.toInt()],
+                ConfigState(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_colab",
+                    currentProgress = percentage(++contResult, sizeAll)
+                )
             )
-        )
-        assertEquals(
-            result[1],
-            ConfigState(
-                flagProgress = true,
-                msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
-                currentProgress = percentage(2f, 22f)
+            assertEquals(
+                result[contResult.toInt()],
+                ConfigState(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_colab do Web Service",
+                    currentProgress = percentage(++contResult, sizeAll)
+                )
             )
-        )
-        assertEquals(
-            result[2],
-            ConfigState(
-                flagProgress = true,
-                msgProgress = "Salvando dados na tabela tb_colab",
-                currentProgress = percentage(3f, 22f)
+            assertEquals(
+                result[contResult.toInt()],
+                ConfigState(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_colab",
+                    currentProgress = percentage(++contResult, sizeAll)
+                )
             )
-        )
-    }
+        }
 
     private fun wheneverSuccessEquip() = runTest {
         whenever(
             updateEquip(
-                sizeAll = 22f,
-                count = 2f
+                sizeAll = sizeAll,
+                count = ++contUpdate
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_equip",
-                    currentProgress = percentage(4f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
-                    currentProgress = percentage(5f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Salvando dados na tabela tb_equip",
-                    currentProgress = percentage(6f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
             )
         )
@@ -918,27 +1104,27 @@ class ConfigViewModelTest {
 
     private fun checkResultUpdateEquip(result: List<ConfigState>) = runTest {
         assertEquals(
-            result[3],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_equip",
-                currentProgress = percentage(4f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[4],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_equip do Web Service",
-                currentProgress = percentage(5f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[5],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_equip",
-                currentProgress = percentage(6f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
     }
@@ -946,25 +1132,25 @@ class ConfigViewModelTest {
     private fun wheneverSuccessFluxo() = runTest {
         whenever(
             updateFluxo(
-                sizeAll = 22f,
-                count = 3f
+                sizeAll = sizeAll,
+                count = ++contUpdate
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_fluxo",
-                    currentProgress = percentage(7f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Recuperando dados da tabela tb_fluxo do Web Service",
-                    currentProgress = percentage(8f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Salvando dados na tabela tb_fluxo",
-                    currentProgress = percentage(9f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
             )
         )
@@ -972,27 +1158,27 @@ class ConfigViewModelTest {
 
     private fun checkResultUpdateFluxo(result: List<ConfigState>) = runTest {
         assertEquals(
-            result[6],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_fluxo",
-                currentProgress = percentage(7f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[7],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_fluxo do Web Service",
-                currentProgress = percentage(8f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[8],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_fluxo",
-                currentProgress = percentage(9f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
     }
@@ -1000,25 +1186,25 @@ class ConfigViewModelTest {
     private fun wheneverSuccessLocal() = runTest {
         whenever(
             updateLocal(
-                sizeAll = 22f,
-                count = 4f
+                sizeAll = sizeAll,
+                count = ++contUpdate
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_local",
-                    currentProgress = percentage(10f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Recuperando dados da tabela tb_local do Web Service",
-                    currentProgress = percentage(11f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Salvando dados na tabela tb_local",
-                    currentProgress = percentage(12f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
             )
         )
@@ -1026,27 +1212,81 @@ class ConfigViewModelTest {
 
     private fun checkResultUpdateLocal(result: List<ConfigState>) = runTest {
         assertEquals(
-            result[9],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_local",
-                currentProgress = percentage(10f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[10],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_local do Web Service",
-                currentProgress = percentage(11f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[11],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_local",
-                currentProgress = percentage(12f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
+            )
+        )
+    }
+
+    private fun wheneverSuccessLocalTrab() = runTest {
+        whenever(
+            updateLocalTrab(
+                sizeAll = sizeAll,
+                count = ++contUpdate
+            )
+        ).thenReturn(
+            flowOf(
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Limpando a tabela tb_local_trab",
+                    currentProgress = percentage(++contWhenever, sizeAll)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Recuperando dados da tabela tb_local_trab do Web Service",
+                    currentProgress = percentage(++contWhenever, sizeAll)
+                ),
+                ResultUpdate(
+                    flagProgress = true,
+                    msgProgress = "Salvando dados na tabela tb_local_trab",
+                    currentProgress = percentage(++contWhenever, sizeAll)
+                ),
+            )
+        )
+    }
+
+    private fun checkResultUpdateLocalTrab(result: List<ConfigState>) = runTest {
+        assertEquals(
+            result[contResult.toInt()],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Limpando a tabela tb_local_trab",
+                currentProgress = percentage(++contResult, sizeAll)
+            )
+        )
+        assertEquals(
+            result[contResult.toInt()],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Recuperando dados da tabela tb_local_trab do Web Service",
+                currentProgress = percentage(++contResult, sizeAll)
+            )
+        )
+        assertEquals(
+            result[contResult.toInt()],
+            ConfigState(
+                flagProgress = true,
+                msgProgress = "Salvando dados na tabela tb_local_trab",
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
     }
@@ -1054,25 +1294,25 @@ class ConfigViewModelTest {
     private fun wheneverSuccessRLocalFluxo() = runTest {
         whenever(
             updateRLocalFluxo(
-                sizeAll = 22f,
-                count = 5f
+                sizeAll = sizeAll,
+                count = ++contUpdate
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_r_local_fluxo",
-                    currentProgress = percentage(13f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Recuperando dados da tabela tb_r_local_fluxo do Web Service",
-                    currentProgress = percentage(14f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Salvando dados na tabela tb_r_local_fluxo",
-                    currentProgress = percentage(15f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
             )
         )
@@ -1080,27 +1320,27 @@ class ConfigViewModelTest {
 
     private fun checkResultUpdateRLocalFluxo(result: List<ConfigState>) = runTest {
         assertEquals(
-            result[12],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_r_local_fluxo",
-                currentProgress = percentage(13f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[13],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_r_local_fluxo do Web Service",
-                currentProgress = percentage(14f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[14],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_r_local_fluxo",
-                currentProgress = percentage(15f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
     }
@@ -1108,25 +1348,25 @@ class ConfigViewModelTest {
     private fun wheneverSuccessTerceiro() = runTest {
         whenever(
             updateTerceiro(
-                sizeAll = 22f,
-                count = 6f
+                sizeAll = sizeAll,
+                count = ++contUpdate
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_terceiro",
-                    currentProgress = percentage(16f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
-                    currentProgress = percentage(17f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Salvando dados na tabela tb_terceiro",
-                    currentProgress = percentage(18f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
             )
         )
@@ -1134,27 +1374,27 @@ class ConfigViewModelTest {
 
     private fun checkResultUpdateTerceiro(result: List<ConfigState>) = runTest {
         assertEquals(
-            result[15],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_terceiro",
-                currentProgress = percentage(16f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[16],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_terceiro do Web Service",
-                currentProgress = percentage(17f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[17],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_terceiro",
-                currentProgress = percentage(18f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
     }
@@ -1162,25 +1402,25 @@ class ConfigViewModelTest {
     private fun wheneverSuccessVisitante() = runTest {
         whenever(
             updateVisitante(
-                sizeAll = 22f,
-                count = 7f
+                sizeAll = sizeAll,
+                count = ++contUpdate
             )
         ).thenReturn(
             flowOf(
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Limpando a tabela tb_visitante",
-                    currentProgress = percentage(19f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
-                    currentProgress = percentage(20f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
                 ResultUpdate(
                     flagProgress = true,
                     msgProgress = "Salvando dados na tabela tb_visitante",
-                    currentProgress = percentage(21f, 22f)
+                    currentProgress = percentage(++contWhenever, sizeAll)
                 ),
             )
         )
@@ -1188,27 +1428,27 @@ class ConfigViewModelTest {
 
     private fun checkResultUpdateVisitante(result: List<ConfigState>) = runTest {
         assertEquals(
-            result[18],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Limpando a tabela tb_visitante",
-                currentProgress = percentage(19f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[19],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Recuperando dados da tabela tb_visitante do Web Service",
-                currentProgress = percentage(20f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
         assertEquals(
-            result[20],
+            result[contResult.toInt()],
             ConfigState(
                 flagProgress = true,
                 msgProgress = "Salvando dados na tabela tb_visitante",
-                currentProgress = percentage(21f, 22f)
+                currentProgress = percentage(++contResult, sizeAll)
             )
         )
     }

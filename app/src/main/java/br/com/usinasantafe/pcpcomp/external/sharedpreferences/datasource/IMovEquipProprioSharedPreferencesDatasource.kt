@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipProprioSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.utils.BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import com.google.gson.Gson
 
 class IMovEquipProprioSharedPreferencesDatasource(
@@ -144,7 +144,7 @@ class IMovEquipProprioSharedPreferencesDatasource(
         }
     }
 
-    override suspend fun start(typeMov: TypeMov): Result<Boolean> {
+    override suspend fun start(typeMov: TypeMovEquip): Result<Boolean> {
         try {
             save(MovEquipProprioSharedPreferencesModel(tipoMovEquipProprio = typeMov))
             return Result.success(true)

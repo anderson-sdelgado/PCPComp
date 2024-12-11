@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenciaRepository
 import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -31,7 +31,7 @@ class IGetMovEquipResidenciaOpenList(
                     veiculo = it.veiculoMovEquipResidencia!!,
                     placa = it.placaMovEquipResidencia!!,
                     motorista = it.motoristaMovEquipResidencia!!,
-                    tipoMov = if (it.tipoMovEquipResidencia == TypeMov.INPUT) "ENTRADA" else "SAIDA",
+                    tipoMov = if (it.tipoMovEquipResidencia == TypeMovEquip.INPUT) "ENTRADA" else "SAIDA",
                 )
             }
             return Result.success(modelList)

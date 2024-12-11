@@ -3,7 +3,8 @@ package br.com.usinasantafe.pcpcomp.utils
 enum class StatusData { OPEN, CLOSE  }
 enum class StatusSend { STARTED, SEND, SENDING, SENT }
 enum class StatusForeigner { INSIDE, OUTSIDE }
-enum class TypeMov { INPUT, OUTPUT }
+enum class TypeMovEquip { INPUT, OUTPUT}
+enum class TypeMovKey { REMOVE, RECEIPT }
 enum class FlagUpdate { OUTDATED, UPDATED }
 enum class TypeEquip { VEICULO, VEICULOSEG }
 enum class TypeOcupante { MOTORISTA, PASSAGEIRO }

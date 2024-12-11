@@ -11,7 +11,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -59,7 +59,7 @@ class ObservVisitTercViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     ID_ARGS to 1
                 )
@@ -83,7 +83,7 @@ class ObservVisitTercViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
                     ID_ARGS to 1
                 )
@@ -111,7 +111,7 @@ class ObservVisitTercViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.OUTPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.OUTPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 1
                 )
@@ -150,7 +150,7 @@ class ObservVisitTercViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.OUTPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.OUTPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 1
                 )
@@ -176,7 +176,7 @@ class ObservVisitTercViewModelTest {
         )
         whenever(
             saveMovEquipVisitTerc(
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 id = 1
             )
         ).thenReturn(
@@ -190,7 +190,7 @@ class ObservVisitTercViewModelTest {
         val viewModel = getViewModel(
             SavedStateHandle(
                 mapOf(
-                    TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                    TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                     FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                     ID_ARGS to 1
                 )
@@ -220,7 +220,7 @@ class ObservVisitTercViewModelTest {
             )
             whenever(
                 saveMovEquipVisitTerc(
-                    typeMov = TypeMov.INPUT,
+                    typeMov = TypeMovEquip.INPUT,
                     id = 1
                 )
             ).thenReturn(
@@ -229,7 +229,7 @@ class ObservVisitTercViewModelTest {
             val viewModel = getViewModel(
                 SavedStateHandle(
                     mapOf(
-                        TYPE_MOV_ARGS to TypeMov.INPUT.ordinal,
+                        TYPE_MOV_ARGS to TypeMovEquip.INPUT.ordinal,
                         FLOW_APP_ARGS to FlowApp.ADD.ordinal,
                         ID_ARGS to 1
                     )

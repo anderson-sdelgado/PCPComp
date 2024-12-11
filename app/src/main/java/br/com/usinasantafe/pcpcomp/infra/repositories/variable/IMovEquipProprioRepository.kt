@@ -12,7 +12,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.sharedPreferen
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.entityToRetrofitModelOutput
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.retrofitModelInputToEntity
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 class IMovEquipProprioRepository(
     private val movEquipProprioSharedPreferencesDatasource: MovEquipProprioSharedPreferencesDatasource,
@@ -77,7 +77,7 @@ class IMovEquipProprioRepository(
         }
     }
 
-    override suspend fun getTipoMov(): Result<TypeMov> {
+    override suspend fun getTipoMov(): Result<TypeMovEquip> {
         try {
             val resultGet = movEquipProprioSharedPreferencesDatasource.get()
             if (resultGet.isFailure)
@@ -427,7 +427,7 @@ class IMovEquipProprioRepository(
         return movEquipProprioRoomDatasource.setSend(id)
     }
 
-    override suspend fun start(typeMov: TypeMov): Result<Boolean> {
+    override suspend fun start(typeMov: TypeMovEquip): Result<Boolean> {
         return movEquipProprioSharedPreferencesDatasource.start(typeMov)
     }
 

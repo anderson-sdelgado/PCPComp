@@ -10,7 +10,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SaveMovEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetObservProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -72,7 +72,7 @@ class ObservProprioViewModelTest {
         whenever(
             getTypeMov()
         ).thenReturn(
-            Result.success(TypeMov.INPUT)
+            Result.success(TypeMovEquip.INPUT)
         )
         val viewModel = ObservProprioViewModel(
             SavedStateHandle(
@@ -88,7 +88,7 @@ class ObservProprioViewModelTest {
         )
         viewModel.setReturn()
         assertEquals(viewModel.uiState.value.flagReturn, true)
-        assertEquals(viewModel.uiState.value.typeMov, TypeMov.INPUT)
+        assertEquals(viewModel.uiState.value.typeMov, TypeMovEquip.INPUT)
     }
 
     @Test

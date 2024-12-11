@@ -12,6 +12,7 @@ import br.com.usinasantafe.pcpcomp.presenter.MainActivity
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN
+import br.com.usinasantafe.pcpcomp.utils.waitUntilTimeout
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -40,23 +41,35 @@ class ConfigFlowTest: KoinTest {
         composeTestRule.onNodeWithText("CONFIGURAÇÃO").assertIsDisplayed()
         composeTestRule.onNodeWithText("SAIR").assertIsDisplayed()
 
+        composeTestRule.waitUntilTimeout(3_000)
+
         composeTestRule.onNodeWithText("CONFIGURAÇÃO")
             .performClick()
 
-        composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()
+        composeTestRule.waitUntilTimeout(3_000)
 
+        composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()
         composeTestRule.onNodeWithText("OK")
             .performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
 
         composeTestRule.onNodeWithTag(TAG_NUMBER_TEXT_FIELD_CONFIG_SCREEN).performTextInput("16997417840")
         composeTestRule.onNodeWithTag(TAG_PASSWORD_TEXT_FIELD_CONFIG_SCREEN).performTextInput("12345")
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS")
             .performClick()
 
+        composeTestRule.waitUntilTimeout(3_000)
+
         composeTestRule.onNodeWithText("OK")
             .performClick()
 
+        composeTestRule.waitUntilTimeout(3_000)
+
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
     }
 
     @Test
@@ -72,7 +85,7 @@ class ConfigFlowTest: KoinTest {
             Config(
                 password = "12345",
                 number = 16997417840,
-                version = "6.00",
+                version = "1.0",
                 idBD = 1
             )
         )
@@ -81,23 +94,34 @@ class ConfigFlowTest: KoinTest {
         composeTestRule.onNodeWithText("CONFIGURAÇÃO").assertIsDisplayed()
         composeTestRule.onNodeWithText("SAIR").assertIsDisplayed()
 
+        composeTestRule.waitUntilTimeout(3_000)
+
         composeTestRule.onNodeWithText("CONFIGURAÇÃO")
             .performClick()
 
+        composeTestRule.waitUntilTimeout(3_000)
+
         composeTestRule.onNodeWithText("SENHA:").assertIsDisplayed()
         composeTestRule.onNodeWithTag(TAG_PASSWORD_TEXT_FIELD_SENHA_SCREEN).performTextInput("12345")
-
         composeTestRule.onNodeWithText("OK")
             .performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
 
         composeTestRule.onNodeWithText("NRO APARELHO:").assertIsDisplayed()
         composeTestRule.onNodeWithText("SALVAR/ATUALIZAR DADOS")
             .performClick()
 
+        composeTestRule.waitUntilTimeout(3_000)
+
         composeTestRule.onNodeWithText("OK")
             .performClick()
 
+        composeTestRule.waitUntilTimeout(3_000)
+
         composeTestRule.onNodeWithText("APONTAMENTO").assertIsDisplayed()
+
+        composeTestRule.waitUntilTimeout(3_000)
 
     }
 
@@ -110,10 +134,12 @@ val dispatcherSuccess: Dispatcher = object : Dispatcher() {
     override fun dispatch(request: RecordedRequest): MockResponse {
         when (request.path) {
             "/find-token.php" -> return MockResponse().setBody(resultTokenRetrofit)
+            "/chave.php" -> return MockResponse().setBody(resultChaveRetrofit)
             "/colab.php" -> return MockResponse().setBody(resultColabRetrofit)
             "/equip.php" -> return MockResponse().setBody(resultEquipRetrofit)
             "/fluxo.php" -> return MockResponse().setBody(resultFluxoRetrofit)
             "/local.php" -> return MockResponse().setBody(resultLocalRetrofit)
+            "/local_trab.php" -> return MockResponse().setBody(resultLocalTrabRetrofit)
             "/r_local_fluxo.php" -> return MockResponse().setBody(resultRLocalFluxoRetrofit)
             "/terceiro.php" -> return MockResponse().setBody(resultTerceiroRetrofit)
             "/visitante.php" -> return MockResponse().setBody(resultVisitanteRetrofit)
@@ -172,6 +198,10 @@ val dispatcherFailureTerceiro: Dispatcher = object : Dispatcher() {
 
 val resultTokenRetrofit = """{"idBD":1}""".trimIndent()
 
+val resultChaveRetrofit = """
+    [{"idChave":1,"descrChave":"01 - TI","idLocalTrab":1}]
+""".trimIndent()
+
 val resultColabRetrofit = """
     [{"matricColab":19759,"nomeColab":"ANDERSON DA SILVA DELGADO"}]
 """.trimIndent()
@@ -190,6 +220,10 @@ val resultFluxoRetrofit = """
 
 val resultLocalRetrofit = """
     [{"idLocal":1,"descrLocal":"Usina"}]
+""".trimIndent()
+
+val resultLocalTrabRetrofit = """
+    [{"idLocalTrab":1,"descrLocalTrab":"TI"}]
 """.trimIndent()
 
 val resultRLocalFluxoRetrofit = """

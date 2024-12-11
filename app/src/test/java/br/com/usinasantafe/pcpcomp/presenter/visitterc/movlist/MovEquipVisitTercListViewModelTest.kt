@@ -29,7 +29,9 @@ class MovEquipVisitTercListViewModelTest {
         val getHeader = mock<GetHeader>()
         val startInputMovEquipVisitTerc = mock<StartInputMovEquipVisitTerc>()
         val getMovEquipVisitTercInsideList = mock<GetMovEquipVisitTercInsideList>()
-        whenever(getHeader()).thenReturn(
+        whenever(
+            getHeader()
+        ).thenReturn(
             Result.failure(
                 DatasourceException(
                     function = "ConfigSharedPreferences.hasConfig",

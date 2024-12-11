@@ -1,14 +1,13 @@
 package br.com.usinasantafe.pcpcomp.domain.usecases.residencia
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipResidencia
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipVisitTerc
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipResidenciaDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidenciaRoomModel
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -55,9 +54,9 @@ class SetStatusSentMovResidenciaImplTest : KoinTest {
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
                     idMovEquipResidencia = 1,
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -65,16 +64,16 @@ class SetStatusSentMovResidenciaImplTest : KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
 
             movEquipResidenciaDao.insert(
                 MovEquipResidenciaRoomModel(
                     idMovEquipResidencia = 2,
-                    nroMatricVigiaMovEquipResidencia = 19759,
+                    matricVigiaMovEquipResidencia = 19759,
                     idLocalMovEquipResidencia = 1,
-                    tipoMovEquipResidencia = TypeMov.INPUT,
+                    tipoMovEquipResidencia = TypeMovEquip.INPUT,
                     dthrMovEquipResidencia = 1723213270250,
                     motoristaMovEquipResidencia = "MOTORISTA TESTE",
                     veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -82,7 +81,7 @@ class SetStatusSentMovResidenciaImplTest : KoinTest {
                     observMovEquipResidencia = "OBSERV TESTE",
                     statusMovEquipResidencia = StatusData.OPEN,
                     statusSendMovEquipResidencia = StatusSend.SEND,
-                    statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                    statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
                 )
             )
             val list = listOf(

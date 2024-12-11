@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.domain.repositories.variable
 
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovEquipProprio
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 interface MovEquipProprioRepository {
     suspend fun checkOpen(): Result<Boolean>
@@ -14,7 +14,7 @@ interface MovEquipProprioRepository {
     suspend fun getMatricColab(id: Int): Result<Int>
     suspend fun getNotaFiscal(id: Int): Result<Int?>
     suspend fun getObserv(id: Int): Result<String?>
-    suspend fun getTipoMov(): Result<TypeMov>
+    suspend fun getTipoMov(): Result<TypeMovEquip>
     suspend fun listOpen(): Result<List<MovEquipProprio>>
     suspend fun listSend(): Result<List<MovEquipProprio>>
     suspend fun listSent(): Result<List<MovEquipProprio>>
@@ -65,5 +65,5 @@ interface MovEquipProprioRepository {
     ): Result<Boolean>
 
     suspend fun setSend(id: Int): Result<Boolean>
-    suspend fun start(typeMov: TypeMov): Result<Boolean>
+    suspend fun start(typeMov: TypeMovEquip): Result<Boolean>
 }

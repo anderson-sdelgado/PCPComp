@@ -26,7 +26,7 @@ interface MovEquipResidenciaDao {
     @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipResidencia = :status")
     suspend fun listStatusData(status: StatusData): List<MovEquipResidenciaRoomModel>
 
-    @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipForeigResidencia = :statusForeigner")
+    @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusMovEquipForeignerResidencia = :statusForeigner")
     suspend fun listStatusForeigner(statusForeigner: StatusForeigner): List<MovEquipResidenciaRoomModel>
 
     @Query("SELECT * FROM $TB_MOV_EQUIP_RESIDENCIA WHERE statusSendMovEquipResidencia = :statusEnvio")

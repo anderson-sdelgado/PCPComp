@@ -28,7 +28,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 const val TAG_OBSERV_TEXT_FIELD_PROPRIO = "tag_observ_text_field_proprio"
 
@@ -68,7 +68,7 @@ fun ObservProprioScreen(
 @Composable
 fun ObservProprioContent(
     flowApp: FlowApp,
-    typeMov: TypeMov,
+    typeMov: TypeMovEquip,
     observ: String?,
     onObservChanged: (String) -> Unit,
     setObserv: () -> Unit,
@@ -145,8 +145,8 @@ fun ObservProprioContent(
 
         if(flagReturn){
             when(typeMov){
-                TypeMov.INPUT -> onNavDestino()
-                TypeMov.OUTPUT -> onNavNotaFiscal()
+                TypeMovEquip.INPUT -> onNavDestino()
+                TypeMovEquip.OUTPUT -> onNavNotaFiscal()
             }
         }
 
@@ -163,7 +163,7 @@ fun ObservProprioPagePreview() {
                 flowApp = FlowApp.ADD,
                 onObservChanged = {},
                 setObserv = {},
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 setReturn = {},
                 flagAccess = false,
                 flagReturn = false,
@@ -190,7 +190,7 @@ fun ObservProprioPagePreviewWithFailure() {
                 flowApp = FlowApp.ADD,
                 onObservChanged = {},
                 setObserv = {},
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 setReturn = {},
                 flagAccess = false,
                 flagReturn = false,

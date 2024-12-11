@@ -2,7 +2,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioSharedPreferencesDatasource
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -27,12 +27,12 @@ class IStartMovEquipProprioTest: KoinTest {
 
     @Test
     fun check_return_success_if_data_is_correct() = runTest {
-        val result = usecase(TypeMov.INPUT)
+        val result = usecase(TypeMovEquip.INPUT)
         assertTrue(result.isSuccess)
         assertEquals(result, Result.success(true))
         val resultMov = movEquipProprioSharedPreferencesDatasource.get()
         assertTrue(resultMov.isSuccess)
-        assertEquals(resultMov.getOrNull()!!.tipoMovEquipProprio, TypeMov.INPUT)
+        assertEquals(resultMov.getOrNull()!!.tipoMovEquipProprio, TypeMovEquip.INPUT)
     }
 
 }

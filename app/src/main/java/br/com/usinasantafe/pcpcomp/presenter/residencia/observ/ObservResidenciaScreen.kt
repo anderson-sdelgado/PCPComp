@@ -29,7 +29,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 const val TAG_OBSERV_TEXT_FIELD_RESIDENCIA = "tag_observ_text_field_residencia"
 
@@ -65,7 +65,7 @@ fun ObservResidenciaScreen(
 @Composable
 fun ObservResidenciaContent(
     flowApp: FlowApp,
-    typeMov: TypeMov,
+    typeMov: TypeMovEquip,
     observ: String?,
     onObservChanged: (String) -> Unit,
     setObserv: () -> Unit,
@@ -107,8 +107,8 @@ fun ObservResidenciaContent(
                     when (flowApp) {
                         FlowApp.ADD -> {
                             when(typeMov){
-                                TypeMov.INPUT -> onNavMotorista()
-                                TypeMov.OUTPUT -> onNavMovEquipList()
+                                TypeMovEquip.INPUT -> onNavMotorista()
+                                TypeMovEquip.OUTPUT -> onNavMovEquipList()
                             }
                         }
                         FlowApp.CHANGE -> onNavDetalhe()
@@ -152,7 +152,7 @@ fun ObservResidenciaPagePreview() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             ObservResidenciaContent(
                 flowApp = FlowApp.ADD,
-                typeMov = TypeMov.INPUT,
+                typeMov = TypeMovEquip.INPUT,
                 observ = "Teste",
                 onObservChanged = {},
                 setObserv = {},

@@ -7,7 +7,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoo
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -93,7 +93,7 @@ class ISetNotaFiscalProprioTest: KoinTest {
 
     @Test
     fun check_return_true_if_SetNotaFiscalProprio_execute_success_flowapp_add() = runTest {
-        movEquipProprioSharedPreferencesDatasource.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasource.start(TypeMovEquip.INPUT)
         val result = usecase(
             notaFiscal = "123456",
             flowApp = FlowApp.ADD,
@@ -112,7 +112,7 @@ class ISetNotaFiscalProprioTest: KoinTest {
                 idMovEquipProprio = 1,
                 matricVigiaMovEquipProprio = 19759,
                 idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = 1723213270250,
                 idEquipMovEquipProprio = 1,
                 matricColabMovEquipProprio = 18017,

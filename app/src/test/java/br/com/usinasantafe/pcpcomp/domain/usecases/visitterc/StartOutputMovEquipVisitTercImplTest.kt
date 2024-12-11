@@ -7,7 +7,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTer
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -54,7 +54,7 @@ class StartOutputMovEquipVisitTercImplTest {
             val movEquipVisitTerc = MovEquipVisitTerc(
                 idMovEquipVisitTerc = 1,
                 dthrMovEquipVisitTerc = Date(),
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 veiculoMovEquipVisitTerc = "GOL",
                 placaMovEquipVisitTerc = "AAA-0000",
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -69,10 +69,10 @@ class StartOutputMovEquipVisitTercImplTest {
                     movEquipVisitTerc
                 )
             )
-            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMov.OUTPUT
+            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT
             movEquipVisitTerc.dthrMovEquipVisitTerc = Date()
             movEquipVisitTerc.destinoMovEquipVisitTerc = null
-            movEquipVisitTerc.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTerc.statusMovEquipForeignerVisitTerc = StatusForeigner.OUTSIDE
             whenever(
                 movEquipVisitTercRepository.start(movEquipVisitTerc)
             ).thenReturn(
@@ -98,7 +98,7 @@ class StartOutputMovEquipVisitTercImplTest {
             val movEquipVisitTerc = MovEquipVisitTerc(
                 idMovEquipVisitTerc = 1,
                 dthrMovEquipVisitTerc = Date(),
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 veiculoMovEquipVisitTerc = "GOL",
                 placaMovEquipVisitTerc = "AAA-0000",
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -113,10 +113,10 @@ class StartOutputMovEquipVisitTercImplTest {
                     movEquipVisitTerc
                 )
             )
-            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMov.OUTPUT
+            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT
             movEquipVisitTerc.dthrMovEquipVisitTerc = Date()
             movEquipVisitTerc.destinoMovEquipVisitTerc = null
-            movEquipVisitTerc.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTerc.statusMovEquipForeignerVisitTerc = StatusForeigner.OUTSIDE
             whenever(
                 movEquipVisitTercRepository.start(movEquipVisitTerc)
             ).thenReturn(
@@ -150,7 +150,7 @@ class StartOutputMovEquipVisitTercImplTest {
             val movEquipVisitTerc = MovEquipVisitTerc(
                 idMovEquipVisitTerc = 1,
                 dthrMovEquipVisitTerc = Date(),
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 veiculoMovEquipVisitTerc = "GOL",
                 placaMovEquipVisitTerc = "AAA-0000",
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -165,10 +165,10 @@ class StartOutputMovEquipVisitTercImplTest {
                     movEquipVisitTerc
                 )
             )
-            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMov.OUTPUT
+            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT
             movEquipVisitTerc.dthrMovEquipVisitTerc = Date()
             movEquipVisitTerc.destinoMovEquipVisitTerc = null
-            movEquipVisitTerc.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTerc.statusMovEquipForeignerVisitTerc = StatusForeigner.OUTSIDE
             whenever(
                 movEquipVisitTercRepository.start(movEquipVisitTerc)
             ).thenReturn(
@@ -196,7 +196,7 @@ class StartOutputMovEquipVisitTercImplTest {
             val movEquipVisitTerc = MovEquipVisitTerc(
                 idMovEquipVisitTerc = 1,
                 dthrMovEquipVisitTerc = Date(),
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 veiculoMovEquipVisitTerc = "GOL",
                 placaMovEquipVisitTerc = "AAA-0000",
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -211,10 +211,10 @@ class StartOutputMovEquipVisitTercImplTest {
                     movEquipVisitTerc
                 )
             )
-            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMov.OUTPUT
+            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT
             movEquipVisitTerc.dthrMovEquipVisitTerc = Date()
             movEquipVisitTerc.destinoMovEquipVisitTerc = null
-            movEquipVisitTerc.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTerc.statusMovEquipForeignerVisitTerc = StatusForeigner.OUTSIDE
             whenever(
                 movEquipVisitTercRepository.start(movEquipVisitTerc)
             ).thenReturn(
@@ -265,7 +265,7 @@ class StartOutputMovEquipVisitTercImplTest {
             val movEquipVisitTerc = MovEquipVisitTerc(
                 idMovEquipVisitTerc = 1,
                 dthrMovEquipVisitTerc = Date(),
-                tipoMovEquipVisitTerc = TypeMov.INPUT,
+                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                 veiculoMovEquipVisitTerc = "GOL",
                 placaMovEquipVisitTerc = "AAA-0000",
                 tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.VISITANTE,
@@ -280,10 +280,10 @@ class StartOutputMovEquipVisitTercImplTest {
                     movEquipVisitTerc
                 )
             )
-            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMov.OUTPUT
+            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT
             movEquipVisitTerc.dthrMovEquipVisitTerc = Date()
             movEquipVisitTerc.destinoMovEquipVisitTerc = null
-            movEquipVisitTerc.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTerc.statusMovEquipForeignerVisitTerc = StatusForeigner.OUTSIDE
             whenever(
                 movEquipVisitTercRepository.start(movEquipVisitTerc)
             ).thenReturn(

@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -56,7 +56,7 @@ class GetMovEquipVisitTercOpenListImplTest {
                         MovEquipVisitTerc(
                             idMovEquipVisitTerc = 1,
                             dthrMovEquipVisitTerc = Date(1723213270250),
-                            tipoMovEquipVisitTerc = TypeMov.INPUT,
+                            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                             veiculoMovEquipVisitTerc = "GOL",
                             placaMovEquipVisitTerc = "AAA-0000",
                             idVisitTercMovEquipVisitTerc = 1
@@ -102,7 +102,7 @@ class GetMovEquipVisitTercOpenListImplTest {
                         MovEquipVisitTerc(
                             idMovEquipVisitTerc = 1,
                             dthrMovEquipVisitTerc = Date(1723213270250),
-                            tipoMovEquipVisitTerc = TypeMov.INPUT,
+                            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                             veiculoMovEquipVisitTerc = "GOL",
                             placaMovEquipVisitTerc = "AAA-0000",
                             idVisitTercMovEquipVisitTerc = 1,
@@ -159,7 +159,7 @@ class GetMovEquipVisitTercOpenListImplTest {
                         MovEquipVisitTerc(
                             idMovEquipVisitTerc = 1,
                             dthrMovEquipVisitTerc = Date(1723213270250),
-                            tipoMovEquipVisitTerc = TypeMov.INPUT,
+                            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                             veiculoMovEquipVisitTerc = "GOL",
                             placaMovEquipVisitTerc = "AAA-0000",
                             idVisitTercMovEquipVisitTerc = 1,

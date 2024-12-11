@@ -5,11 +5,11 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.ConfigRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercPassagRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 interface SaveMovEquipVisitTerc {
     suspend operator fun invoke(
-        typeMov: TypeMov,
+        typeMov: TypeMovEquip,
         id: Int
     ): Result<Boolean>
 }
@@ -23,11 +23,11 @@ class ISaveMovEquipVisitTerc(
 ) : SaveMovEquipVisitTerc {
 
     override suspend fun invoke(
-        typeMov: TypeMov,
+        typeMov: TypeMovEquip,
         id: Int
     ): Result<Boolean> {
         try {
-            if (typeMov == TypeMov.OUTPUT) {
+            if (typeMov == TypeMovEquip.OUTPUT) {
                 val resultClose = setStatusOutsideMovVisitTerc(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
@@ -43,7 +43,7 @@ class ISaveMovEquipVisitTerc(
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
             val idSave = resultSave.getOrNull()!!
-            if (typeMov == TypeMov.OUTPUT) {
+            if (typeMov == TypeMovEquip.OUTPUT) {
                 val resultClose = setStatusOutsideMovVisitTerc(idSave)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)

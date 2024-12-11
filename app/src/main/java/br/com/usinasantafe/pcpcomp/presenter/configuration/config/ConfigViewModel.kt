@@ -7,10 +7,12 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.config.GetConfigInternal
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SaveDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SendDataConfig
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.SetCheckUpdateAllTable
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateFluxo
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateLocal
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateLocalTrab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateRLocalFluxo
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateTerceiro
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateVisitante
@@ -56,10 +58,12 @@ class ConfigViewModel(
     private val getConfigInternal: GetConfigInternal,
     private val sendDataConfig: SendDataConfig,
     private val saveDataConfig: SaveDataConfig,
+    private val updateChave: UpdateChave,
     private val updateColab: UpdateColab,
     private val updateEquip: UpdateEquip,
     private val updateFluxo: UpdateFluxo,
     private val updateLocal: UpdateLocal,
+    private val updateLocalTrab: UpdateLocalTrab,
     private val updateRLocalFluxo: UpdateRLocalFluxo,
     private val updateTerceiro: UpdateTerceiro,
     private val updateVisitante: UpdateVisitante,
@@ -214,8 +218,13 @@ class ConfigViewModel(
 
     suspend fun updateAllDatabase(): Flow<ConfigState> = flow {
         var pos = 0f
-        val sizeUpdate = sizeUpdate(7f)
+        val sizeUpdate = sizeUpdate(9f)
         var configState = ConfigState()
+        updateChave(sizeUpdate, ++pos).collect{
+            configState = it.resultUpdateToConfig()
+            emit(it.resultUpdateToConfig())
+        }
+        if(configState.flagFailure) return@flow
         updateColab(sizeUpdate, ++pos).collect{
             configState = it.resultUpdateToConfig()
             emit(it.resultUpdateToConfig())
@@ -232,6 +241,11 @@ class ConfigViewModel(
         }
         if(configState.flagFailure) return@flow
         updateLocal(sizeUpdate, ++pos).collect{
+            configState = it.resultUpdateToConfig()
+            emit(it.resultUpdateToConfig())
+        }
+        if(configState.flagFailure) return@flow
+        updateLocalTrab(sizeUpdate, ++pos).collect{
             configState = it.resultUpdateToConfig()
             emit(it.resultUpdateToConfig())
         }

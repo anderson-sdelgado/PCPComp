@@ -3,7 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.proprio
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipProprioSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -14,7 +14,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class IGetTypeMovTest: KoinTest {
+class IGetTypeMovEquipTest: KoinTest {
 
     private val usecase: GetTypeMov by inject()
     private val movEquipProprioSharedPreferencesDatasource: MovEquipProprioSharedPreferencesDatasource by inject()
@@ -39,9 +39,9 @@ class IGetTypeMovTest: KoinTest {
 
     @Test
     fun check_return_success_if_have_data_in_mov_equip_proprio_internal() = runTest {
-        movEquipProprioSharedPreferencesDatasource.start(TypeMov.INPUT)
+        movEquipProprioSharedPreferencesDatasource.start(TypeMovEquip.INPUT)
         val result = usecase()
         assertTrue(result.isSuccess)
-        assertEquals(result.getOrNull()!!, TypeMov.INPUT)
+        assertEquals(result.getOrNull()!!, TypeMovEquip.INPUT)
     }
 }

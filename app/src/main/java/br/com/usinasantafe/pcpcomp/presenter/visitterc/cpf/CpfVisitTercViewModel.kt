@@ -16,11 +16,8 @@ import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TB_TERCEIRO
-import br.com.usinasantafe.pcpcomp.utils.TB_VISITANTE
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
-import br.com.usinasantafe.pcpcomp.utils.updatePercentage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,7 +42,7 @@ data class CpfVisitTercState(
     val currentProgress: Float = 0.0f,
 )
 
-fun ResultUpdate.resultUpdateToCpfVisitTerc(): CpfVisitTercState {
+fun ResultUpdate.resultUpdateToState(): CpfVisitTercState {
     return with(this){
         CpfVisitTercState(
             flagDialog = this.flagDialog,
@@ -232,14 +229,14 @@ class CpfVisitTercViewModel(
         val sizeUpdate = 7f
         var cpfVisitTercState = CpfVisitTercState()
         updateTerceiro(sizeUpdate, 1f).collect {
-            cpfVisitTercState = it.resultUpdateToCpfVisitTerc()
-            emit(it.resultUpdateToCpfVisitTerc())
+            cpfVisitTercState = it.resultUpdateToState()
+            emit(it.resultUpdateToState())
         }
         if (cpfVisitTercState.flagFailure)
             return@flow
         updateVisitante(sizeUpdate, 2f).collect {
-            cpfVisitTercState = it.resultUpdateToCpfVisitTerc()
-            emit(it.resultUpdateToCpfVisitTerc())
+            cpfVisitTercState = it.resultUpdateToState()
+            emit(it.resultUpdateToState())
         }
         if (cpfVisitTercState.flagFailure)
             return@flow

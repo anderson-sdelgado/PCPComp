@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Assert.*
@@ -40,9 +40,9 @@ class CheckSendMovResidenciaImplTest : KoinTest {
     fun check_return_true_if_have_mov_to_send() = runTest {
         movEquipResidenciaDao.insert(
             MovEquipResidenciaRoomModel(
-                nroMatricVigiaMovEquipResidencia = 19759,
+                matricVigiaMovEquipResidencia = 19759,
                 idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = 1723213270250,
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -50,7 +50,7 @@ class CheckSendMovResidenciaImplTest : KoinTest {
                 observMovEquipResidencia = "OBSERV TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
         )
         val result = usecase()

@@ -26,7 +26,7 @@ class RecoverLocalServerImplTest : KoinTest {
         loadKoinModules(generateTestAppComponent(server.url("/").toString()))
         val result = usecase()
         assertTrue(result.isFailure)
-        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> RecoverLocalServer")
+        assertEquals(result.exceptionOrNull()!!.message, "Failure Usecase -> GetToken")
         assertEquals(result.exceptionOrNull()!!.cause.toString(), NullPointerException().toString())
     }
 

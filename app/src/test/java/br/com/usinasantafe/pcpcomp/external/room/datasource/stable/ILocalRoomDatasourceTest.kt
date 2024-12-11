@@ -103,9 +103,15 @@ class ILocalRoomDatasourceTest {
         datasource.addAll(
             localRooms
         )
-        val result = datasource.getAll()
-        assertTrue(result.isSuccess)
-        assertEquals(result, Result.success(localRooms))
+        val result = datasource.listAll()
+        assertEquals(
+            result.isSuccess,
+            true
+        )
+        assertEquals(
+            result,
+            Result.success(localRooms)
+        )
     }
 
     @Test

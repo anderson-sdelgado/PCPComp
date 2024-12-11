@@ -26,7 +26,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TextSmallDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 
 @Composable
 fun MovEquipProprioListScreen(
@@ -67,7 +67,7 @@ fun MovEquipProprioListContent(
     descrVigia: String,
     descrLocal: String,
     movEquipProprioModelList: List<MovEquipProprioModel>,
-    startMov: (TypeMov) -> Unit,
+    startMov: (TypeMovEquip) -> Unit,
     flagAccess: Boolean,
     flagDialog: Boolean,
     closeAllMov: () -> Unit,
@@ -111,13 +111,13 @@ fun MovEquipProprioListContent(
             horizontalArrangement = Arrangement.Center,
         ) {
             Button(
-                onClick = { startMov(TypeMov.INPUT) },
+                onClick = { startMov(TypeMovEquip.INPUT) },
                 modifier = Modifier.weight(1f),
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_input))
             }
             Button(
-                onClick = { startMov(TypeMov.OUTPUT) },
+                onClick = { startMov(TypeMovEquip.OUTPUT) },
                 modifier = Modifier.weight(1f)
             ) {
                 TextButtonDesign(text = stringResource(id = R.string.text_output))

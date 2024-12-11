@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenc
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -46,9 +46,9 @@ class IGetMovEquipResidenciaInsideListTest {
         runTest {
             val model = MovEquipResidencia(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
+                matricVigiaMovEquipResidencia = 1000,
                 idLocalMovEquipResidencia = 1000,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = Date(1723213270250),
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
@@ -56,7 +56,7 @@ class IGetMovEquipResidenciaInsideListTest {
                 observMovEquipResidencia = "OBSERVACAO TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             val list = listOf(model)
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()

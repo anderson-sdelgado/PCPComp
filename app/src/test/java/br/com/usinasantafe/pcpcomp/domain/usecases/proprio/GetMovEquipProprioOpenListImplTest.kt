@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.ColabRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioRepository
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 
@@ -137,7 +137,7 @@ class GetMovEquipProprioOpenListImplTest {
             MovEquipProprio(
                 idMovEquipProprio = 1,
                 matricColabMovEquipProprio = 19759,
-                tipoMovEquipProprio = TypeMov.INPUT,
+                tipoMovEquipProprio = TypeMovEquip.INPUT,
                 dthrMovEquipProprio = Date(1723213270250),
                 idEquipMovEquipProprio = 1,
             )

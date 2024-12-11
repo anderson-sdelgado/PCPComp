@@ -8,32 +8,46 @@ import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_EQUIP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_OCUPANTE_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Screens.CHAVE_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_COLAB_CHAVE_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.CONFIG_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.CPF_VISIT_TERC_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.DESTINO_PROPRIO_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.DESTINO_VISIT_TERC_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_CHAVE_EQUIP_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_CHAVE_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_PROPRIO_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_RESIDENCIA_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.DETALHE_VISIT_TERC_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.EQUIP_CHAVE_EQUIP_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.NRO_EQUIP_PROPRIO_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.EQUIP_SEG_LIST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.INITIAL_TEST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.PASSAG_COLAB_LIST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.LOCAL_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_COLAB_CHAVE_EQUIP_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_COLAB_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MATRIC_VIGIA_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MENU_APONT_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MENU_INICIAL_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MOTORISTA_RESIDENCIA_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.CONTROLE_CHAVE_EDIT_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.CONTROLE_CHAVE_EQUIP_EDIT_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.CONTROLE_CHAVE_EQUIP_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.CONTROLE_CHAVE_LIST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_EQUIP_PROPRIO_LIST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_EQUIP_RESIDENCIA_EDIT_LIST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_EQUIP_RESIDENCIA_LIST_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_EQUIP_VISIT_TERC_EDIT_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.MOV_EQUIP_VISIT_TERC_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_COLAB_CHAVE_EQUIP_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_COLAB_CHAVE_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_COLAB_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_VIGIA_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.NOME_VISIT_TERC_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.NOTA_FISCAL_PROPRIO_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.OBSERV_CHAVE_EQUIP_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.Screens.OBSERV_CHAVE_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.OBSERV_PROPRIO_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.OBSERV_RESIDENCIA_SCREEN
 import br.com.usinasantafe.pcpcomp.presenter.Screens.OBSERV_VISIT_TERC_SCREEN
@@ -84,16 +98,30 @@ object Screens {
     const val VEICULO_RESIDENCIA_SCREEN = "veiculoresidencia"
     const val MOV_EQUIP_RESIDENCIA_EDIT_LIST_SCREEN = "movequipresidencialeditlist"
     const val DETALHE_RESIDENCIA_SCREEN = "detalheresidencia"
+    const val CONTROLE_CHAVE_LIST_SCREEN = "controlechavelist"
+    const val CONTROLE_CHAVE_EDIT_LIST_SCREEN = "controlechaveeditlist"
+    const val DETALHE_CHAVE_SCREEN = "detalhechave"
+    const val CHAVE_LIST_SCREEN = "chavelist"
+    const val MATRIC_COLAB_CHAVE_SCREEN = "matriccolabchave"
+    const val NOME_COLAB_CHAVE_SCREEN = "nomecolabchave"
+    const val OBSERV_CHAVE_SCREEN = "observchave"
+    const val CONTROLE_CHAVE_EQUIP_LIST_SCREEN = "controlechaveequiplist"
+    const val CONTROLE_CHAVE_EQUIP_EDIT_LIST_SCREEN = "controlechaveequipeditlist"
+    const val DETALHE_CHAVE_EQUIP_SCREEN = "detalhechaveequip"
+    const val MATRIC_COLAB_CHAVE_EQUIP_SCREEN = "colabchaveequip"
+    const val NOME_COLAB_CHAVE_EQUIP_SCREEN = "colabchaveequip"
+    const val EQUIP_CHAVE_EQUIP_SCREEN = "equipchaveequip"
+    const val OBSERV_CHAVE_EQUIP_SCREEN = "observchaveequip"
 }
 
 object Args {
-    const val FLOW_APP_ARGS = "flowApp"
-    const val TYPE_OCUPANTE_ARGS = "typeOcupante"
-    const val TYPE_EQUIP_ARGS = "typeEquip"
-    const val TYPE_MOV_ARGS = "typeMov"
+    const val FLOW_APP_ARGS = "flowapp"
+    const val TYPE_OCUPANTE_ARGS = "typeocupante"
+    const val TYPE_EQUIP_ARGS = "typeequip"
+    const val TYPE_MOV_ARGS = "typemov"
     const val ID_ARGS = "id"
-    const val MATRIC_COLAB_ARGS = "matricColab"
-    const val CPF_VISIT_TERC_ARGS = "cpfVisitTerc"
+    const val MATRIC_COLAB_ARGS = "matricvolab"
+    const val CPF_VISIT_TERC_ARGS = "cpfvisitterc"
 }
 
 object Routes {
@@ -142,6 +170,20 @@ object Routes {
     const val OBSERV_RESIDENCIA_ROUTE = "$OBSERV_RESIDENCIA_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_MOV_ARGS}/{$ID_ARGS}"
     const val MOV_EQUIP_RESIDENCIA_EDIT_LIST_ROUTE = MOV_EQUIP_RESIDENCIA_EDIT_LIST_SCREEN
     const val DETALHE_RESIDENCIA_ROUTE = "$DETALHE_RESIDENCIA_SCREEN/{$ID_ARGS}"
+    const val CONTROLE_CHAVE_LIST_ROUTE = CONTROLE_CHAVE_LIST_SCREEN
+    const val CONTROLE_CHAVE_EDIT_LIST_ROUTE = CONTROLE_CHAVE_EDIT_LIST_SCREEN
+    const val DETALHE_CHAVE_ROUTE = "$DETALHE_CHAVE_SCREEN/{$ID_ARGS}"
+    const val CHAVE_LIST_ROUTE = "$CHAVE_LIST_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}"
+    const val MATRIC_COLAB_CHAVE_ROUTE = "$MATRIC_COLAB_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}"
+    const val NOME_COLAB_CHAVE_ROUTE = "$NOME_COLAB_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}/{$MATRIC_COLAB_ARGS}"
+    const val OBSERV_CHAVE_ROUTE = "$OBSERV_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_MOV_ARGS}/{$ID_ARGS}"
+    const val CONTROLE_CHAVE_EQUIP_LIST_ROUTE = CONTROLE_CHAVE_EQUIP_LIST_SCREEN
+    const val CONTROLE_CHAVE_EQUIP_EDIT_LIST_ROUTE = CONTROLE_CHAVE_EQUIP_EDIT_LIST_SCREEN
+    const val DETALHE_CHAVE_EQUIP_ROUTE = "$DETALHE_CHAVE_EQUIP_SCREEN/{$ID_ARGS}"
+    const val EQUIP_CHAVE_EQUIP_ROUTE = "$EQUIP_CHAVE_EQUIP_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}"
+    const val MATRIC_COLAB_CHAVE_EQUIP_ROUTE = "$MATRIC_COLAB_CHAVE_EQUIP_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}"
+    const val NOME_COLAB_CHAVE_EQUIP_ROUTE = "$NOME_COLAB_CHAVE_EQUIP_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}/{$MATRIC_COLAB_ARGS}"
+    const val OBSERV_CHAVE_EQUIP_ROUTE = "$OBSERV_CHAVE_EQUIP_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_MOV_ARGS}/{$ID_ARGS}"
 }
 
 class NavigationActions(private val navController: NavHostController) {
@@ -149,6 +191,8 @@ class NavigationActions(private val navController: NavHostController) {
     fun navigationToSplash() {
         navController.navigate(SPLASH_SCREEN)
     }
+
+    ///////////////////////// Config //////////////////////////////////
 
     fun navigationToSenha() {
         navController.navigate(SENHA_SCREEN)
@@ -161,6 +205,10 @@ class NavigationActions(private val navController: NavHostController) {
     fun navigationToConfig() {
         navController.navigate(CONFIG_SCREEN)
     }
+
+    ////////////////////////////////////////////////////////////////////
+
+    ///////////////////////// Initial //////////////////////////////////
 
     fun navigationToMatricVigia() {
         navController.navigate(MATRIC_VIGIA_SCREEN)
@@ -177,6 +225,10 @@ class NavigationActions(private val navController: NavHostController) {
     fun navigationToMenuApont() {
         navController.navigate(MENU_APONT_SCREEN)
     }
+
+    ////////////////////////////////////////////////////////////////////
+
+    ///////////////////////// Proprio //////////////////////////////////
 
     fun navigationToMovEquipProprioList() {
         navController.navigate(MOV_EQUIP_PROPRIO_LIST_SCREEN)
@@ -250,6 +302,10 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigate("${OBSERV_PROPRIO_SCREEN}/${flowApp}/${id}")
     }
 
+    ////////////////////////////////////////////////////////////////////
+
+    ///////////////////////// VisitTerc ////////////////////////////////
+
     fun navigationToMovEquipVisitTercList() {
         navController.navigate(MOV_EQUIP_VISIT_TERC_LIST_SCREEN)
     }
@@ -322,6 +378,10 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigate("${DETALHE_VISIT_TERC_SCREEN}/${id}")
     }
 
+    ////////////////////////////////////////////////////////////////////
+
+    ///////////////////////// Residencia ///////////////////////////////
+
     fun navigationToMovEquipResidenciaList() {
         navController.navigate(MOV_EQUIP_RESIDENCIA_LIST_SCREEN)
     }
@@ -364,5 +424,53 @@ class NavigationActions(private val navController: NavHostController) {
     ) {
         navController.navigate("${DETALHE_RESIDENCIA_SCREEN}/${id}")
     }
+
+    ////////////////////////////////////////////////////////////////////
+
+    /////////////////////////// Chave //////////////////////////////////
+
+    fun navigationToControleChaveList() {
+        navController.navigate(CONTROLE_CHAVE_LIST_SCREEN)
+    }
+
+    fun navigationToControleChaveEditList() {
+        navController.navigate(CONTROLE_CHAVE_EDIT_LIST_SCREEN)
+    }
+
+    fun navigationToObservChave(
+        flowApp: Int,
+        typeMov: Int,
+        id: Int
+    ) {
+        navController.navigate("${OBSERV_CHAVE_SCREEN}/${flowApp}/${typeMov}/${id}")
+    }
+
+    fun navigationToChaveList(
+        flowApp: Int,
+        id: Int,
+    ) {
+        navController.navigate("${CHAVE_LIST_SCREEN}/${flowApp}/${id}")
+    }
+
+    fun navigationToMatriColabChave(
+        flowApp: Int,
+        id: Int,
+    ) {
+        navController.navigate("${MATRIC_COLAB_CHAVE_SCREEN}/${flowApp}/${id}")
+    }
+
+    fun navigationToNomeColabChave(
+        flowApp: Int,
+        id: Int,
+        matricColab: String
+    ) {
+        navController.navigate("${NOME_COLAB_CHAVE_SCREEN}/${flowApp}/${id}/${matricColab}")
+    }
+
+    ////////////////////////////////////////////////////////////////////
+
+    /////////////////////////// Chave Equip //////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////
 
 }

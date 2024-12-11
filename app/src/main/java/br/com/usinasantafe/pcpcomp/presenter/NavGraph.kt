@@ -15,7 +15,9 @@ import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_EQUIP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_OCUPANTE_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Routes.CHAVE_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.CONFIG_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.CONTROLE_CHAVE_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.CPF_VISIT_TERC_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DESTINO_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DESTINO_VISIT_TERC_ROUTE
@@ -27,6 +29,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Routes.INITIAL_TEST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NRO_EQUIP_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.PASSAG_COLAB_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.LOCAL_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.MATRIC_COLAB_CHAVE_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.MATRIC_COLAB_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.MATRIC_VIGIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.MENU_APONT_ROUTE
@@ -37,6 +40,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Routes.MOV_EQUIP_RESIDENCIA_EDIT_LI
 import br.com.usinasantafe.pcpcomp.presenter.Routes.MOV_EQUIP_RESIDENCIA_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.MOV_EQUIP_VISIT_TERC_EDIT_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.MOV_EQUIP_VISIT_TERC_LIST_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_COLAB_CHAVE_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_COLAB_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_VIGIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_VISIT_TERC_ROUTE
@@ -52,6 +56,14 @@ import br.com.usinasantafe.pcpcomp.presenter.Routes.SPLASH_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.TIPO_VISIT_TERC_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.VEICULO_RESIDENCIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.VEICULO_VISIT_TERC_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.ChaveListScreen
+import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.ChaveListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.controlelist.ControleChaveListScreen
+import br.com.usinasantafe.pcpcomp.presenter.chave.controlelist.ControleChaveListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.matriccolab.MatricColabChaveScreen
+import br.com.usinasantafe.pcpcomp.presenter.chave.matriccolab.MatricColabChaveViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.nomecolab.NomeColabChaveScreen
+import br.com.usinasantafe.pcpcomp.presenter.chave.nomecolab.NomeColabChaveViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigScreen
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.local.LocalScreen
@@ -126,7 +138,7 @@ import br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo.VeiculoVisitTercS
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo.VeiculoVisitTercViewModel
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import org.koin.androidx.compose.koinViewModel
 
@@ -151,6 +163,9 @@ fun NavigationGraph(
                 onNavMenuApont = { navActions.navigationToMenuApont() }
             )
         }
+
+        ///////////////////////// Config //////////////////////////////////
+
         composable(MENU_INICIAL_ROUTE) {
             MenuInicialScreen(
                 viewModel = koinViewModel<MenuInicialViewModel>(),
@@ -171,6 +186,11 @@ fun NavigationGraph(
                 onNavMenuInicial = { navActions.navigationToMenuInicial() }
             )
         }
+
+        ////////////////////////////////////////////////////////////////////
+
+        ///////////////////////// Initial //////////////////////////////////
+
         composable(MATRIC_VIGIA_ROUTE) {
             MatricVigiaScreen(
                 viewModel = koinViewModel<MatricVigiaViewModel>(),
@@ -198,9 +218,16 @@ fun NavigationGraph(
                 onNavMovVeicProprio = { navActions.navigationToMovEquipProprioList() },
                 onNavMovVeicVisitTerc = { navActions.navigationToMovEquipVisitTercList() },
                 onNavMovVeicResidencia = { navActions.navigationToMovEquipResidenciaList() },
+                onNavMovChave = { navActions.navigationToControleChaveList() },
+                onNavMovChaveEquip = {  },
                 onNavSplashScreen = { navActions.navigationToSplash() }
             )
         }
+
+        ////////////////////////////////////////////////////////////////////
+
+        ///////////////////////// Proprio //////////////////////////////////
+
         composable(MOV_EQUIP_PROPRIO_LIST_ROUTE) {
             MovEquipProprioListScreen(
                 viewModel = koinViewModel<MovEquipProprioListViewModel>(),
@@ -534,6 +561,11 @@ fun NavigationGraph(
                 onNavMovList = { navActions.navigationToMovEquipProprioList() },
             )
         }
+
+        ////////////////////////////////////////////////////////////////////
+
+        ///////////////////////// VisitTerc ////////////////////////////////
+
         composable(
             MOV_EQUIP_VISIT_TERC_LIST_ROUTE
         ) {
@@ -552,7 +584,7 @@ fun NavigationGraph(
                 onNavObserv = {
                     navActions.navigationToObservVisitTerc(
                         flowApp = FlowApp.ADD.ordinal,
-                        typeMov = TypeMov.OUTPUT.ordinal,
+                        typeMov = TypeMovEquip.OUTPUT.ordinal,
                         id = it
                     )
                 },
@@ -776,7 +808,7 @@ fun NavigationGraph(
                 onNavObserv = {
                     navActions.navigationToObservVisitTerc(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
-                        typeMov = TypeMov.INPUT.ordinal,
+                        typeMov = TypeMovEquip.INPUT.ordinal,
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 }
@@ -881,7 +913,7 @@ fun NavigationGraph(
                 onNavObserv = {
                     navActions.navigationToObservVisitTerc(
                         flowApp = FlowApp.CHANGE.ordinal,
-                        typeMov = TypeMov.OUTPUT.ordinal,
+                        typeMov = TypeMovEquip.OUTPUT.ordinal,
                         id = entry.arguments?.getInt(
                             ID_ARGS
                         )!!
@@ -889,6 +921,11 @@ fun NavigationGraph(
                 },
             )
         }
+
+        ////////////////////////////////////////////////////////////////////
+
+        ///////////////////////// Residencia ///////////////////////////////
+
         composable(
             MOV_EQUIP_RESIDENCIA_LIST_ROUTE
         ) {
@@ -906,7 +943,7 @@ fun NavigationGraph(
                 onNavObserv = {
                     navActions.navigationToObservResidencia(
                         flowApp = FlowApp.ADD.ordinal,
-                        typeMov = TypeMov.OUTPUT.ordinal,
+                        typeMov = TypeMovEquip.OUTPUT.ordinal,
                         id = it
                     )
                 },
@@ -1001,7 +1038,7 @@ fun NavigationGraph(
                 onNavObserv = {
                     navActions.navigationToObservResidencia(
                         flowApp = FlowApp.ADD.ordinal,
-                        typeMov = TypeMov.INPUT.ordinal,
+                        typeMov = TypeMovEquip.INPUT.ordinal,
                         id = 0
                     )
                 },
@@ -1088,7 +1125,7 @@ fun NavigationGraph(
                 onNavObserv = {
                     navActions.navigationToObservResidencia(
                         flowApp = FlowApp.CHANGE.ordinal,
-                        typeMov = TypeMov.INPUT.ordinal,
+                        typeMov = TypeMovEquip.INPUT.ordinal,
                         id = entry.arguments?.getInt(
                             ID_ARGS
                         )!!
@@ -1096,5 +1133,99 @@ fun NavigationGraph(
                 },
             )
         }
+
+        ////////////////////////////////////////////////////////////////////
+
+        /////////////////////////// Chave //////////////////////////////////
+
+        composable(
+            CONTROLE_CHAVE_LIST_ROUTE
+        ) {
+            ControleChaveListScreen(
+                viewModel = koinViewModel<ControleChaveListViewModel>(),
+                onNavControleChaveEditList = {
+                    navActions.navigationToControleChaveEditList()
+                },
+                onNavObserv = {
+                    navActions.navigationToObservChave(
+                        flowApp = FlowApp.ADD.ordinal,
+                        typeMov = TypeMovEquip.OUTPUT.ordinal,
+                        id = it
+                    )
+                },
+                onNavMenuApont = {
+                    navActions.navigationToMenuApont()
+                },
+                onNavChaveList = {
+                    navActions.navigationToChaveList(
+                        flowApp = FlowApp.ADD.ordinal,
+                        id = 0
+                    )
+                },
+            )
+        }
+
+        composable(
+            CHAVE_LIST_ROUTE,
+            arguments = listOf(
+                navArgument(FLOW_APP_ARGS) { type = NavType.IntType },
+                navArgument(ID_ARGS) { type = NavType.IntType }
+            )
+        ) { entry ->
+            ChaveListScreen(
+                viewModel = koinViewModel<ChaveListViewModel>(),
+                onNavMatricColab = {
+                    navActions.navigationToMatriColabChave(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavMenuControleList = { navActions.navigationToControleChaveList() }
+            )
+        }
+
+        composable(
+            MATRIC_COLAB_CHAVE_ROUTE,
+            arguments = listOf(
+                navArgument(FLOW_APP_ARGS) { type = NavType.IntType },
+                navArgument(ID_ARGS) { type = NavType.IntType }
+            )
+        ) { entry ->
+            MatricColabChaveScreen(
+                viewModel = koinViewModel<MatricColabChaveViewModel>(),
+                onNavChaveList = {
+                    navActions.navigationToChaveList(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavDetalhe = {},
+                onNavNomeColab = {
+                    navActions.navigationToNomeColabChave(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!,
+                        matricColab = it
+                    )
+                }
+            )
+        }
+
+        composable(
+            NOME_COLAB_CHAVE_ROUTE,
+        ) {
+            NomeColabChaveScreen(
+                viewModel = koinViewModel<NomeColabChaveViewModel>(),
+                onNavDetalhe = {},
+                onNavMatricColab = {},
+                onNavObserv = {}
+            )
+        }
+
+        ////////////////////////////////////////////////////////////////////
+
+        /////////////////////////// Chave Equip //////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////
+
     }
 }

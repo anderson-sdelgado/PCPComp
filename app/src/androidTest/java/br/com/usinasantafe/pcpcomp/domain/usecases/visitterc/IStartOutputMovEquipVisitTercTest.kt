@@ -10,7 +10,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercR
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeVisitTerc
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockWebServer
@@ -57,7 +57,7 @@ class IStartOutputMovEquipVisitTercTest : KoinTest {
                     idMovEquipVisitTerc = 1,
                     nroMatricVigiaMovEquipVisitTerc = 19759,
                     idLocalMovEquipVisitTerc = 1,
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     idVisitTercMovEquipVisitTerc = 1000,
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                     dthrMovEquipVisitTerc = 1723213270250,
@@ -77,7 +77,7 @@ class IStartOutputMovEquipVisitTercTest : KoinTest {
             assertTrue(resultEntity.isSuccess)
             val entity = resultEntity.getOrNull()!!
             assertEquals(entity.idVisitTercMovEquipVisitTerc, 1000)
-            assertEquals(entity.tipoMovEquipVisitTerc, TypeMov.OUTPUT)
+            assertEquals(entity.tipoMovEquipVisitTerc, TypeMovEquip.OUTPUT)
         }
 
     @Test
@@ -88,7 +88,7 @@ class IStartOutputMovEquipVisitTercTest : KoinTest {
                     idMovEquipVisitTerc = 1,
                     nroMatricVigiaMovEquipVisitTerc = 19759,
                     idLocalMovEquipVisitTerc = 1,
-                    tipoMovEquipVisitTerc = TypeMov.INPUT,
+                    tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
                     idVisitTercMovEquipVisitTerc = 1000,
                     tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
                     dthrMovEquipVisitTerc = 1723213270250,
@@ -122,7 +122,7 @@ class IStartOutputMovEquipVisitTercTest : KoinTest {
             assertTrue(resultEntity.isSuccess)
             val entity = resultEntity.getOrNull()!!
             assertEquals(entity.idVisitTercMovEquipVisitTerc, 1000)
-            assertEquals(entity.tipoMovEquipVisitTerc, TypeMov.OUTPUT)
+            assertEquals(entity.tipoMovEquipVisitTerc, TypeMovEquip.OUTPUT)
             val resultPassagList = movEquipVisitTercPassagSharedPreferencesDatasource.list()
             assertTrue(resultPassagList.isSuccess)
             val passagList = resultPassagList.getOrNull()!!

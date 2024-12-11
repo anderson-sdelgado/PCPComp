@@ -34,7 +34,7 @@ class ILocalRepository(
 
     override suspend fun list(): Result<List<Local>> {
         try{
-            val resultAll = localRoomDatasource.getAll()
+            val resultAll = localRoomDatasource.listAll()
             if (resultAll.isFailure)
                 return Result.failure(resultAll.exceptionOrNull()!!)
             val localRoomModels = resultAll.getOrNull()!!

@@ -6,7 +6,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipResidenc
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -49,25 +49,25 @@ class IStartOutputMovEquipResidenciaTest {
         runTest {
             val entity = MovEquipResidencia(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
+                matricVigiaMovEquipResidencia = 1000,
                 idLocalMovEquipResidencia = 1000,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = Date(1723213270250),
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
                 placaMovEquipResidencia = "PLACA TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipResidenciaRepository.get(1)
             ).thenReturn(
                 Result.success(entity)
             )
-            entity.tipoMovEquipResidencia = TypeMov.OUTPUT
+            entity.tipoMovEquipResidencia = TypeMovEquip.OUTPUT
             entity.dthrMovEquipResidencia = Date()
-            entity.statusMovEquipForeigResidencia = StatusForeigner.OUTSIDE
+            entity.statusMovEquipForeignerResidencia = StatusForeigner.OUTSIDE
             entity.observMovEquipResidencia = null
             whenever(
                 movEquipResidenciaRepository.start(entity)
@@ -93,25 +93,25 @@ class IStartOutputMovEquipResidenciaTest {
         runTest {
             val entity = MovEquipResidencia(
                 idMovEquipResidencia = 1,
-                nroMatricVigiaMovEquipResidencia = 1000,
+                matricVigiaMovEquipResidencia = 1000,
                 idLocalMovEquipResidencia = 1000,
-                tipoMovEquipResidencia = TypeMov.INPUT,
+                tipoMovEquipResidencia = TypeMovEquip.INPUT,
                 dthrMovEquipResidencia = Date(1723213270250),
                 motoristaMovEquipResidencia = "MOTORISTA TESTE",
                 veiculoMovEquipResidencia = "VEICULO TESTE",
                 placaMovEquipResidencia = "PLACA TESTE",
                 statusMovEquipResidencia = StatusData.OPEN,
                 statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeigResidencia = StatusForeigner.INSIDE,
+                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
             )
             whenever(
                 movEquipResidenciaRepository.get(1)
             ).thenReturn(
                 Result.success(entity)
             )
-            entity.tipoMovEquipResidencia = TypeMov.OUTPUT
+            entity.tipoMovEquipResidencia = TypeMovEquip.OUTPUT
             entity.dthrMovEquipResidencia = Date()
-            entity.statusMovEquipForeigResidencia = StatusForeigner.OUTSIDE
+            entity.statusMovEquipForeignerResidencia = StatusForeigner.OUTSIDE
             entity.observMovEquipResidencia = null
             whenever(
                 movEquipResidenciaRepository.start(entity)

@@ -12,7 +12,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipProprioR
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import br.com.usinasantafe.pcpcomp.utils.token
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -67,7 +67,7 @@ class ISendMovProprioListTest {
                             idMovEquipProprio = 1,
                             matricVigiaMovEquipProprio = 19759,
                             idLocalMovEquipProprio = 1,
-                            tipoMovEquipProprio = TypeMov.INPUT,
+                            tipoMovEquipProprio = TypeMovEquip.INPUT,
                             dthrMovEquipProprio = Date(1723213270250),
                             idEquipMovEquipProprio = 1,
                             matricColabMovEquipProprio = 19759,
@@ -121,7 +121,7 @@ class ISendMovProprioListTest {
                             idMovEquipProprio = 1,
                             matricVigiaMovEquipProprio = 19759,
                             idLocalMovEquipProprio = 1,
-                            tipoMovEquipProprio = TypeMov.INPUT,
+                            tipoMovEquipProprio = TypeMovEquip.INPUT,
                             dthrMovEquipProprio = Date(1723213270250),
                             idEquipMovEquipProprio = 1,
                             matricColabMovEquipProprio = 19759,
@@ -191,7 +191,7 @@ class ISendMovProprioListTest {
                             idMovEquipProprio = 1,
                             matricVigiaMovEquipProprio = 19759,
                             idLocalMovEquipProprio = 1,
-                            tipoMovEquipProprio = TypeMov.INPUT,
+                            tipoMovEquipProprio = TypeMovEquip.INPUT,
                             dthrMovEquipProprio = Date(1723213270250),
                             idEquipMovEquipProprio = 1,
                             matricColabMovEquipProprio = 19759,
@@ -264,7 +264,7 @@ class ISendMovProprioListTest {
             idMovEquipProprio = 1,
             matricVigiaMovEquipProprio = 19759,
             idLocalMovEquipProprio = 1,
-            tipoMovEquipProprio = TypeMov.INPUT,
+            tipoMovEquipProprio = TypeMovEquip.INPUT,
             dthrMovEquipProprio = Date(1723213270250),
             idEquipMovEquipProprio = 1,
             matricColabMovEquipProprio = 19759,
@@ -374,7 +374,7 @@ class ISendMovProprioListTest {
             idMovEquipProprio = 1,
             matricVigiaMovEquipProprio = 19759,
             idLocalMovEquipProprio = 1,
-            tipoMovEquipProprio = TypeMov.INPUT,
+            tipoMovEquipProprio = TypeMovEquip.INPUT,
             dthrMovEquipProprio = Date(1723213270250),
             idEquipMovEquipProprio = 1,
             matricColabMovEquipProprio = 19759,

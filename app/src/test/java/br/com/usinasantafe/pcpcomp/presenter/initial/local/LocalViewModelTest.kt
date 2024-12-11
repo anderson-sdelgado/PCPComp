@@ -44,8 +44,14 @@ class LocalViewModelTest {
             )
         )
         viewModel.localList()
-        assertEquals(viewModel.uiState.value.flagDialog, true)
-        assertEquals(viewModel.uiState.value.failure, "Failure Datasource -> RecoverNomeVigia -> java.lang.Exception")
+        assertEquals(
+            viewModel.uiState.value.flagDialog,
+            true
+        )
+        assertEquals(
+            viewModel.uiState.value.failure,
+            "Failure Datasource -> RecoverNomeVigia -> java.lang.Exception"
+        )
     }
 
     @Test

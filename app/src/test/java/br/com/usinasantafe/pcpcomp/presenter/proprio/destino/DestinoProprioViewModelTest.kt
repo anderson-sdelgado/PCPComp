@@ -8,7 +8,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetTypeMov
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetDestinoProprio
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
@@ -141,7 +141,7 @@ class DestinoProprioViewModelTest {
         whenever(
             getTypeMov()
         ).thenReturn(
-            Result.success(TypeMov.INPUT)
+            Result.success(TypeMovEquip.INPUT)
         )
         val viewModel = DestinoProprioViewModel(
             SavedStateHandle(
@@ -158,7 +158,7 @@ class DestinoProprioViewModelTest {
         viewModel.setDestino()
         assertFalse(viewModel.uiState.value.flagDialog)
         assertTrue(viewModel.uiState.value.flagAccess)
-        assertEquals(viewModel.uiState.value.typeMov, TypeMov.INPUT)
+        assertEquals(viewModel.uiState.value.typeMov, TypeMovEquip.INPUT)
     }
 
     @Test

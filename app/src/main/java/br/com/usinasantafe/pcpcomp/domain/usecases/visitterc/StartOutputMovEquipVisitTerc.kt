@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTer
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovEquipVisitTercRepository
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
-import br.com.usinasantafe.pcpcomp.utils.TypeMov
+import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
 import java.util.Date
 
 interface StartOutputMovEquipVisitTerc {
@@ -24,10 +24,10 @@ class IStartOutputMovEquipVisitTerc(
                 return Result.failure(resultMov.exceptionOrNull()!!)
             val movEquipVisitTerc = resultMov.getOrNull()!!
             movEquipVisitTerc.observMovEquipVisitTerc = null
-            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMov.OUTPUT
+            movEquipVisitTerc.tipoMovEquipVisitTerc = TypeMovEquip.OUTPUT
             movEquipVisitTerc.dthrMovEquipVisitTerc = Date()
             movEquipVisitTerc.destinoMovEquipVisitTerc = null
-            movEquipVisitTerc.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTerc.statusMovEquipForeignerVisitTerc = StatusForeigner.OUTSIDE
             val resultStart = movEquipVisitTercRepository.start(movEquipVisitTerc)
             if (resultStart.isFailure)
                 return Result.failure(resultStart.exceptionOrNull()!!)

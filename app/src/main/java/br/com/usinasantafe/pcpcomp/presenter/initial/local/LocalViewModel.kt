@@ -17,10 +17,10 @@ import kotlinx.coroutines.launch
 
 data class LocalState(
     val locals: List<Local> = emptyList(),
-    val flagAccess: Boolean = false,
-    val flagFailure: Boolean = false,
     val flagDialog: Boolean = false,
     val failure: String = "",
+    val flagAccess: Boolean = false,
+    val flagFailure: Boolean = false,
     val errors: Errors = Errors.FIELDEMPTY,
     val flagProgress: Boolean = false,
     val msgProgress: String = "",
@@ -65,6 +65,7 @@ class LocalViewModel(
             _uiState.update {
                 it.copy(
                     flagDialog = true,
+                    flagFailure = true,
                     failure = failure,
                 )
             }
