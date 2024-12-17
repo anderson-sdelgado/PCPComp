@@ -12,6 +12,7 @@ import br.com.usinasantafe.pcpcomp.external.room.dao.stable.RLocalFluxoDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.TerceiroDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.VisitanteDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovChaveDao
+import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovChaveEquipDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioEquipSegDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioPassagDao
@@ -27,6 +28,7 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.stable.LocalTrabRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.RLocalFluxoRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.TerceiroRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.VisitanteRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovChaveEquipRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovChaveRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioEquipSegRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioPassagRoomModel
@@ -49,6 +51,7 @@ import br.com.usinasantafe.pcpcomp.utils.VERSION_DB
         TerceiroRoomModel::class,
         VisitanteRoomModel::class,
         MovChaveRoomModel::class,
+        MovChaveEquipRoomModel::class,
         MovEquipProprioRoomModel::class,
         MovEquipProprioPassagRoomModel::class,
         MovEquipProprioEquipSegRoomModel::class,
@@ -69,6 +72,7 @@ abstract class AppDatabaseRoom : RoomDatabase() {
     abstract fun terceiroDao(): TerceiroDao
     abstract fun visitanteDao(): VisitanteDao
     abstract fun movChaveDao(): MovChaveDao
+    abstract fun movChaveEquipDao(): MovChaveEquipDao
     abstract fun movEquipProprioDao(): MovEquipProprioDao
     abstract fun movEquipProprioPassagDao(): MovEquipProprioPassagDao
     abstract fun movEquipProprioEquipSegDao(): MovEquipProprioEquipSegDao

@@ -4,14 +4,14 @@ import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveEquipRepository
 
-interface GetNroEquipChave {
+interface GetNroEquipChaveEquip {
     suspend operator fun invoke(id: Int): Result<String>
 }
 
-class IGetNroEquipChave(
+class IGetNroEquipChaveEquip(
     private val movChaveEquipRepository: MovChaveEquipRepository,
     private val equipRepository: EquipRepository
-): GetNroEquipChave {
+): GetNroEquipChaveEquip {
 
     override suspend fun invoke(id: Int): Result<String> {
         try {

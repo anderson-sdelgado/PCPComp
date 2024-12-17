@@ -30,7 +30,8 @@ class SaveAllEquipImplTest: KoinTest {
         val equipList = listOf(
             Equip(
                 idEquip = 1,
-                nroEquip = 10
+                nroEquip = 10,
+                descrEquip = "teste"
             )
         )
         val result = usecase(equipList)
@@ -48,11 +49,13 @@ class SaveAllEquipImplTest: KoinTest {
         val equipList = listOf(
             Equip(
                 idEquip = 1,
-                nroEquip = 10
+                nroEquip = 10,
+                descrEquip = "teste"
             ),
             Equip(
                 idEquip = 1,
-                nroEquip = 10
+                nroEquip = 10,
+                descrEquip = "teste"
             )
         )
         val result = usecase(equipList)

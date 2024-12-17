@@ -6,6 +6,7 @@ const val VERSION_DB = 1
 
 const val BASE_SHARE_PREFERENCES_TABLE_CONFIG = "config"
 const val BASE_SHARE_PREFERENCES_TABLE_MOV_CHAVE = "mov_chave"
+const val BASE_SHARE_PREFERENCES_TABLE_MOV_CHAVE_EQUIP = "mov_chave_equip"
 const val BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO = "mov_equip_proprio"
 const val BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_PASSAG = "mov_equip_proprio_passag"
 const val BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_PROPRIO_EQUIP_SEG = "mov_equip_proprio_equip_seg"

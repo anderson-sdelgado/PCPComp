@@ -17,7 +17,8 @@ class ISaveEquipTest {
         val equipList = listOf(
             Equip(
                 idEquip = 10,
-                nroEquip = 100
+                nroEquip = 100,
+                descrEquip = "teste"
             )
         )
         val equipRepository = Mockito.mock<EquipRepository>()
@@ -33,7 +34,8 @@ class ISaveEquipTest {
         val equipList = listOf(
             Equip(
                 idEquip = 10,
-                nroEquip = 100
+                nroEquip = 100,
+                descrEquip = "teste"
             )
         )
         val equipRepository = Mockito.mock<EquipRepository>()

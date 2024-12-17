@@ -55,7 +55,8 @@ class IEquipRetrofitDatasourceTest {
                 listOf(
                     EquipRetrofitModel(
                         idEquip = 19,
-                        nroEquip = 190
+                        nroEquip = 190,
+                        descrEquip = "teste"
                     )
                 )
             )

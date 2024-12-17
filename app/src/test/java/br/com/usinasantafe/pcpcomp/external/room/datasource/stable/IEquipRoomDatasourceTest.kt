@@ -48,11 +48,13 @@ class IEquipRoomDatasourceTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 1,
-                    nroEquip = 10
+                    nroEquip = 10,
+                    descrEquip = "teste"
                 ),
                 EquipRoomModel(
                     idEquip = 1,
-                    nroEquip = 10
+                    nroEquip = 10,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -68,11 +70,13 @@ class IEquipRoomDatasourceTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 1,
-                    nroEquip = 10
+                    nroEquip = 10,
+                    descrEquip = "teste"
                 ),
                 EquipRoomModel(
                     idEquip = 2,
-                    nroEquip = 20
+                    nroEquip = 20,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -95,7 +99,8 @@ class IEquipRoomDatasourceTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
             )
         )
@@ -123,7 +128,8 @@ class IEquipRoomDatasourceTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
             )
         )
@@ -151,7 +157,8 @@ class IEquipRoomDatasourceTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
             )
         )

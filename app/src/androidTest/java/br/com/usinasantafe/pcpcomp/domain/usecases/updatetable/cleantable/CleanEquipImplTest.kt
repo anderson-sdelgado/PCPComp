@@ -31,7 +31,8 @@ class CleanEquipImplTest : KoinTest {
                 listOf(
                     EquipRoomModel(
                         idEquip = 1,
-                        nroEquip = 1
+                        nroEquip = 1,
+                        descrEquip = "teste"
                     )
                 )
             )

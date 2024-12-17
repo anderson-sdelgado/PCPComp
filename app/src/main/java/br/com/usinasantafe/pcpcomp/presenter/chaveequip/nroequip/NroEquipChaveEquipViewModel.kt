@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
-import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.GetNroEquipChave
-import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.SetIdEquipChave
+import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.GetNroEquipChaveEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.SetIdEquipMovChaveEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class NroEquipChaveState(
+data class NroEquipChaveEquipState(
     val nroEquip: String = "",
     val flagGetNro: Boolean = true,
     val flowApp: FlowApp = FlowApp.ADD,
@@ -37,9 +37,9 @@ data class NroEquipChaveState(
     val currentProgress: Float = 0.0f,
 )
 
-fun ResultUpdate.resultUpdateToNroEquipChave(): NroEquipChaveState {
+fun ResultUpdate.resultUpdateToNroEquipChaveEquip(): NroEquipChaveEquipState {
     return with(this){
-        NroEquipChaveState(
+        NroEquipChaveEquipState(
             flagDialog = this.flagDialog,
             flagFailure = this.flagFailure,
             errors = this.errors,
@@ -51,18 +51,18 @@ fun ResultUpdate.resultUpdateToNroEquipChave(): NroEquipChaveState {
     }
 }
 
-class NroEquipChaveViewModel(
+class NroEquipChaveEquipViewModel(
     saveStateHandle: SavedStateHandle,
     private val checkNroEquip: CheckNroEquip,
-    private val setIdEquipChave: SetIdEquipChave,
+    private val setIdEquipMovChaveEquip: SetIdEquipMovChaveEquip,
     private val updateEquip: UpdateEquip,
-    private val getNroEquipChave: GetNroEquipChave,
+    private val getNroEquipChaveEquip: GetNroEquipChaveEquip,
 ) : ViewModel() {
 
     private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
     private val id: Int = saveStateHandle[ID_ARGS]!!
 
-    private val _uiState = MutableStateFlow(NroEquipChaveState())
+    private val _uiState = MutableStateFlow(NroEquipChaveEquipState())
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -141,7 +141,7 @@ class NroEquipChaveViewModel(
         }
         val result = resultCheckEquip.getOrNull()!!
         if (result) {
-            val resultSetEquip = setIdEquipChave(
+            val resultSetEquip = setIdEquipMovChaveEquip(
                 nroEquip = uiState.value.nroEquip,
                 flowApp = uiState.value.flowApp,
                 id = uiState.value.id
@@ -171,17 +171,17 @@ class NroEquipChaveViewModel(
         }
     }
 
-    suspend fun updateAllDatabase(): Flow<NroEquipChaveState> = flow {
+    suspend fun updateAllDatabase(): Flow<NroEquipChaveEquipState> = flow {
         val sizeUpdate = 4f
-        var configState = NroEquipChaveState()
+        var configState = NroEquipChaveEquipState()
         updateEquip(sizeUpdate, 1f).collect {
-            configState = it.resultUpdateToNroEquipChave()
-            emit(it.resultUpdateToNroEquipChave())
+            configState = it.resultUpdateToNroEquipChaveEquip()
+            emit(it.resultUpdateToNroEquipChaveEquip())
         }
         if (configState.flagFailure)
             return@flow
         emit(
-            NroEquipChaveState(
+            NroEquipChaveEquipState(
                 flagDialog = true,
                 flagProgress = false,
                 flagFailure = false,
@@ -196,7 +196,7 @@ class NroEquipChaveViewModel(
             (uiState.value.flowApp == FlowApp.CHANGE) &&
             (uiState.value.flagGetNro)
         ) {
-            val resultGetNro = getNroEquipChave(uiState.value.id)
+            val resultGetNro = getNroEquipChaveEquip(uiState.value.id)
             if (resultGetNro.isFailure) {
                 val error = resultGetNro.exceptionOrNull()!!
                 val failure =

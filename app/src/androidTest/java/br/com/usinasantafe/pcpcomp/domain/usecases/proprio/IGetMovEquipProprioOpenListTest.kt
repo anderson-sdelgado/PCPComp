@@ -86,6 +86,7 @@ class IGetMovEquipProprioOpenListTest: KoinTest {
                 EquipRoomModel(
                     idEquip = 1,
                     nroEquip = 100,
+                    descrEquip = "teste"
                 )
             )
         )

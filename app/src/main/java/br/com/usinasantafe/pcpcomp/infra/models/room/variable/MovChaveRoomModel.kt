@@ -44,7 +44,10 @@ fun MovChaveRoomModel.roomModelToEntity(): MovChave {
     }
 }
 
-fun MovChave.entityToRoomModel(matricVigia: Int, idLocal: Int): MovChaveRoomModel {
+fun MovChave.entityToRoomModel(
+    matricVigia: Int,
+    idLocal: Int
+): MovChaveRoomModel {
     return with(this){
         MovChaveRoomModel(
             idMovChave = this.idMovChave,

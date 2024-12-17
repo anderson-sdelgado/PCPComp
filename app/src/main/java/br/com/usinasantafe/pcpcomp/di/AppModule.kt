@@ -7,6 +7,13 @@ import br.com.usinasantafe.pcpcomp.presenter.chave.nomecolab.NomeColabChaveViewM
 import br.com.usinasantafe.pcpcomp.presenter.chave.observ.ObservChaveViewModel
 import br.com.usinasantafe.pcpcomp.presenter.chave.controleeditlist.ControleChaveEditListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.chave.detalhe.DetalheChaveViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chaveequip.controleeditlist.ControleChaveEquipEditListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chaveequip.controlelist.ControleChaveEquipListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chaveequip.detalhe.DetalheChaveEquipViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chaveequip.matriccolab.MatricColabChaveEquipViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chaveequip.nomecolab.NomeColabChaveEquipViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chaveequip.nroequip.NroEquipChaveEquipViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chaveequip.observ.ObservChaveEquipViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.SenhaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.menuinicial.MenuInicialViewModel
@@ -45,6 +52,7 @@ import br.com.usinasantafe.pcpcomp.presenter.visitterc.tipo.TipoVisitTercViewMod
 import br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo.VeiculoVisitTercViewModel
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.chave.*
+import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.config.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.cleantable.*
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.savetable.*
@@ -105,11 +113,21 @@ val viewModelSplashModule = module {
 val viewModelChaveModule = module {
     viewModelOf(::ChaveListViewModel)
     viewModelOf(::ControleChaveListViewModel)
+    viewModelOf(::ControleChaveEditListViewModel)
+    viewModelOf(::DetalheChaveViewModel)
     viewModelOf(::MatricColabChaveViewModel)
     viewModelOf(::NomeColabChaveViewModel)
     viewModelOf(::ObservChaveViewModel)
-    viewModelOf(::ControleChaveEditListViewModel)
-    viewModelOf(::DetalheChaveViewModel)
+}
+
+val viewModelChaveEquipModule = module {
+    viewModelOf(::ControleChaveEquipListViewModel)
+    viewModelOf(::ControleChaveEquipEditListViewModel)
+    viewModelOf(::DetalheChaveEquipViewModel)
+    viewModelOf(::MatricColabChaveEquipViewModel)
+    viewModelOf(::NomeColabChaveEquipViewModel)
+    viewModelOf(::NroEquipChaveEquipViewModel)
+    viewModelOf(::ObservChaveEquipViewModel)
 }
 
 val viewModelProprioModule = module {
@@ -171,10 +189,29 @@ val usecaseChaveModule = module {
     singleOf(::IStartRemoveMovChave) { bind<StartRemoveMovChave>() }
 }
 
+val usecaseChaveEquipModule = module {
+    singleOf(::ICloseAllMovChaveEquip) { bind<CloseAllMovChaveEquip>() }
+    singleOf(::ICloseMovChaveEquip) { bind<CloseMovChaveEquip>() }
+    singleOf(::IGetDetalheMovChaveEquip) { bind<GetDetalheMovChaveEquip>() }
+    singleOf(::IGetMatricColabMovChaveEquip) { bind<GetMatricColabMovChaveEquip>() }
+    singleOf(::IGetMovChaveEquipInsideList) { bind<GetMovChaveEquipInsideList>() }
+    singleOf(::IGetMovChaveEquipOpenList) { bind<GetMovChaveEquipOpenList>() }
+    singleOf(::IGetNroEquipChaveEquip) { bind<GetNroEquipChaveEquip>() }
+    singleOf(::IGetObservMovChaveEquip) { bind<GetObservMovChaveEquip>() }
+    singleOf(::ISaveMovChaveEquip) { bind<SaveMovChaveEquip>() }
+    singleOf(::ISetIdEquipMovChaveEquip) { bind<SetIdEquipMovChaveEquip>() }
+    singleOf(::ISetMatricColabMovChaveEquip) { bind<SetMatricColabMovChaveEquip>() }
+    singleOf(::ISetObservMovChaveEquip) { bind<SetObservMovChaveEquip>() }
+    singleOf(::IStartReceiptMovChaveEquip) { bind<StartReceiptMovChaveEquip>() }
+    singleOf(::IStartRemoveMovChaveEquip) { bind<StartRemoveMovChaveEquip>() }
+}
+
 val usecaseCommonModule = module {
     singleOf(::ICheckMatricColab) { bind<CheckMatricColab>() }
+    singleOf(::ICheckNroEquip) { bind<CheckNroEquip>() }
     singleOf(::ICloseAllMov) { bind<CloseAllMov>() }
     singleOf(::IGetHeader) { bind<GetHeader>() }
+    singleOf(::IGetNomeColab) { bind<GetNomeColab>() }
     singleOf(::IGetToken) { bind<GetToken>() }
 }
 
@@ -199,7 +236,6 @@ val usecaseInitialModule = module {
 }
 
 val usecaseProprioModule = module {
-    singleOf(::ICheckNroEquip) { bind<CheckNroEquip>() }
     singleOf(::ICheckSendMovProprio) { bind<CheckSendMovProprio>() }
     singleOf(::ICleanEquipSeg) { bind<CleanEquipSeg>() }
     singleOf(::ICleanPassagColab) { bind<CleanPassagColab>() }
@@ -212,7 +248,6 @@ val usecaseProprioModule = module {
     singleOf(::IGetEquipSegList) { bind<GetEquipSegList>() }
     singleOf(::IGetMatricColab) { bind<GetMatricColab>() }
     singleOf(::IGetMovEquipProprioOpenList) { bind<GetMovEquipProprioOpenList>() }
-    singleOf(::IGetNomeColab) { bind<GetNomeColab>() }
     singleOf(::IGetNotaFiscalProprio) { bind<GetNotaFiscalProprio>() }
     singleOf(::IGetNroEquipProprio) { bind<GetNroEquipProprio>() }
     singleOf(::IGetObservProprio) { bind<GetObservProprio>() }
@@ -339,6 +374,7 @@ val repositoryModule = module {
 
     singleOf(::IConfigRepository) { bind<ConfigRepository>() }
     singleOf(::IMovChaveRepository) { bind<MovChaveRepository>() }
+    singleOf(::IMovChaveEquipRepository) { bind<MovChaveEquipRepository>() }
     singleOf(::IMovEquipProprioRepository) { bind<MovEquipProprioRepository>() }
     singleOf(::IMovEquipProprioPassagRepository) { bind<MovEquipProprioPassagRepository>() }
     singleOf(::IMovEquipProprioEquipSegRepository) { bind<MovEquipProprioEquipSegRepository>() }
@@ -362,6 +398,7 @@ val datasourceSharedPreferencesModule = module {
 
     singleOf(::IConfigSharedPreferencesDatasource) { bind<ConfigSharedPreferencesDatasource>() }
     singleOf(::IMovChaveSharedPreferencesDatasource) { bind<MovChaveSharedPreferencesDatasource>() }
+    singleOf(::IMovChaveEquipSharedPreferencesDatasource) { bind<MovChaveEquipSharedPreferencesDatasource>() }
     singleOf(::IMovEquipProprioSharedPreferencesDatasource) { bind<MovEquipProprioSharedPreferencesDatasource>() }
     singleOf(::IMovEquipProprioEquipSegSharedPreferencesDatasource) { bind<MovEquipProprioEquipSegSharedPreferencesDatasource>() }
     singleOf(::IMovEquipProprioPassagSharedPreferencesDatasource) { bind<MovEquipProprioPassagSharedPreferencesDatasource>() }
@@ -375,6 +412,7 @@ val datasourceRoomModule = module {
 
     singleOf(::IMovEquipProprioRoomDatasource) { bind<MovEquipProprioRoomDatasource>() }
     singleOf(::IMovChaveRoomDatasource) { bind<MovChaveRoomDatasource>() }
+    singleOf(::IMovChaveEquipRoomDatasource) { bind<MovChaveEquipRoomDatasource>() }
     singleOf(::IMovEquipProprioPassagRoomDatasource) { bind<MovEquipProprioPassagRoomDatasource>() }
     singleOf(::IMovEquipProprioEquipSegRoomDatasource) { bind<MovEquipProprioEquipSegRoomDatasource>() }
     singleOf(::IMovEquipVisitTercRoomDatasource) { bind<MovEquipVisitTercRoomDatasource>() }

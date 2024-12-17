@@ -119,6 +119,7 @@ class ISetIdEquipProprioTest: KoinTest {
                 EquipRoomModel(
                     idEquip = 10,
                     nroEquip = 100,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -157,6 +158,7 @@ class ISetIdEquipProprioTest: KoinTest {
                 EquipRoomModel(
                     idEquip = 10,
                     nroEquip = 100,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -180,6 +182,7 @@ class ISetIdEquipProprioTest: KoinTest {
                 EquipRoomModel(
                     idEquip = 10,
                     nroEquip = 100,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -218,6 +221,7 @@ class ISetIdEquipProprioTest: KoinTest {
                 EquipRoomModel(
                     idEquip = 10,
                     nroEquip = 100,
+                    descrEquip = "teste"
                 )
             )
         )

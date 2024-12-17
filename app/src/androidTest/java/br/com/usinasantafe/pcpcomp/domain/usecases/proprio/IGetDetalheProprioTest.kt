@@ -92,11 +92,13 @@ class IGetDetalheProprioTest : KoinTest {
             listOf(
                 Equip(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
                 Equip(
                     idEquip = 100,
-                    nroEquip = 200
+                    nroEquip = 200,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -141,11 +143,13 @@ class IGetDetalheProprioTest : KoinTest {
             listOf(
                 Equip(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
                 Equip(
                     idEquip = 100,
-                    nroEquip = 200
+                    nroEquip = 200,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -213,11 +217,13 @@ class IGetDetalheProprioTest : KoinTest {
             listOf(
                 Equip(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
                 Equip(
                     idEquip = 100,
-                    nroEquip = 200
+                    nroEquip = 200,
+                    descrEquip = "teste"
                 )
             )
         )

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "57e1d239648951c5098ddc074ab880c4",
+    "identityHash": "3059688881fb32d723d78cda565906a7",
     "entities": [
       {
         "tableName": "tb_chave",
@@ -361,6 +361,86 @@
           "autoGenerate": true,
           "columnNames": [
             "idMovChave"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tb_chave_equip",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMovChaveEquip` INTEGER PRIMARY KEY AUTOINCREMENT, `matricVigiaMovChaveEquip` INTEGER NOT NULL, `idLocalMovChaveEquip` INTEGER NOT NULL, `dthrMovChaveEquip` INTEGER NOT NULL, `tipoMovChaveEquip` TEXT NOT NULL, `idEquipMovChaveEquip` INTEGER NOT NULL, `matricColabMovChaveEquip` INTEGER NOT NULL, `observMovChaveEquip` TEXT, `statusMovChaveEquip` TEXT NOT NULL, `statusSendMovChaveEquip` TEXT NOT NULL, `statusForeignerMovChaveEquip` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idMovChaveEquip",
+            "columnName": "idMovChaveEquip",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "matricVigiaMovChaveEquip",
+            "columnName": "matricVigiaMovChaveEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLocalMovChaveEquip",
+            "columnName": "idLocalMovChaveEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dthrMovChaveEquip",
+            "columnName": "dthrMovChaveEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoMovChaveEquip",
+            "columnName": "tipoMovChaveEquip",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEquipMovChaveEquip",
+            "columnName": "idEquipMovChaveEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matricColabMovChaveEquip",
+            "columnName": "matricColabMovChaveEquip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observMovChaveEquip",
+            "columnName": "observMovChaveEquip",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "statusMovChaveEquip",
+            "columnName": "statusMovChaveEquip",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusSendMovChaveEquip",
+            "columnName": "statusSendMovChaveEquip",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusForeignerMovChaveEquip",
+            "columnName": "statusForeignerMovChaveEquip",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idMovChaveEquip"
           ]
         },
         "indices": [],
@@ -736,7 +816,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '57e1d239648951c5098ddc074ab880c4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3059688881fb32d723d78cda565906a7')"
     ]
   }
 }

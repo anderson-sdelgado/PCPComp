@@ -8,11 +8,11 @@ import java.util.Date
 
 data class MovChaveEquip(
     var idMovChaveEquip: Int? = null,
+    var matricVigiaMovChaveEquip: Int? = null,
+    var idLocalMovChaveEquip: Int? = null,
     var dthrMovChaveEquip: Date = Date(),
     var tipoMovChaveEquip: TypeMovKey? = null,
     var nroAparelhoMovChaveEquip: Int? = null,
-    var nroMatricVigiaMovChaveEquip: Int? = null,
-    var idLocalMovChaveEquip: Int? = null,
     var idEquipMovChaveEquip: Int? = null,
     var matricColabMovChaveEquip: Int? = null,
     var observMovChaveEquip: String? = null,

@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveEquipRepository
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
-interface SetIdEquipChave {
+interface SetIdEquipMovChaveEquip {
     suspend operator fun invoke(
         nroEquip: String,
         flowApp: FlowApp,
@@ -13,10 +13,10 @@ interface SetIdEquipChave {
     ): Result<Boolean>
 }
 
-class ISetIdEquipChave(
+class ISetIdEquipMovChaveEquip(
     private val movChaveEquipRepository: MovChaveEquipRepository,
     private val equipRepository: EquipRepository
-): SetIdEquipChave {
+): SetIdEquipMovChaveEquip {
 
     override suspend fun invoke(
         nroEquip: String,

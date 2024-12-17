@@ -95,6 +95,7 @@ class IGetServerEquipTest {
             Equip(
                 idEquip = 10,
                 nroEquip = 200,
+                descrEquip = "teste"
             )
         )
         whenever(

@@ -53,7 +53,8 @@ class IGetNroEquipProprioTest: KoinTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 )
             )
         )

@@ -33,11 +33,10 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
-import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 
 @Composable
-fun NroEquipChaveScreen(
-    viewModel: NroEquipChaveViewModel,
+fun NroEquipChaveEquipScreen(
+    viewModel: NroEquipChaveEquipViewModel,
     onNavControleList: () -> Unit,
     onNavMatricColab: () -> Unit,
     onNavDetalhe: () -> Unit
@@ -45,7 +44,7 @@ fun NroEquipChaveScreen(
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-            NroEquipChaveContent(
+            NroEquipChaveEquipContent(
                 nroEquip = uiState.nroEquip,
                 flowApp = uiState.flowApp,
                 setTextField = viewModel::setTextField,
@@ -69,7 +68,7 @@ fun NroEquipChaveScreen(
 }
 
 @Composable
-fun NroEquipChaveContent(
+fun NroEquipChaveEquipContent(
     nroEquip: String,
     flowApp: FlowApp,
     setTextField: (String, TypeButton) -> Unit,
@@ -164,10 +163,10 @@ fun NroEquipChaveContent(
 
 @Preview(showBackground = true)
 @Composable
-fun NroEquipChavePagePreview() {
+fun NroEquipChaveEquipPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            NroEquipChaveContent(
+            NroEquipChaveEquipContent(
                 nroEquip = "",
                 flowApp = FlowApp.ADD,
                 setTextField = { _, _ -> },

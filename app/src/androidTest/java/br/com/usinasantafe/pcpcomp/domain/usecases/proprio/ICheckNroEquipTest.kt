@@ -38,7 +38,8 @@ class ICheckNroEquipTest: KoinTest {
         val equipList = listOf(
             EquipRoomModel(
                 idEquip = 10,
-                nroEquip = 100
+                nroEquip = 100,
+                descrEquip = "teste"
             )
         )
         equipDao.insertAll(equipList)

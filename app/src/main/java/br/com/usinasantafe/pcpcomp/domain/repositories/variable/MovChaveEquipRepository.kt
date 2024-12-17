@@ -1,6 +1,5 @@
 package br.com.usinasantafe.pcpcomp.domain.repositories.variable
 
-import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovChave
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.MovChaveEquip
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
@@ -15,6 +14,7 @@ interface MovChaveEquipRepository {
         matricVigia: Int,
         idLocal: Int
     ): Result<Int>
+    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setIdEquip(
         idEquip: Int,
         flowApp: FlowApp,
@@ -30,7 +30,6 @@ interface MovChaveEquipRepository {
         flowApp: FlowApp,
         id: Int
     ): Result<Boolean>
-    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setOutside(
         id: Int
     ): Result<Boolean>

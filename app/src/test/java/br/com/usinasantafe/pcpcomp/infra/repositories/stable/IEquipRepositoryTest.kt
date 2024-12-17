@@ -82,13 +82,15 @@ class IEquipRepositoryTest {
         val entityList = listOf(
             Equip(
                 idEquip = 10,
-                nroEquip = 19759
+                nroEquip = 19759,
+                descrEquip = "teste"
             )
         )
         val retrofitModelList = listOf(
             EquipRetrofitModel(
                 idEquip = 10,
-                nroEquip = 19759
+                nroEquip = 19759,
+                descrEquip = "teste"
             )
         )
         whenever(
@@ -107,13 +109,15 @@ class IEquipRepositoryTest {
         val equipList = listOf(
             Equip(
                 idEquip = 10,
-                nroEquip = 19759
+                nroEquip = 19759,
+                descrEquip = "teste"
             )
         )
         val equipRoomModelList = listOf(
             EquipRoomModel(
                 idEquip = 10,
-                nroEquip = 19759
+                nroEquip = 19759,
+                descrEquip = "teste"
             )
         )
         whenever(
@@ -134,13 +138,15 @@ class IEquipRepositoryTest {
         val equipList = listOf(
             Equip(
                 idEquip = 10,
-                nroEquip = 19759
+                nroEquip = 19759,
+                descrEquip = "teste"
             )
         )
         val equipRoomModelList = listOf(
             EquipRoomModel(
                 idEquip = 10,
-                nroEquip = 19759
+                nroEquip = 19759,
+                descrEquip = "teste"
             )
         )
         whenever(

@@ -74,11 +74,13 @@ class EquipSegListScreenTest: KoinTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
                 EquipRoomModel(
                     idEquip = 20,
-                    nroEquip = 200
+                    nroEquip = 200,
+                    descrEquip = "teste"
                 )
             )
         )
@@ -96,11 +98,13 @@ class EquipSegListScreenTest: KoinTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = "teste"
                 ),
                 EquipRoomModel(
                     idEquip = 20,
-                    nroEquip = 200
+                    nroEquip = 200,
+                    descrEquip = "teste"
                 )
             )
         )
