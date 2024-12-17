@@ -38,10 +38,9 @@ class IGetMovChaveOpenList(
                         "dd/MM/yyyy HH:mm",
                         Locale("pt", "BR")
                     ).format(it.dthrMovChave),
-                    tipoMov = when (it.tipoMovChave) {
+                    tipoMov = when (it.tipoMovChave!!) {
                         TypeMovKey.REMOVE -> "RETIRADA"
                         TypeMovKey.RECEIPT -> "DEVOLUÇÃO"
-                        null -> ""
                     },
                     chave = descrFullChave,
                     colab = "${it.matricColabMovChave!!} - $nomeColab"

@@ -5,7 +5,7 @@ import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetIdEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.Errors
@@ -28,7 +28,7 @@ class NroEquipProprioViewModelTest {
     val mainCoroutineRule = MainCoroutineRule()
 
     val checkNroEquip = mock<CheckNroEquip>()
-    val setNroEquipProprio = mock<SetNroEquipProprio>()
+    val setIdEquipProprio = mock<SetIdEquipProprio>()
     val updateEquip = mock<UpdateEquip>()
     val getNroEquipProprio = mock<GetNroEquipProprio>()
     private fun getViewModel(
@@ -36,7 +36,7 @@ class NroEquipProprioViewModelTest {
     ) = NroEquipProprioViewModel(
         savedStateHandle,
         checkNroEquip,
-        setNroEquipProprio,
+        setIdEquipProprio,
         updateEquip,
         getNroEquipProprio
     )
@@ -177,7 +177,7 @@ class NroEquipProprioViewModelTest {
             Result.success(true)
         )
         whenever(
-            setNroEquipProprio(
+            setIdEquipProprio(
                 nroEquip = "100",
                 flowApp = FlowApp.ADD,
                 typeEquip = TypeEquip.VEICULO,
@@ -219,7 +219,7 @@ class NroEquipProprioViewModelTest {
             Result.success(true)
         )
         whenever(
-            setNroEquipProprio(
+            setIdEquipProprio(
                 nroEquip = "100",
                 flowApp = FlowApp.ADD,
                 typeEquip = TypeEquip.VEICULO,

@@ -11,7 +11,7 @@ import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetIdEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
@@ -44,7 +44,7 @@ class NroEquipScreenTest: KoinTest {
     val composeTestRule = createComposeRule()
 
     val checkNroEquip: CheckNroEquip by inject()
-    val setNroEquipProprio: SetNroEquipProprio by inject()
+    val setIdEquipProprio: SetIdEquipProprio by inject()
     val getNroEquipProprio: GetNroEquipProprio by inject()
     val updateEquip: UpdateEquip by inject()
 
@@ -273,7 +273,7 @@ class NroEquipScreenTest: KoinTest {
                         )
                     ),
                     checkNroEquip,
-                    setNroEquipProprio,
+                    setIdEquipProprio,
                     updateEquip,
                     getNroEquipProprio
                 ),

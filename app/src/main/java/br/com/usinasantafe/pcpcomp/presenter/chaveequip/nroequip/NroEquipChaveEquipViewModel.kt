@@ -5,20 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.GetNroEquipChave
-import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.SetNroEquipChave
+import br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip.SetIdEquipChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
-import br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip.NroEquipProprioState
-import br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip.resultUpdateToNroEquipProprio
 import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
-import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -58,7 +54,7 @@ fun ResultUpdate.resultUpdateToNroEquipChave(): NroEquipChaveState {
 class NroEquipChaveViewModel(
     saveStateHandle: SavedStateHandle,
     private val checkNroEquip: CheckNroEquip,
-    private val setNroEquipChave: SetNroEquipChave,
+    private val setIdEquipChave: SetIdEquipChave,
     private val updateEquip: UpdateEquip,
     private val getNroEquipChave: GetNroEquipChave,
 ) : ViewModel() {
@@ -145,7 +141,7 @@ class NroEquipChaveViewModel(
         }
         val result = resultCheckEquip.getOrNull()!!
         if (result) {
-            val resultSetEquip = setNroEquipChave(
+            val resultSetEquip = setIdEquipChave(
                 nroEquip = uiState.value.nroEquip,
                 flowApp = uiState.value.flowApp,
                 id = uiState.value.id

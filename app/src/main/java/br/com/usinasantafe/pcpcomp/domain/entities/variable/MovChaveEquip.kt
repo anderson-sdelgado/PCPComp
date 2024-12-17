@@ -14,9 +14,9 @@ data class MovChaveEquip(
     var nroMatricVigiaMovChaveEquip: Int? = null,
     var idLocalMovChaveEquip: Int? = null,
     var idEquipMovChaveEquip: Int? = null,
-    var nroMatricColabMovEquip: Int? = null,
+    var matricColabMovChaveEquip: Int? = null,
     var observMovChaveEquip: String? = null,
     var statusMovChaveEquip: StatusData = StatusData.OPEN,
     var statusSendMovChaveEquip: StatusSend = StatusSend.SEND,
-    var statusForeigMovChaveEquip: StatusForeigner = StatusForeigner.INSIDE,
+    var statusForeignerMovChaveEquip: StatusForeigner = StatusForeigner.INSIDE,
 )

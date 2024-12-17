@@ -8,7 +8,7 @@ import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendDa
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 
-interface SetNroEquipProprio {
+interface SetIdEquipProprio {
     suspend operator fun invoke(
         nroEquip: String,
         flowApp: FlowApp,
@@ -17,12 +17,12 @@ interface SetNroEquipProprio {
     ): Result<Boolean>
 }
 
-class ISetNroEquipProprio(
+class ISetIdEquipProprio(
     private val equipRepository: EquipRepository,
     private val movEquipProprioRepository: MovEquipProprioRepository,
     private val movEquipProprioEquipSegRepository: MovEquipProprioEquipSegRepository,
     private val startProcessSendData: StartProcessSendData
-) : SetNroEquipProprio {
+) : SetIdEquipProprio {
 
     override suspend fun invoke(
         nroEquip: String,

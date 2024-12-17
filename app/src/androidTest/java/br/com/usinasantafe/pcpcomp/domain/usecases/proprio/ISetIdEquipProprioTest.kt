@@ -22,9 +22,9 @@ import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import org.koin.test.inject
 
-class ISetNroEquipProprioTest: KoinTest {
+class ISetIdEquipProprioTest: KoinTest {
 
-    private val usecase: SetNroEquipProprio by inject()
+    private val usecase: SetIdEquipProprio by inject()
     private val movEquipProprioSharedPreferencesDatasource: MovEquipProprioSharedPreferencesDatasource by inject()
     private val movEquipProprioEquipSegSharedPreferencesDatasource: MovEquipProprioEquipSegSharedPreferencesDatasource by inject()
     private val equipDAO: EquipDao by inject()

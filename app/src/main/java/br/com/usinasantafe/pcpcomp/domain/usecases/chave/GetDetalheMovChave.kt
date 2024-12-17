@@ -38,10 +38,9 @@ class IGetDetalheMovChave(
                         "dd/MM/yyyy HH:mm",
                         Locale("pt", "BR")
                     ).format(entity.dthrMovChave),
-                    tipoMov = when (entity.tipoMovChave) {
+                    tipoMov = when (entity.tipoMovChave!!) {
                         TypeMovKey.REMOVE -> "RETIRADA"
                         TypeMovKey.RECEIPT -> "DEVOLUÇÃO"
-                        null -> ""
                     },
                     chave = descrFullChave,
                     colab = "${entity.matricColabMovChave} - $nomeColab",

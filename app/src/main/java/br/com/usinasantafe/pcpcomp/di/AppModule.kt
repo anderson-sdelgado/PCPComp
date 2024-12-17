@@ -223,7 +223,7 @@ val usecaseProprioModule = module {
     singleOf(::ISetDestinoProprio) { bind<SetDestinoProprio>() }
     singleOf(::ISetMatricColab) { bind<SetMatricColab>() }
     singleOf(::ISetNotaFiscalProprio) { bind<SetNotaFiscalProprio>() }
-    singleOf(::ISetNroEquipProprio) { bind<SetNroEquipProprio>() }
+    singleOf(::ISetIdEquipProprio) { bind<SetIdEquipProprio>() }
     singleOf(::ISetObservProprio) { bind<SetObservProprio>() }
     singleOf(::ISetStatusSentMovProprio) { bind<SetStatusSentMovProprio>() }
     singleOf(::IStartMovEquipProprio) { bind<StartMovEquipProprio>() }

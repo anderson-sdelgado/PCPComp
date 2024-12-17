@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
 import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetIdEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -57,7 +57,7 @@ fun ResultUpdate.resultUpdateToNroEquipProprio(): NroEquipProprioState {
 class NroEquipProprioViewModel(
     saveStateHandle: SavedStateHandle,
     private val checkNroEquip: CheckNroEquip,
-    private val setNroEquipProprio: SetNroEquipProprio,
+    private val setIdEquipProprio: SetIdEquipProprio,
     private val updateEquip: UpdateEquip,
     private val getNroEquipProprio: GetNroEquipProprio,
 ) : ViewModel() {
@@ -146,7 +146,7 @@ class NroEquipProprioViewModel(
         }
         val result = resultCheckEquip.getOrNull()!!
         if (result) {
-            val resultSetEquip = setNroEquipProprio(
+            val resultSetEquip = setIdEquipProprio(
                 nroEquip = uiState.value.nroEquip,
                 flowApp = uiState.value.flowApp,
                 typeEquip = uiState.value.typeEquip,
