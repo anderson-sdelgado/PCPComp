@@ -16,23 +16,7 @@ class ICloseMovResidencia(
     override suspend fun invoke(
         id: Int
     ): Result<Boolean> {
-        try {
-            val resultGet = movEquipResidenciaRepository.get(id)
-            if (resultGet.isFailure)
-                return Result.failure(resultGet.exceptionOrNull()!!)
-            val movEquipResidencia = resultGet.getOrNull()!!
-            val resultClose = movEquipResidenciaRepository.setClose(movEquipResidencia)
-            if (resultClose.isFailure)
-                return Result.failure(resultClose.exceptionOrNull()!!)
-            return Result.success(true)
-        } catch (e: Exception) {
-            return Result.failure(
-                UsecaseException(
-                    function = "CloseAllMovResidencia",
-                    cause = e
-                )
-            )
-        }
+        return movEquipResidenciaRepository.setClose(id)
     }
 
 }

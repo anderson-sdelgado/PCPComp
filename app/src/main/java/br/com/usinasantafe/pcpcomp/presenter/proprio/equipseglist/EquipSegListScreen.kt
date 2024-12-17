@@ -87,7 +87,7 @@ fun EquipSegListContent(
         ) {
             items(equipSegList) { equip ->
                 ItemListDesign(
-                    text = "${equip.nroEquip}",
+                    text = "${equip.nroEquip} - ${equip.descrEquip}",
                     setActionItem = { setDelete(equip.idEquip) },
                     id = 1
                 )
@@ -181,11 +181,13 @@ fun EquipSegListPagePreviewList() {
                 equipSegList = listOf(
                     Equip(
                         idEquip = 10,
-                        nroEquip = 100
+                        nroEquip = 100,
+                        "TRATOR"
                     ),
                     Equip(
                         idEquip = 20,
-                        nroEquip = 200
+                        nroEquip = 200,
+                        "CAMINHÃO"
                     )
                 ),
                 flowApp = FlowApp.ADD,
@@ -214,11 +216,13 @@ fun EquipSegListPagePreviewFailure() {
                 equipSegList = listOf(
                     Equip(
                         idEquip = 10,
-                        nroEquip = 100
+                        nroEquip = 100,
+                        "TRATOR"
                     ),
                     Equip(
                         idEquip = 20,
-                        nroEquip = 200
+                        nroEquip = 200,
+                        "CAMINHÃO"
                     )
                 ),
                 flowApp = FlowApp.ADD,
@@ -248,11 +252,13 @@ fun EquipSegListPagePreviewMsgDelete() {
                 equipSegList = listOf(
                     Equip(
                         idEquip = 10,
-                        nroEquip = 100
+                        nroEquip = 100,
+                        "TRATOR"
                     ),
                     Equip(
                         idEquip = 20,
-                        nroEquip = 200
+                        nroEquip = 200,
+                        "CAMINHÃO"
                     )
                 ),
                 flowApp = FlowApp.ADD,

@@ -22,7 +22,7 @@ class ICloseAllMov(
                 return Result.failure(resultProprioList.exceptionOrNull()!!)
             val movEquipProprioList = resultProprioList.getOrNull()!!
             for(movEquipProprio in movEquipProprioList){
-                val resultClose = movEquipProprioRepository.setClose(movEquipProprio)
+                val resultClose = movEquipProprioRepository.setClose(movEquipProprio.idMovEquipProprio!!)
                 if(resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }
@@ -31,7 +31,7 @@ class ICloseAllMov(
                 return Result.failure(resultVisitTercList.exceptionOrNull()!!)
             val movEquipVisitTercList = resultVisitTercList.getOrNull()!!
             for(movEquipVisitTerc in movEquipVisitTercList){
-                val resultClose = movEquipVisitTercRepository.setClose(movEquipVisitTerc)
+                val resultClose = movEquipVisitTercRepository.setClose(movEquipVisitTerc.idMovEquipVisitTerc!!)
                 if(resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }
@@ -39,7 +39,7 @@ class ICloseAllMov(
             if(resultResidenciaList.isFailure)
                 return Result.failure(resultResidenciaList.exceptionOrNull()!!)
             for(movEquipResidencia in resultResidenciaList.getOrNull()!!){
-                val resultClose = movEquipResidenciaRepository.setClose(movEquipResidencia)
+                val resultClose = movEquipResidenciaRepository.setClose(movEquipResidencia.idMovEquipResidencia!!)
                 if(resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

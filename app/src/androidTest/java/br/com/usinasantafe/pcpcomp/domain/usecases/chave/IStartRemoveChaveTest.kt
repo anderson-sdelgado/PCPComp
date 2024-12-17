@@ -14,7 +14,7 @@ import kotlin.test.assertEquals
 
 class IStartRemoveChaveTest : KoinTest {
 
-    private val usecase: StartRemoveChave by inject()
+    private val usecase: StartRemoveMovChave by inject()
     private val movChaveSharedPreferencesDatasource:
             MovChaveSharedPreferencesDatasource by inject()
 

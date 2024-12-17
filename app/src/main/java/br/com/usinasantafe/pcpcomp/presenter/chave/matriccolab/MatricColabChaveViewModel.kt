@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.GetMatricColabMovChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateColab
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
@@ -57,6 +58,7 @@ class MatricColabChaveViewModel(
     saveStateHandle: SavedStateHandle,
     private val updateColab: UpdateColab,
     private val checkMatricColab: CheckMatricColab,
+    private val getMatricColabMovChave: GetMatricColabMovChave
 ) : ViewModel() {
 
     private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
@@ -77,6 +79,36 @@ class MatricColabChaveViewModel(
     fun setCloseDialog() {
         _uiState.update {
             it.copy(flagDialog = false)
+        }
+    }
+
+    fun getMatricColab() = viewModelScope.launch {
+        if (
+            (uiState.value.flowApp == FlowApp.CHANGE) &&
+            (uiState.value.checkGetMatricColab)
+        ) {
+            val resultGetMatric = getMatricColabMovChave(uiState.value.id)
+            if (resultGetMatric.isFailure) {
+                val error = resultGetMatric.exceptionOrNull()!!
+                val failure =
+                    "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        flagFailure = true,
+                        errors = Errors.EXCEPTION,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+            val matricColab = resultGetMatric.getOrNull()!!
+            _uiState.update {
+                it.copy(
+                    matricColab = matricColab,
+                    checkGetMatricColab = false
+                )
+            }
         }
     }
 

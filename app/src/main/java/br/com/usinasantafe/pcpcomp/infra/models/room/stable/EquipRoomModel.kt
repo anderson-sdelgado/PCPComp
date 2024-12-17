@@ -10,6 +10,7 @@ data class EquipRoomModel (
     @PrimaryKey
     val idEquip: Int,
     val nroEquip: Long,
+    val descrEquip: String
 )
 
 fun Equip.entityToRoomModel(): EquipRoomModel{
@@ -17,6 +18,17 @@ fun Equip.entityToRoomModel(): EquipRoomModel{
         EquipRoomModel(
             idEquip = this.idEquip,
             nroEquip = this.nroEquip,
+            descrEquip = this.descrEquip
+        )
+    }
+}
+
+fun EquipRoomModel.roomModelToEntity(): Equip{
+    return with(this){
+        Equip(
+            idEquip = this.idEquip,
+            nroEquip = this.nroEquip,
+            descrEquip = this.descrEquip
         )
     }
 }

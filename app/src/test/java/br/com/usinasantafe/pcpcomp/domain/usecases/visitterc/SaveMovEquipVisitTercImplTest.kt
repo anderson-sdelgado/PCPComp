@@ -23,9 +23,8 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
-                setStatusOutsideMovVisitTerc(1)
+                movEquipVisitTercRepository.setOutside(1)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -39,7 +38,6 @@ class SaveMovEquipVisitTercImplTest {
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
                 startProcessSendData,
-                setStatusOutsideMovVisitTerc
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,
@@ -59,7 +57,6 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -74,8 +71,7 @@ class SaveMovEquipVisitTercImplTest {
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
-                startProcessSendData,
-                setStatusOutsideMovVisitTerc
+                startProcessSendData
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,
@@ -95,7 +91,6 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -119,8 +114,7 @@ class SaveMovEquipVisitTercImplTest {
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
-                startProcessSendData,
-                setStatusOutsideMovVisitTerc
+                startProcessSendData
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,
@@ -140,7 +134,6 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -170,8 +163,7 @@ class SaveMovEquipVisitTercImplTest {
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
-                startProcessSendData,
-                setStatusOutsideMovVisitTerc
+                startProcessSendData
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,
@@ -191,7 +183,6 @@ class SaveMovEquipVisitTercImplTest {
             val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
             val movEquipVisitTercPassagRepository = mock<MovEquipVisitTercPassagRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovVisitTerc = mock<SetStatusOutsideMovVisitTerc>()
             whenever(
                 configRepository.getConfig()
             ).thenReturn(
@@ -216,8 +207,7 @@ class SaveMovEquipVisitTercImplTest {
                 configRepository,
                 movEquipVisitTercRepository,
                 movEquipVisitTercPassagRepository,
-                startProcessSendData,
-                setStatusOutsideMovVisitTerc
+                startProcessSendData
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,

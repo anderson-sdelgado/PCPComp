@@ -29,7 +29,7 @@ interface MovEquipProprioRepository {
         token: String
     ): Result<List<MovEquipProprio>>
 
-    suspend fun setClose(movEquipProprio: MovEquipProprio): Result<Boolean>
+    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setDestino(
         destino: String,
         flowApp: FlowApp,

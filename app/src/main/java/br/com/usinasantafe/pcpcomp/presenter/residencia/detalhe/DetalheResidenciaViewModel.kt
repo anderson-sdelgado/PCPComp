@@ -83,12 +83,13 @@ class DetalheResidenciaViewModel(
     }
 
     fun closeMov() = viewModelScope.launch {
-        val resultCloseMov = closeMovResidencia(id)
+        val resultCloseMov = closeMovResidencia(uiState.value.id)
         if(resultCloseMov.isFailure) {
             val error = resultCloseMov.exceptionOrNull()!!
             val failure = "${error.message} -> ${error.cause.toString()}"
             _uiState.update {
                 it.copy(
+                    flagDialogCheck = false,
                     flagDialog = true,
                     failure = failure
                 )

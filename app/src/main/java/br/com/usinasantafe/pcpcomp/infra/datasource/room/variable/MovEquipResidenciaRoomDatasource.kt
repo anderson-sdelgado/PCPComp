@@ -12,7 +12,7 @@ interface MovEquipResidenciaRoomDatasource {
     suspend fun listSend(): Result<List<MovEquipResidenciaRoomModel>>
     suspend fun listSent(): Result<List<MovEquipResidenciaRoomModel>>
     suspend fun save(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Long>
-    suspend fun setClose(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Boolean>
+    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setMotorista(
         motorista: String,
         id: Int
@@ -23,7 +23,7 @@ interface MovEquipResidenciaRoomDatasource {
         id: Int
     ): Result<Boolean>
 
-    suspend fun setOutside(movEquipResidenciaRoomModel: MovEquipResidenciaRoomModel): Result<Boolean>
+    suspend fun setOutside(id: Int): Result<Boolean>
     suspend fun setPlaca(
         placa: String,
         id: Int

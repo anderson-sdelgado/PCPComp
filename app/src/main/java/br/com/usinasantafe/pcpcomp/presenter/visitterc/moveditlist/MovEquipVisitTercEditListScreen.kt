@@ -124,7 +124,7 @@ fun MovEquipVisitTercEditListContent(
 
         if (flagDialogCheck) {
             AlertDialogCheckDesign(
-                text = stringResource(id = R.string.text_question_close_mov),
+                text = stringResource(id = R.string.text_question_close_all_mov),
                 setCloseDialog = { setDialogCheck(false) },
                 setActionButtonOK = { closeAllMov() }
             )

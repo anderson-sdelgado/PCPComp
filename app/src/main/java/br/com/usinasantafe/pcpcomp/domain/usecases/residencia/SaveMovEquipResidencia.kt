@@ -16,8 +16,7 @@ interface SaveMovEquipResidencia {
 class ISaveMovEquipResidencia(
     private val configRepository: ConfigRepository,
     private val movEquipResidenciaRepository: MovEquipResidenciaRepository,
-    private val startProcessSendData: StartProcessSendData,
-    private val setStatusOutsideMovResidencia: SetStatusOutsideMovResidencia
+    private val startProcessSendData: StartProcessSendData
 ) : SaveMovEquipResidencia {
 
     override suspend fun invoke(
@@ -26,7 +25,7 @@ class ISaveMovEquipResidencia(
     ): Result<Boolean> {
         try {
             if (typeMov == TypeMovEquip.OUTPUT) {
-                val resultClose = setStatusOutsideMovResidencia(id)
+                val resultClose = movEquipResidenciaRepository.setOutside(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }
@@ -40,9 +39,8 @@ class ISaveMovEquipResidencia(
             )
             if (resultSave.isFailure)
                 return Result.failure(resultSave.exceptionOrNull()!!)
-            val idSave = resultSave.getOrNull()!!
             if (typeMov == TypeMovEquip.OUTPUT) {
-                val resultClose = setStatusOutsideMovResidencia(idSave)
+                val resultClose = movEquipResidenciaRepository.setOutside(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

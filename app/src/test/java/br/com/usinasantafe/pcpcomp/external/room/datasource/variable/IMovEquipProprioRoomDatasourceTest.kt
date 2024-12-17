@@ -95,7 +95,7 @@ class IMovEquipProprioRoomDatasourceTest {
         )
         val movEquipProprioRoomModelBefore = movEquipProprioDao.get(id.toInt())
         assertEquals(movEquipProprioRoomModelBefore.statusMovEquipProprio, StatusData.OPEN)
-        val result = datasource.setClose(movEquipProprioRoomModelBefore)
+        val result = datasource.setClose(1)
         val movEquipProprioRoomModelAfter = movEquipProprioDao.get(id.toInt())
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, true)

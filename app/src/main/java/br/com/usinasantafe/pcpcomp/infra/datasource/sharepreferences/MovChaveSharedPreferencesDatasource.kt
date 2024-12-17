@@ -7,6 +7,7 @@ interface MovChaveSharedPreferencesDatasource {
     suspend fun get(): Result<MovChaveSharedPreferencesModel>
     suspend fun setIdChave(idChave: Int): Result<Boolean>
     suspend fun setMatricColab(matricColab: Int): Result<Boolean>
+    suspend fun setObserv(observ: String?): Result<Boolean>
     suspend fun start(
         movChaveSharedPreferencesModel: MovChaveSharedPreferencesModel =
             MovChaveSharedPreferencesModel()

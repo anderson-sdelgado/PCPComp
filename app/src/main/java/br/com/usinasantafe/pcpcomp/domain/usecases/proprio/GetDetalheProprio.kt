@@ -40,11 +40,10 @@ class IGetDetalheProprio(
             ).format(mov.dthrMovEquipProprio)
             val tipoMov = if (mov.tipoMovEquipProprio!!.ordinal == 0) "ENTRADA" else "SAÍDA"
 
-            val resultNro = equipRepository.getNro(mov.idEquipMovEquipProprio!!)
+            val resultNro = equipRepository.getDescr(mov.idEquipMovEquipProprio!!)
             if (resultNro.isFailure)
                 return Result.failure(resultNro.exceptionOrNull()!!)
-            val nroEquip = resultNro.getOrNull()!!
-            val veiculo = "$nroEquip"
+            val veiculo = resultNro.getOrNull()!!
 
             val resultEquipSegList =
                 movEquipProprioEquipSegRepository.list(FlowApp.CHANGE, mov.idMovEquipProprio!!)

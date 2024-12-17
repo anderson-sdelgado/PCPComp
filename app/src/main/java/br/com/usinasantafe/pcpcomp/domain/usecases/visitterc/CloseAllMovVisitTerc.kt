@@ -16,9 +16,9 @@ class ICloseAllMovVisitTerc(
             val resultVisitTercList = movEquipVisitTercRepository.listOpen()
             if(resultVisitTercList.isFailure)
                 return Result.failure(resultVisitTercList.exceptionOrNull()!!)
-            val movEquipVisitTercList = resultVisitTercList.getOrNull()!!
-            for(movEquipVisitTerc in movEquipVisitTercList){
-                val resultClose = movEquipVisitTercRepository.setClose(movEquipVisitTerc)
+            val entityList = resultVisitTercList.getOrNull()!!
+            for(entity in entityList){
+                val resultClose = movEquipVisitTercRepository.setClose(entity.idMovEquipVisitTerc!!)
                 if(resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

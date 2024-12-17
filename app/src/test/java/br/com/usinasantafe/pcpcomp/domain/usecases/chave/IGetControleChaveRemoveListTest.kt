@@ -12,13 +12,13 @@ import org.mockito.kotlin.whenever
 import java.util.Date
 import kotlin.test.assertEquals
 
-class IGetMovChaveRemoveListTest {
+class IGetMovChaveInsideListTest {
 
     private val movChaveRepository = mock<MovChaveRepository>()
     private val colabRepository = mock<ColabRepository>()
     private val getDescrFullChave = mock<GetDescrFullChave>()
 
-    private fun getUsecase() = IGetMovChaveRemoveList(
+    private val usecase = IGetMovChaveInsideList(
         movChaveRepository = movChaveRepository,
         colabRepository = colabRepository,
         getDescrFullChave = getDescrFullChave
@@ -28,7 +28,7 @@ class IGetMovChaveRemoveListTest {
     fun `Check return failure if have error in MovChaveRepository listRemove`() =
         runTest {
             whenever(
-                movChaveRepository.listRemove()
+                movChaveRepository.listInside()
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
@@ -37,7 +37,6 @@ class IGetMovChaveRemoveListTest {
                     )
                 )
             )
-            val usecase = getUsecase()
             val result = usecase()
             assertEquals(
                 result.isFailure,
@@ -53,7 +52,7 @@ class IGetMovChaveRemoveListTest {
     fun `Check return failure if have error in ColabRepository GetNome`() =
         runTest {
             whenever(
-                movChaveRepository.listRemove()
+                movChaveRepository.listInside()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -81,7 +80,6 @@ class IGetMovChaveRemoveListTest {
                     )
                 )
             )
-            val usecase = getUsecase()
             val result = usecase()
             assertEquals(
                 result.isFailure,
@@ -97,7 +95,7 @@ class IGetMovChaveRemoveListTest {
     fun `Check return failure if have error in GetDescrFullChave`() =
         runTest {
             whenever(
-                movChaveRepository.listRemove()
+                movChaveRepository.listInside()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -132,7 +130,6 @@ class IGetMovChaveRemoveListTest {
                     )
                 )
             )
-            val usecase = getUsecase()
             val result = usecase()
             assertEquals(
                 result.isFailure,
@@ -148,7 +145,7 @@ class IGetMovChaveRemoveListTest {
     fun `Check return list if MovChaveRepository listRemove execute successfully`() =
         runTest {
             whenever(
-                movChaveRepository.listRemove()
+                movChaveRepository.listInside()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -180,7 +177,6 @@ class IGetMovChaveRemoveListTest {
                     "01 - SALA TI - TI"
                 )
             )
-            val usecase = getUsecase()
             val result = usecase()
             assertEquals(
                 result.isSuccess,

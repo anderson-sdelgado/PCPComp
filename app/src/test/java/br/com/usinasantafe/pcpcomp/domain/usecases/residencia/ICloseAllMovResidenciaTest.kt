@@ -67,7 +67,7 @@ class ICloseAllMovResidenciaTest {
                 Result.success(movList)
             )
             whenever(
-                movEquipResidenciaRepository.setClose(movList[0])
+                movEquipResidenciaRepository.setClose(1)
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
@@ -112,7 +112,7 @@ class ICloseAllMovResidenciaTest {
                 Result.success(movList)
             )
             whenever(
-                movEquipResidenciaRepository.setClose(movList[0])
+                movEquipResidenciaRepository.setClose(1)
             ).thenReturn(
                 Result.success(true)
             )

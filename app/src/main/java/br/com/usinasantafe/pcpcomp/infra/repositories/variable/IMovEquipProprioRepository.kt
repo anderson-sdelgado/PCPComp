@@ -8,7 +8,7 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovEquipPro
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.variable.MovEquipProprioRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.roomModelToEntity
-import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.sharedPreferencesModelToEntity
+import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.entityToSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.entityToRetrofitModelOutput
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.retrofitModelInputToEntity
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
@@ -229,7 +229,7 @@ class IMovEquipProprioRepository(
             if (resultGetMov.isFailure)
                 return Result.failure(resultGetMov.exceptionOrNull()!!)
             val movEquipProprioRoomModel =
-                resultGetMov.getOrNull()!!.sharedPreferencesModelToEntity()
+                resultGetMov.getOrNull()!!.entityToSharedPreferencesModel()
                     .entityToRoomModel(matricVigia, idLocal)
             val resultSave = movEquipProprioRoomDatasource.save(movEquipProprioRoomModel)
             if (resultSave.isFailure)
@@ -284,24 +284,8 @@ class IMovEquipProprioRepository(
         }
     }
 
-    override suspend fun setClose(movEquipProprio: MovEquipProprio): Result<Boolean> {
-        try {
-            val movEquipProprioRoomModel = movEquipProprio.entityToRoomModel(
-                matricVigia = movEquipProprio.matricVigiaMovEquipProprio!!,
-                idLocal = movEquipProprio.idLocalMovEquipProprio!!
-            )
-            val resultSetClose = movEquipProprioRoomDatasource.setClose(movEquipProprioRoomModel)
-            if (resultSetClose.isFailure)
-                return Result.failure(resultSetClose.exceptionOrNull()!!)
-            return Result.success(resultSetClose.getOrNull()!!)
-        } catch (e: Exception) {
-            return Result.failure(
-                RepositoryException(
-                    function = "MovEquipProprioRepositoryImpl.setClose",
-                    cause = e
-                )
-            )
-        }
+    override suspend fun setClose(id: Int): Result<Boolean> {
+        return movEquipProprioRoomDatasource.setClose(id)
     }
 
     override suspend fun setDestino(

@@ -565,8 +565,8 @@ class GetDetalheProprioImplTest {
         val result = usecase(1)
         assertTrue(result.isSuccess)
         val model = result.getOrNull()!!
-        assertEquals(model.dthr, "DATA/HORA: 09/08/2024 11:21")
-        assertEquals(model.veiculoSec, "VEÍCULO SECUNDÁRIO: 200 - ")
+        assertEquals(model.dthr, "09/08/2024 11:21")
+        assertEquals(model.veiculoSec, "200 - ")
     }
 
     @Test
@@ -643,7 +643,7 @@ class GetDetalheProprioImplTest {
         val result = usecase(1)
         assertTrue(result.isSuccess)
         val model = result.getOrNull()!!
-        assertEquals(model.dthr, "DATA/HORA: 09/08/2024 11:21")
-        assertEquals(model.veiculoSec, "VEÍCULO SECUNDÁRIO: ")
+        assertEquals(model.dthr, "09/08/2024 11:21")
+        assertEquals(model.veiculoSec, "")
     }
 }

@@ -13,7 +13,9 @@ class GetMatricColabImplTest {
     @Test
     fun `Check return failure if have error in MovEquipProprioRepository get`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-        whenever(movEquipProprioRepository.getMatricColab(id = 1)).thenReturn(
+        whenever(
+            movEquipProprioRepository.getMatricColab(id = 1)
+        ).thenReturn(
             Result.failure(
                 RepositoryException(
                     function = "MovEquipProprioRepository.get",
@@ -32,7 +34,9 @@ class GetMatricColabImplTest {
     @Test
     fun `Check return matricColab if GetMatricColabImpl execute success`() = runTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
-        whenever(movEquipProprioRepository.getMatricColab(id = 1)).thenReturn(
+        whenever(
+            movEquipProprioRepository.getMatricColab(id = 1)
+        ).thenReturn(
             Result.success(19759)
         )
         val usecase = IGetMatricColab(

@@ -4,9 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.usecases.chave.SetMatricColabMovChave
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.StartReceiptMovChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetNomeColab
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeMovKey
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
@@ -24,18 +26,21 @@ class NomeColabChaveViewModelTest {
 
     private val getNomeColab = mock<GetNomeColab>()
     private val setMatricColabMovChave = mock<SetMatricColabMovChave>()
+    private val startReceiptMovChave = mock<StartReceiptMovChave>()
     private fun getViewModel(
         savedStateHandle: SavedStateHandle = SavedStateHandle(
             mapOf(
                 Args.MATRIC_COLAB_ARGS to "19759",
                 Args.FLOW_APP_ARGS  to FlowApp.ADD.ordinal,
+                Args.TYPE_MOV_ARGS to TypeMovKey.REMOVE.ordinal,
                 Args.ID_ARGS to 0
             )
         )
     ) = NomeColabChaveViewModel(
         savedStateHandle,
         getNomeColab,
-        setMatricColabMovChave
+        setMatricColabMovChave,
+        startReceiptMovChave
     )
 
     @Test
@@ -80,7 +85,7 @@ class NomeColabChaveViewModelTest {
         }
 
     @Test
-    fun `setMatricColab - Check return failure if have error in SetMatricColab`() =
+    fun `setMatricColab - Check return failure if have error in SetMatricColab - REMOVE - ADD`() =
         runTest {
             whenever(
                 setMatricColabMovChave(
@@ -96,12 +101,109 @@ class NomeColabChaveViewModelTest {
                     )
                 )
             )
+            val viewModel = getViewModel()
+            viewModel.setMatricColab()
+            assertEquals(
+                viewModel.uiState.value.flagDialog,
+                true
+            )
+            assertEquals(
+                viewModel.uiState.value.failure,
+                "Failure Usecase -> ISetMatricColabMovChave -> java.lang.Exception"
+            )
+        }
+
+    @Test
+    fun `setMatricColab - Check return correct if function execute successfully - REMOVE - ADD`() =
+        runTest {
+            whenever(
+                setMatricColabMovChave(
+                    matricColab = "19759",
+                    flowApp = FlowApp.ADD,
+                    id = 0
+                )
+            ).thenReturn(
+                Result.success(true)
+            )
+            val viewModel = getViewModel()
+            viewModel.setMatricColab()
+            assertEquals(
+                viewModel.uiState.value.flagDialog,
+                false
+            )
+            assertEquals(
+                viewModel.uiState.value.flagAccess,
+                true
+            )
+        }
+
+    @Test
+    fun `setMatricColab - Check return failure if have error in StartReceiptChave - RECEIPT - ADD`() =
+        runTest {
+            whenever(
+                startReceiptMovChave(
+                    1
+                )
+            ).thenReturn(
+                Result.failure(
+                    UsecaseException(
+                        function = "StartReceiptChaveImpl",
+                        cause = Exception()
+                    )
+                )
+            )
             val viewModel = getViewModel(
                 SavedStateHandle(
                     mapOf(
                         Args.MATRIC_COLAB_ARGS to "19759",
                         Args.FLOW_APP_ARGS  to FlowApp.ADD.ordinal,
-                        Args.ID_ARGS to 0
+                        Args.TYPE_MOV_ARGS  to TypeMovKey.RECEIPT.ordinal,
+                        Args.ID_ARGS to 1
+                    )
+                )
+            )
+            viewModel.setMatricColab()
+            assertEquals(
+                viewModel.uiState.value.flagDialog,
+                true
+            )
+            assertEquals(
+                viewModel.uiState.value.failure,
+                "Failure Usecase -> StartReceiptChaveImpl -> java.lang.Exception"
+            )
+        }
+
+    @Test
+    fun `setMatricColab - Check return failure if have error in SetMatricColab - RECEIPT - ADD`() =
+        runTest {
+            whenever(
+                startReceiptMovChave(
+                    1
+                )
+            ).thenReturn(
+                Result.success(true)
+            )
+            whenever(
+                setMatricColabMovChave(
+                    matricColab = "19759",
+                    flowApp = FlowApp.ADD,
+                    id = 1
+                )
+            ).thenReturn(
+                Result.failure(
+                    UsecaseException(
+                        function = "ISetMatricColabMovChave",
+                        cause = Exception()
+                    )
+                )
+            )
+            val viewModel = getViewModel(
+                SavedStateHandle(
+                    mapOf(
+                        Args.MATRIC_COLAB_ARGS to "19759",
+                        Args.FLOW_APP_ARGS  to FlowApp.ADD.ordinal,
+                        Args.TYPE_MOV_ARGS  to TypeMovKey.RECEIPT.ordinal,
+                        Args.ID_ARGS to 1
                     )
                 )
             )
@@ -117,13 +219,20 @@ class NomeColabChaveViewModelTest {
         }
 
     @Test
-    fun `setMatricColab - Check return correct if function execute successfully`() =
+    fun `setMatricColab - Check return correct if function execute successfully - RECEIPT - ADD`() =
         runTest {
+            whenever(
+                startReceiptMovChave(
+                    1
+                )
+            ).thenReturn(
+                Result.success(true)
+            )
             whenever(
                 setMatricColabMovChave(
                     matricColab = "19759",
                     flowApp = FlowApp.ADD,
-                    id = 0
+                    id = 1
                 )
             ).thenReturn(
                 Result.success(true)
@@ -133,7 +242,8 @@ class NomeColabChaveViewModelTest {
                     mapOf(
                         Args.MATRIC_COLAB_ARGS to "19759",
                         Args.FLOW_APP_ARGS  to FlowApp.ADD.ordinal,
-                        Args.ID_ARGS to 0
+                        Args.TYPE_MOV_ARGS  to TypeMovKey.RECEIPT.ordinal,
+                        Args.ID_ARGS to 1
                     )
                 )
             )

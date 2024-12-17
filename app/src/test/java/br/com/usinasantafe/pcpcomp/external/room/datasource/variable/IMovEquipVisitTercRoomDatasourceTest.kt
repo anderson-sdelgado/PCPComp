@@ -102,7 +102,7 @@ class IMovEquipVisitTercRoomDatasourceTest {
         )
         val roomModelBefore = movEquipVisitTercDao.get(1)
         assertEquals(roomModelBefore.statusMovEquipVisitTerc, StatusData.OPEN)
-        val result = datasource.setClose(roomModelBefore)
+        val result = datasource.setClose(1)
         assertEquals(result.isSuccess, true)
         assertEquals(result.getOrNull()!!, true)
         val roomModelAfter = movEquipVisitTercDao.get(1)
@@ -342,6 +342,7 @@ class IMovEquipVisitTercRoomDatasourceTest {
     @Test
     fun `Check return true if setOutside execute correctly`() = runTest {
         val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
+            idMovEquipVisitTerc = 1,
             nroMatricVigiaMovEquipVisitTerc = 19759,
             idLocalMovEquipVisitTerc = 1,
             tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
@@ -360,7 +361,7 @@ class IMovEquipVisitTercRoomDatasourceTest {
         datasource.save(movEquipVisitTercRoomModel)
         val roomModelBefore = movEquipVisitTercDao.get(1)
         assertEquals(roomModelBefore.statusMovEquipForeigVisitTerc, StatusForeigner.INSIDE)
-        val result = datasource.setOutside(roomModelBefore)
+        val result = datasource.setOutside(1)
         assertTrue(result.isSuccess)
         assertTrue(result.getOrNull()!!)
         val roomModelAfter = movEquipVisitTercDao.get(1)

@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.presenter.residencia.model.MovEquipResidenciaModel
-import br.com.usinasantafe.pcpcomp.presenter.residencia.movlist.MovEquipResidenciaListContent
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
@@ -119,7 +118,7 @@ fun MovEquipResidenciaEditListContent(
 
         if(flagDialogCheck){
             AlertDialogCheckDesign(
-                text = stringResource(id = R.string.text_question_close_mov),
+                text = stringResource(id = R.string.text_question_close_all_mov),
                 setCloseDialog = { setDialogCheck(false)  },
                 setActionButtonOK = { closeAllMov() }
             )

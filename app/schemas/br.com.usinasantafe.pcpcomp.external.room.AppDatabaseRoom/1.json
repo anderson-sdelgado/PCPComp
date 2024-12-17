@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d29b4cb3f24654629b73848278d80adf",
+    "identityHash": "57e1d239648951c5098ddc074ab880c4",
     "entities": [
       {
         "tableName": "tb_chave",
@@ -64,7 +64,7 @@
       },
       {
         "tableName": "tb_equip",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idEquip` INTEGER NOT NULL, `nroEquip` INTEGER NOT NULL, PRIMARY KEY(`idEquip`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idEquip` INTEGER NOT NULL, `nroEquip` INTEGER NOT NULL, `descrEquip` TEXT NOT NULL, PRIMARY KEY(`idEquip`))",
         "fields": [
           {
             "fieldPath": "idEquip",
@@ -76,6 +76,12 @@
             "fieldPath": "nroEquip",
             "columnName": "nroEquip",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descrEquip",
+            "columnName": "descrEquip",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -730,7 +736,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd29b4cb3f24654629b73848278d80adf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '57e1d239648951c5098ddc074ab880c4')"
     ]
   }
 }

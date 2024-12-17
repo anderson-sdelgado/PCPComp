@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Chave
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Colab
@@ -30,6 +31,8 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.ConfigShare
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipProprioRoomModel
 import br.com.usinasantafe.pcpcomp.presenter.MainActivity
 import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.TAG_FILTER_TEXT_FIELD_CHAVE_LIST_SCREEN
+import br.com.usinasantafe.pcpcomp.presenter.chave.observ.TAG_OBSERV_TEXT_FIELD_CHAVE
+import br.com.usinasantafe.pcpcomp.ui.theme.TAG_BUTTON_YES_ALERT_DIALOG_CHECK
 import br.com.usinasantafe.pcpcomp.utils.FlagUpdate
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusSend
@@ -80,11 +83,11 @@ class MovChaveFlowTest : KoinTest {
         composeTestRule.onNodeWithText("VIGIA: 19759 - ANDERSON DA SILVA DELGADO")
             .assertIsDisplayed()
 
-        composeTestRule.waitUntilTimeout(3_000)
+//        composeTestRule.waitUntilTimeout(3_000)
 
         composeTestRule.onNodeWithText("CONTROLE DE CHAVE").performClick()
 
-        composeTestRule.waitUntilTimeout(3_000)
+//        composeTestRule.waitUntilTimeout(3_000)
 
         composeTestRule.onNodeWithText("CONTROLE DE CHAVE").assertIsDisplayed()
         composeTestRule.onNodeWithText("RETIRADA DE CHAVE").performClick()
@@ -95,7 +98,7 @@ class MovChaveFlowTest : KoinTest {
         composeTestRule.onNodeWithTag(TAG_FILTER_TEXT_FIELD_CHAVE_LIST_SCREEN).performTextInput("TECNOLOGIA")
         composeTestRule.onNodeWithTag("item_list_82").performClick()
 
-        composeTestRule.waitUntilTimeout(3_000)
+//        composeTestRule.waitUntilTimeout(3_000)
 
         composeTestRule.onNodeWithText("MATRICULA COLABORADOR").assertIsDisplayed()
         composeTestRule.onNodeWithText("1").performClick()
@@ -105,11 +108,123 @@ class MovChaveFlowTest : KoinTest {
         composeTestRule.onNodeWithText("9").performClick()
         composeTestRule.onNodeWithText("OK").performClick()
 
-        composeTestRule.waitUntilTimeout(3_000)
+//        composeTestRule.waitUntilTimeout(3_000)
 
         composeTestRule.onNodeWithText("NOME COLABORADOR").assertIsDisplayed()
         composeTestRule.onNodeWithText("ANDERSON DA SILVA DELGADO").assertIsDisplayed()
         composeTestRule.onNodeWithText("OK").performClick()
+
+//        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("OBSERVAÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TAG_OBSERV_TEXT_FIELD_CHAVE).performTextInput("TESTE OBSERV")
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("CONTROLE DE CHAVE").performClick()
+        composeTestRule.onNodeWithTag("item_list_1").performClick()
+
+//        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("MATRICULA COLABORADOR").assertIsDisplayed()
+        composeTestRule.onNodeWithText("1").performClick()
+        composeTestRule.onNodeWithText("8").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("1").performClick()
+        composeTestRule.onNodeWithText("7").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+//        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("NOME COLABORADOR").assertIsDisplayed()
+        composeTestRule.onNodeWithText("RONALDO GOMES CARLOS").assertIsDisplayed()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+//        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("OBSERVAÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TAG_OBSERV_TEXT_FIELD_CHAVE).performTextInput("TESTE RETORNO")
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("EDITAR MOVIMENTO(S)").performClick()
+        composeTestRule.onNodeWithTag("item_list_1").performClick()
+
+        composeTestRule.waitUntilTimeout(5_000)
+
+        composeTestRule.onNodeWithText("MOVIMENTO").performClick()
+        composeTestRule.onNodeWithTag("item_list_1").performClick()
+
+        composeTestRule.waitUntilTimeout(5_000)
+
+        composeTestRule.onNodeWithText("LISTA DE CHAVE").assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TAG_FILTER_TEXT_FIELD_CHAVE_LIST_SCREEN).performTextInput("TECNOLOGIA")
+        composeTestRule.onNodeWithTag("item_list_81").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("MOVIMENTO").performClick()
+        composeTestRule.onNodeWithTag("item_list_2").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("MATRICULA COLABORADOR").assertIsDisplayed()
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+        composeTestRule.onNodeWithText("APAGAR").performClick()
+        composeTestRule.onNodeWithText("1").performClick()
+        composeTestRule.onNodeWithText("8").performClick()
+        composeTestRule.onNodeWithText("0").performClick()
+        composeTestRule.onNodeWithText("1").performClick()
+        composeTestRule.onNodeWithText("7").performClick()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+//        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("NOME COLABORADOR").assertIsDisplayed()
+        composeTestRule.onNodeWithText("RONALDO GOMES CARLOS").assertIsDisplayed()
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("MOVIMENTO").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("MOVIMENTO").performClick()
+        composeTestRule.onNodeWithTag("item_list_3").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("OBSERVAÇÃO").assertIsDisplayed()
+        composeTestRule.onNodeWithTag(TAG_OBSERV_TEXT_FIELD_CHAVE).performTextClearance()
+        composeTestRule.onNodeWithTag(TAG_OBSERV_TEXT_FIELD_CHAVE).performTextInput("TESTE RETORNO")
+        composeTestRule.onNodeWithText("OK").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("MOVIMENTO").performClick()
+        composeTestRule.onNodeWithText("FECHAR").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithTag(TAG_BUTTON_YES_ALERT_DIALOG_CHECK).performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("FECHAR MOVIMENTO(S)").performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithTag(TAG_BUTTON_YES_ALERT_DIALOG_CHECK).performClick()
+
+        composeTestRule.waitUntilTimeout(3_000)
+
+        composeTestRule.onNodeWithText("EDITAR MOVIMENTO(S)").performClick()
 
         composeTestRule.waitUntilTimeout(3_000)
 

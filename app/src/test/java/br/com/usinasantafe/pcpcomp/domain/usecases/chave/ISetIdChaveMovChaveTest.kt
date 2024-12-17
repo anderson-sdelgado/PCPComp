@@ -20,7 +20,7 @@ class ISetIdChaveMovChaveTest {
     )
 
     @Test
-    fun `Check return failure if have error in MovChaveRepository setIdChave - ADD`() =
+    fun `Check return failure if have error in MovChaveRepository setIdChave`() =
         runTest {
             whenever(
                 movChaveRepository.setIdChave(
@@ -52,7 +52,7 @@ class ISetIdChaveMovChaveTest {
         }
 
     @Test
-    fun `Check return correct if function execute successfully - ADD`() =
+    fun `Check return correct if function execute successfully`() =
         runTest {
             whenever(
                 movChaveRepository.setIdChave(

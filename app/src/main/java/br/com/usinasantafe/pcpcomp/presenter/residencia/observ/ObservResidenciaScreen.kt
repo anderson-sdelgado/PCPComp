@@ -58,6 +58,7 @@ fun ObservResidenciaScreen(
                 onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
+            viewModel.recoverObserv()
         }
     }
 }

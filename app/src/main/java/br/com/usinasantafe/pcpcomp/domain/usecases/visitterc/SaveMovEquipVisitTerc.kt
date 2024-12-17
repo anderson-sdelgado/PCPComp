@@ -18,8 +18,7 @@ class ISaveMovEquipVisitTerc(
     private val configRepository: ConfigRepository,
     private val movEquipVisitTercRepository: MovEquipVisitTercRepository,
     private val movEquipVisitTercPassagRepository: MovEquipVisitTercPassagRepository,
-    private val startProcessSendData: StartProcessSendData,
-    private val setStatusOutsideMovVisitTerc: SetStatusOutsideMovVisitTerc
+    private val startProcessSendData: StartProcessSendData
 ) : SaveMovEquipVisitTerc {
 
     override suspend fun invoke(
@@ -28,7 +27,7 @@ class ISaveMovEquipVisitTerc(
     ): Result<Boolean> {
         try {
             if (typeMov == TypeMovEquip.OUTPUT) {
-                val resultClose = setStatusOutsideMovVisitTerc(id)
+                val resultClose = movEquipVisitTercRepository.setOutside(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }
@@ -44,7 +43,7 @@ class ISaveMovEquipVisitTerc(
                 return Result.failure(resultSave.exceptionOrNull()!!)
             val idSave = resultSave.getOrNull()!!
             if (typeMov == TypeMovEquip.OUTPUT) {
-                val resultClose = setStatusOutsideMovVisitTerc(idSave)
+                val resultClose = movEquipVisitTercRepository.setOutside(id)
                 if (resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

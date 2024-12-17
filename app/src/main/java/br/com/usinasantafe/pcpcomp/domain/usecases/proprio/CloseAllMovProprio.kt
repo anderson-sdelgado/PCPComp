@@ -16,9 +16,9 @@ class ICloseAllMovProprio(
             val resultProprioList = movEquipProprioRepository.listOpen()
             if(resultProprioList.isFailure)
                 return Result.failure(resultProprioList.exceptionOrNull()!!)
-            val movEquipProprioList = resultProprioList.getOrNull()!!
-            for(movEquipProprio in movEquipProprioList){
-                val resultClose = movEquipProprioRepository.setClose(movEquipProprio)
+            val entityList = resultProprioList.getOrNull()!!
+            for(entity in entityList){
+                val resultClose = movEquipProprioRepository.setClose(entity.idMovEquipProprio!!)
                 if(resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

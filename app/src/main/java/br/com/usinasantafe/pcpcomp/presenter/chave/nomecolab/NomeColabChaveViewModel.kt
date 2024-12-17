@@ -4,11 +4,14 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.usecases.chave.SetMatricColabMovChave
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.StartReceiptMovChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetNomeColab
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.MATRIC_COLAB_ARGS
+import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
+import br.com.usinasantafe.pcpcomp.utils.TypeMovKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -16,6 +19,7 @@ import kotlinx.coroutines.launch
 
 data class NomeColabChaveState(
     val flowApp: FlowApp = FlowApp.ADD,
+    val typeMov: TypeMovKey = TypeMovKey.REMOVE,
     val id: Int = 0,
     val matricColab: String = "",
     val nomeColab: String = "",
@@ -27,10 +31,12 @@ data class NomeColabChaveState(
 class NomeColabChaveViewModel(
     saveStateHandle: SavedStateHandle,
     private val getNomeColab: GetNomeColab,
-    private val setMatricColabMovChave: SetMatricColabMovChave
+    private val setMatricColabMovChave: SetMatricColabMovChave,
+    private val startReceiptMovChave: StartReceiptMovChave
 ) : ViewModel() {
 
     private val matricColab: String = saveStateHandle[MATRIC_COLAB_ARGS]!!
+    private val typeMov: Int = saveStateHandle[TYPE_MOV_ARGS]!!
     private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
     private val id: Int = saveStateHandle[ID_ARGS]!!
 
@@ -41,6 +47,7 @@ class NomeColabChaveViewModel(
         _uiState.update {
             it.copy(
                 matricColab = matricColab,
+                typeMov = TypeMovKey.entries[typeMov],
                 flowApp = FlowApp.entries[flowApp],
                 id = id
             )
@@ -76,6 +83,23 @@ class NomeColabChaveViewModel(
     }
 
     fun setMatricColab() = viewModelScope.launch {
+        if(
+            (uiState.value.typeMov == TypeMovKey.RECEIPT) &&
+            (uiState.value.flowApp == FlowApp.ADD)
+        ) {
+            val resultStart = startReceiptMovChave(uiState.value.id)
+            if(resultStart.isFailure) {
+                val error = resultStart.exceptionOrNull()!!
+                val failure = "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+        }
         val resultSetMatric = setMatricColabMovChave(
             matricColab = uiState.value.matricColab,
             flowApp = uiState.value.flowApp,

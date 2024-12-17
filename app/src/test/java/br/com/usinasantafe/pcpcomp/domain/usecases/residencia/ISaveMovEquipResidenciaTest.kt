@@ -21,9 +21,8 @@ class ISaveMovEquipResidenciaTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
-                setStatusOutsideMovResidencia(1)
+                movEquipResidenciaRepository.setOutside(1)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -36,7 +35,6 @@ class ISaveMovEquipResidenciaTest {
                 configRepository,
                 movEquipResidenciaRepository,
                 startProcessSendData,
-                setStatusOutsideMovResidencia
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,
@@ -55,9 +53,8 @@ class ISaveMovEquipResidenciaTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
-                setStatusOutsideMovResidencia(1)
+                movEquipResidenciaRepository.setOutside(1)
             ).thenReturn(
                 Result.success(true)
             )
@@ -74,8 +71,7 @@ class ISaveMovEquipResidenciaTest {
             val usecase = ISaveMovEquipResidencia(
                 configRepository,
                 movEquipResidenciaRepository,
-                startProcessSendData,
-                setStatusOutsideMovResidencia
+                startProcessSendData
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,
@@ -94,9 +90,8 @@ class ISaveMovEquipResidenciaTest {
             val configRepository = mock<ConfigRepository>()
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
-            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
-                setStatusOutsideMovResidencia(1)
+                movEquipResidenciaRepository.setOutside(1)
             ).thenReturn(
                 Result.success(true)
             )
@@ -123,8 +118,7 @@ class ISaveMovEquipResidenciaTest {
             val usecase = ISaveMovEquipResidencia(
                 configRepository,
                 movEquipResidenciaRepository,
-                startProcessSendData,
-                setStatusOutsideMovResidencia
+                startProcessSendData
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,
@@ -144,7 +138,6 @@ class ISaveMovEquipResidenciaTest {
             val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
             val startProcessSendData = mock<StartProcessSendData>()
             val closeMovResidencia = mock<CloseMovResidencia>()
-            val setStatusOutsideMovResidencia = mock<SetStatusOutsideMovResidencia>()
             whenever(
                 closeMovResidencia(1)
             ).thenReturn(
@@ -168,8 +161,7 @@ class ISaveMovEquipResidenciaTest {
             val usecase = ISaveMovEquipResidencia(
                 configRepository,
                 movEquipResidenciaRepository,
-                startProcessSendData,
-                setStatusOutsideMovResidencia
+                startProcessSendData
             )
             val result = usecase(
                 typeMov = TypeMovEquip.OUTPUT,

@@ -19,8 +19,8 @@ import kotlinx.coroutines.launch
 
 data class ObservResidenciaState(
     val flowApp: FlowApp = FlowApp.ADD,
-    val id: Int = 0,
     val typeMov: TypeMovEquip = TypeMovEquip.INPUT,
+    val id: Int = 0,
     val observ: String? = null,
     val flagGetObserv: Boolean = true,
     val flagAccess: Boolean = false,

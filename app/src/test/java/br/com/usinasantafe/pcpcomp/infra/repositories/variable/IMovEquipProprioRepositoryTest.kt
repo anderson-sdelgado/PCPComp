@@ -106,34 +106,8 @@ class IMovEquipProprioRepositoryTest {
 
     @Test
     fun `Check failure Datasource in MovEquipProprioRoomDatasource setClose`() = runTest {
-        val movEquipProprioRoomModel = MovEquipProprioRoomModel(
-            matricVigiaMovEquipProprio = 19759,
-            idLocalMovEquipProprio = 1,
-            tipoMovEquipProprio = TypeMovEquip.INPUT,
-            dthrMovEquipProprio = 1723213270250,
-            idEquipMovEquipProprio = 1,
-            matricColabMovEquipProprio = 19759,
-            destinoMovEquipProprio = "TESTE DESTINO",
-            notaFiscalMovEquipProprio = 123456789,
-            observMovEquipProprio = "TESTE OBSERV",
-            statusMovEquipProprio = StatusData.OPEN,
-            statusSendMovEquipProprio = StatusSend.SEND
-        )
-        val movEquipProprio = MovEquipProprio(
-            matricVigiaMovEquipProprio = 19759,
-            idLocalMovEquipProprio = 1,
-            tipoMovEquipProprio = TypeMovEquip.INPUT,
-            dthrMovEquipProprio = Date(1723213270250),
-            idEquipMovEquipProprio = 1,
-            matricColabMovEquipProprio = 19759,
-            destinoMovEquipProprio = "TESTE DESTINO",
-            notaFiscalMovEquipProprio = 123456789,
-            observMovEquipProprio = "TESTE OBSERV",
-            statusMovEquipProprio = StatusData.OPEN,
-            statusSendMovEquipProprio = StatusSend.SEND
-        )
         whenever(
-            movEquipProprioRoomDatasource.setClose(movEquipProprioRoomModel)
+            movEquipProprioRoomDatasource.setClose(1)
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -143,7 +117,7 @@ class IMovEquipProprioRepositoryTest {
             )
         )
         val repository = getRepository()
-        val result = repository.setClose(movEquipProprio)
+        val result = repository.setClose(1)
         assertEquals(result.isFailure, true)
         assertEquals(
             result.exceptionOrNull()!!.message,
@@ -153,40 +127,14 @@ class IMovEquipProprioRepositoryTest {
 
     @Test
     fun `Check success if have success in MovEquipProprioRoomDatasource setClose`() =
-        runTest {
-            val movEquipProprioRoomModel = MovEquipProprioRoomModel(
-                matricVigiaMovEquipProprio = 19759,
-                idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMovEquip.INPUT,
-                dthrMovEquipProprio = 1723213270250,
-                idEquipMovEquipProprio = 1,
-                matricColabMovEquipProprio = 19759,
-                destinoMovEquipProprio = "TESTE DESTINO",
-                notaFiscalMovEquipProprio = 123456789,
-                observMovEquipProprio = "TESTE OBSERV",
-                statusMovEquipProprio = StatusData.OPEN,
-                statusSendMovEquipProprio = StatusSend.SEND
-            )
-            val movEquipProprio = MovEquipProprio(
-                matricVigiaMovEquipProprio = 19759,
-                idLocalMovEquipProprio = 1,
-                tipoMovEquipProprio = TypeMovEquip.INPUT,
-                dthrMovEquipProprio = Date(1723213270250),
-                idEquipMovEquipProprio = 1,
-                matricColabMovEquipProprio = 19759,
-                destinoMovEquipProprio = "TESTE DESTINO",
-                notaFiscalMovEquipProprio = 123456789,
-                observMovEquipProprio = "TESTE OBSERV",
-                statusMovEquipProprio = StatusData.OPEN,
-                statusSendMovEquipProprio = StatusSend.SEND
-            )
+        runTest {1
             whenever(
-                movEquipProprioRoomDatasource.setClose(movEquipProprioRoomModel)
+                movEquipProprioRoomDatasource.setClose(1)
             ).thenReturn(
                 Result.success(true)
             )
             val repository = getRepository()
-            val result = repository.setClose(movEquipProprio)
+            val result = repository.setClose(1)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }

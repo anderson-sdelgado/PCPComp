@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.external.sharedpreferences.datasource
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider
+import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovChaveSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.utils.TypeMovKey
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -147,6 +148,108 @@ class IMovChaveSharedPreferencesDatasourceTest {
             assertEquals(
                 model.matricColabMovChave,
                 19759
+            )
+        }
+
+    @Test
+    fun `setObserv - Check return failure if have error in not started`() =
+        runTest {
+            val resultStart = iMovChaveSharedPreferencesDatasource.setObserv(null)
+            assertEquals(
+                resultStart.isFailure,
+                true
+            )
+            assertEquals(
+                resultStart.exceptionOrNull()!!.message,
+                "Failure Datasource -> IMovChaveSharedPreferencesDatasource.get"
+            )
+            assertEquals(
+                resultStart.exceptionOrNull()!!.cause.toString(),
+                "java.lang.NullPointerException"
+            )
+        }
+
+    @Test
+    fun `setObserv - Check return correct if function execute successfully`() =
+        runTest {
+            val resultStart = iMovChaveSharedPreferencesDatasource.start()
+            assertEquals(
+                resultStart.isSuccess,
+                true
+            )
+            val resultSetIdChave = iMovChaveSharedPreferencesDatasource.setObserv("TESTE")
+            assertEquals(
+                resultSetIdChave.isSuccess,
+                true
+            )
+            val resultGet = iMovChaveSharedPreferencesDatasource.get()
+            assertEquals(
+                resultGet.isSuccess,
+                true
+            )
+            val model = resultGet.getOrNull()!!
+            assertEquals(
+                model.observMovChave,
+                "TESTE"
+            )
+        }
+
+    @Test
+    fun `clear - Check return correct if function execute successfully`() =
+        runTest {
+            val resultStart = iMovChaveSharedPreferencesDatasource.start()
+            assertEquals(
+                resultStart.isSuccess,
+                true
+            )
+            val resultSetIdChave = iMovChaveSharedPreferencesDatasource.setObserv("TESTE")
+            assertEquals(
+                resultSetIdChave.isSuccess,
+                true
+            )
+            val resultGet = iMovChaveSharedPreferencesDatasource.get()
+            assertEquals(
+                resultGet.isSuccess,
+                true
+            )
+            val model = resultGet.getOrNull()!!
+            assertEquals(
+                model.observMovChave,
+                "TESTE"
+            )
+            val resultClear = iMovChaveSharedPreferencesDatasource.clear()
+            assertEquals(
+                resultClear.isSuccess,
+                true
+            )
+            val resultGetAfterClear = iMovChaveSharedPreferencesDatasource.get()
+            assertEquals(
+                resultGetAfterClear.isFailure,
+                true
+            )
+        }
+
+    @Test
+    fun `start and get - Check return correct if function execute successfully - RECEIPT`() =
+        runTest {
+            val resultStart = iMovChaveSharedPreferencesDatasource.start(
+                MovChaveSharedPreferencesModel(
+                    tipoMovChave = TypeMovKey.RECEIPT
+                )
+            )
+            assertEquals(
+                resultStart.isSuccess,
+                true
+            )
+            val resultGet = iMovChaveSharedPreferencesDatasource.get()
+            assertEquals(
+                resultGet.isSuccess,
+                true
+            )
+            val model = resultGet.getOrNull()!!
+            assertEquals(
+                model.tipoMovChave,
+                TypeMovKey.RECEIPT
             )
         }
 

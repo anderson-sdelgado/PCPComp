@@ -49,7 +49,9 @@ class CloseAllMovOpenImplTest {
         val movEquipProprioRepository = mock<MovEquipProprioRepository>()
         val movEquipVisitTercRepository = mock<MovEquipVisitTercRepository>()
         val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
-        whenever(movEquipProprioRepository.listOpen()).thenReturn(
+        whenever(
+            movEquipProprioRepository.listOpen()
+        ).thenReturn(
             Result.success(
                 listOf(
                     movEquipProprio
@@ -58,7 +60,7 @@ class CloseAllMovOpenImplTest {
         )
         whenever(
             movEquipProprioRepository.setClose(
-                movEquipProprio
+                1
             )
         ).thenReturn(
             Result.failure(
@@ -98,7 +100,7 @@ class CloseAllMovOpenImplTest {
         )
         whenever(
             movEquipProprioRepository.setClose(
-                movEquipProprio
+                1
             )
         ).thenReturn(
             Result.success(true)
@@ -144,7 +146,7 @@ class CloseAllMovOpenImplTest {
         )
         whenever(
             movEquipProprioRepository.setClose(
-                movEquipProprio
+                1
             )
         ).thenReturn(
             Result.success(true)
@@ -156,7 +158,9 @@ class CloseAllMovOpenImplTest {
                 )
             )
         )
-        whenever(movEquipVisitTercRepository.setClose(movEquipVisitTerc)).thenReturn(
+        whenever(
+            movEquipVisitTercRepository.setClose(1)
+        ).thenReturn(
             Result.failure(
                 RepositoryException(
                     function = "MovEquipProprioVisitTerc.setClose",
@@ -198,7 +202,7 @@ class CloseAllMovOpenImplTest {
             )
             whenever(
                 movEquipProprioRepository.setClose(
-                    movEquipProprio
+                    1
                 )
             ).thenReturn(
                 Result.success(true)
@@ -210,7 +214,9 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            whenever(movEquipVisitTercRepository.setClose(movEquipVisitTerc)).thenReturn(
+            whenever(
+                movEquipVisitTercRepository.setClose(1)
+            ).thenReturn(
                 Result.success(true)
             )
             whenever(movEquipResidenciaRepository.listOpen()).thenReturn(
@@ -258,7 +264,7 @@ class CloseAllMovOpenImplTest {
             )
             whenever(
                 movEquipProprioRepository.setClose(
-                    movEquipProprio
+                    1
                 )
             ).thenReturn(
                 Result.success(true)
@@ -270,7 +276,9 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            whenever(movEquipVisitTercRepository.setClose(movEquipVisitTerc)).thenReturn(
+            whenever(
+                movEquipVisitTercRepository.setClose(1)
+            ).thenReturn(
                 Result.success(true)
             )
             whenever(movEquipResidenciaRepository.listOpen()).thenReturn(
@@ -280,7 +288,9 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            whenever(movEquipResidenciaRepository.setClose(movEquipResidencia)).thenReturn(
+            whenever(
+                movEquipResidenciaRepository.setClose(1)
+            ).thenReturn(
                 Result.failure(
                     RepositoryException(
                         function = "MovEquipResidenciaRepository.setClose",
@@ -326,7 +336,7 @@ class CloseAllMovOpenImplTest {
             )
             whenever(
                 movEquipProprioRepository.setClose(
-                    movEquipProprio
+                    1
                 )
             ).thenReturn(
                 Result.success(true)
@@ -338,7 +348,9 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            whenever(movEquipVisitTercRepository.setClose(movEquipVisitTerc)).thenReturn(
+            whenever(
+                movEquipVisitTercRepository.setClose(1)
+            ).thenReturn(
                 Result.success(true)
             )
             whenever(movEquipResidenciaRepository.listOpen()).thenReturn(
@@ -348,7 +360,9 @@ class CloseAllMovOpenImplTest {
                     )
                 )
             )
-            whenever(movEquipResidenciaRepository.setClose(movEquipResidencia)).thenReturn(
+            whenever(
+                movEquipResidenciaRepository.setClose(1)
+            ).thenReturn(
                 Result.success(true)
             )
             val usecase = ICloseAllMov(

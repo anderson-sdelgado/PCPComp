@@ -28,13 +28,10 @@ class IGetEquipSegList(
                 return Result.failure(resultList.exceptionOrNull()!!)
             val equipList = resultList.getOrNull()!!
             val equipSegList = equipList.map {
-                val resultNroEquip = equipRepository.getNro(it.idEquip!!)
+                val resultNroEquip = equipRepository.get(it.idEquip!!)
                 if (resultNroEquip.isFailure)
                     return Result.failure(resultNroEquip.exceptionOrNull()!!)
-                Equip(
-                    idEquip = it.idEquip!!,
-                    nroEquip = resultNroEquip.getOrNull()!!
-                )
+                return@map resultNroEquip.getOrNull()!!
             }
             return Result.success(equipSegList)
         } catch (e: Exception) {

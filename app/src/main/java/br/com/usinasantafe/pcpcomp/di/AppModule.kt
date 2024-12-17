@@ -1,6 +1,12 @@
 package br.com.usinasantafe.pcpcomp.di
 
+import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.ChaveListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.controlelist.ControleChaveListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.chave.matriccolab.MatricColabChaveViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.nomecolab.NomeColabChaveViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.observ.ObservChaveViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.controleeditlist.ControleChaveEditListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.detalhe.DetalheChaveViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.senha.SenhaViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.menuinicial.MenuInicialViewModel
@@ -70,8 +76,6 @@ import br.com.usinasantafe.pcpcomp.external.room.AppDatabaseRoom
 import br.com.usinasantafe.pcpcomp.external.sharedpreferences.providerSharedPreferences
 import br.com.usinasantafe.pcpcomp.external.retrofit.provideRetrofit
 import br.com.usinasantafe.pcpcomp.external.room.provideRoom
-import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.ChaveListViewModel
-import br.com.usinasantafe.pcpcomp.presenter.chave.controlelist.ControleChaveListViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.androidx.workmanager.dsl.workerOf
@@ -102,6 +106,10 @@ val viewModelChaveModule = module {
     viewModelOf(::ChaveListViewModel)
     viewModelOf(::ControleChaveListViewModel)
     viewModelOf(::MatricColabChaveViewModel)
+    viewModelOf(::NomeColabChaveViewModel)
+    viewModelOf(::ObservChaveViewModel)
+    viewModelOf(::ControleChaveEditListViewModel)
+    viewModelOf(::DetalheChaveViewModel)
 }
 
 val viewModelProprioModule = module {
@@ -146,12 +154,21 @@ val usecaseBackgroundModule = module {
 }
 
 val usecaseChaveModule = module {
+    singleOf(::ICloseAllMovChave) { bind<CloseAllMovChave>() }
+    singleOf(::ICloseMovChave) { bind<CloseMovChave>() }
     singleOf(::IGetChaveList) { bind<GetChaveList>() }
     singleOf(::IGetDescrFullChave) { bind<GetDescrFullChave>() }
-    singleOf(::IGetMovChaveRemoveList) { bind<GetMovChaveRemoveList>() }
+    singleOf(::IGetDetalheMovChave) { bind<GetDetalheMovChave>() }
+    singleOf(::IGetMatricColabMovChave) { bind<GetMatricColabMovChave>() }
+    singleOf(::IGetMovChaveOpenList) { bind<GetMovChaveOpenList>() }
+    singleOf(::IGetMovChaveInsideList) { bind<GetMovChaveInsideList>() }
+    singleOf(::IGetObservMovChave) { bind<GetObservMovChave>() }
+    singleOf(::ISaveMovChave) { bind<SaveMovChave>() }
     singleOf(::ISetMatricColabMovChave) { bind<SetMatricColabMovChave>() }
     singleOf(::ISetIdChaveMovChave) { bind<SetIdChaveMovChave>() }
-    singleOf(::IStartRemoveChave) { bind<StartRemoveChave>() }
+    singleOf(::ISetObservMovChave) { bind<SetObservMovChave>() }
+    singleOf(::IStartReceiptMovChave) { bind<StartReceiptMovChave>() }
+    singleOf(::IStartRemoveMovChave) { bind<StartRemoveMovChave>() }
 }
 
 val usecaseCommonModule = module {
@@ -182,7 +199,7 @@ val usecaseInitialModule = module {
 }
 
 val usecaseProprioModule = module {
-    singleOf(::ICheckNroEquipProprio) { bind<CheckNroEquipProprio>() }
+    singleOf(::ICheckNroEquip) { bind<CheckNroEquip>() }
     singleOf(::ICheckSendMovProprio) { bind<CheckSendMovProprio>() }
     singleOf(::ICleanEquipSeg) { bind<CleanEquipSeg>() }
     singleOf(::ICleanPassagColab) { bind<CleanPassagColab>() }
@@ -197,7 +214,7 @@ val usecaseProprioModule = module {
     singleOf(::IGetMovEquipProprioOpenList) { bind<GetMovEquipProprioOpenList>() }
     singleOf(::IGetNomeColab) { bind<GetNomeColab>() }
     singleOf(::IGetNotaFiscalProprio) { bind<GetNotaFiscalProprio>() }
-    singleOf(::IGetNroEquip) { bind<GetNroEquip>() }
+    singleOf(::IGetNroEquipProprio) { bind<GetNroEquipProprio>() }
     singleOf(::IGetObservProprio) { bind<GetObservProprio>() }
     singleOf(::IGetPassagColabList) { bind<GetPassagColabList>() }
     singleOf(::IGetTypeMov) { bind<GetTypeMov>() }
@@ -206,7 +223,7 @@ val usecaseProprioModule = module {
     singleOf(::ISetDestinoProprio) { bind<SetDestinoProprio>() }
     singleOf(::ISetMatricColab) { bind<SetMatricColab>() }
     singleOf(::ISetNotaFiscalProprio) { bind<SetNotaFiscalProprio>() }
-    singleOf(::ISetNroEquip) { bind<SetNroEquip>() }
+    singleOf(::ISetNroEquipProprio) { bind<SetNroEquipProprio>() }
     singleOf(::ISetObservProprio) { bind<SetObservProprio>() }
     singleOf(::ISetStatusSentMovProprio) { bind<SetStatusSentMovProprio>() }
     singleOf(::IStartMovEquipProprio) { bind<StartMovEquipProprio>() }
@@ -231,7 +248,6 @@ val usecaseVisitTercModule = module {
     singleOf(::IGetPlacaVisitTerc) { bind<GetPlacaVisitTerc>() }
     singleOf(::IGetTitleCpfVisitTerc) { bind<GetTitleCpfVisitTerc>() }
     singleOf(::IGetVeiculoVisitTerc) { bind<GetVeiculoVisitTerc>() }
-    singleOf(::ISetStatusOutsideMovVisitTerc) { bind<SetStatusOutsideMovVisitTerc>() }
     singleOf(::ISaveMovEquipVisitTerc) { bind<SaveMovEquipVisitTerc>() }
     singleOf(::ISendMovVisitTercList) { bind<SendMovVisitTercList>() }
     singleOf(::ISetDestinoVisitTerc) { bind<SetDestinoVisitTerc>() }
@@ -256,7 +272,6 @@ val usecaseResidenciaModule = module {
     singleOf(::IGetObservResidencia) { bind<GetObservResidencia>() }
     singleOf(::IGetPlacaResidencia) { bind<GetPlacaResidencia>() }
     singleOf(::IGetVeiculoResidencia) { bind<GetVeiculoResidencia>() }
-    singleOf(::ISetStatusOutsideMovResidencia) { bind<SetStatusOutsideMovResidencia>() }
     singleOf(::ISaveMovEquipResidencia) { bind<SaveMovEquipResidencia>() }
     singleOf(::ISendMovResidenciaList) { bind<SendMovResidenciaList>() }
     singleOf(::ISetMotoristaResidencia) { bind<SetMotoristaResidencia>() }

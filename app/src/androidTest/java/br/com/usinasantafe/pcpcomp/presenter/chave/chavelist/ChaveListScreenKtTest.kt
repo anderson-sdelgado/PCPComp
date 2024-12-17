@@ -153,7 +153,8 @@ class ChaveListScreenKtTest: KoinTest {
             ChaveListScreen(
                 viewModel = koinViewModel<ChaveListViewModel>(),
                 onNavMenuControleList = {},
-                onNavMatricColab = {}
+                onNavMatricColab = {},
+                onNavDetalhe = {}
             )
         }
     }

@@ -420,11 +420,11 @@ class GetDetalheVisitTercImplTest {
         )
         assertEquals(
             detalhe.veiculo,
-            "VEÍCULO: GOL"
+            "GOL"
         )
         assertEquals(
             detalhe.placa,
-            "PLACA: AAA-0000"
+            "AAA-0000"
         )
         assertEquals(
             detalhe.tipoVisitTerc,
@@ -432,19 +432,19 @@ class GetDetalheVisitTercImplTest {
         )
         assertEquals(
             detalhe.motorista,
-            "MOTORISTA: 123.456.789-00 - Anderson"
+            "123.456.789-00 - Anderson"
         )
         assertEquals(
             detalhe.passageiro,
-            "PASSAGEIROS: 123.456.789-01 - Passageiro; "
+            "123.456.789-01 - Passageiro;"
         )
         assertEquals(
             detalhe.destino,
-            "DESTINO: Teste Destino"
+            "Teste Destino"
         )
         assertEquals(
             detalhe.observ,
-            "OBSERVAÇÕES: Teste Observ"
+            "Teste Observ"
         )
     }
 
@@ -520,11 +520,11 @@ class GetDetalheVisitTercImplTest {
         )
         assertEquals(
             detalhe.veiculo,
-            "VEÍCULO: GOL"
+            "GOL"
         )
         assertEquals(
             detalhe.placa,
-            "PLACA: AAA-0000"
+            "AAA-0000"
         )
         assertEquals(
             detalhe.tipoVisitTerc,
@@ -532,19 +532,19 @@ class GetDetalheVisitTercImplTest {
         )
         assertEquals(
             detalhe.motorista,
-            "MOTORISTA: 123.456.789-00 - Anderson"
+            "123.456.789-00 - Anderson"
         )
         assertEquals(
             detalhe.passageiro,
-            "PASSAGEIROS: 123.456.789-01 - Passageiro; "
+            "123.456.789-01 - Passageiro;"
         )
         assertEquals(
             detalhe.destino,
-            "DESTINO: Teste Destino"
+            "Teste Destino"
         )
         assertEquals(
             detalhe.observ,
-            "OBSERVAÇÕES: Teste Observ"
+            "Teste Observ"
         )
     }
 }

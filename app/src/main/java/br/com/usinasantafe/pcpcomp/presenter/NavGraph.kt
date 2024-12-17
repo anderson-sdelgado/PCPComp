@@ -17,10 +17,12 @@ import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_MOV_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.TYPE_OCUPANTE_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Routes.CHAVE_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.CONFIG_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.CONTROLE_CHAVE_EDIT_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.CONTROLE_CHAVE_LIST_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.CPF_VISIT_TERC_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DESTINO_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DESTINO_VISIT_TERC_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.DETALHE_CHAVE_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DETALHE_MOV_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DETALHE_RESIDENCIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.DETALHE_VISIT_TERC_ROUTE
@@ -45,6 +47,7 @@ import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_COLAB_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_VIGIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOME_VISIT_TERC_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.NOTA_FISCAL_PROPRIO_ROUTE
+import br.com.usinasantafe.pcpcomp.presenter.Routes.OBSERV_CHAVE_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.OBSERV_PROPRIO_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.OBSERV_RESIDENCIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.OBSERV_VISIT_TERC_ROUTE
@@ -58,12 +61,18 @@ import br.com.usinasantafe.pcpcomp.presenter.Routes.VEICULO_RESIDENCIA_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.Routes.VEICULO_VISIT_TERC_ROUTE
 import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.ChaveListScreen
 import br.com.usinasantafe.pcpcomp.presenter.chave.chavelist.ChaveListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.controleeditlist.ControleChaveEditListScreen
+import br.com.usinasantafe.pcpcomp.presenter.chave.controleeditlist.ControleChaveEditListViewModel
 import br.com.usinasantafe.pcpcomp.presenter.chave.controlelist.ControleChaveListScreen
 import br.com.usinasantafe.pcpcomp.presenter.chave.controlelist.ControleChaveListViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.detalhe.DetalheChaveScreen
+import br.com.usinasantafe.pcpcomp.presenter.chave.detalhe.DetalheChaveViewModel
 import br.com.usinasantafe.pcpcomp.presenter.chave.matriccolab.MatricColabChaveScreen
 import br.com.usinasantafe.pcpcomp.presenter.chave.matriccolab.MatricColabChaveViewModel
 import br.com.usinasantafe.pcpcomp.presenter.chave.nomecolab.NomeColabChaveScreen
 import br.com.usinasantafe.pcpcomp.presenter.chave.nomecolab.NomeColabChaveViewModel
+import br.com.usinasantafe.pcpcomp.presenter.chave.observ.ObservChaveScreen
+import br.com.usinasantafe.pcpcomp.presenter.chave.observ.ObservChaveViewModel
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigScreen
 import br.com.usinasantafe.pcpcomp.presenter.configuration.config.ConfigViewModel
 import br.com.usinasantafe.pcpcomp.presenter.initial.local.LocalScreen
@@ -139,6 +148,7 @@ import br.com.usinasantafe.pcpcomp.presenter.visitterc.veiculo.VeiculoVisitTercV
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 import br.com.usinasantafe.pcpcomp.utils.TypeMovEquip
+import br.com.usinasantafe.pcpcomp.utils.TypeMovKey
 import br.com.usinasantafe.pcpcomp.utils.TypeOcupante
 import org.koin.androidx.compose.koinViewModel
 
@@ -1146,10 +1156,10 @@ fun NavigationGraph(
                 onNavControleChaveEditList = {
                     navActions.navigationToControleChaveEditList()
                 },
-                onNavObserv = {
-                    navActions.navigationToObservChave(
+                onNavMatricColab = {
+                    navActions.navigationToMatriColabChave(
                         flowApp = FlowApp.ADD.ordinal,
-                        typeMov = TypeMovEquip.OUTPUT.ordinal,
+                        typeMov = TypeMovKey.RECEIPT.ordinal,
                         id = it
                     )
                 },
@@ -1176,11 +1186,19 @@ fun NavigationGraph(
                 viewModel = koinViewModel<ChaveListViewModel>(),
                 onNavMatricColab = {
                     navActions.navigationToMatriColabChave(
-                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
-                        id = entry.arguments?.getInt(ID_ARGS)!!
+                        flowApp = FlowApp.ADD.ordinal,
+                        typeMov = TypeMovKey.REMOVE.ordinal,
+                        id = 0
                     )
                 },
-                onNavMenuControleList = { navActions.navigationToControleChaveList() }
+                onNavMenuControleList = { navActions.navigationToControleChaveList() },
+                onNavDetalhe = {
+                    navActions.navigationToDetalheChave(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                }
             )
         }
 
@@ -1188,6 +1206,7 @@ fun NavigationGraph(
             MATRIC_COLAB_CHAVE_ROUTE,
             arguments = listOf(
                 navArgument(FLOW_APP_ARGS) { type = NavType.IntType },
+                navArgument(TYPE_MOV_ARGS) { type = NavType.IntType },
                 navArgument(ID_ARGS) { type = NavType.IntType }
             )
         ) { entry ->
@@ -1199,10 +1218,17 @@ fun NavigationGraph(
                         id = entry.arguments?.getInt(ID_ARGS)!!
                     )
                 },
-                onNavDetalhe = {},
+                onNavDetalhe = {
+                    navActions.navigationToDetalheChave(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
                 onNavNomeColab = {
                     navActions.navigationToNomeColabChave(
                         flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        typeMov = entry.arguments?.getInt(TYPE_MOV_ARGS)!!,
                         id = entry.arguments?.getInt(ID_ARGS)!!,
                         matricColab = it
                     )
@@ -1212,12 +1238,115 @@ fun NavigationGraph(
 
         composable(
             NOME_COLAB_CHAVE_ROUTE,
-        ) {
+            arguments = listOf(
+                navArgument(FLOW_APP_ARGS) { type = NavType.IntType },
+                navArgument(TYPE_MOV_ARGS) { type = NavType.IntType },
+                navArgument(ID_ARGS) { type = NavType.IntType }
+            )
+        ) { entry ->
             NomeColabChaveScreen(
                 viewModel = koinViewModel<NomeColabChaveViewModel>(),
-                onNavDetalhe = {},
-                onNavMatricColab = {},
-                onNavObserv = {}
+                onNavDetalhe = {
+                    navActions.navigationToDetalheChave(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
+                onNavMatricColab = {
+                    navActions.navigationToMatriColabChave(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        typeMov =  entry.arguments?.getInt(TYPE_MOV_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavObserv = {
+                    navActions.navigationToObservChave(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        typeMov =  entry.arguments?.getInt(TYPE_MOV_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                }
+            )
+        }
+
+        composable(
+            OBSERV_CHAVE_ROUTE,
+            arguments = listOf(
+                navArgument(FLOW_APP_ARGS) { type = NavType.IntType },
+                navArgument(TYPE_MOV_ARGS) { type = NavType.IntType },
+                navArgument(ID_ARGS) { type = NavType.IntType }
+            )
+        ) { entry ->
+            ObservChaveScreen(
+                viewModel = koinViewModel<ObservChaveViewModel>(),
+                onNavDetalhe = {
+                    navActions.navigationToDetalheChave(
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
+                onNavMatricColab = {
+                    navActions.navigationToMatriColabChave(
+                        flowApp = entry.arguments?.getInt(FLOW_APP_ARGS)!!,
+                        typeMov =  entry.arguments?.getInt(TYPE_MOV_ARGS)!!,
+                        id = entry.arguments?.getInt(ID_ARGS)!!
+                    )
+                },
+                onNavControleList = { navActions.navigationToControleChaveList() }
+            )
+        }
+
+        composable(
+            CONTROLE_CHAVE_EDIT_LIST_ROUTE
+        ) {
+            ControleChaveEditListScreen(
+                viewModel = koinViewModel<ControleChaveEditListViewModel>(),
+                onNavControleList = { navActions.navigationToControleChaveList() },
+                onNavDetalhe = {
+                    navActions.navigationToDetalheChave(
+                        id = it
+                    )
+                }
+            )
+        }
+
+        composable(
+            DETALHE_CHAVE_ROUTE,
+            arguments = listOf(
+                navArgument(ID_ARGS) { type = NavType.IntType },
+            )
+        ) { entry ->
+            DetalheChaveScreen(
+                viewModel = koinViewModel<DetalheChaveViewModel>(),
+                onNavControleChaveEditList = { navActions.navigationToControleChaveEditList() },
+                onNavMatricColab = {
+                    navActions.navigationToMatriColabChave(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        typeMov = TypeMovKey.REMOVE.ordinal,
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
+                onNavChaveList = {
+                    navActions.navigationToChaveList(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                },
+                onNavObserv = {
+                    navActions.navigationToObservChave(
+                        flowApp = FlowApp.CHANGE.ordinal,
+                        typeMov = TypeMovKey.REMOVE.ordinal,
+                        id = entry.arguments?.getInt(
+                            ID_ARGS
+                        )!!
+                    )
+                }
             )
         }
 

@@ -191,7 +191,7 @@ fun DetalheMovProprioContent(
 
         if(flagDialogCheck){
             AlertDialogCheckDesign(
-                text = stringResource(id = R.string.text_question_close_all_mov),
+                text = stringResource(id = R.string.text_question_return),
                 setCloseDialog = { setDialogCheck(false)  },
                 setActionButtonOK = { closeMov() }
             )

@@ -37,6 +37,20 @@ class IEquipRoomDatasource(
         }
     }
 
+    override suspend fun get(idEquip: Int): Result<EquipRoomModel> {
+        return try {
+            val result = equipDao.get(idEquip)
+            Result.success(result)
+        } catch (e: Exception) {
+            Result.failure(
+                DatasourceException(
+                    function = "EquipRoomDatasourceImpl.getNro",
+                    cause = e
+                )
+            )
+        }
+    }
+
     override suspend fun getId(nroEquip: Long): Result<Int> {
         return try {
             Result.success(equipDao.getId(nroEquip))

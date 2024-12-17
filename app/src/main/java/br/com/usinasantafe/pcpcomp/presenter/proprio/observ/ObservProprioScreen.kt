@@ -62,6 +62,7 @@ fun ObservProprioScreen(
                 modifier = Modifier.padding(innerPadding)
             )
         }
+        viewModel.getObserv()
     }
 }
 

@@ -49,7 +49,7 @@ class ICloseAllMovProprioTest {
         )
         whenever(
             movEquipProprioRepository.setClose(
-                movEquipProprio
+                1
             )
         ).thenReturn(
             Result.failure(
@@ -85,7 +85,7 @@ class ICloseAllMovProprioTest {
         )
         whenever(
             movEquipProprioRepository.setClose(
-                movEquipProprio
+                1
             )
         ).thenReturn(
             Result.success(true)

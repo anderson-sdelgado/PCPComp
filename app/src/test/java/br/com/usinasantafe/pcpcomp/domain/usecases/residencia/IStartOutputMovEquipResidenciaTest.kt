@@ -16,7 +16,8 @@ import java.util.Date
 
 class IStartOutputMovEquipResidenciaTest {
 
-    private val movEquipResidenciaRepository = mock<MovEquipResidenciaRepository>()
+    private val movEquipResidenciaRepository =
+        mock<MovEquipResidenciaRepository>()
 
     private fun getUsecase() = IStartOutputMovEquipResidencia(
         movEquipResidenciaRepository

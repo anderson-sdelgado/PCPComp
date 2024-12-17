@@ -141,15 +141,16 @@ class IMovEquipVisitTercRoomDatasource(
         }
     }
 
-    override suspend fun setClose(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean> {
+    override suspend fun setClose(id: Int): Result<Boolean> {
         try {
-            movEquipVisitTercRoomModel.statusMovEquipVisitTerc = StatusData.CLOSE
-            movEquipVisitTercDao.update(movEquipVisitTercRoomModel)
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.statusMovEquipVisitTerc = StatusData.CLOSE
+            movEquipVisitTercDao.update(roomModel)
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
-                    function = "MovEquipVisitTercRoomDatasourceImpl.setClose",
+                    function = "MovEquipVisitTercRoomDatasourceImpl.setOutside",
                     cause = e
                 )
             )
@@ -216,10 +217,11 @@ class IMovEquipVisitTercRoomDatasource(
         }
     }
 
-    override suspend fun setOutside(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean> {
+    override suspend fun setOutside(id: Int): Result<Boolean> {
         try {
-            movEquipVisitTercRoomModel.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
-            movEquipVisitTercDao.update(movEquipVisitTercRoomModel)
+            val roomModel = movEquipVisitTercDao.get(id)
+            roomModel.statusMovEquipForeigVisitTerc = StatusForeigner.OUTSIDE
+            movEquipVisitTercDao.update(roomModel)
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(

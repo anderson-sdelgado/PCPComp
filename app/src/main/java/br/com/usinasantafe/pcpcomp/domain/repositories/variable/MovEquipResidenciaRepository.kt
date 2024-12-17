@@ -27,7 +27,7 @@ interface MovEquipResidenciaRepository {
         token: String
     ): Result<List<MovEquipResidencia>>
 
-    suspend fun setClose(movEquipResidencia: MovEquipResidencia): Result<Boolean>
+    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setMotorista(
         motorista: String,
         flowApp: FlowApp,
@@ -40,7 +40,7 @@ interface MovEquipResidenciaRepository {
         id: Int
     ): Result<Boolean>
 
-    suspend fun setOutside(movEquipResidencia: MovEquipResidencia): Result<Boolean>
+    suspend fun setOutside(id: Int): Result<Boolean>
     suspend fun setPlaca(
         placa: String,
         flowApp: FlowApp,

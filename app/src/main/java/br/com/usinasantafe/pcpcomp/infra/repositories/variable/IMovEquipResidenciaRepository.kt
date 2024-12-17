@@ -11,7 +11,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.retrofit.variable.retrofitModelI
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.roomModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.entityToSharedPreferencesModel
-import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.sharedPreferencesModelToEntity
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 class IMovEquipResidenciaRepository(
@@ -226,7 +225,7 @@ class IMovEquipResidenciaRepository(
             if (resultGetMov.isFailure)
                 return Result.failure(resultGetMov.exceptionOrNull()!!)
             val movEquipResidenciaRoomModel =
-                resultGetMov.getOrNull()!!.sharedPreferencesModelToEntity()
+                resultGetMov.getOrNull()!!.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = matricVigia,
                         idLocal = idLocal
@@ -284,25 +283,8 @@ class IMovEquipResidenciaRepository(
         }
     }
 
-    override suspend fun setClose(movEquipResidencia: MovEquipResidencia): Result<Boolean> {
-        try {
-            val movEquipResidenciaRoomModel = movEquipResidencia.entityToRoomModel(
-                matricVigia = movEquipResidencia.matricVigiaMovEquipResidencia!!,
-                idLocal = movEquipResidencia.idLocalMovEquipResidencia!!
-            )
-            val resultSetClose =
-                movEquipResidenciaRoomDatasource.setClose(movEquipResidenciaRoomModel)
-            if (resultSetClose.isFailure)
-                return Result.failure(resultSetClose.exceptionOrNull()!!)
-            return Result.success(resultSetClose.getOrNull()!!)
-        } catch (e: Exception) {
-            return Result.failure(
-                RepositoryException(
-                    function = "MovEquipResidenciaRepositoryImpl.setClose",
-                    cause = e
-                )
-            )
-        }
+    override suspend fun setClose(id: Int): Result<Boolean> {
+        return movEquipResidenciaRoomDatasource.setClose(id)
     }
 
     override suspend fun setMotorista(
@@ -345,25 +327,8 @@ class IMovEquipResidenciaRepository(
         }
     }
 
-    override suspend fun setOutside(movEquipResidencia: MovEquipResidencia): Result<Boolean> {
-        try {
-            val movEquipResidenciaRoomModel = movEquipResidencia.entityToRoomModel(
-                matricVigia = movEquipResidencia.matricVigiaMovEquipResidencia!!,
-                idLocal = movEquipResidencia.idLocalMovEquipResidencia!!
-            )
-            val resultSetClose =
-                movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
-            if (resultSetClose.isFailure)
-                return Result.failure(resultSetClose.exceptionOrNull()!!)
-            return Result.success(resultSetClose.getOrNull()!!)
-        } catch (e: Exception) {
-            return Result.failure(
-                RepositoryException(
-                    function = "MovEquipResidenciaRepositoryImpl.setClose",
-                    cause = e
-                )
-            )
-        }
+    override suspend fun setOutside(id: Int): Result<Boolean> {
+        return movEquipResidenciaRoomDatasource.setOutside(id)
     }
 
     override suspend fun setPlaca(

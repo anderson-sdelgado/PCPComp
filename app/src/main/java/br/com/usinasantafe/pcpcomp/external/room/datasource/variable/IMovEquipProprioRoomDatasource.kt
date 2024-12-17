@@ -124,15 +124,16 @@ class IMovEquipProprioRoomDatasource(
         }
     }
 
-    override suspend fun setClose(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Boolean> {
+    override suspend fun setClose(id: Int): Result<Boolean> {
         try {
+            val movEquipProprioRoomModel = movEquipProprioDao.get(id)
             movEquipProprioRoomModel.statusMovEquipProprio = StatusData.CLOSE
             movEquipProprioDao.update(movEquipProprioRoomModel)
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(
                 DatasourceException(
-                    function = "MovEquipProprioRoomDatasourceImpl.setClose",
+                    function = "MovEquipProprioRoomDatasourceImpl.setSent",
                     cause = e
                 )
             )

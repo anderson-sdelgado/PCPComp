@@ -34,7 +34,7 @@ interface MovEquipVisitTercRepository {
         token: String
     ): Result<List<MovEquipVisitTerc>>
 
-    suspend fun setClose(movEquipVisitTerc: MovEquipVisitTerc): Result<Boolean>
+    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setDestino(
         destino: String,
         flowApp: FlowApp,
@@ -53,7 +53,7 @@ interface MovEquipVisitTercRepository {
         id: Int
     ): Result<Boolean>
 
-    suspend fun setOutside(movEquipVisitTerc: MovEquipVisitTerc): Result<Boolean>
+    suspend fun setOutside(id: Int): Result<Boolean>
     suspend fun setPlaca(
         placa: String,
         flowApp: FlowApp,

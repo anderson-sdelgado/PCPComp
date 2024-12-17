@@ -35,6 +35,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.PCPCompTheme
 import br.com.usinasantafe.pcpcomp.ui.theme.TextButtonDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 import br.com.usinasantafe.pcpcomp.utils.Errors
+import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 const val TAG_FILTER_TEXT_FIELD_CHAVE_LIST_SCREEN = "tag_filter_text_field_chave_list_screen"
 
@@ -43,11 +44,13 @@ fun ChaveListScreen(
     viewModel: ChaveListViewModel,
     onNavMenuControleList: () -> Unit,
     onNavMatricColab: () -> Unit,
+    onNavDetalhe: () -> Unit
 ) {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
             ChaveListContent(
+                flowApp = uiState.flowApp,
                 chaveList = uiState.chaveList,
                 setIdChave = viewModel::setIdChave,
                 field = uiState.field,
@@ -64,6 +67,7 @@ fun ChaveListScreen(
                 currentProgress = uiState.currentProgress,
                 onNavMatricColab = onNavMatricColab,
                 onNavMenuControleList = onNavMenuControleList,
+                onNavDetalhe = onNavDetalhe,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.recoverList()
@@ -73,6 +77,7 @@ fun ChaveListScreen(
 
 @Composable
 fun ChaveListContent(
+    flowApp: FlowApp,
     chaveList: List<ChaveModel>,
     setIdChave: (Int) -> Unit,
     field: String,
@@ -89,6 +94,7 @@ fun ChaveListContent(
     currentProgress: Float,
     onNavMenuControleList: () -> Unit,
     onNavMatricColab: () -> Unit,
+    onNavDetalhe: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -181,7 +187,10 @@ fun ChaveListContent(
         }
 
         if (flagAccess) {
-            onNavMatricColab()
+            when(flowApp){
+                FlowApp.ADD -> onNavMatricColab()
+                FlowApp.CHANGE -> onNavDetalhe()
+            }
         }
 
     }
@@ -203,6 +212,7 @@ fun ChaveListPagePreview() {
                         "02 - SERVIDOR TI - TI"
                     )
                 ),
+                flowApp = FlowApp.ADD,
                 setIdChave = {},
                 field = "",
                 onFieldChanged = {},
@@ -218,6 +228,7 @@ fun ChaveListPagePreview() {
                 currentProgress = 0.0f,
                 onNavMenuControleList = {},
                 onNavMatricColab = {},
+                onNavDetalhe = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }

@@ -11,7 +11,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipResidencia
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipResidenciaSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.entityToSharedPreferencesModel
-import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.sharedPreferencesModelToEntity
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
@@ -114,36 +113,8 @@ class IMovEquipResidenciaRepositoryTest {
 
     @Test
     fun `Check failure Datasource in MovEquipResidenciaRoomDatasource setClose`() = runTest {
-        val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            idMovEquipResidencia = 1,
-            matricVigiaMovEquipResidencia = 19759,
-            idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMovEquip.INPUT,
-            dthrMovEquipResidencia = 1723213270250,
-            motoristaMovEquipResidencia = "MOTORISTA TESTE",
-            veiculoMovEquipResidencia = "VEICULO TESTE",
-            placaMovEquipResidencia = "PLACA TESTE",
-            observMovEquipResidencia = "OBSERV TESTE",
-            statusMovEquipResidencia = StatusData.OPEN,
-            statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-        )
-        val movEquipResidencia = MovEquipResidencia(
-            idMovEquipResidencia = 1,
-            matricVigiaMovEquipResidencia = 19759,
-            idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMovEquip.INPUT,
-            dthrMovEquipResidencia = Date(1723213270250),
-            motoristaMovEquipResidencia = "MOTORISTA TESTE",
-            veiculoMovEquipResidencia = "VEICULO TESTE",
-            placaMovEquipResidencia = "PLACA TESTE",
-            observMovEquipResidencia = "OBSERV TESTE",
-            statusMovEquipResidencia = StatusData.OPEN,
-            statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-        )
         whenever(
-            movEquipResidenciaRoomDatasource.setClose(movEquipResidenciaRoomModel)
+            movEquipResidenciaRoomDatasource.setClose(1)
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -153,7 +124,7 @@ class IMovEquipResidenciaRepositoryTest {
             )
         )
         val repository = getRepository()
-        val result = repository.setClose(movEquipResidencia)
+        val result = repository.setClose(1)
         assertEquals(result.isFailure, true)
         assertEquals(
             result.exceptionOrNull()!!.message,
@@ -164,41 +135,13 @@ class IMovEquipResidenciaRepositoryTest {
     @Test
     fun `Check return true if have success in MovEquipResidenciaRoomDatasource setClose`() =
         runTest {
-            val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-                idMovEquipResidencia = 1,
-                matricVigiaMovEquipResidencia = 19759,
-                idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMovEquip.INPUT,
-                dthrMovEquipResidencia = 1723213270250,
-                motoristaMovEquipResidencia = "MOTORISTA TESTE",
-                veiculoMovEquipResidencia = "VEICULO TESTE",
-                placaMovEquipResidencia = "PLACA TESTE",
-                observMovEquipResidencia = "OBSERV TESTE",
-                statusMovEquipResidencia = StatusData.OPEN,
-                statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-            )
-            val movEquipResidencia = MovEquipResidencia(
-                idMovEquipResidencia = 1,
-                matricVigiaMovEquipResidencia = 19759,
-                idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMovEquip.INPUT,
-                dthrMovEquipResidencia = Date(1723213270250),
-                motoristaMovEquipResidencia = "MOTORISTA TESTE",
-                veiculoMovEquipResidencia = "VEICULO TESTE",
-                placaMovEquipResidencia = "PLACA TESTE",
-                observMovEquipResidencia = "OBSERV TESTE",
-                statusMovEquipResidencia = StatusData.OPEN,
-                statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-            )
             whenever(
-                movEquipResidenciaRoomDatasource.setClose(movEquipResidenciaRoomModel)
+                movEquipResidenciaRoomDatasource.setClose(1)
             ).thenReturn(
                 Result.success(true)
             )
             val repository = getRepository()
-            val result = repository.setClose(movEquipResidencia)
+            val result = repository.setClose(1)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }
@@ -558,7 +501,7 @@ class IMovEquipResidenciaRepositoryTest {
                 Result.success(movEquipResidenciaSharedPreferencesModel)
             )
             val movEquipResidenciaRoomModel =
-                movEquipResidenciaSharedPreferencesModel.sharedPreferencesModelToEntity()
+                movEquipResidenciaSharedPreferencesModel.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -601,7 +544,7 @@ class IMovEquipResidenciaRepositoryTest {
                 Result.success(movEquipResidenciaSharedPreferencesModel)
             )
             val movEquipResidenciaRoomModel =
-                movEquipResidenciaSharedPreferencesModel.sharedPreferencesModelToEntity()
+                movEquipResidenciaSharedPreferencesModel.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -644,7 +587,7 @@ class IMovEquipResidenciaRepositoryTest {
                 Result.success(movEquipResidenciaSharedPreferencesModel)
             )
             val movEquipResidenciaRoomModel =
-                movEquipResidenciaSharedPreferencesModel.sharedPreferencesModelToEntity()
+                movEquipResidenciaSharedPreferencesModel.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -693,7 +636,7 @@ class IMovEquipResidenciaRepositoryTest {
                 Result.success(movEquipResidenciaSharedPreferencesModel)
             )
             val movEquipResidenciaRoomModel =
-                movEquipResidenciaSharedPreferencesModel.sharedPreferencesModelToEntity()
+                movEquipResidenciaSharedPreferencesModel.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -1179,36 +1122,8 @@ class IMovEquipResidenciaRepositoryTest {
 
     @Test
     fun `Check failure Datasource in MovEquipResidenciaRoomDatasource setOutside`() = runTest {
-        val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-            idMovEquipResidencia = 1,
-            matricVigiaMovEquipResidencia = 19759,
-            idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMovEquip.INPUT,
-            dthrMovEquipResidencia = 1723213270250,
-            motoristaMovEquipResidencia = "MOTORISTA TESTE",
-            veiculoMovEquipResidencia = "VEICULO TESTE",
-            placaMovEquipResidencia = "PLACA TESTE",
-            observMovEquipResidencia = "OBSERV TESTE",
-            statusMovEquipResidencia = StatusData.OPEN,
-            statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-        )
-        val movEquipResidencia = MovEquipResidencia(
-            idMovEquipResidencia = 1,
-            matricVigiaMovEquipResidencia = 19759,
-            idLocalMovEquipResidencia = 1,
-            tipoMovEquipResidencia = TypeMovEquip.INPUT,
-            dthrMovEquipResidencia = Date(1723213270250),
-            motoristaMovEquipResidencia = "MOTORISTA TESTE",
-            veiculoMovEquipResidencia = "VEICULO TESTE",
-            placaMovEquipResidencia = "PLACA TESTE",
-            observMovEquipResidencia = "OBSERV TESTE",
-            statusMovEquipResidencia = StatusData.OPEN,
-            statusSendMovEquipResidencia = StatusSend.SEND,
-            statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-        )
         whenever(
-            movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
+            movEquipResidenciaRoomDatasource.setOutside(1)
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -1218,7 +1133,7 @@ class IMovEquipResidenciaRepositoryTest {
             )
         )
         val repository = getRepository()
-        val result = repository.setOutside(movEquipResidencia)
+        val result = repository.setOutside(1)
         assertEquals(result.isFailure, true)
         assertEquals(
             result.exceptionOrNull()!!.message,
@@ -1229,41 +1144,13 @@ class IMovEquipResidenciaRepositoryTest {
     @Test
     fun `Check return true if have success in MovEquipResidenciaRoomDatasource setOutside`() =
         runTest {
-            val movEquipResidenciaRoomModel = MovEquipResidenciaRoomModel(
-                idMovEquipResidencia = 1,
-                matricVigiaMovEquipResidencia = 19759,
-                idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMovEquip.INPUT,
-                dthrMovEquipResidencia = 1723213270250,
-                motoristaMovEquipResidencia = "MOTORISTA TESTE",
-                veiculoMovEquipResidencia = "VEICULO TESTE",
-                placaMovEquipResidencia = "PLACA TESTE",
-                observMovEquipResidencia = "OBSERV TESTE",
-                statusMovEquipResidencia = StatusData.OPEN,
-                statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-            )
-            val movEquipResidencia = MovEquipResidencia(
-                idMovEquipResidencia = 1,
-                matricVigiaMovEquipResidencia = 19759,
-                idLocalMovEquipResidencia = 1,
-                tipoMovEquipResidencia = TypeMovEquip.INPUT,
-                dthrMovEquipResidencia = Date(1723213270250),
-                motoristaMovEquipResidencia = "MOTORISTA TESTE",
-                veiculoMovEquipResidencia = "VEICULO TESTE",
-                placaMovEquipResidencia = "PLACA TESTE",
-                observMovEquipResidencia = "OBSERV TESTE",
-                statusMovEquipResidencia = StatusData.OPEN,
-                statusSendMovEquipResidencia = StatusSend.SEND,
-                statusMovEquipForeignerResidencia = StatusForeigner.INSIDE,
-            )
             whenever(
-                movEquipResidenciaRoomDatasource.setOutside(movEquipResidenciaRoomModel)
+                movEquipResidenciaRoomDatasource.setOutside(1)
             ).thenReturn(
                 Result.success(true)
             )
             val repository = getRepository()
-            val result = repository.setOutside(movEquipResidencia)
+            val result = repository.setOutside(1)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }

@@ -11,7 +11,7 @@ interface MovEquipProprioRoomDatasource {
     suspend fun listSend(): Result<List<MovEquipProprioRoomModel>>
     suspend fun listSent(): Result<List<MovEquipProprioRoomModel>>
     suspend fun save(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Long>
-    suspend fun setClose(movEquipProprioRoomModel: MovEquipProprioRoomModel): Result<Boolean>
+    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setDestino(
         destino: String,
         id: Int

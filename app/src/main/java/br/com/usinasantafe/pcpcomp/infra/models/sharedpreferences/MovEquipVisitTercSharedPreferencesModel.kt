@@ -16,7 +16,7 @@ data class MovEquipVisitTercSharedPreferencesModel(
     var observMovEquipVisitTerc: String? = null,
 )
 
-fun MovEquipVisitTercSharedPreferencesModel.sharedPreferencesModelToEntity(): MovEquipVisitTerc {
+fun MovEquipVisitTercSharedPreferencesModel.entityToSharedPreferencesModel(): MovEquipVisitTerc {
     return with(this){
         MovEquipVisitTerc(
             dthrMovEquipVisitTerc = this.dthrMovEquipVisitTerc,

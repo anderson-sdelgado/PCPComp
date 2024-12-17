@@ -30,7 +30,7 @@ import br.com.usinasantafe.pcpcomp.ui.theme.TitleDesign
 fun ControleChaveListScreen(
     viewModel: ControleChaveListViewModel,
     onNavControleChaveEditList: () -> Unit,
-    onNavObserv: (Int) -> Unit,
+    onNavMatricColab: (Int) -> Unit,
     onNavMenuApont: () -> Unit,
     onNavChaveList: () -> Unit,
 ) {
@@ -47,13 +47,13 @@ fun ControleChaveListScreen(
                 setCloseDialog = viewModel::setCloseDialog,
                 failure = uiState.failure,
                 onNavControleChaveEditList = onNavControleChaveEditList,
-                onNavObserv = onNavObserv,
+                onNavMatricColab = onNavMatricColab,
                 onNavMenuApont = onNavMenuApont,
                 onNavChaveList = onNavChaveList,
                 modifier = Modifier.padding(innerPadding)
             )
             viewModel.returnHeader()
-            viewModel.recoverControleChaveList()
+            viewModel.recoverMovList()
         }
     }
 }
@@ -69,7 +69,7 @@ fun ControleChaveListContent(
     setCloseDialog: () -> Unit,
     failure: String,
     onNavControleChaveEditList: () -> Unit,
-    onNavObserv: (Int) -> Unit,
+    onNavMatricColab: (Int) -> Unit,
     onNavMenuApont: () -> Unit,
     onNavChaveList: () -> Unit,
     modifier: Modifier = Modifier
@@ -96,7 +96,7 @@ fun ControleChaveListContent(
                             "CHAVE: ${cont.chave}\n" +
                             "COLABORADOR: ${cont.colab}\n",
                     setActionItem = {
-                        onNavObserv(cont.id)
+                        onNavMatricColab(cont.id)
                     },
                     id = cont.id,
                     padding = 0
@@ -154,8 +154,6 @@ fun ControleChaveListPagePreview() {
     PCPCompTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             ControleChaveListContent(
-                descrVigia = "19759 - ANDERSON DA SILVA DELGADO",
-                descrLocal = "1 - USINA",
                 controleChaveModelList = listOf(
                     ControleChaveModel(
                         id = 1,
@@ -164,13 +162,15 @@ fun ControleChaveListPagePreview() {
                         colab = "19759 - ANDERSON DA SILVA DELGADO"
                     )
                 ),
+                descrVigia = "19759 - ANDERSON DA SILVA DELGADO",
+                descrLocal = "1 - USINA",
                 startMov = {},
                 flagAccess = false,
                 flagDialog = false,
                 setCloseDialog = {},
                 failure = "",
                 onNavControleChaveEditList = {},
-                onNavObserv = {},
+                onNavMatricColab = {},
                 onNavMenuApont = {},
                 onNavChaveList = {},
                 modifier = Modifier.padding(innerPadding)

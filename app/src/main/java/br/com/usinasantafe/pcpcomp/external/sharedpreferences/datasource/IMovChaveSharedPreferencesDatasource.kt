@@ -5,7 +5,6 @@ import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.infra.datasource.sharepreferences.MovChaveSharedPreferencesDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovChaveSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.utils.BASE_SHARE_PREFERENCES_TABLE_MOV_CHAVE
-import br.com.usinasantafe.pcpcomp.utils.BASE_SHARE_PREFERENCES_TABLE_MOV_EQUIP_VISIT_TERC
 import com.google.gson.Gson
 
 class IMovChaveSharedPreferencesDatasource(
@@ -13,7 +12,22 @@ class IMovChaveSharedPreferencesDatasource(
 ): MovChaveSharedPreferencesDatasource {
 
     override suspend fun clear(): Result<Boolean> {
-        TODO("Not yet implemented")
+        try {
+            val editor = sharedPreferences.edit()
+            editor.putString(
+                BASE_SHARE_PREFERENCES_TABLE_MOV_CHAVE,
+                null
+            )
+            editor.apply()
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "MovEquipResidenciaSharedPreferencesDatasourceImpl.clear",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun get(): Result<MovChaveSharedPreferencesModel> {
@@ -65,6 +79,25 @@ class IMovChaveSharedPreferencesDatasource(
                 return Result.failure(resultGet.exceptionOrNull()!!)
             val movChave = resultGet.getOrNull()!!
             movChave.matricColabMovChave = matricColab
+            save(movChave)
+            return Result.success(true)
+        } catch (e: Exception) {
+            return Result.failure(
+                DatasourceException(
+                    function = "IMovChaveSharedPreferencesDatasource.setMatricColab",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun setObserv(observ: String?): Result<Boolean> {
+        try {
+            val resultGet = get()
+            if (resultGet.isFailure)
+                return Result.failure(resultGet.exceptionOrNull()!!)
+            val movChave = resultGet.getOrNull()!!
+            movChave.observMovChave = observ
             save(movChave)
             return Result.success(true)
         } catch (e: Exception) {

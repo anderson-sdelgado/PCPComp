@@ -16,23 +16,7 @@ class ICloseMovProprio(
     override suspend fun invoke(
         id: Int
     ): Result<Boolean> {
-        try {
-            val resultGet = movEquipProprioRepository.get(id)
-            if (resultGet.isFailure)
-                return Result.failure(resultGet.exceptionOrNull()!!)
-            val movEquipProprio = resultGet.getOrNull()!!
-            val resultClose = movEquipProprioRepository.setClose(movEquipProprio)
-            if(resultClose.isFailure)
-                return Result.failure(resultClose.exceptionOrNull()!!)
-            return Result.success(true)
-        } catch (e: Exception) {
-            return Result.failure(
-                UsecaseException(
-                    function = "CloseAllMovProprio",
-                    cause = e
-                )
-            )
-        }
+        return movEquipProprioRepository.setClose(id)
     }
 
 }

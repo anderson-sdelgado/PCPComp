@@ -11,7 +11,6 @@ import br.com.usinasantafe.pcpcomp.infra.models.room.variable.MovEquipVisitTercR
 import br.com.usinasantafe.pcpcomp.infra.models.room.variable.entityToRoomModel
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.MovEquipVisitTercSharedPreferencesModel
 import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.entityToSharedPreferencesModel
-import br.com.usinasantafe.pcpcomp.infra.models.sharedpreferences.sharedPreferencesModelToEntity
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.StatusData
 import br.com.usinasantafe.pcpcomp.utils.StatusForeigner
@@ -121,40 +120,8 @@ class IMovEquipVisitTercRepositoryTest {
 
     @Test
     fun `Check return failure Datasource in MovEquipVisitTercRoomDatasource setClose`() = runTest {
-        val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
-            idMovEquipVisitTerc = 1,
-            nroMatricVigiaMovEquipVisitTerc = 19759,
-            idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-            idVisitTercMovEquipVisitTerc = 1000,
-            tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-            dthrMovEquipVisitTerc = 1723213270250,
-            veiculoMovEquipVisitTerc = "TESTE",
-            placaMovEquipVisitTerc = "TESTE",
-            destinoMovEquipVisitTerc = "TESTE",
-            observMovEquipVisitTerc = "TESTE",
-            statusMovEquipVisitTerc = StatusData.OPEN,
-            statusSendMovEquipVisitTerc = StatusSend.SEND,
-            statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
-        )
-        val movEquipVisitTerc = MovEquipVisitTerc(
-            idMovEquipVisitTerc = 1,
-            nroMatricVigiaMovEquipVisitTerc = 19759,
-            idLocalMovEquipVisitTerc = 1,
-            tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-            idVisitTercMovEquipVisitTerc = 1000,
-            tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-            dthrMovEquipVisitTerc = Date(1723213270250),
-            veiculoMovEquipVisitTerc = "TESTE",
-            placaMovEquipVisitTerc = "TESTE",
-            destinoMovEquipVisitTerc = "TESTE",
-            observMovEquipVisitTerc = "TESTE",
-            statusMovEquipVisitTerc = StatusData.OPEN,
-            statusSendMovEquipVisitTerc = StatusSend.SEND,
-            statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
-        )
         whenever(
-            movEquipVisitTercRoomDatasource.setClose(movEquipVisitTercRoomModel)
+            movEquipVisitTercRoomDatasource.setClose(1)
         ).thenReturn(
             Result.failure(
                 DatasourceException(
@@ -164,7 +131,7 @@ class IMovEquipVisitTercRepositoryTest {
             )
         )
         val repository = getRepository()
-        val result = repository.setClose(movEquipVisitTerc)
+        val result = repository.setClose(1)
         assertEquals(result.isFailure, true)
         assertEquals(
             result.exceptionOrNull()!!.message,
@@ -175,45 +142,13 @@ class IMovEquipVisitTercRepositoryTest {
     @Test
     fun `Check return true if have success in MovEquipVisitTercRoomDatasource setClose`() =
         runTest {
-            val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
-                idMovEquipVisitTerc = 1,
-                nroMatricVigiaMovEquipVisitTerc = 19759,
-                idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-                idVisitTercMovEquipVisitTerc = 1000,
-                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-                dthrMovEquipVisitTerc = 1723213270250,
-                veiculoMovEquipVisitTerc = "TESTE",
-                placaMovEquipVisitTerc = "TESTE",
-                destinoMovEquipVisitTerc = "TESTE",
-                observMovEquipVisitTerc = "TESTE",
-                statusMovEquipVisitTerc = StatusData.OPEN,
-                statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
-            )
-            val movEquipVisitTerc = MovEquipVisitTerc(
-                idMovEquipVisitTerc = 1,
-                nroMatricVigiaMovEquipVisitTerc = 19759,
-                idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-                idVisitTercMovEquipVisitTerc = 1000,
-                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-                dthrMovEquipVisitTerc = Date(1723213270250),
-                veiculoMovEquipVisitTerc = "TESTE",
-                placaMovEquipVisitTerc = "TESTE",
-                destinoMovEquipVisitTerc = "TESTE",
-                observMovEquipVisitTerc = "TESTE",
-                statusMovEquipVisitTerc = StatusData.OPEN,
-                statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
-            )
             whenever(
-                movEquipVisitTercRoomDatasource.setClose(movEquipVisitTercRoomModel)
+                movEquipVisitTercRoomDatasource.setClose(1)
             ).thenReturn(
                 Result.success(true)
             )
             val repository = getRepository()
-            val result = repository.setClose(movEquipVisitTerc)
+            val result = repository.setClose(1)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }
@@ -765,7 +700,7 @@ class IMovEquipVisitTercRepositoryTest {
                 Result.success(modelSharedPreferences)
             )
             val modelRoom =
-                modelSharedPreferences.sharedPreferencesModelToEntity()
+                modelSharedPreferences.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -811,7 +746,7 @@ class IMovEquipVisitTercRepositoryTest {
                 Result.success(modelSharedPreferences)
             )
             val modelRoom =
-                modelSharedPreferences.sharedPreferencesModelToEntity()
+                modelSharedPreferences.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -862,7 +797,7 @@ class IMovEquipVisitTercRepositoryTest {
                 Result.success(modelSharedPreferences)
             )
             val modelRoom =
-                modelSharedPreferences.sharedPreferencesModelToEntity()
+                modelSharedPreferences.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -912,7 +847,7 @@ class IMovEquipVisitTercRepositoryTest {
                 Result.success(modelSharedPreferences)
             )
             val modelRoom =
-                modelSharedPreferences.sharedPreferencesModelToEntity()
+                modelSharedPreferences.entityToSharedPreferencesModel()
                     .entityToRoomModel(
                         matricVigia = 19759,
                         idLocal = 1
@@ -1521,40 +1456,8 @@ class IMovEquipVisitTercRepositoryTest {
     @Test
     fun `Check return failure Datasource in MovEquipVisitTercRoomDatasource setOutside`() =
         runTest {
-            val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
-                idMovEquipVisitTerc = 1,
-                nroMatricVigiaMovEquipVisitTerc = 19759,
-                idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-                idVisitTercMovEquipVisitTerc = 1000,
-                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-                dthrMovEquipVisitTerc = 1723213270250,
-                veiculoMovEquipVisitTerc = "TESTE",
-                placaMovEquipVisitTerc = "TESTE",
-                destinoMovEquipVisitTerc = "TESTE",
-                observMovEquipVisitTerc = "TESTE",
-                statusMovEquipVisitTerc = StatusData.OPEN,
-                statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
-            )
-            val movEquipVisitTerc = MovEquipVisitTerc(
-                idMovEquipVisitTerc = 1,
-                nroMatricVigiaMovEquipVisitTerc = 19759,
-                idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-                idVisitTercMovEquipVisitTerc = 1000,
-                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-                dthrMovEquipVisitTerc = Date(1723213270250),
-                veiculoMovEquipVisitTerc = "TESTE",
-                placaMovEquipVisitTerc = "TESTE",
-                destinoMovEquipVisitTerc = "TESTE",
-                observMovEquipVisitTerc = "TESTE",
-                statusMovEquipVisitTerc = StatusData.OPEN,
-                statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
-            )
             whenever(
-                movEquipVisitTercRoomDatasource.setOutside(movEquipVisitTercRoomModel)
+                movEquipVisitTercRoomDatasource.setOutside(1)
             ).thenReturn(
                 Result.failure(
                     DatasourceException(
@@ -1564,7 +1467,7 @@ class IMovEquipVisitTercRepositoryTest {
                 )
             )
             val repository = getRepository()
-            val result = repository.setOutside(movEquipVisitTerc)
+            val result = repository.setOutside(1)
             assertEquals(result.isFailure, true)
             assertEquals(
                 result.exceptionOrNull()!!.message,
@@ -1575,45 +1478,13 @@ class IMovEquipVisitTercRepositoryTest {
     @Test
     fun `Check return true if have success in MovEquipVisitTercRoomDatasource setOutside`() =
         runTest {
-            val movEquipVisitTercRoomModel = MovEquipVisitTercRoomModel(
-                idMovEquipVisitTerc = 1,
-                nroMatricVigiaMovEquipVisitTerc = 19759,
-                idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-                idVisitTercMovEquipVisitTerc = 1000,
-                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-                dthrMovEquipVisitTerc = 1723213270250,
-                veiculoMovEquipVisitTerc = "TESTE",
-                placaMovEquipVisitTerc = "TESTE",
-                destinoMovEquipVisitTerc = "TESTE",
-                observMovEquipVisitTerc = "TESTE",
-                statusMovEquipVisitTerc = StatusData.OPEN,
-                statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeigVisitTerc = StatusForeigner.INSIDE,
-            )
-            val movEquipVisitTerc = MovEquipVisitTerc(
-                idMovEquipVisitTerc = 1,
-                nroMatricVigiaMovEquipVisitTerc = 19759,
-                idLocalMovEquipVisitTerc = 1,
-                tipoMovEquipVisitTerc = TypeMovEquip.INPUT,
-                idVisitTercMovEquipVisitTerc = 1000,
-                tipoVisitTercMovEquipVisitTerc = TypeVisitTerc.TERCEIRO,
-                dthrMovEquipVisitTerc = Date(1723213270250),
-                veiculoMovEquipVisitTerc = "TESTE",
-                placaMovEquipVisitTerc = "TESTE",
-                destinoMovEquipVisitTerc = "TESTE",
-                observMovEquipVisitTerc = "TESTE",
-                statusMovEquipVisitTerc = StatusData.OPEN,
-                statusSendMovEquipVisitTerc = StatusSend.SEND,
-                statusMovEquipForeignerVisitTerc = StatusForeigner.INSIDE,
-            )
             whenever(
-                movEquipVisitTercRoomDatasource.setOutside(movEquipVisitTercRoomModel)
+                movEquipVisitTercRoomDatasource.setOutside(1)
             ).thenReturn(
                 Result.success(true)
             )
             val repository = getRepository()
-            val result = repository.setOutside(movEquipVisitTerc)
+            val result = repository.setOutside(1)
             assertEquals(result.isSuccess, true)
             assertEquals(result.getOrNull()!!, true)
         }

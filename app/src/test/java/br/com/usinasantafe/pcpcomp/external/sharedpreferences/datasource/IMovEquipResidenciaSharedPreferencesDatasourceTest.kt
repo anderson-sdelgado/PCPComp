@@ -17,32 +17,32 @@ class IMovEquipResidenciaSharedPreferencesDatasourceTest {
 
     private lateinit var context : Context
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var IMovEquipResidenciaSharedPreferencesDatasource : IMovEquipResidenciaSharedPreferencesDatasource
+    private lateinit var iMovEquipResidenciaSharedPreferencesDatasource : IMovEquipResidenciaSharedPreferencesDatasource
 
     @Before
     fun before() {
         context = ApplicationProvider.getApplicationContext()
         sharedPreferences = context.getSharedPreferences("teste", Context.MODE_PRIVATE)
-        IMovEquipResidenciaSharedPreferencesDatasource = IMovEquipResidenciaSharedPreferencesDatasource(sharedPreferences)
+        iMovEquipResidenciaSharedPreferencesDatasource = IMovEquipResidenciaSharedPreferencesDatasource(sharedPreferences)
     }
 
     @Test
     fun `Check return data correct if Start execute correctly`() = runTest {
-        IMovEquipResidenciaSharedPreferencesDatasource.start(
+        iMovEquipResidenciaSharedPreferencesDatasource.start(
             MovEquipResidenciaSharedPreferencesModel()
         )
-        val result = IMovEquipResidenciaSharedPreferencesDatasource.get()
+        val result = iMovEquipResidenciaSharedPreferencesDatasource.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipResidencia, TypeMovEquip.INPUT)
     }
 
     @Test
     fun `Check altered in table if setMotorista execute correctly`() = runTest {
-        IMovEquipResidenciaSharedPreferencesDatasource.start(
+        iMovEquipResidenciaSharedPreferencesDatasource.start(
             MovEquipResidenciaSharedPreferencesModel()
         )
-        IMovEquipResidenciaSharedPreferencesDatasource.setMotorista("MOTORISTA")
-        val result = IMovEquipResidenciaSharedPreferencesDatasource.get()
+        iMovEquipResidenciaSharedPreferencesDatasource.setMotorista("MOTORISTA")
+        val result = iMovEquipResidenciaSharedPreferencesDatasource.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipResidencia, TypeMovEquip.INPUT)
         assertEquals(result.getOrNull()!!.motoristaMovEquipResidencia, "MOTORISTA")
@@ -50,11 +50,11 @@ class IMovEquipResidenciaSharedPreferencesDatasourceTest {
 
     @Test
     fun `Check altered in table if setObserv execute correctly`() = runTest {
-        IMovEquipResidenciaSharedPreferencesDatasource.start(
+        iMovEquipResidenciaSharedPreferencesDatasource.start(
             MovEquipResidenciaSharedPreferencesModel()
         )
-        IMovEquipResidenciaSharedPreferencesDatasource.setObserv("OBSERV")
-        val result = IMovEquipResidenciaSharedPreferencesDatasource.get()
+        iMovEquipResidenciaSharedPreferencesDatasource.setObserv("OBSERV")
+        val result = iMovEquipResidenciaSharedPreferencesDatasource.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipResidencia, TypeMovEquip.INPUT)
         assertEquals(result.getOrNull()!!.observMovEquipResidencia, "OBSERV")
@@ -62,11 +62,11 @@ class IMovEquipResidenciaSharedPreferencesDatasourceTest {
 
     @Test
     fun `Check altered in table if setObserv execute correctly and value is null`() = runTest {
-        IMovEquipResidenciaSharedPreferencesDatasource.start(
+        iMovEquipResidenciaSharedPreferencesDatasource.start(
             MovEquipResidenciaSharedPreferencesModel()
         )
-        IMovEquipResidenciaSharedPreferencesDatasource.setObserv(null)
-        val result = IMovEquipResidenciaSharedPreferencesDatasource.get()
+        iMovEquipResidenciaSharedPreferencesDatasource.setObserv(null)
+        val result = iMovEquipResidenciaSharedPreferencesDatasource.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipResidencia, TypeMovEquip.INPUT)
         assertEquals(result.getOrNull()!!.observMovEquipResidencia, null)
@@ -74,11 +74,11 @@ class IMovEquipResidenciaSharedPreferencesDatasourceTest {
 
     @Test
     fun `Check altered in table if setPlaca execute correctly`() = runTest {
-        IMovEquipResidenciaSharedPreferencesDatasource.start(
+        iMovEquipResidenciaSharedPreferencesDatasource.start(
             MovEquipResidenciaSharedPreferencesModel()
         )
-        IMovEquipResidenciaSharedPreferencesDatasource.setPlaca("PLACA")
-        val result = IMovEquipResidenciaSharedPreferencesDatasource.get()
+        iMovEquipResidenciaSharedPreferencesDatasource.setPlaca("PLACA")
+        val result = iMovEquipResidenciaSharedPreferencesDatasource.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipResidencia, TypeMovEquip.INPUT)
         assertEquals(result.getOrNull()!!.placaMovEquipResidencia, "PLACA")
@@ -87,11 +87,11 @@ class IMovEquipResidenciaSharedPreferencesDatasourceTest {
 
     @Test
     fun `Check altered in table if setVeiculo execute correctly`() = runTest {
-        IMovEquipResidenciaSharedPreferencesDatasource.start(
+        iMovEquipResidenciaSharedPreferencesDatasource.start(
             MovEquipResidenciaSharedPreferencesModel()
         )
-        IMovEquipResidenciaSharedPreferencesDatasource.setVeiculo("VEICULO")
-        val result = IMovEquipResidenciaSharedPreferencesDatasource.get()
+        iMovEquipResidenciaSharedPreferencesDatasource.setVeiculo("VEICULO")
+        val result = iMovEquipResidenciaSharedPreferencesDatasource.get()
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.tipoMovEquipResidencia, TypeMovEquip.INPUT)
         assertEquals(result.getOrNull()!!.veiculoMovEquipResidencia, "VEICULO")

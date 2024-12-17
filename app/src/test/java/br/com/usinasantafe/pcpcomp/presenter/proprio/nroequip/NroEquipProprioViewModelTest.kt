@@ -2,12 +2,10 @@ package br.com.usinasantafe.pcpcomp.presenter.proprio.nroequip
 
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Equip
-import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args
 import br.com.usinasantafe.pcpcomp.utils.Errors
@@ -15,7 +13,6 @@ import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Rule
@@ -30,18 +27,18 @@ class NroEquipProprioViewModelTest {
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
 
-    val checkNroEquipProprio = mock<CheckNroEquipProprio>()
-    val setNroEquip = mock<SetNroEquip>()
+    val checkNroEquip = mock<CheckNroEquip>()
+    val setNroEquipProprio = mock<SetNroEquipProprio>()
     val updateEquip = mock<UpdateEquip>()
-    val getNroEquip = mock<GetNroEquip>()
+    val getNroEquipProprio = mock<GetNroEquipProprio>()
     private fun getViewModel(
         savedStateHandle: SavedStateHandle
     ) = NroEquipProprioViewModel(
         savedStateHandle,
-        checkNroEquipProprio,
-        setNroEquip,
+        checkNroEquip,
+        setNroEquipProprio,
         updateEquip,
-        getNroEquip
+        getNroEquipProprio
     )
 
     @Test
@@ -97,7 +94,7 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return failure if have error in CheckMatricEquip`() = runTest {
         whenever(
-            checkNroEquipProprio("100")
+            checkNroEquip("100")
         ).thenReturn(
             Result.failure(
                 UsecaseException(
@@ -129,7 +126,7 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return false if matric is invalid`() = runTest {
         whenever(
-            checkNroEquipProprio("100")
+            checkNroEquip("100")
         ).thenReturn(
             Result.success(false)
         )
@@ -152,7 +149,7 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return true if nroEquip is valid`() = runTest {
         whenever(
-            checkNroEquipProprio("100")
+            checkNroEquip("100")
         ).thenReturn(
             Result.success(true)
         )
@@ -175,12 +172,12 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return failure if have error in SetEquipProprio `() = runTest {
         whenever(
-            checkNroEquipProprio("100")
+            checkNroEquip("100")
         ).thenReturn(
             Result.success(true)
         )
         whenever(
-            setNroEquip(
+            setNroEquipProprio(
                 nroEquip = "100",
                 flowApp = FlowApp.ADD,
                 typeEquip = TypeEquip.VEICULO,
@@ -217,12 +214,12 @@ class NroEquipProprioViewModelTest {
     @Test
     fun `Check return true if nroEquip is valid and setEquipProprio execute success`() = runTest {
         whenever(
-            checkNroEquipProprio("100")
+            checkNroEquip("100")
         ).thenReturn(
             Result.success(true)
         )
         whenever(
-            setNroEquip(
+            setNroEquipProprio(
                 nroEquip = "100",
                 flowApp = FlowApp.ADD,
                 typeEquip = TypeEquip.VEICULO,

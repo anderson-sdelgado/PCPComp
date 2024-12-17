@@ -23,7 +23,7 @@
     <string name="text_input">ENTRADA</string>
     <string name="text_output">SAÍDA</string>
     <string name="text_close_mov">FECHAR MOVIMENTO(S)</string>
-    <string name="text_question_close_all_mov">DESEJA REALMENTE RETORNAR? ISSO FECHARÁ TODOS OS MOVIMENTOS.</string>
+    <string name="text_question_return">DESEJA REALMENTE RETORNAR? ISSO FECHARÁ TODOS OS MOVIMENTOS.</string>
     <string name="text_delete_passag">DESEJA EXCLUIR O PASSAGEIRO?</string>
     <string name="text_delete_equip_seg">DESEJA EXCLUIR O VEICULO SECUNDÁRIO?</string>
     <string name="text_title_passag">PASSAGEIRO(S)</string>
@@ -41,7 +41,8 @@
     <string name="text_title_motorista">MOTORISTA</string>
     <string name="text_title_tipo">TIPO</string>
     <string name="text_title_edit_mov">MOVIMENTO(S)</string>
-    <string name="text_question_close_mov">DESEJA REALMENTE FECHAR TODOS OS MOVIMENTOS?</string>
+    <string name="text_question_close_all_mov">DESEJA REALMENTE FECHAR TODOS OS MOVIMENTOS?</string>
+    <string name="text_question_close_mov">DESEJA REALMENTE FECHAR O MOVIMENTO?</string>
     <string name="text_button_close_mov">FECHAR</string>
     <string name="text_number_1">1</string>
     <string name="text_number_2">2</string>

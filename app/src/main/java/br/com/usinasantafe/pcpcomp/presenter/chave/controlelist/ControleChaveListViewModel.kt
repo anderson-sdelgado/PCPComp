@@ -2,8 +2,8 @@ package br.com.usinasantafe.pcpcomp.presenter.chave.controlelist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.usinasantafe.pcpcomp.domain.usecases.chave.GetMovChaveRemoveList
-import br.com.usinasantafe.pcpcomp.domain.usecases.chave.StartRemoveChave
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.GetMovChaveInsideList
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.StartRemoveMovChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
 import br.com.usinasantafe.pcpcomp.presenter.chave.model.ControleChaveModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +22,8 @@ data class ControleChaveListState(
 
 class ControleChaveListViewModel(
     private val getHeader: GetHeader,
-    private val getMovChaveRemoveList: GetMovChaveRemoveList,
-    private val startRemoveChave: StartRemoveChave
+    private val getMovChaveInsideList: GetMovChaveInsideList,
+    private val startRemoveMovChave: StartRemoveMovChave
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ControleChaveListState())
@@ -58,8 +58,8 @@ class ControleChaveListViewModel(
         }
     }
 
-    fun recoverControleChaveList() = viewModelScope.launch {
-        val resultGetList = getMovChaveRemoveList()
+    fun recoverMovList() = viewModelScope.launch {
+        val resultGetList = getMovChaveInsideList()
         if (resultGetList.isFailure) {
             val error = resultGetList.exceptionOrNull()!!
             val failure =
@@ -81,7 +81,7 @@ class ControleChaveListViewModel(
     }
 
     fun startMov() = viewModelScope.launch {
-        val resultStart = startRemoveChave()
+        val resultStart = startRemoveMovChave()
         if (resultStart.isFailure) {
             val error = resultStart.exceptionOrNull()!!
             val failure =

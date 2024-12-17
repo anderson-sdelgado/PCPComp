@@ -49,7 +49,7 @@ class GetPassagVisitTercListImplTest {
             assertTrue(result.isFailure)
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> MovEquipVisitTercRepository.getTypeVisitTerc"
+                "Failure Usecase -> GetPassagVisitTercListImpl"
             )
         }
 

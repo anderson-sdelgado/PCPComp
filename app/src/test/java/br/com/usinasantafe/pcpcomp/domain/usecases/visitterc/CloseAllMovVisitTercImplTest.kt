@@ -48,7 +48,7 @@ class CloseAllMovVisitTercImplTest {
         )
         whenever(
             movEquipVisitTercRepository.setClose(
-                movEquipVisitTerc
+                1
             )
         ).thenReturn(
             Result.failure(
@@ -84,7 +84,7 @@ class CloseAllMovVisitTercImplTest {
         )
         whenever(
             movEquipVisitTercRepository.setClose(
-                movEquipVisitTerc
+                1
             )
         ).thenReturn(
             Result.success(true)

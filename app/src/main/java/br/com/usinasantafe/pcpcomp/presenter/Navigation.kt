@@ -174,8 +174,8 @@ object Routes {
     const val CONTROLE_CHAVE_EDIT_LIST_ROUTE = CONTROLE_CHAVE_EDIT_LIST_SCREEN
     const val DETALHE_CHAVE_ROUTE = "$DETALHE_CHAVE_SCREEN/{$ID_ARGS}"
     const val CHAVE_LIST_ROUTE = "$CHAVE_LIST_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}"
-    const val MATRIC_COLAB_CHAVE_ROUTE = "$MATRIC_COLAB_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}"
-    const val NOME_COLAB_CHAVE_ROUTE = "$NOME_COLAB_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$ID_ARGS}/{$MATRIC_COLAB_ARGS}"
+    const val MATRIC_COLAB_CHAVE_ROUTE = "$MATRIC_COLAB_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_MOV_ARGS}/{$ID_ARGS}"
+    const val NOME_COLAB_CHAVE_ROUTE = "$NOME_COLAB_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_MOV_ARGS}/{$ID_ARGS}/{$MATRIC_COLAB_ARGS}"
     const val OBSERV_CHAVE_ROUTE = "$OBSERV_CHAVE_SCREEN/{$FLOW_APP_ARGS}/{$TYPE_MOV_ARGS}/{$ID_ARGS}"
     const val CONTROLE_CHAVE_EQUIP_LIST_ROUTE = CONTROLE_CHAVE_EQUIP_LIST_SCREEN
     const val CONTROLE_CHAVE_EQUIP_EDIT_LIST_ROUTE = CONTROLE_CHAVE_EQUIP_EDIT_LIST_SCREEN
@@ -433,8 +433,28 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigate(CONTROLE_CHAVE_LIST_SCREEN)
     }
 
-    fun navigationToControleChaveEditList() {
-        navController.navigate(CONTROLE_CHAVE_EDIT_LIST_SCREEN)
+    fun navigationToChaveList(
+        flowApp: Int,
+        id: Int,
+    ) {
+        navController.navigate("${CHAVE_LIST_SCREEN}/${flowApp}/${id}")
+    }
+
+    fun navigationToMatriColabChave(
+        flowApp: Int,
+        typeMov: Int,
+        id: Int,
+    ) {
+        navController.navigate("${MATRIC_COLAB_CHAVE_SCREEN}/${flowApp}/${typeMov}/${id}")
+    }
+
+    fun navigationToNomeColabChave(
+        flowApp: Int,
+        typeMov: Int,
+        id: Int,
+        matricColab: String
+    ) {
+        navController.navigate("${NOME_COLAB_CHAVE_SCREEN}/${flowApp}/${typeMov}/${id}/${matricColab}")
     }
 
     fun navigationToObservChave(
@@ -445,26 +465,14 @@ class NavigationActions(private val navController: NavHostController) {
         navController.navigate("${OBSERV_CHAVE_SCREEN}/${flowApp}/${typeMov}/${id}")
     }
 
-    fun navigationToChaveList(
-        flowApp: Int,
-        id: Int,
-    ) {
-        navController.navigate("${CHAVE_LIST_SCREEN}/${flowApp}/${id}")
+    fun navigationToControleChaveEditList() {
+        navController.navigate(CONTROLE_CHAVE_EDIT_LIST_SCREEN)
     }
 
-    fun navigationToMatriColabChave(
-        flowApp: Int,
+    fun navigationToDetalheChave(
         id: Int,
     ) {
-        navController.navigate("${MATRIC_COLAB_CHAVE_SCREEN}/${flowApp}/${id}")
-    }
-
-    fun navigationToNomeColabChave(
-        flowApp: Int,
-        id: Int,
-        matricColab: String
-    ) {
-        navController.navigate("${NOME_COLAB_CHAVE_SCREEN}/${flowApp}/${id}/${matricColab}")
+        navController.navigate("${DETALHE_CHAVE_SCREEN}/${id}")
     }
 
     ////////////////////////////////////////////////////////////////////

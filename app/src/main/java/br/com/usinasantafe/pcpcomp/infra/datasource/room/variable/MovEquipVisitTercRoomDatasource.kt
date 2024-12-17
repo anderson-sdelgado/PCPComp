@@ -12,7 +12,7 @@ interface MovEquipVisitTercRoomDatasource {
     suspend fun listSend(): Result<List<MovEquipVisitTercRoomModel>>
     suspend fun listSent(): Result<List<MovEquipVisitTercRoomModel>>
     suspend fun save(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Long>
-    suspend fun setClose(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean>
+    suspend fun setClose(id: Int): Result<Boolean>
     suspend fun setDestino(
         destino: String,
         id: Int
@@ -28,7 +28,7 @@ interface MovEquipVisitTercRoomDatasource {
         id: Int
     ): Result<Boolean>
 
-    suspend fun setOutside(movEquipVisitTercRoomModel: MovEquipVisitTercRoomModel): Result<Boolean>
+    suspend fun setOutside(id: Int): Result<Boolean>
     suspend fun setPlaca(
         placa: String,
         id: Int

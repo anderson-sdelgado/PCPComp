@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.presenter.Args.FLOW_APP_ARGS
 import br.com.usinasantafe.pcpcomp.presenter.Args.ID_ARGS
@@ -15,10 +15,8 @@ import br.com.usinasantafe.pcpcomp.ui.theme.addTextField
 import br.com.usinasantafe.pcpcomp.ui.theme.clearTextField
 import br.com.usinasantafe.pcpcomp.utils.Errors
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
-import br.com.usinasantafe.pcpcomp.utils.TB_EQUIP
 import br.com.usinasantafe.pcpcomp.utils.TypeButton
 import br.com.usinasantafe.pcpcomp.utils.TypeEquip
-import br.com.usinasantafe.pcpcomp.utils.updatePercentage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -58,10 +56,10 @@ fun ResultUpdate.resultUpdateToNroEquipProprio(): NroEquipProprioState {
 
 class NroEquipProprioViewModel(
     saveStateHandle: SavedStateHandle,
-    private val checkNroEquipProprio: CheckNroEquipProprio,
-    private val setNroEquipProprio: SetNroEquip,
+    private val checkNroEquip: CheckNroEquip,
+    private val setNroEquipProprio: SetNroEquipProprio,
     private val updateEquip: UpdateEquip,
-    private val getNroEquip: GetNroEquip,
+    private val getNroEquipProprio: GetNroEquipProprio,
 ) : ViewModel() {
 
     private val flowApp: Int = saveStateHandle[FLOW_APP_ARGS]!!
@@ -130,39 +128,8 @@ class NroEquipProprioViewModel(
         }
     }
 
-    fun getNroEquip() = viewModelScope.launch {
-        if (
-            (uiState.value.flowApp == FlowApp.CHANGE) &&
-            (uiState.value.typeEquip == TypeEquip.VEICULO) &&
-            (uiState.value.flagGetNro)
-        ) {
-            val resultGetNro = getNroEquip(uiState.value.id)
-            if (resultGetNro.isFailure) {
-                val error = resultGetNro.exceptionOrNull()!!
-                val failure =
-                    "${error.message} -> ${error.cause.toString()}"
-                _uiState.update {
-                    it.copy(
-                        flagDialog = true,
-                        flagFailure = true,
-                        errors = Errors.EXCEPTION,
-                        failure = failure,
-                    )
-                }
-                return@launch
-            }
-            val nroEquip = resultGetNro.getOrNull()!!
-            _uiState.update {
-                it.copy(
-                    nroEquip = nroEquip,
-                    flagGetNro = false
-                )
-            }
-        }
-    }
-
     private fun setNroEquip() = viewModelScope.launch {
-        val resultCheckEquip = checkNroEquipProprio(uiState.value.nroEquip)
+        val resultCheckEquip = checkNroEquip(uiState.value.nroEquip)
         if (resultCheckEquip.isFailure) {
             val error = resultCheckEquip.exceptionOrNull()!!
             val failure =
@@ -228,6 +195,37 @@ class NroEquipProprioViewModel(
                 currentProgress = 1f,
             )
         )
+    }
+
+    fun getNroEquip() = viewModelScope.launch {
+        if (
+            (uiState.value.flowApp == FlowApp.CHANGE) &&
+            (uiState.value.typeEquip == TypeEquip.VEICULO) &&
+            (uiState.value.flagGetNro)
+        ) {
+            val resultGetNro = getNroEquipProprio(uiState.value.id)
+            if (resultGetNro.isFailure) {
+                val error = resultGetNro.exceptionOrNull()!!
+                val failure =
+                    "${error.message} -> ${error.cause.toString()}"
+                _uiState.update {
+                    it.copy(
+                        flagDialog = true,
+                        flagFailure = true,
+                        errors = Errors.EXCEPTION,
+                        failure = failure,
+                    )
+                }
+                return@launch
+            }
+            val nroEquip = resultGetNro.getOrNull()!!
+            _uiState.update {
+                it.copy(
+                    nroEquip = nroEquip,
+                    flagGetNro = false
+                )
+            }
+        }
     }
 
 }

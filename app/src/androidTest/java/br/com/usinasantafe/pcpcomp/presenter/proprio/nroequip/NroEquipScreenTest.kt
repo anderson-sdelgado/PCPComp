@@ -9,9 +9,10 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.domain.entities.variable.Config
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.CheckNroEquipProprio
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquip
-import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckNroEquip
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.GetNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.proprio.SetNroEquipProprio
+import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateEquip
 import br.com.usinasantafe.pcpcomp.external.room.dao.stable.EquipDao
 import br.com.usinasantafe.pcpcomp.external.room.dao.variable.MovEquipProprioDao
 import br.com.usinasantafe.pcpcomp.generateTestAppComponent
@@ -42,9 +43,10 @@ class NroEquipScreenTest: KoinTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    val checkNroEquipProprio: CheckNroEquipProprio by inject()
-    val setNroEquip: SetNroEquip by inject()
-    val getNroEquip: GetNroEquip by inject()
+    val checkNroEquip: CheckNroEquip by inject()
+    val setNroEquipProprio: SetNroEquipProprio by inject()
+    val getNroEquipProprio: GetNroEquipProprio by inject()
+    val updateEquip: UpdateEquip by inject()
 
     @Before
     fun before() {
@@ -241,7 +243,8 @@ class NroEquipScreenTest: KoinTest {
             listOf(
                 EquipRoomModel(
                     idEquip = 10,
-                    nroEquip = 100
+                    nroEquip = 100,
+                    descrEquip = ""
                 )
             )
         )
@@ -260,26 +263,24 @@ class NroEquipScreenTest: KoinTest {
         id: Int = 0
     ) {
         composeTestRule.setContent {
-//            NroEquipScreen(
-//                viewModel = NroEquipProprioViewModel(
-//                    SavedStateHandle(
-//                        mapOf(
-//                            Args.FLOW_APP_ARGS to flowApp.ordinal,
-//                            Args.TYPE_EQUIP_ARGS to typeEquip.ordinal,
-//                            Args.ID_ARGS to id
-//                        )
-//                    ),
-//                    checkNroEquipProprio,
-//                    setNroEquip,
-//                    cleanEquip,
-//                    getAllEquipServer,
-//                    saveAllEquip,
-//                    getNroEquip
-//                ),
-//                onNavMovProprioList = {},
-//                onNavDetalheMovProprio = {},
-//                onNavEquipSegList = {}
-//            )
+            NroEquipScreen(
+                viewModel = NroEquipProprioViewModel(
+                    SavedStateHandle(
+                        mapOf(
+                            Args.FLOW_APP_ARGS to flowApp.ordinal,
+                            Args.TYPE_EQUIP_ARGS to typeEquip.ordinal,
+                            Args.ID_ARGS to id
+                        )
+                    ),
+                    checkNroEquip,
+                    setNroEquipProprio,
+                    updateEquip,
+                    getNroEquipProprio
+                ),
+                onNavMovProprioList = {},
+                onNavDetalheMovProprio = {},
+                onNavEquipSegList = {}
+            )
         }
     }
 }

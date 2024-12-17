@@ -85,7 +85,7 @@ class GetMovEquipVisitTercOpenListImplTest {
             assertTrue(result.isFailure)
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> MovEquipVisitTercRepository.getTypeVisitTerc"
+                "Failure Usecase -> GetMovEquipVisitTercOpenListImpl"
             )
         }
 
@@ -197,7 +197,7 @@ class GetMovEquipVisitTercOpenListImplTest {
             val mov = result.getOrNull()!![0]
             assertEquals(
                 mov.veiculo,
-                "VEÍCULO: GOL"
+                "GOL"
             )
             assertEquals(
                 mov.placa,

@@ -163,6 +163,6 @@ class GetMovEquipProprioOpenListImplTest {
         assertTrue(result.isSuccess)
         assertEquals(result.getOrNull()!!.size, 1)
         assertEquals(result.getOrNull()!![0].typeMov, "ENTRADA")
-        assertEquals(result.getOrNull()!![0].dthr, "DATA/HORA: 09/08/2024 11:21")
+        assertEquals(result.getOrNull()!![0].dthr, "09/08/2024 11:21")
     }
 }

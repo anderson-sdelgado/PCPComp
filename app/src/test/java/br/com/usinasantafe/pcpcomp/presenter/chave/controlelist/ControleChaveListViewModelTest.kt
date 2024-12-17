@@ -3,8 +3,8 @@ package br.com.usinasantafe.pcpcomp.presenter.chave.controlelist
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.errors.DatasourceException
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.usecases.chave.GetMovChaveRemoveList
-import br.com.usinasantafe.pcpcomp.domain.usecases.chave.StartRemoveChave
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.GetMovChaveInsideList
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.StartRemoveMovChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.GetHeader
 import br.com.usinasantafe.pcpcomp.presenter.chave.model.ControleChaveModel
 import br.com.usinasantafe.pcpcomp.presenter.model.HeaderModel
@@ -24,13 +24,13 @@ class ControleChaveListGetViewModelTest {
     val mainCoroutineRule = MainCoroutineRule()
 
     private val getHeader = mock<GetHeader>()
-    private val getMovChaveRemoveList = mock<GetMovChaveRemoveList>()
-    private val startRemoveChave = mock<StartRemoveChave>()
+    private val getMovChaveInsideList = mock<GetMovChaveInsideList>()
+    private val startRemoveMovChave = mock<StartRemoveMovChave>()
 
     private fun getGetViewModel() = ControleChaveListViewModel(
         getHeader = getHeader,
-        getMovChaveRemoveList = getMovChaveRemoveList,
-        startRemoveChave = startRemoveChave
+        getMovChaveInsideList = getMovChaveInsideList,
+        startRemoveMovChave = startRemoveMovChave
     )
 
     @Test
@@ -86,7 +86,7 @@ class ControleChaveListGetViewModelTest {
     fun `Check return failure if have error in GetControleChaveRemoveList`() =
         runTest {
             whenever(
-                getMovChaveRemoveList()
+                getMovChaveInsideList()
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -96,7 +96,7 @@ class ControleChaveListGetViewModelTest {
                 )
             )
             val viewModel = getGetViewModel()
-            viewModel.recoverControleChaveList()
+            viewModel.recoverMovList()
             assertEquals(
                 viewModel.uiState.value.flagDialog,
                 true
@@ -111,7 +111,7 @@ class ControleChaveListGetViewModelTest {
     fun `Check return true if GetControleChaveRemoveList execute successfully`() =
         runTest {
             whenever(
-                getMovChaveRemoveList()
+                getMovChaveInsideList()
             ).thenReturn(
                 Result.success(
                     listOf(
@@ -125,7 +125,7 @@ class ControleChaveListGetViewModelTest {
                 )
             )
             val viewModel = getGetViewModel()
-            viewModel.recoverControleChaveList()
+            viewModel.recoverMovList()
             val entityList = viewModel.uiState.value.controleChaveModelList
             assertEquals(
                 entityList.size,
@@ -146,7 +146,7 @@ class ControleChaveListGetViewModelTest {
     fun `Check return failure if have error in StartRemoveChave`() =
         runTest {
             whenever(
-                startRemoveChave()
+                startRemoveMovChave()
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
@@ -171,7 +171,7 @@ class ControleChaveListGetViewModelTest {
     fun `Check return true if StartRemoveChave execute successfully`() =
         runTest {
             whenever(
-                startRemoveChave()
+                startRemoveMovChave()
             ).thenReturn(
                 Result.success(true)
             )

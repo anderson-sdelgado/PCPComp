@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 
+const val TAG_BUTTON_YES_ALERT_DIALOG_CHECK = "tag_button_yes_alert_dialog_check"
 
 @Composable
 fun ItemListDesign(
@@ -179,7 +180,7 @@ fun AlertDialogCheckDesign(
         confirmButton = {
             Button(
                 onClick = setActionButtonOK,
-                modifier = Modifier.testTag("button_yes_alert_dialog_check")
+                modifier = Modifier.testTag(TAG_BUTTON_YES_ALERT_DIALOG_CHECK)
             ) {
                 Text("SIM")
             }

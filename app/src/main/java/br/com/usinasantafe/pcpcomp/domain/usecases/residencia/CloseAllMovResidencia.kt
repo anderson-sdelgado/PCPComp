@@ -16,9 +16,9 @@ class ICloseAllMovResidencia(
             val resultList = movEquipResidenciaRepository.listOpen()
             if(resultList.isFailure)
                 return Result.failure(resultList.exceptionOrNull()!!)
-            val movList = resultList.getOrNull()!!
-            for(movEquipVisitTerc in movList){
-                val resultClose = movEquipResidenciaRepository.setClose(movEquipVisitTerc)
+            val entityList = resultList.getOrNull()!!
+            for(entity in entityList){
+                val resultClose = movEquipResidenciaRepository.setClose(entity.idMovEquipResidencia!!)
                 if(resultClose.isFailure)
                     return Result.failure(resultClose.exceptionOrNull()!!)
             }

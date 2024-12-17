@@ -16,23 +16,7 @@ class ICloseMovVisitTerc(
     override suspend fun invoke(
         id: Int
     ): Result<Boolean> {
-        try {
-            val resultGet = movEquipVisitTercRepository.get(id)
-            if (resultGet.isFailure)
-                return Result.failure(resultGet.exceptionOrNull()!!)
-            val movEquipVisitTerc = resultGet.getOrNull()!!
-            val resultClose = movEquipVisitTercRepository.setClose(movEquipVisitTerc)
-            if(resultClose.isFailure)
-                return Result.failure(resultClose.exceptionOrNull()!!)
-            return Result.success(true)
-        } catch (e: Exception) {
-            return Result.failure(
-                UsecaseException(
-                    function = "CloseAllMovVisitTerc",
-                    cause = e
-                )
-            )
-        }
+        return movEquipVisitTercRepository.setClose(id)
     }
 
 }

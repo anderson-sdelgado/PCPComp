@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import br.com.usinasantafe.pcpcomp.MainCoroutineRule
 import br.com.usinasantafe.pcpcomp.domain.entities.ResultUpdate
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
+import br.com.usinasantafe.pcpcomp.domain.usecases.chave.GetMatricColabMovChave
 import br.com.usinasantafe.pcpcomp.domain.usecases.common.CheckMatricColab
 import br.com.usinasantafe.pcpcomp.domain.usecases.updatetable.UpdateColab
 import br.com.usinasantafe.pcpcomp.presenter.Args
@@ -31,6 +32,7 @@ class MatricColabChaveViewModelTest {
 
     private val updateColab = mock<UpdateColab>()
     private val checkMatricColab = mock<CheckMatricColab>()
+    private val getMatricColabMovChave = mock<GetMatricColabMovChave>()
     private fun getViewModel(
         savedStateHandle: SavedStateHandle = SavedStateHandle(
             mapOf(
@@ -41,7 +43,8 @@ class MatricColabChaveViewModelTest {
     ) = MatricColabChaveViewModel(
         savedStateHandle,
         updateColab,
-        checkMatricColab
+        checkMatricColab,
+        getMatricColabMovChave
     )
 
     @Test
@@ -317,6 +320,73 @@ class MatricColabChaveViewModelTest {
             )
             assertEquals(
                 viewModel.uiState.value.flagFailure,
+                false
+            )
+        }
+
+    @Test
+    fun `getMatricColab - Check return failure if have error in GetMatricColabMovChave`() =
+        runTest {
+            whenever(
+                getMatricColabMovChave(1)
+            ).thenReturn(
+                Result.failure(
+                    UsecaseException(
+                        function = "GetMatricColabMovChave",
+                        cause = Exception()
+                    )
+                )
+            )
+            val viewModel = getViewModel(
+                SavedStateHandle(
+                    mapOf(
+                        Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                        Args.ID_ARGS to 1
+                    )
+                )
+            )
+            viewModel.getMatricColab()
+            assertEquals(
+                viewModel.uiState.value.flagDialog,
+                true
+            )
+            assertEquals(
+                viewModel.uiState.value.flagFailure,
+                true
+            )
+            assertEquals(
+                viewModel.uiState.value.errors,
+                Errors.EXCEPTION
+            )
+            assertEquals(
+                viewModel.uiState.value.failure,
+                "Failure Usecase -> GetMatricColabMovChave -> java.lang.Exception"
+            )
+        }
+
+    @Test
+    fun `getMatricColab - Check return correct if function execute successfully`() =
+        runTest {
+            whenever(
+                getMatricColabMovChave(1)
+            ).thenReturn(
+                Result.success("19759")
+            )
+            val viewModel = getViewModel(
+                SavedStateHandle(
+                    mapOf(
+                        Args.FLOW_APP_ARGS to FlowApp.CHANGE.ordinal,
+                        Args.ID_ARGS to 1
+                    )
+                )
+            )
+            viewModel.getMatricColab()
+            assertEquals(
+                viewModel.uiState.value.matricColab,
+                "19759"
+            )
+            assertEquals(
+                viewModel.uiState.value.checkGetMatricColab,
                 false
             )
         }

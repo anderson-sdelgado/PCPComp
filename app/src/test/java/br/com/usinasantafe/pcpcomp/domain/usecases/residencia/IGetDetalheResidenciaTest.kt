@@ -69,12 +69,12 @@ class IGetDetalheResidenciaTest {
             val result = usecase(1)
             assertTrue(result.isSuccess)
             val detalhe = result.getOrNull()!!
-            assertEquals(detalhe.dthr, "DATA/HORA: 09/08/2024 11:21")
+            assertEquals(detalhe.dthr, "09/08/2024 11:21")
             assertEquals(detalhe.tipoMov, "ENTRADA")
-            assertEquals(detalhe.veiculo, "VEÍCULO: VEICULO TESTE")
-            assertEquals(detalhe.placa, "PLACA: PLACA TESTE")
-            assertEquals(detalhe.motorista, "MOTORISTA: MOTORISTA TESTE")
-            assertEquals(detalhe.observ, "OBSERVAÇÕES: ")
+            assertEquals(detalhe.veiculo, "VEICULO TESTE")
+            assertEquals(detalhe.placa, "PLACA TESTE")
+            assertEquals(detalhe.motorista, "MOTORISTA TESTE")
+            assertEquals(detalhe.observ, null)
         }
 
     @Test
@@ -106,11 +106,11 @@ class IGetDetalheResidenciaTest {
             val result = usecase(1)
             assertTrue(result.isSuccess)
             val detalhe = result.getOrNull()!!
-            assertEquals(detalhe.dthr, "DATA/HORA: 09/08/2024 11:21")
+            assertEquals(detalhe.dthr, "09/08/2024 11:21")
             assertEquals(detalhe.tipoMov, "ENTRADA")
-            assertEquals(detalhe.veiculo, "VEÍCULO: VEICULO TESTE")
-            assertEquals(detalhe.placa, "PLACA: PLACA TESTE")
-            assertEquals(detalhe.motorista, "MOTORISTA: MOTORISTA TESTE")
-            assertEquals(detalhe.observ, "OBSERVAÇÕES: OBSERVACAO TESTE")
+            assertEquals(detalhe.veiculo, "VEICULO TESTE")
+            assertEquals(detalhe.placa, "PLACA TESTE")
+            assertEquals(detalhe.motorista, "MOTORISTA TESTE")
+            assertEquals(detalhe.observ, "OBSERVACAO TESTE")
         }
 }

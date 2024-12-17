@@ -7,6 +7,7 @@ import br.com.usinasantafe.pcpcomp.infra.datasource.room.stable.EquipRoomDatasou
 import br.com.usinasantafe.pcpcomp.infra.datasource.retrofit.stable.EquipRetrofitDatasource
 import br.com.usinasantafe.pcpcomp.infra.models.retrofit.stable.retrofitModelToEntity
 import br.com.usinasantafe.pcpcomp.infra.models.room.stable.entityToRoomModel
+import br.com.usinasantafe.pcpcomp.infra.models.room.stable.roomModelToEntity
 
 class IEquipRepository(
     private val equipRoomDatasource: EquipRoomDatasource,
@@ -33,6 +34,23 @@ class IEquipRepository(
 
     override suspend fun deleteAll(): Result<Boolean> {
         return equipRoomDatasource.deleteAll()
+    }
+
+    override suspend fun get(idEquip: Int): Result<Equip> {
+        try{
+            val result = equipRoomDatasource.get(idEquip)
+            if (result.isFailure)
+                return Result.failure(result.exceptionOrNull()!!)
+            val entity = result.getOrNull()!!.roomModelToEntity()
+            return Result.success(entity)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "EquipRepositoryImpl.getNro",
+                    cause = e
+                )
+            )
+        }
     }
 
     override suspend fun getId(nroEquip: Long): Result<Int> {
@@ -73,6 +91,23 @@ class IEquipRepository(
                     )
                 )
             return Result.success(result.getOrNull()!!)
+        } catch (e: Exception) {
+            return Result.failure(
+                RepositoryException(
+                    function = "EquipRepositoryImpl.getNro",
+                    cause = e
+                )
+            )
+        }
+    }
+
+    override suspend fun getDescr(idEquip: Int): Result<String> {
+        try{
+            val result = equipRoomDatasource.get(idEquip)
+            if (result.isFailure)
+                return Result.failure(result.exceptionOrNull()!!)
+            val entity = result.getOrNull()!!.roomModelToEntity()
+            return Result.success("${entity.nroEquip} - ${entity.descrEquip}")
         } catch (e: Exception) {
             return Result.failure(
                 RepositoryException(

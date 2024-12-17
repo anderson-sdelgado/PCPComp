@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.usinasantafe.pcpcomp.R
 import br.com.usinasantafe.pcpcomp.domain.entities.stable.Fluxo
-import br.com.usinasantafe.pcpcomp.domain.entities.stable.Local
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogCheckDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.AlertDialogSimpleDesign
 import br.com.usinasantafe.pcpcomp.ui.theme.ItemListDesign
@@ -128,7 +127,7 @@ fun MenuApontContent(
 
         if(flagDialogCheck){
             AlertDialogCheckDesign(
-                text = stringResource(id = R.string.text_question_close_all_mov),
+                text = stringResource(id = R.string.text_question_return),
                 setCloseDialog = { setDialogCheck(false)  },
                 setActionButtonOK = { closeAllMov() }
             )

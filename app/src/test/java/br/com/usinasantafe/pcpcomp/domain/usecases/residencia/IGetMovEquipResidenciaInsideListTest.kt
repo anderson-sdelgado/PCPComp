@@ -73,10 +73,10 @@ class IGetMovEquipResidenciaInsideListTest {
             val modelList = result.getOrNull()!!
             assertEquals(modelList.size, 1)
             assertEquals(modelList[0].id, 1)
-            assertEquals(modelList[0].dthr, "DATA/HORA: 09/08/2024 11:21")
-            assertEquals(modelList[0].veiculo, "VEICULO: VEICULO TESTE")
-            assertEquals(modelList[0].placa, "PLACA: PLACA TESTE")
-            assertEquals(modelList[0].motorista, "MOTORISTA: MOTORISTA TESTE")
+            assertEquals(modelList[0].dthr, "09/08/2024 11:21")
+            assertEquals(modelList[0].veiculo, "VEICULO TESTE")
+            assertEquals(modelList[0].placa, "PLACA TESTE")
+            assertEquals(modelList[0].motorista, "MOTORISTA TESTE")
         }
 
 }
