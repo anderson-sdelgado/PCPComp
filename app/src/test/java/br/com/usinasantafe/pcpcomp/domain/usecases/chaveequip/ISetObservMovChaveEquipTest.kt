@@ -1,7 +1,7 @@
-package br.com.usinasantafe.pcpcomp.domain.usecases.chave
+package br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip
 
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveRepository
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveEquipRepository
 import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 import kotlinx.coroutines.test.runTest
@@ -10,12 +10,12 @@ import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 
-class ISetObservMovChaveTest {
+class ISetObservMovChaveEquipTest {
 
-    private val movChaveRepository = mock<MovChaveRepository>()
+    private val movChaveEquipRepository = mock<MovChaveEquipRepository>()
     private val startProcessSendData = mock<StartProcessSendData>()
-    private val usecase = ISetObservMovChave(
-        movChaveRepository = movChaveRepository,
+    private val usecase = ISetObservMovChaveEquip(
+        movChaveEquipRepository = movChaveEquipRepository,
         startProcessSendData = startProcessSendData
     )
 
@@ -23,7 +23,7 @@ class ISetObservMovChaveTest {
     fun `Check return failure if have error in MovChaveRepository SetObserv`() =
         runTest {
             whenever(
-                movChaveRepository.setObserv(
+                movChaveEquipRepository.setObserv(
                     observ = "teste",
                     flowApp = FlowApp.ADD,
                     id = 0
@@ -31,7 +31,7 @@ class ISetObservMovChaveTest {
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
-                        function = "MovChaveRepository.setObserv",
+                        function = "MovChaveEquipRepository.setObserv",
                         cause = Exception()
                     )
                 )
@@ -47,7 +47,7 @@ class ISetObservMovChaveTest {
             )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> MovChaveRepository.setObserv"
+                "Failure Repository -> MovChaveEquipRepository.setObserv"
             )
         }
 
@@ -55,7 +55,7 @@ class ISetObservMovChaveTest {
     fun `Check return correct if function execute successfully`() =
         runTest {
             whenever(
-                movChaveRepository.setObserv(
+                movChaveEquipRepository.setObserv(
                     observ = "teste",
                     flowApp = FlowApp.ADD,
                     id = 0

@@ -1,29 +1,29 @@
-package br.com.usinasantafe.pcpcomp.domain.usecases.chave
+package br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip
 
 import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveRepository
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveEquipRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 
-class IStartRemoveMovChaveTest {
+class IStartReceiptMovChaveEquipTest {
 
-    private val movChaveRepository = mock<MovChaveRepository>()
-    private val usecase = IStartRemoveMovChave(
-        movChaveRepository = movChaveRepository
+    private val movChaveEquipRepository = mock<MovChaveEquipRepository>()
+    private val usecase = IStartReceiptMovChaveEquip(
+        movChaveEquipRepository = movChaveEquipRepository
     )
 
     @Test
     fun `Check return failure if have error in MovChaveRepository start`() =
         runTest {
             whenever(
-                movChaveRepository.start()
+                movChaveEquipRepository.start()
             ).thenReturn(
                 Result.failure(
                     RepositoryException(
-                        function = "MovChaveRepository.start",
+                        function = "MovChaveEquipRepository.start",
                         cause = Exception()
                     )
                 )
@@ -35,7 +35,7 @@ class IStartRemoveMovChaveTest {
             )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Repository -> MovChaveRepository.start"
+                "Failure Repository -> MovChaveEquipRepository.start"
             )
         }
 
@@ -43,7 +43,7 @@ class IStartRemoveMovChaveTest {
     fun `Check return true if IStartRemoveChave execute successfully`() =
         runTest {
             whenever(
-                movChaveRepository.start()
+                movChaveEquipRepository.start()
             ).thenReturn(
                 Result.success(true)
             )

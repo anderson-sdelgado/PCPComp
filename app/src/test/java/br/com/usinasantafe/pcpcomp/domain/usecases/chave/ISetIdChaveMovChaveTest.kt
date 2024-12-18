@@ -72,6 +72,10 @@ class ISetIdChaveMovChaveTest {
                 result.isSuccess,
                 true
             )
+            assertEquals(
+                result.getOrNull()!!,
+                true
+            )
         }
 
 }

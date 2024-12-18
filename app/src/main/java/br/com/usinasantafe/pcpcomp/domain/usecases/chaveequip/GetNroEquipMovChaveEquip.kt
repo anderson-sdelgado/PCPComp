@@ -26,7 +26,7 @@ class IGetNroEquipChaveEquip(
         } catch (e: Exception) {
             return Result.failure(
                 UsecaseException(
-                    function = "GetNroEquipImpl",
+                    function = "IGetNroEquipChaveEquip",
                     cause = e
                 )
             )

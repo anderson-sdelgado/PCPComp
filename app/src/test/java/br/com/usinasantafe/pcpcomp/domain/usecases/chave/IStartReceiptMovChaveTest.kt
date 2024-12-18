@@ -16,9 +16,7 @@ import kotlin.test.assertEquals
 
 class IStartReceiptMovChaveTest {
 
-    private val movChaveRepository =
-        mock<MovChaveRepository>()
-
+    private val movChaveRepository = mock<MovChaveRepository>()
     private val usecase = IStartReceiptMovChave(
         movChaveRepository = movChaveRepository
     )
@@ -37,7 +35,10 @@ class IStartReceiptMovChaveTest {
                 )
             )
             val result = usecase(1)
-            assertEquals(result.isFailure, true)
+            assertEquals(
+                result.isFailure,
+                true
+            )
             assertEquals(
                 result.exceptionOrNull()!!.message,
                 "Failure Repository -> MovChaveRepository.get"

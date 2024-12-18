@@ -1,29 +1,29 @@
-package br.com.usinasantafe.pcpcomp.domain.usecases.chave
+package br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip
 
-import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveRepository
+import br.com.usinasantafe.pcpcomp.domain.errors.RepositoryException
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveEquipRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 
-class IGetObservMovChaveTest {
+class ICloseMovChaveEquipTest {
 
-    private val movChaveRepository = mock<MovChaveRepository>()
-    private val usecase = IGetObservMovChave(
-        movChaveRepository
+    private val movChaveEquipRepository = mock<MovChaveEquipRepository>()
+    private val usecase = ICloseMovChaveEquip(
+        movChaveEquipRepository
     )
 
     @Test
-    fun `Check return failure if have error in MovChaveRepository getObserv`() =
+    fun `Check return failure if have error in MovChaveEquipRepository get`() =
         runTest {
             whenever(
-                movChaveRepository.getObserv(1)
+                movChaveEquipRepository.setClose(1)
             ).thenReturn(
                 Result.failure(
-                    UsecaseException(
-                        function = "IGetObservMovChave",
+                    RepositoryException(
+                        function = "MovChaveEquipRepository.setClose",
                         cause = Exception()
                     )
                 )
@@ -35,7 +35,7 @@ class IGetObservMovChaveTest {
             )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Usecase -> IGetObservMovChave"
+                "Failure Repository -> MovChaveEquipRepository.setClose"
             )
         }
 
@@ -43,9 +43,9 @@ class IGetObservMovChaveTest {
     fun `Check return correct if function execute successfully`() =
         runTest {
             whenever(
-                movChaveRepository.getObserv(1)
+                movChaveEquipRepository.setClose(1)
             ).thenReturn(
-                Result.success("OBSERV")
+                Result.success(true)
             )
             val result = usecase(1)
             assertEquals(
@@ -54,7 +54,7 @@ class IGetObservMovChaveTest {
             )
             assertEquals(
                 result.getOrNull()!!,
-                "OBSERV"
+                true
             )
         }
 

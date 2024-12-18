@@ -3,6 +3,7 @@ package br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
 import br.com.usinasantafe.pcpcomp.domain.repositories.stable.EquipRepository
 import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveEquipRepository
+import br.com.usinasantafe.pcpcomp.domain.usecases.background.StartProcessSendData
 import br.com.usinasantafe.pcpcomp.utils.FlowApp
 
 interface SetIdEquipMovChaveEquip {
@@ -15,7 +16,8 @@ interface SetIdEquipMovChaveEquip {
 
 class ISetIdEquipMovChaveEquip(
     private val movChaveEquipRepository: MovChaveEquipRepository,
-    private val equipRepository: EquipRepository
+    private val equipRepository: EquipRepository,
+    private val startProcessSendData: StartProcessSendData
 ): SetIdEquipMovChaveEquip {
 
     override suspend fun invoke(
@@ -35,6 +37,8 @@ class ISetIdEquipMovChaveEquip(
             )
             if (resultSet.isFailure)
                 return Result.failure(resultSet.exceptionOrNull()!!)
+            if(flowApp == FlowApp.CHANGE)
+                startProcessSendData()
             return Result.success(true)
         } catch (e: Exception) {
             return Result.failure(

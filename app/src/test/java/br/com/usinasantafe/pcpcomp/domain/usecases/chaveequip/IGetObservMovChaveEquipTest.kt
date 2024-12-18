@@ -1,29 +1,29 @@
-package br.com.usinasantafe.pcpcomp.domain.usecases.chave
+package br.com.usinasantafe.pcpcomp.domain.usecases.chaveequip
 
 import br.com.usinasantafe.pcpcomp.domain.errors.UsecaseException
-import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveRepository
+import br.com.usinasantafe.pcpcomp.domain.repositories.variable.MovChaveEquipRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.kotlin.whenever
 import kotlin.test.assertEquals
 
-class IGetObservMovChaveTest {
+class IGetObservMovChaveEquipTest {
 
-    private val movChaveRepository = mock<MovChaveRepository>()
-    private val usecase = IGetObservMovChave(
-        movChaveRepository
+    private val movChaveEquipRepository = mock<MovChaveEquipRepository>()
+    private val usecase = IGetObservMovChaveEquip(
+        movChaveEquipRepository = movChaveEquipRepository
     )
 
     @Test
-    fun `Check return failure if have error in MovChaveRepository getObserv`() =
+    fun `Check return failure if have error in MovChaveEquipRepository getObserv`() =
         runTest {
             whenever(
-                movChaveRepository.getObserv(1)
+                movChaveEquipRepository.getObserv(1)
             ).thenReturn(
                 Result.failure(
                     UsecaseException(
-                        function = "IGetObservMovChave",
+                        function = "IGetObservMovChaveEquip",
                         cause = Exception()
                     )
                 )
@@ -35,7 +35,7 @@ class IGetObservMovChaveTest {
             )
             assertEquals(
                 result.exceptionOrNull()!!.message,
-                "Failure Usecase -> IGetObservMovChave"
+                "Failure Usecase -> IGetObservMovChaveEquip"
             )
         }
 
@@ -43,7 +43,7 @@ class IGetObservMovChaveTest {
     fun `Check return correct if function execute successfully`() =
         runTest {
             whenever(
-                movChaveRepository.getObserv(1)
+                movChaveEquipRepository.getObserv(1)
             ).thenReturn(
                 Result.success("OBSERV")
             )
